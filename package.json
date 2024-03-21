@@ -11,6 +11,11 @@
     "lint-style": "stylelint --fix \"src/**/*.scss\"",
     "prettier": "npx prettier --write ."
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "echo 'Running ng lint...' && ng lint"
+    }
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^17.3.0",
