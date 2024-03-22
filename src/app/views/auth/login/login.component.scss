@@ -1,0 +1,27 @@
+@import '../../../../assets/styles/auth-common';
+
+.login {
+  .container {
+    .logo {
+      margin-bottom: 62px;
+    }
+
+    .auth-form {
+      .auth-form-head {
+        margin-bottom: 42px;
+      }
+
+      .auth-form-inputs {
+        margin-bottom: 79px;
+
+        .auth-form-input:not(:last-child) {
+          margin-bottom: 24px;
+        }
+      }
+
+      .auth-button {
+        margin-bottom: 79px;
+      }
+    }
+  }
+}

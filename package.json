@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "lint-style": "stylelint --fix \"src/**/*.scss\"",
+    "lint-style": "stylelint --fix \"src/**/*.scss\" && echo \"Stylelint has finished checking\"",
     "prettier": "npx prettier --write .",
     "prepare": "husky install"
   },
