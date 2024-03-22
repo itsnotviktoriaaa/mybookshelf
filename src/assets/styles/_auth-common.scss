@@ -58,46 +58,50 @@
           }
 
           .auth-form-input-wrapper {
-            position: relative;
+            max-width: 422px;
 
-            .input {
-              padding: 16px;
-              box-sizing: border-box;
-              width: 422px;
-              height: 56px;
-              background: #fff;
-              border: 1px solid #dcd9d9;
-              border-radius: 8px;
-              font-size: 16px;
-              color: $primary-gray-color;
-              font-family: Inter, sans-serif;
-              font-weight: 400;
-              outline: none;
+            .auth-form-input-wrapper-extra {
+              position: relative;
 
-              &::placeholder {
+              .input {
+                padding: 16px;
+                box-sizing: border-box;
+                width: 422px;
+                height: 56px;
+                background: #fff;
+                border: 1px solid #dcd9d9;
+                border-radius: 8px;
                 font-size: 16px;
+                color: $primary-gray-color;
                 font-family: Inter, sans-serif;
                 font-weight: 400;
+                outline: none;
+
+                &::placeholder {
+                  font-size: 16px;
+                  font-family: Inter, sans-serif;
+                  font-weight: 400;
+                }
               }
-            }
 
-            .input-check {
-              padding: 16px 48px 16px 16px;
-            }
+              .input-check {
+                padding: 16px 48px 16px 16px;
+              }
 
-            .eye-wrapper {
-              position: absolute;
-              top: calc(50% - 12px);
-              right: 16px;
-              width: 24px;
-              height: 24px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
+              .eye-wrapper {
+                position: absolute;
+                top: calc(50% - 12px);
+                right: 16px;
+                width: 24px;
+                height: 24px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
 
-              svg {
-                width: 100%;
-                cursor: pointer;
+                svg {
+                  width: 100%;
+                  cursor: pointer;
+                }
               }
             }
           }
