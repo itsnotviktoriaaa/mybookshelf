@@ -3,7 +3,7 @@
     <div class="logo">
       <img ngSrc="/assets/images/logo.png" alt="MyBookShelf" priority height="93" width="150" />
     </div>
-    <div class="auth-form">
+    <div class="auth-form" [formGroup]="loginForm">
       <div class="auth-form-head">
         <span class="auth-form-head-greeting">Welcome Back !</span>
         <span class="auth-form-head-description">Sign in to continue to yourDigital Library</span>
@@ -14,15 +14,36 @@
           <label for="email">Email</label>
           <div class="auth-form-input-wrapper">
             <div class="auth-form-input-wrapper-extra">
-              <input class="input" id="email" placeholder="Write your email" type="text" />
+              <input
+                class="input"
+                [ngStyle]="{ 'border-color': loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched) ? 'red' : '' }"
+                id="email"
+                formControlName="email"
+                placeholder="Write your email"
+                type="text" />
             </div>
+            @if (loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)) {
+              @if (loginForm.get('email')?.errors?.['required']) {
+                <div class="error-message">Email is required.</div>
+              }
+
+              @if (loginForm.get('email')?.errors?.['email']) {
+                <div class="error-message">Email is incorrect.</div>
+              }
+            }
           </div>
         </div>
         <div class="auth-form-input">
           <label for="password">Password</label>
           <div class="auth-form-input-wrapper">
             <div class="auth-form-input-wrapper-extra">
-              <input class="input input-check" id="password" placeholder="Write your password" [type]="isShowPassword ? 'text' : 'password'" />
+              <input
+                class="input input-check"
+                [ngStyle]="{ 'border-color': loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched) ? 'red' : '' }"
+                formControlName="password"
+                id="password"
+                placeholder="Write your password"
+                [type]="isShowPassword ? 'text' : 'password'" />
               <div class="eye-wrapper">
                 @if (!isShowPassword) {
                   <svg (click)="changeShowingPassword()" width="20" height="17" viewBox="0 0 20 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -40,11 +61,29 @@
                 }
               </div>
             </div>
+            @if (loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)) {
+              @if (loginForm.get('password')?.errors?.['required']) {
+                <div class="error-message">Password is required.</div>
+              }
+
+              @if (loginForm.get('password')?.errors?.['pattern']) {
+                <div class="error-message">Password is not strong. The password must be at least 8 characters long and contain at least one number, one lowercase letter and one uppercase letter.</div>
+              }
+            }
           </div>
         </div>
       </div>
 
-      <button class="auth-button">Login</button>
+      <button
+        class="auth-button"
+        [disabled]="loginForm.invalid"
+        [ngStyle]="{
+          'background-color': loginForm.invalid ? 'gray' : '',
+          cursor: loginForm.invalid && (loginForm.dirty || loginForm.touched) ? 'not-allowed' : 'pointer'
+        }"
+        (click)="login()">
+        Login
+      </button>
 
       <span class="auth-form-moving">New User? <a routerLink="/signup">Register Here</a></span>
     </div>
