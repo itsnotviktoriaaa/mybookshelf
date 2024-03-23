@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+#HUSKY_GIT_PARAMS="$1" npx commitlint -E HUSKY_GIT_PARAMS
+
 npm run prettier
 npm run lint-style
