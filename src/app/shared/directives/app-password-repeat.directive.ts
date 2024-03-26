@@ -11,11 +11,6 @@ export class PasswordRepeatDirective implements Validator {
     const password = control.get('password');
     const confirmPassword = control.get('confirmPassword');
 
-    // if (!password || !password.value) {
-    //   password?.setErrors({ required: true });
-    //   return { required: true };
-    // }
-
     if ((!password || !password.value) && (!confirmPassword || !confirmPassword.value)) {
       confirmPassword?.setErrors({ required: true });
       password?.setErrors({ required: true });

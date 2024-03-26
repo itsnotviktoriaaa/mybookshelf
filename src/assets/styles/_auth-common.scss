@@ -20,13 +20,17 @@
     box-sizing: border-box;
     padding: 63px 71px 0;
     display: flex;
-    align-items: center;
     flex-direction: column;
+    width: 565px;
+
+    .logo {
+      display: flex;
+      justify-content: center;
+    }
 
     .auth-form {
       display: flex;
       flex-direction: column;
-      align-items: center;
 
       .auth-form-head {
         display: flex;
@@ -129,9 +133,12 @@
         font-size: 16px;
         color: $primary-gray-color;
         margin-bottom: 45px;
+        text-align: center;
 
-        a {
+        .auth-form-moving-route {
           color: $primary-gray-color;
+          border-bottom: 1px solid $primary-gray-color;
+          cursor: pointer;
 
           &:hover {
             color: #090909;
