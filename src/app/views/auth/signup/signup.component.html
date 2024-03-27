@@ -181,7 +181,7 @@
       @if (!codeWhichWrittenUserWasEqualFromEmail) {
         <button
           [disabled]="registerForm.invalid && !fillAllInputs"
-          (click)="verification ? isCodeFromUserRight() : sendCodeToEmail()"
+          (click)="verification ? isCodeFromUserRight() : checkEmailWasUsedBeforeToSendCode()"
           [ngStyle]="{
             'background-color': registerForm.invalid && !fillAllInputs ? 'gray' : '',
             cursor: registerForm.invalid && !fillAllInputs ? 'not-allowed' : 'pointer'

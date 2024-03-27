@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { AuthService } from '../../../core/auth/auth.service';
 import { NotificationService } from '../../../shared/services/notification.service';
 import { NotificationStatus } from '../../../../types/user.interface';
+import { CodeMessageHandlerUtil } from '../../../shared/utils/code-message-handler.util';
 
 @Component({
   selector: 'app-login',
@@ -41,12 +42,13 @@ export class LoginComponent {
         this.notificationService.notifyAboutNotificationLoader(false);
         this.notificationService.notifyAboutNotification({ message: 'Welcome in MyBookShelf', status: NotificationStatus.success });
         //router to home
+        this.router.navigate(['/home']).then(() => {});
         console.log('----- Login ------');
       },
       error: (err): void => {
+        this.errorMessage = CodeMessageHandlerUtil.handlerCodeMessage(err.code);
         this.notificationService.notifyAboutNotificationLoader(false);
-        this.notificationService.notifyAboutNotification({ message: `Something went wrong:( ${this.errorMessage}`, status: NotificationStatus.error });
-        this.errorMessage = err.code;
+        this.notificationService.notifyAboutNotification({ message: `${this.errorMessage}`, status: NotificationStatus.error });
       },
     });
   }

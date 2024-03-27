@@ -56,6 +56,23 @@ export class SignupComponent implements OnInit {
     });
   }
 
+  checkEmailWasUsedBeforeToSendCode(): void {
+    console.log(this.registerForm.value.email);
+    this.authService.checkEmailWasUsed(this.registerForm.value.email).subscribe({
+      next: (param: Array<string>): void => {
+        if (param && param.length === 0) {
+          this.sendCodeToEmail().then(() => {});
+        } else {
+          this.notificationService.notifyAboutNotification({ message: 'Your email address has been used before', status: NotificationStatus.error });
+        }
+      },
+      error: (err): void => {
+        this.notificationService.notifyAboutNotification({ message: 'Something went wrong. Please, try again', status: NotificationStatus.error });
+        console.log(err);
+      },
+    });
+  }
+
   handleAllInputsForCode(): void {
     if (this.verificationBody && this.verificationBody.nativeElement && this.verification) {
       const verificationInputs = this.verificationBody.nativeElement.querySelectorAll('.verification-number');
@@ -194,7 +211,7 @@ export class SignupComponent implements OnInit {
         //so that the red circle has time to load
         this.verification = false;
         this.codeWhichWrittenUserWasEqualFromEmail = true;
-        this.notificationService.notifyAboutNotification({ message: `Something went wrong:( ${this.errorMessage}`, status: NotificationStatus.error });
+        this.notificationService.notifyAboutNotification({ message: `Something went wrong:( Please, try again`, status: NotificationStatus.error });
       },
     });
   }

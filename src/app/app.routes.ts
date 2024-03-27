@@ -10,5 +10,6 @@ export const routes: Routes = [
     title: 'Signup in MyBookShelf',
     component: SignupComponent,
   },
+  { path: 'home', title: 'MyBookShelf', loadComponent: () => import('./views/home/home.component').then(m => m.HomeComponent) },
   { path: '**', redirectTo: '/login' },
 ];

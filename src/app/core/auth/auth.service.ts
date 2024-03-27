@@ -1,5 +1,5 @@
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, user } from '@angular/fire/auth';
+import { Auth, createUserWithEmailAndPassword, fetchSignInMethodsForEmail, signInWithEmailAndPassword, signOut, updateProfile, user } from '@angular/fire/auth';
 import { from, Observable } from 'rxjs';
 import { UserInterface } from '../../../types/user.interface';
 type User = import('firebase/auth').User;
@@ -35,4 +35,9 @@ export class AuthService {
   // logout(): void {
   //   this.authService.logout();
   // };
+
+  checkEmailWasUsed(email: string): Observable<string[]> {
+    const promise: Promise<string[]> = fetchSignInMethodsForEmail(this.firebaseAuth, email);
+    return from(promise);
+  }
 }
