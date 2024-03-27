@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './views/auth/login/login.component';
 import { SignupComponent } from './views/auth/signup/signup.component';
+import { LayoutComponent } from './shared/components/layout/layout.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -10,6 +11,16 @@ export const routes: Routes = [
     title: 'Signup in MyBookShelf',
     component: SignupComponent,
   },
-  { path: 'home', title: 'MyBookShelf', loadComponent: () => import('./views/home/home.component').then(m => m.HomeComponent) },
+  {
+    path: 'home',
+    component: LayoutComponent,
+    children: [
+      {
+        path: '',
+        title: 'MyBookShelf',
+        loadComponent: () => import('./views/home/home.component').then(m => m.HomeComponent),
+      },
+    ],
+  },
   { path: '**', redirectTo: '/login' },
 ];
