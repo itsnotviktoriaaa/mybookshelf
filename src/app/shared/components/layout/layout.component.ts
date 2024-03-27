@@ -10,14 +10,22 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './layout.component.html',
   styles: [
     `
-      .layout {
+      .layout-wrapper {
+        padding: 48px 35px 38px 35px;
         background-image: url('/assets/images/layout/layout-background.webp');
         background-size: cover;
         background-repeat: no-repeat;
-        display: flex;
-        column-gap: 44px;
-        align-items: flex-start;
-        justify-content: space-between;
+
+        .layout {
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+        }
+
+        .main-content-wrapper {
+          background-color: #f3f3f7;
+          width: 100%;
+        }
       }
     `,
   ],
