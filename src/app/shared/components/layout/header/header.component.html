@@ -2,7 +2,7 @@
   <div class="header-items">
     <div class="header-search">
       <div class="header-search-all-wrapper">
-        <div class="header-search-all">
+        <div (click)="openOrCloseMiniModal(HeaderClickInterfaceEnum.allMiniModal)" class="header-search-all">
           <span class="header-class-all-text">All</span>
           <span class="header-class-all-arrow">
             <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -12,25 +12,27 @@
             </svg>
           </span>
         </div>
-        <div class="header-modal header-search-modal">
-          <ul class="header-modal-items">
-            <li class="header-modal-item">
-              <a>All</a>
-            </li>
-            <li class="header-modal-item">
-              <a>Title</a>
-            </li>
-            <li class="header-modal-item">
-              <a>Author</a>
-            </li>
-            <li class="header-modal-item">
-              <a>Text</a>
-            </li>
-            <li class="header-modal-item">
-              <a>Subjects</a>
-            </li>
-          </ul>
-        </div>
+        @if (allMiniModal) {
+          <div class="header-modal header-search-modal">
+            <ul class="header-modal-items">
+              <li class="header-modal-item">
+                <a>All</a>
+              </li>
+              <li class="header-modal-item">
+                <a>Title</a>
+              </li>
+              <li class="header-modal-item">
+                <a>Author</a>
+              </li>
+              <li class="header-modal-item">
+                <a>Text</a>
+              </li>
+              <li class="header-modal-item">
+                <a>Subjects</a>
+              </li>
+            </ul>
+          </div>
+        }
       </div>
       <div class="header-search-input-wrapper">
         <input class="header-search-input" type="text" placeholder="Search" />
@@ -84,7 +86,7 @@
               </defs>
             </svg>
           </div>
-          <div class="header-back-info header-lang-info">
+          <div (click)="openOrCloseMiniModal(HeaderClickInterfaceEnum.langMiniModal)" class="header-back-info header-lang-info">
             <span class="header-back-text header-lang-info-text">Lang</span>
             <span class="header-lang-info-icon">
               <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -95,21 +97,23 @@
             </span>
           </div>
         </div>
-        <div class="header-modal header-lang-modal">
-          <ul class="header-modal-items">
-            <li class="header-modal-item">
-              <a>Eng</a>
-            </li>
-            <li class="header-modal-item">
-              <a>Rus</a>
-            </li>
-          </ul>
-        </div>
+        @if (langMiniModal) {
+          <div class="header-modal header-lang-modal">
+            <ul class="header-modal-items">
+              <li class="header-modal-item">
+                <a>Eng</a>
+              </li>
+              <li class="header-modal-item">
+                <a>Rus</a>
+              </li>
+            </ul>
+          </div>
+        }
       </div>
       <div class="header-account">
         <div class="header-back header-account-wrapper">
           <div class="header-account-image" style="background-image: url('/assets/images/example-image.png')">&nbsp;</div>
-          <div class="header-back-info header-account-info">
+          <div (click)="openOrCloseMiniModal(HeaderClickInterfaceEnum.profileMiniModal)" class="header-back-info header-account-info">
             <span class="header-back-text header-account-info-text">Andrey</span>
             <span class="header-account-info-icon">
               <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -120,22 +124,24 @@
             </span>
           </div>
         </div>
-        <div class="header-modal header-account-modal">
-          <ul class="header-modal-items">
-            <li class="header-modal-item">
-              <a>Profile</a>
-            </li>
-            <li class="header-modal-item">
-              <a>Favourite</a>
-            </li>
-            <li class="header-modal-item">
-              <a>My Books</a>
-            </li>
-            <li class="header-modal-item">
-              <a>Logout</a>
-            </li>
-          </ul>
-        </div>
+        @if (profileMiniModal) {
+          <div class="header-modal header-account-modal">
+            <ul class="header-modal-items">
+              <li class="header-modal-item">
+                <a>Profile</a>
+              </li>
+              <li class="header-modal-item">
+                <a>Favourite</a>
+              </li>
+              <li class="header-modal-item">
+                <a>My Books</a>
+              </li>
+              <li class="header-modal-item">
+                <a>Logout</a>
+              </li>
+            </ul>
+          </div>
+        }
       </div>
     </div>
   </div>
