@@ -1,0 +1,36 @@
+@import "../../../../assets/styles/variables";
+
+.book-back {
+  padding: 15px;
+  background: #FFFFFF;
+  border-radius: 10px;
+  max-width: 160px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  color: $primary-gray-color;
+
+  .book-image {
+    width: 130px;
+    height: 170px;
+    margin-bottom: 11px;
+  }
+
+  .book-name {
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
+
+  .book-author {
+    margin-bottom: 5px;
+    font-size: 10px;
+  }
+
+  .book-review {
+    font-size: 10px;
+
+    .book-review-all {
+      color: #A7A7A7;
+    }
+  }
+}

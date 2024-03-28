@@ -9,7 +9,6 @@ import { HeaderClickInterface } from '../../../../../types/header.interface';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-
   allMiniModal: boolean = false;
   langMiniModal: boolean = false;
   profileMiniModal: boolean = false;
