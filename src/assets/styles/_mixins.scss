@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'variables';
+
+@mixin primary-gray-20 {
+  color: $primary-gray-color;
+  font-size: 20px;
+}
+
+@mixin flex-center-space-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
