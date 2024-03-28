@@ -25,6 +25,7 @@ import { RouterOutlet } from '@angular/router';
         .main-content-wrapper {
           background-color: #f3f3f7;
           width: 100%;
+          border-radius: 0 10px 0 0;
         }
       }
     `,

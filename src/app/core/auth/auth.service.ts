@@ -13,7 +13,7 @@ export class AuthService {
   //подписываемся на пользоват-е данные через поток; вернет пользовательские данные (если вошли в систему) либо null;
   user$: Observable<User | null> = user(this.firebaseAuth);
 
-  //не хочу использовать user$, так как там очень много данных и методов, поэтому создаю свой собственный текущий пользовательский сигнал
+  //чтобы не использовать user$, так как там очень много данных и методов, поэтому создаю свой собственный текущий пользовательский сигнал
   currentUserSig: WritableSignal<UserInterface | null | undefined> = signal<UserInterface | null | undefined>(undefined);
 
   register(email: string, username: string, password: string): Observable<void> {

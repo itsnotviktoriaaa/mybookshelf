@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { NgOptimizedImage, NgStyle } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -6,6 +6,7 @@ import { AuthService } from '../../../core/auth/auth.service';
 import { NotificationService } from '../../../shared/services/notification.service';
 import { NotificationStatus } from '../../../../types/user.interface';
 import { CodeMessageHandlerUtil } from '../../../shared/utils/code-message-handler.util';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -14,13 +15,15 @@ import { CodeMessageHandlerUtil } from '../../../shared/utils/code-message-handl
   standalone: true,
   imports: [NgOptimizedImage, RouterLink, FormsModule, NgStyle, ReactiveFormsModule],
 })
-export class LoginComponent {
+export class LoginComponent implements OnDestroy {
   isShowPassword: boolean = false;
   loginForm: FormGroup;
   authService: AuthService = inject(AuthService);
   router: Router = inject(Router);
   fb: FormBuilder = inject(FormBuilder);
   notificationService: NotificationService = inject(NotificationService);
+  errorMessage: string | null = null;
+  subscription1: Subscription | null = null;
 
   constructor() {
     this.loginForm = this.fb.group({
@@ -29,16 +32,14 @@ export class LoginComponent {
     });
   }
 
-  errorMessage: string | null = null;
-
   changeShowingPassword(): void {
     this.isShowPassword = !this.isShowPassword;
   }
 
   login(): void {
     this.notificationService.notifyAboutNotificationLoader(true);
-    this.authService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe({
-      next: () => {
+    this.subscription1 = this.authService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe({
+      next: (): void => {
         this.notificationService.notifyAboutNotificationLoader(false);
         this.notificationService.notifyAboutNotification({ message: 'Welcome in MyBookShelf', status: NotificationStatus.success });
         //router to home
@@ -51,5 +52,9 @@ export class LoginComponent {
         this.notificationService.notifyAboutNotification({ message: `${this.errorMessage}`, status: NotificationStatus.error });
       },
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription1?.unsubscribe();
   }
 }

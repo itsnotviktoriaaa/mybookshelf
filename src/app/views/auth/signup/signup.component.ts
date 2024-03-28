@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgClass, NgOptimizedImage, NgStyle } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -8,7 +8,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AuthModule } from '@angular/fire/auth';
 import { AuthService } from '../../../core/auth/auth.service';
 import emailJs, { EmailJSResponseStatus } from '@emailjs/browser';
-import { of, Subject } from 'rxjs';
+import { of, Subject, Subscription } from 'rxjs';
 import { NotificationStatus, UserSignInterface } from '../../../../types/user.interface';
 import { NotificationService } from '../../../shared/services/notification.service';
 
@@ -19,7 +19,7 @@ import { NotificationService } from '../../../shared/services/notification.servi
   standalone: true,
   imports: [NgOptimizedImage, RouterLink, FormsModule, ReactiveFormsModule, NgStyle, PasswordRepeatDirective, PasswordNotEmailDirective, AngularFireAuthModule, AuthModule, NgClass],
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent implements OnInit, OnDestroy {
   registerForm: FormGroup;
   authService: AuthService = inject(AuthService);
   router: Router = inject(Router);
@@ -45,9 +45,12 @@ export class SignupComponent implements OnInit {
   generatedCode: number | null = null;
   codeWhichWriteUser: string = '';
   codeWhichWrittenUserWasEqualFromEmail: boolean = false;
+  verification1: Subscription | null = null;
+  subscription2: Subscription | null = null;
+  subscription3: Subscription | null = null;
 
   ngOnInit(): void {
-    this.verification$.subscribe((params: boolean): void => {
+    this.verification1 = this.verification$.subscribe((params: boolean): void => {
       setTimeout(() => {
         if (params) {
           this.handleAllInputsForCode();
@@ -58,7 +61,7 @@ export class SignupComponent implements OnInit {
 
   checkEmailWasUsedBeforeToSendCode(): void {
     console.log(this.registerForm.value.email);
-    this.authService.checkEmailWasUsed(this.registerForm.value.email).subscribe({
+    this.subscription2 = this.authService.checkEmailWasUsed(this.registerForm.value.email).subscribe({
       next: (param: Array<string>): void => {
         if (param && param.length === 0) {
           this.sendCodeToEmail().then(() => {});
@@ -198,7 +201,7 @@ export class SignupComponent implements OnInit {
 
   sign(): void {
     this.notificationService.notifyAboutNotificationLoader(true);
-    this.authService.register(this.infoFromUser!.email, this.infoFromUser!.username, this.infoFromUser!.password).subscribe({
+    this.subscription3 = this.authService.register(this.infoFromUser!.email, this.infoFromUser!.username, this.infoFromUser!.password).subscribe({
       next: (): void => {
         this.notificationService.notifyAboutNotificationLoader(false);
         this.verification = false;
@@ -227,5 +230,11 @@ export class SignupComponent implements OnInit {
     } else {
       this.router.navigate(['/login']).then(() => {});
     }
+  }
+
+  ngOnDestroy(): void {
+    this.verification1?.unsubscribe();
+    this.subscription2?.unsubscribe();
+    this.subscription3?.unsubscribe();
   }
 }
