@@ -15,7 +15,7 @@
     "lint-style": "stylelint --fix \"src/**/*.scss\" && echo \"Stylelint has finished checking\"",
     "prettier": "npx prettier --write .",
     "prepare": "husky install",
-    "heroku-postbuild": "ng build --prod"
+    "heroku-postbuild": "ng build"
   },
   "private": true,
   "dependencies": {
