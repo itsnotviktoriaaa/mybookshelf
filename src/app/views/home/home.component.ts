@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BookComponent } from '../../shared/components/book/book.component';
+import { BookComponent } from '../../shared';
 
 @Component({
   selector: 'app-home',

@@ -2,15 +2,14 @@ import { Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@an
 import { NgClass, NgOptimizedImage, NgStyle } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { PasswordRepeatDirective } from '../../../shared/directives/app-password-repeat.directive';
-import { PasswordNotEmailDirective } from '../../../shared/directives/app-password-not-email.directive';
+import { PasswordRepeatDirective, PasswordNotEmailDirective, NotificationService } from '../../../shared';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AuthModule } from '@angular/fire/auth';
-import { AuthService } from '../../../core/auth/auth.service';
+import { AuthService } from '../../../core';
 import emailJs, { EmailJSResponseStatus } from '@emailjs/browser';
 import { of, Subject, Subscription } from 'rxjs';
-import { NotificationStatus, UserSignInterface } from '../../../../types/user.interface';
-import { NotificationService } from '../../../shared/services/notification.service';
+import { NotificationStatus, UserSignInterface } from '../../../../types';
+import { Constants } from '../../../shared/constants';
 
 @Component({
   selector: 'app-signup',
@@ -20,19 +19,13 @@ import { NotificationService } from '../../../shared/services/notification.servi
   imports: [NgOptimizedImage, RouterLink, FormsModule, ReactiveFormsModule, NgStyle, PasswordRepeatDirective, PasswordNotEmailDirective, AngularFireAuthModule, AuthModule, NgClass],
 })
 export class SignupComponent implements OnInit, OnDestroy {
-  registerForm: FormGroup;
-  authService: AuthService = inject(AuthService);
-  router: Router = inject(Router);
+  registerForm: FormGroup | null = null;
   fb: FormBuilder = inject(FormBuilder);
-  notificationService: NotificationService = inject(NotificationService);
-  constructor() {
-    this.registerForm = this.fb.group({
-      username: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)]],
-      confirmPassword: ['', [Validators.required]],
-    });
-  }
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private notificationService: NotificationService
+  ) {}
 
   isShowPassword: boolean = false;
   isShowConfirmPassword: boolean = false;
@@ -50,6 +43,13 @@ export class SignupComponent implements OnInit, OnDestroy {
   subscription3: Subscription | null = null;
 
   ngOnInit(): void {
+    this.registerForm = this.fb.group({
+      username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.pattern(Constants.regularForPassword)]],
+      confirmPassword: ['', [Validators.required]],
+    });
+
     this.verification1 = this.verification$.subscribe((params: boolean): void => {
       setTimeout(() => {
         if (params) {
@@ -60,8 +60,8 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   checkEmailWasUsedBeforeToSendCode(): void {
-    console.log(this.registerForm.value.email);
-    this.subscription2 = this.authService.checkEmailWasUsed(this.registerForm.value.email).subscribe({
+    console.log(this.registerForm?.value.email);
+    this.subscription2 = this.authService.checkEmailWasUsed(this.registerForm?.value.email).subscribe({
       next: (param: Array<string>): void => {
         if (param && param.length === 0) {
           this.sendCodeToEmail().then(() => {});
@@ -127,6 +127,7 @@ export class SignupComponent implements OnInit, OnDestroy {
 
     if (this.fillAllInputs) {
       this.getCodeFromInputsWhichWroteUser(verificationInputs);
+      this.isCodeFromUserRight();
     }
   }
 
@@ -156,9 +157,9 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.notificationService.notifyAboutNotificationLoader(true);
     if (!this.infoFromUser) {
       this.infoFromUser = {
-        email: this.registerForm.value.email,
-        username: this.registerForm.value.username,
-        password: this.registerForm.value.password,
+        email: this.registerForm?.value.email,
+        username: this.registerForm?.value.username,
+        password: this.registerForm?.value.password,
       };
     }
     const code: number = this.generateCode();
@@ -194,7 +195,7 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   backToRegister(): void {
     this.verification = false;
-    this.registerForm.reset();
+    this.registerForm?.reset();
     this.errorMessage = null;
     this.router.navigate(['/signup']).then(() => {});
   }
@@ -225,7 +226,7 @@ export class SignupComponent implements OnInit, OnDestroy {
       this.infoFromUser = null;
       this.verification = false;
       this.codeWhichWrittenUserWasEqualFromEmail = false;
-      this.registerForm.reset();
+      this.registerForm?.reset();
       this.router.navigate(['/signup']).then(() => {});
     } else {
       this.router.navigate(['/login']).then(() => {});

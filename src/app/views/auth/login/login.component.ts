@@ -1,11 +1,10 @@
-import { Component, inject, OnDestroy } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { NgOptimizedImage, NgStyle } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthService } from '../../../core/auth/auth.service';
-import { NotificationService } from '../../../shared/services/notification.service';
-import { NotificationStatus } from '../../../../types/user.interface';
-import { CodeMessageHandlerUtil } from '../../../shared/utils/code-message-handler.util';
+import { AuthService } from '../../../core';
+import { NotificationService, CodeMessageHandlerUtil } from '../../../shared';
+import { NotificationStatus } from '../../../../types';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -15,20 +14,23 @@ import { Subscription } from 'rxjs';
   standalone: true,
   imports: [NgOptimizedImage, RouterLink, FormsModule, NgStyle, ReactiveFormsModule],
 })
-export class LoginComponent implements OnDestroy {
+export class LoginComponent implements OnInit, OnDestroy {
   isShowPassword: boolean = false;
-  loginForm: FormGroup;
-  authService: AuthService = inject(AuthService);
-  router: Router = inject(Router);
+  loginForm: FormGroup | null = null;
   fb: FormBuilder = inject(FormBuilder);
-  notificationService: NotificationService = inject(NotificationService);
   errorMessage: string | null = null;
   subscription1: Subscription | null = null;
 
-  constructor() {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private notificationService: NotificationService
+  ) {}
+
+  ngOnInit(): void {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)]],
+      password: ['', [Validators.required]],
     });
   }
 
@@ -38,7 +40,7 @@ export class LoginComponent implements OnDestroy {
 
   login(): void {
     this.notificationService.notifyAboutNotificationLoader(true);
-    this.subscription1 = this.authService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe({
+    this.subscription1 = this.authService.login(this.loginForm?.value.email, this.loginForm?.value.password).subscribe({
       next: (): void => {
         this.notificationService.notifyAboutNotificationLoader(false);
         this.notificationService.notifyAboutNotification({ message: 'Welcome in MyBookShelf', status: NotificationStatus.success });

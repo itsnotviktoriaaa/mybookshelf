@@ -1,8 +1,8 @@
-@import "../../../../assets/styles/variables";
+@import '../../../../assets/styles/variables';
 
 .book-back {
   padding: 15px;
-  background: #FFFFFF;
+  background: #fff;
   border-radius: 10px;
   max-width: 160px;
   box-sizing: border-box;
@@ -30,7 +30,7 @@
     font-size: 10px;
 
     .book-review-all {
-      color: #A7A7A7;
+      color: #a7a7a7;
     }
   }
 }

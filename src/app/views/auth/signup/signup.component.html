@@ -1,209 +1,211 @@
-<section class="auth signup">
-  <div class="container">
-    <div class="logo">
-      <img ngSrc="/assets/images/logo.png" alt="MyBookShelf" priority height="93" width="150" />
-    </div>
-    <div class="auth-form" [formGroup]="registerForm" appPasswordRepeat appPasswordNotEmail>
-      <div class="auth-form-head">
-        @if (verification) {
-          <span class="auth-form-head-greeting">Verification</span>
-          <span class="auth-form-head-description">Check your E-mail for OTP</span>
-        } @else if (!verification && !codeWhichWrittenUserWasEqualFromEmail) {
-          <span class="auth-form-head-greeting">Registration</span>
-          <span class="auth-form-head-description">For Both Staff & Students</span>
-        } @else if (codeWhichWrittenUserWasEqualFromEmail) {
-          <span class="auth-form-head-greeting">Verification</span>
-          <span class="auth-form-head-description">Thank you</span>
-        }
+@if (registerForm) {
+  <section class="auth signup">
+    <div class="container">
+      <div class="logo">
+        <img ngSrc="/assets/images/logo.png" alt="MyBookShelf" priority height="93" width="150" />
       </div>
-
-      @if (!verification && !codeWhichWrittenUserWasEqualFromEmail) {
-        <div class="auth-form-inputs">
-          <div class="auth-form-input">
-            <label for="name">Name</label>
-            <div class="auth-form-input-wrapper">
-              <div class="auth-form-input-wrapper-extra">
-                <input
-                  class="input"
-                  [ngStyle]="{ 'border-color': registerForm.get('username')?.invalid && (registerForm.get('username')?.dirty || registerForm.get('username')?.touched) ? 'red' : '' }"
-                  id="name"
-                  placeholder="Write your name"
-                  type="text"
-                  formControlName="username" />
-              </div>
-              @if (registerForm.get('username')?.invalid && (registerForm.get('username')?.dirty || registerForm.get('username')?.touched)) {
-                <div class="error-message">Name is required.</div>
-              }
-            </div>
-          </div>
-          <div class="auth-form-input">
-            <label for="email">Email</label>
-            <div class="auth-form-input-wrapper">
-              <div class="auth-form-input-wrapper-extra">
-                <input
-                  class="input"
-                  id="email"
-                  [ngStyle]="{ 'border-color': registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched) ? 'red' : '' }"
-                  placeholder="Write your email"
-                  type="text"
-                  formControlName="email" />
-              </div>
-              @if (registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)) {
-                @if (registerForm.get('email')?.errors?.['required']) {
-                  <div class="error-message">Email is required.</div>
-                }
-
-                @if (registerForm.get('email')?.errors?.['email']) {
-                  <div class="error-message">Email is incorrect.</div>
-                }
-              }
-            </div>
-          </div>
-          <div class="auth-form-input">
-            <label for="password">Password</label>
-            <div class="auth-form-input-wrapper">
-              <div class="auth-form-input-wrapper-extra">
-                <input
-                  class="input input-check"
-                  id="password"
-                  [ngStyle]="{ 'border-color': registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched) ? 'red' : '' }"
-                  placeholder="Write your password"
-                  [type]="isShowPassword ? 'text' : 'password'"
-                  formControlName="password" />
-
-                <div class="eye-wrapper">
-                  @if (!isShowPassword) {
-                    <svg (click)="changeShowingPassword('isShowPassword')" width="20" height="17" viewBox="0 0 20 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M9.84546 5.36842L12.7273 8.19579V8.05263C12.7273 7.34073 12.4399 6.65799 11.9285 6.15461C11.417 5.65122 10.7233 5.36842 10 5.36842H9.84546ZM5.93636 6.08421L7.34545 7.47105C7.3 7.65895 7.27273 7.84684 7.27273 8.05263C7.27273 8.76453 7.56006 9.44727 8.07153 9.95065C8.58299 10.454 9.27668 10.7368 10 10.7368C10.2 10.7368 10.4 10.71 10.5909 10.6653L12 12.0521C11.3909 12.3474 10.7182 12.5263 10 12.5263C8.79447 12.5263 7.63832 12.055 6.78588 11.216C5.93344 10.377 5.45455 9.23913 5.45455 8.05263C5.45455 7.34579 5.63636 6.68368 5.93636 6.08421ZM0.909091 1.13632L2.98182 3.17632L3.39091 3.57895C1.89091 4.74211 0.709091 6.26316 0 8.05263C1.57273 11.9805 5.45455 14.7632 10 14.7632C11.4091 14.7632 12.7545 14.4947 13.9818 14.0116L14.3727 14.3874L17.0273 17L18.1818 15.8637L2.06364 0M10 3.57895C11.2055 3.57895 12.3617 4.05028 13.2141 4.88926C14.0666 5.72824 14.5455 6.86614 14.5455 8.05263C14.5455 8.62526 14.4273 9.18 14.2182 9.68105L16.8818 12.3026C18.2455 11.1842 19.3364 9.71684 20 8.05263C18.4273 4.12474 14.5455 1.34211 10 1.34211C8.72727 1.34211 7.50909 1.56579 6.36364 1.96842L8.33636 3.89211C8.85455 3.69526 9.40909 3.57895 10 3.57895Z"
-                        fill="#8EA2B9" />
-                    </svg>
-                  }
-                  @if (isShowPassword) {
-                    <svg (click)="changeShowingPassword('isShowPassword')" width="22" height="16" viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M11 5C10.2044 5 9.44129 5.31607 8.87868 5.87868C8.31607 6.44129 8 7.20435 8 8C8 8.79565 8.31607 9.55871 8.87868 10.1213C9.44129 10.6839 10.2044 11 11 11C11.7956 11 12.5587 10.6839 13.1213 10.1213C13.6839 9.55871 14 8.79565 14 8C14 7.20435 13.6839 6.44129 13.1213 5.87868C12.5587 5.31607 11.7956 5 11 5ZM11 13C9.67392 13 8.40215 12.4732 7.46447 11.5355C6.52678 10.5979 6 9.32608 6 8C6 6.67392 6.52678 5.40215 7.46447 4.46447C8.40215 3.52678 9.67392 3 11 3C12.3261 3 13.5979 3.52678 14.5355 4.46447C15.4732 5.40215 16 6.67392 16 8C16 9.32608 15.4732 10.5979 14.5355 11.5355C13.5979 12.4732 12.3261 13 11 13ZM11 0.5C6 0.5 1.73 3.61 0 8C1.73 12.39 6 15.5 11 15.5C16 15.5 20.27 12.39 22 8C20.27 3.61 16 0.5 11 0.5Z"
-                        fill="#8EA2B9" />
-                    </svg>
-                  }
-                </div>
-              </div>
-              @if (registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)) {
-                @if (registerForm.get('password')?.errors?.['required']) {
-                  <div class="error-message">Password is required.</div>
-                }
-
-                @if (registerForm.get('password')?.errors?.['pattern']) {
-                  <div class="error-message">
-                    Password is not strong. The password must be at least 8 characters long and contain at least one number, one lowercase letter and one uppercase letter.
-                  </div>
-                }
-
-                @if (registerForm.get('email')?.value && registerForm.get('password')?.errors?.['passwordAsEmail']) {
-                  <div class="error-message">Password must not be an email.</div>
-                }
-              }
-            </div>
-          </div>
-          <div class="auth-form-input">
-            <label for="confirm-password">Confirm Password</label>
-            <div class="auth-form-input-wrapper">
-              <div class="auth-form-input-wrapper-extra">
-                <input
-                  class="input input-check"
-                  id="confirm-password"
-                  [ngStyle]="{
-                    'border-color': registerForm.get('confirmPassword')?.invalid && (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched) ? 'red' : ''
-                  }"
-                  placeholder="Write your password again"
-                  [type]="isShowConfirmPassword ? 'text' : 'password'"
-                  formControlName="confirmPassword" />
-                <div class="eye-wrapper">
-                  @if (!isShowConfirmPassword) {
-                    <svg (click)="changeShowingPassword('isShowConfirmPassword')" width="20" height="17" viewBox="0 0 20 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M9.84546 5.36842L12.7273 8.19579V8.05263C12.7273 7.34073 12.4399 6.65799 11.9285 6.15461C11.417 5.65122 10.7233 5.36842 10 5.36842H9.84546ZM5.93636 6.08421L7.34545 7.47105C7.3 7.65895 7.27273 7.84684 7.27273 8.05263C7.27273 8.76453 7.56006 9.44727 8.07153 9.95065C8.58299 10.454 9.27668 10.7368 10 10.7368C10.2 10.7368 10.4 10.71 10.5909 10.6653L12 12.0521C11.3909 12.3474 10.7182 12.5263 10 12.5263C8.79447 12.5263 7.63832 12.055 6.78588 11.216C5.93344 10.377 5.45455 9.23913 5.45455 8.05263C5.45455 7.34579 5.63636 6.68368 5.93636 6.08421ZM0.909091 1.13632L2.98182 3.17632L3.39091 3.57895C1.89091 4.74211 0.709091 6.26316 0 8.05263C1.57273 11.9805 5.45455 14.7632 10 14.7632C11.4091 14.7632 12.7545 14.4947 13.9818 14.0116L14.3727 14.3874L17.0273 17L18.1818 15.8637L2.06364 0M10 3.57895C11.2055 3.57895 12.3617 4.05028 13.2141 4.88926C14.0666 5.72824 14.5455 6.86614 14.5455 8.05263C14.5455 8.62526 14.4273 9.18 14.2182 9.68105L16.8818 12.3026C18.2455 11.1842 19.3364 9.71684 20 8.05263C18.4273 4.12474 14.5455 1.34211 10 1.34211C8.72727 1.34211 7.50909 1.56579 6.36364 1.96842L8.33636 3.89211C8.85455 3.69526 9.40909 3.57895 10 3.57895Z"
-                        fill="#8EA2B9" />
-                    </svg>
-                  }
-                  @if (isShowConfirmPassword) {
-                    <svg (click)="changeShowingPassword('isShowConfirmPassword')" width="22" height="16" viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M11 5C10.2044 5 9.44129 5.31607 8.87868 5.87868C8.31607 6.44129 8 7.20435 8 8C8 8.79565 8.31607 9.55871 8.87868 10.1213C9.44129 10.6839 10.2044 11 11 11C11.7956 11 12.5587 10.6839 13.1213 10.1213C13.6839 9.55871 14 8.79565 14 8C14 7.20435 13.6839 6.44129 13.1213 5.87868C12.5587 5.31607 11.7956 5 11 5ZM11 13C9.67392 13 8.40215 12.4732 7.46447 11.5355C6.52678 10.5979 6 9.32608 6 8C6 6.67392 6.52678 5.40215 7.46447 4.46447C8.40215 3.52678 9.67392 3 11 3C12.3261 3 13.5979 3.52678 14.5355 4.46447C15.4732 5.40215 16 6.67392 16 8C16 9.32608 15.4732 10.5979 14.5355 11.5355C13.5979 12.4732 12.3261 13 11 13ZM11 0.5C6 0.5 1.73 3.61 0 8C1.73 12.39 6 15.5 11 15.5C16 15.5 20.27 12.39 22 8C20.27 3.61 16 0.5 11 0.5Z"
-                        fill="#8EA2B9" />
-                    </svg>
-                  }
-                </div>
-              </div>
-              @if (registerForm.get('confirmPassword')?.invalid && (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched)) {
-                @if (registerForm.get('confirmPassword')?.errors?.['required']) {
-                  <div class="error-message">Confirm Password is required.</div>
-                }
-                @if (registerForm.get('confirmPassword')?.errors?.['passwordRepeat']) {
-                  <div class="error-message">Confirm Password doesn't match</div>
-                }
-              }
-            </div>
-          </div>
-        </div>
-      } @else if (verification) {
-        <div class="verification">
-          <div class="verification-head">Enter your OTP Here</div>
-          <div class="verification-body" #verificationBody>
-            <input class="verification-number" (keydown)="keyPressOnInput($event)" maxlength="1" type="tel" />
-            <input class="verification-number" (keydown)="keyPressOnInput($event)" maxlength="1" type="tel" />
-            <input class="verification-number" (keydown)="keyPressOnInput($event)" maxlength="1" type="tel" />
-            <input class="verification-number" (keydown)="keyPressOnInput($event)" maxlength="1" type="tel" />
-            <input class="verification-number" (keydown)="keyPressOnInput($event)" maxlength="1" type="tel" />
-          </div>
-        </div>
-      } @else if (codeWhichWrittenUserWasEqualFromEmail) {
-        <div class="verification" [style.margin-top]="'19px'">
-          <div class="verification-head" [style.text-align]="'center'">{{ errorMessage ? 'You are not Verified' : 'You are Verified' }}</div>
-        </div>
-        <div class="verification-done">
-          @if (!errorMessage) {
-            <svg width="140" height="140" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M70 0C31.3317 0 0 31.3317 0 70C0 108.668 31.3317 140 70 140C108.668 140 140 108.668 140 70C140 31.3317 108.668 0 70 0ZM59.1971 94.8029C58.3894 95.6106 57.2452 96.2837 56.2356 96.2837C55.226 96.2837 54.0817 95.5769 53.2404 94.7692L34.3942 75.9231L40.3846 69.9327L56.2692 85.8173L98.2692 43.5144L104.159 49.6058L59.1971 94.8029Z"
-                fill="#4AC156" />
-            </svg>
-          } @else {
-            <svg width="140" height="140" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M70 0C31.3317 0 0 31.3317 0 70C0 108.668 31.3317 140 70 140C108.668 140 140 108.668 140 70C140 31.3317 108.668 0 70 0Z" fill="#D72F2F" />
-              <path d="M45.001 51.0042L85.0087 93.9969L91.0079 89.4959L51 45.5031L45.001 51.0042Z" fill="white" stroke="white" />
-              <path d="M88.0611 45L45.5044 87.6087L49.958 94L93.5044 51.3913L88.0611 45Z" fill="white" stroke="white" />
-            </svg>
+      <div class="auth-form" [formGroup]="registerForm" appPasswordRepeat appPasswordNotEmail>
+        <div class="auth-form-head">
+          @if (verification) {
+            <span class="auth-form-head-greeting">Verification</span>
+            <span class="auth-form-head-description">Check your E-mail for OTP</span>
+          } @else if (!verification && !codeWhichWrittenUserWasEqualFromEmail) {
+            <span class="auth-form-head-greeting">Registration</span>
+            <span class="auth-form-head-description">For Both Staff & Students</span>
+          } @else if (codeWhichWrittenUserWasEqualFromEmail) {
+            <span class="auth-form-head-greeting">Verification</span>
+            <span class="auth-form-head-description">Thank you</span>
           }
         </div>
-      }
 
-      @if (!codeWhichWrittenUserWasEqualFromEmail) {
-        <button
-          [disabled]="registerForm.invalid && !fillAllInputs"
-          (click)="verification ? isCodeFromUserRight() : checkEmailWasUsedBeforeToSendCode()"
-          [ngStyle]="{
-            'background-color': registerForm.invalid && !fillAllInputs ? 'gray' : '',
-            cursor: registerForm.invalid && !fillAllInputs ? 'not-allowed' : 'pointer'
-          }"
-          [ngClass]="{ 'auth-button': true, 'verification-button': verification }">
-          {{ verification ? 'Verify' : 'Register' }}
-        </button>
-      } @else {
-        <button (click)="afterVerify()" class="auth-button">{{ errorMessage ? 'Back to register' : 'Login' }}</button>
-      }
+        @if (!verification && !codeWhichWrittenUserWasEqualFromEmail) {
+          <div class="auth-form-inputs">
+            <div class="auth-form-input">
+              <label for="name">Name</label>
+              <div class="auth-form-input-wrapper">
+                <div class="auth-form-input-wrapper-extra">
+                  <input
+                    class="input"
+                    [ngStyle]="{ 'border-color': registerForm.get('username')?.invalid && (registerForm.get('username')?.dirty || registerForm.get('username')?.touched) ? 'red' : '' }"
+                    id="name"
+                    placeholder="Write your name"
+                    type="text"
+                    formControlName="username" />
+                </div>
+                @if (registerForm!.get('username')?.invalid && (registerForm!.get('username')?.dirty || registerForm!.get('username')?.touched)) {
+                  <div class="error-message">Name is required.</div>
+                }
+              </div>
+            </div>
+            <div class="auth-form-input">
+              <label for="email">Email</label>
+              <div class="auth-form-input-wrapper">
+                <div class="auth-form-input-wrapper-extra">
+                  <input
+                    class="input"
+                    id="email"
+                    [ngStyle]="{ 'border-color': registerForm!.get('email')?.invalid && (registerForm!.get('email')?.dirty || registerForm!.get('email')?.touched) ? 'red' : '' }"
+                    placeholder="Write your email"
+                    type="text"
+                    formControlName="email" />
+                </div>
+                @if (registerForm!.get('email')?.invalid && (registerForm!.get('email')?.dirty || registerForm!.get('email')?.touched)) {
+                  @if (registerForm!.get('email')?.errors?.['required']) {
+                    <div class="error-message">Email is required.</div>
+                  }
 
-      @if (!verification && !codeWhichWrittenUserWasEqualFromEmail) {
-        <span class="auth-form-moving">Already a User? <span class="auth-form-moving-route" routerLink="/login">Login now</span></span>
-      } @else if (verification) {
-        <div class="verification-moving-wrapper">
-          <div class="auth-form-moving">
-            Not yet received?
-            <span class="auth-form-moving-route" (click)="sendCodeToEmail()">Resend?</span>
+                  @if (registerForm!.get('email')?.errors?.['email']) {
+                    <div class="error-message">Email is incorrect.</div>
+                  }
+                }
+              </div>
+            </div>
+            <div class="auth-form-input">
+              <label for="password">Password</label>
+              <div class="auth-form-input-wrapper">
+                <div class="auth-form-input-wrapper-extra">
+                  <input
+                    class="input input-check"
+                    id="password"
+                    [ngStyle]="{ 'border-color': registerForm!.get('password')?.invalid && (registerForm!.get('password')?.dirty || registerForm!.get('password')?.touched) ? 'red' : '' }"
+                    placeholder="Write your password"
+                    [type]="isShowPassword ? 'text' : 'password'"
+                    formControlName="password" />
+
+                  <div class="eye-wrapper">
+                    @if (!isShowPassword) {
+                      <svg (click)="changeShowingPassword('isShowPassword')" width="20" height="17" viewBox="0 0 20 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M9.84546 5.36842L12.7273 8.19579V8.05263C12.7273 7.34073 12.4399 6.65799 11.9285 6.15461C11.417 5.65122 10.7233 5.36842 10 5.36842H9.84546ZM5.93636 6.08421L7.34545 7.47105C7.3 7.65895 7.27273 7.84684 7.27273 8.05263C7.27273 8.76453 7.56006 9.44727 8.07153 9.95065C8.58299 10.454 9.27668 10.7368 10 10.7368C10.2 10.7368 10.4 10.71 10.5909 10.6653L12 12.0521C11.3909 12.3474 10.7182 12.5263 10 12.5263C8.79447 12.5263 7.63832 12.055 6.78588 11.216C5.93344 10.377 5.45455 9.23913 5.45455 8.05263C5.45455 7.34579 5.63636 6.68368 5.93636 6.08421ZM0.909091 1.13632L2.98182 3.17632L3.39091 3.57895C1.89091 4.74211 0.709091 6.26316 0 8.05263C1.57273 11.9805 5.45455 14.7632 10 14.7632C11.4091 14.7632 12.7545 14.4947 13.9818 14.0116L14.3727 14.3874L17.0273 17L18.1818 15.8637L2.06364 0M10 3.57895C11.2055 3.57895 12.3617 4.05028 13.2141 4.88926C14.0666 5.72824 14.5455 6.86614 14.5455 8.05263C14.5455 8.62526 14.4273 9.18 14.2182 9.68105L16.8818 12.3026C18.2455 11.1842 19.3364 9.71684 20 8.05263C18.4273 4.12474 14.5455 1.34211 10 1.34211C8.72727 1.34211 7.50909 1.56579 6.36364 1.96842L8.33636 3.89211C8.85455 3.69526 9.40909 3.57895 10 3.57895Z"
+                          fill="#8EA2B9" />
+                      </svg>
+                    }
+                    @if (isShowPassword) {
+                      <svg (click)="changeShowingPassword('isShowPassword')" width="22" height="16" viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M11 5C10.2044 5 9.44129 5.31607 8.87868 5.87868C8.31607 6.44129 8 7.20435 8 8C8 8.79565 8.31607 9.55871 8.87868 10.1213C9.44129 10.6839 10.2044 11 11 11C11.7956 11 12.5587 10.6839 13.1213 10.1213C13.6839 9.55871 14 8.79565 14 8C14 7.20435 13.6839 6.44129 13.1213 5.87868C12.5587 5.31607 11.7956 5 11 5ZM11 13C9.67392 13 8.40215 12.4732 7.46447 11.5355C6.52678 10.5979 6 9.32608 6 8C6 6.67392 6.52678 5.40215 7.46447 4.46447C8.40215 3.52678 9.67392 3 11 3C12.3261 3 13.5979 3.52678 14.5355 4.46447C15.4732 5.40215 16 6.67392 16 8C16 9.32608 15.4732 10.5979 14.5355 11.5355C13.5979 12.4732 12.3261 13 11 13ZM11 0.5C6 0.5 1.73 3.61 0 8C1.73 12.39 6 15.5 11 15.5C16 15.5 20.27 12.39 22 8C20.27 3.61 16 0.5 11 0.5Z"
+                          fill="#8EA2B9" />
+                      </svg>
+                    }
+                  </div>
+                </div>
+                @if (registerForm!.get('password')?.invalid && (registerForm!.get('password')?.dirty || registerForm!.get('password')?.touched)) {
+                  @if (registerForm!.get('password')?.errors?.['required']) {
+                    <div class="error-message">Password is required.</div>
+                  }
+
+                  @if (registerForm!.get('password')?.errors?.['pattern']) {
+                    <div class="error-message">
+                      Password is not strong. The password must be at least 8 characters long and contain at least one number, one lowercase letter and one uppercase letter.
+                    </div>
+                  }
+
+                  @if (registerForm!.get('email')?.value && registerForm!.get('password')?.errors?.['passwordAsEmail']) {
+                    <div class="error-message">Password must not be an email.</div>
+                  }
+                }
+              </div>
+            </div>
+            <div class="auth-form-input">
+              <label for="confirm-password">Confirm Password</label>
+              <div class="auth-form-input-wrapper">
+                <div class="auth-form-input-wrapper-extra">
+                  <input
+                    class="input input-check"
+                    id="confirm-password"
+                    [ngStyle]="{
+                      'border-color': registerForm!.get('confirmPassword')?.invalid && (registerForm!.get('confirmPassword')?.dirty || registerForm!.get('confirmPassword')?.touched) ? 'red' : ''
+                    }"
+                    placeholder="Write your password again"
+                    [type]="isShowConfirmPassword ? 'text' : 'password'"
+                    formControlName="confirmPassword" />
+                  <div class="eye-wrapper">
+                    @if (!isShowConfirmPassword) {
+                      <svg (click)="changeShowingPassword('isShowConfirmPassword')" width="20" height="17" viewBox="0 0 20 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M9.84546 5.36842L12.7273 8.19579V8.05263C12.7273 7.34073 12.4399 6.65799 11.9285 6.15461C11.417 5.65122 10.7233 5.36842 10 5.36842H9.84546ZM5.93636 6.08421L7.34545 7.47105C7.3 7.65895 7.27273 7.84684 7.27273 8.05263C7.27273 8.76453 7.56006 9.44727 8.07153 9.95065C8.58299 10.454 9.27668 10.7368 10 10.7368C10.2 10.7368 10.4 10.71 10.5909 10.6653L12 12.0521C11.3909 12.3474 10.7182 12.5263 10 12.5263C8.79447 12.5263 7.63832 12.055 6.78588 11.216C5.93344 10.377 5.45455 9.23913 5.45455 8.05263C5.45455 7.34579 5.63636 6.68368 5.93636 6.08421ZM0.909091 1.13632L2.98182 3.17632L3.39091 3.57895C1.89091 4.74211 0.709091 6.26316 0 8.05263C1.57273 11.9805 5.45455 14.7632 10 14.7632C11.4091 14.7632 12.7545 14.4947 13.9818 14.0116L14.3727 14.3874L17.0273 17L18.1818 15.8637L2.06364 0M10 3.57895C11.2055 3.57895 12.3617 4.05028 13.2141 4.88926C14.0666 5.72824 14.5455 6.86614 14.5455 8.05263C14.5455 8.62526 14.4273 9.18 14.2182 9.68105L16.8818 12.3026C18.2455 11.1842 19.3364 9.71684 20 8.05263C18.4273 4.12474 14.5455 1.34211 10 1.34211C8.72727 1.34211 7.50909 1.56579 6.36364 1.96842L8.33636 3.89211C8.85455 3.69526 9.40909 3.57895 10 3.57895Z"
+                          fill="#8EA2B9" />
+                      </svg>
+                    }
+                    @if (isShowConfirmPassword) {
+                      <svg (click)="changeShowingPassword('isShowConfirmPassword')" width="22" height="16" viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M11 5C10.2044 5 9.44129 5.31607 8.87868 5.87868C8.31607 6.44129 8 7.20435 8 8C8 8.79565 8.31607 9.55871 8.87868 10.1213C9.44129 10.6839 10.2044 11 11 11C11.7956 11 12.5587 10.6839 13.1213 10.1213C13.6839 9.55871 14 8.79565 14 8C14 7.20435 13.6839 6.44129 13.1213 5.87868C12.5587 5.31607 11.7956 5 11 5ZM11 13C9.67392 13 8.40215 12.4732 7.46447 11.5355C6.52678 10.5979 6 9.32608 6 8C6 6.67392 6.52678 5.40215 7.46447 4.46447C8.40215 3.52678 9.67392 3 11 3C12.3261 3 13.5979 3.52678 14.5355 4.46447C15.4732 5.40215 16 6.67392 16 8C16 9.32608 15.4732 10.5979 14.5355 11.5355C13.5979 12.4732 12.3261 13 11 13ZM11 0.5C6 0.5 1.73 3.61 0 8C1.73 12.39 6 15.5 11 15.5C16 15.5 20.27 12.39 22 8C20.27 3.61 16 0.5 11 0.5Z"
+                          fill="#8EA2B9" />
+                      </svg>
+                    }
+                  </div>
+                </div>
+                @if (registerForm!.get('confirmPassword')?.invalid && (registerForm!.get('confirmPassword')?.dirty || registerForm!.get('confirmPassword')?.touched)) {
+                  @if (registerForm!.get('confirmPassword')?.errors?.['required']) {
+                    <div class="error-message">Confirm Password is required.</div>
+                  }
+                  @if (registerForm!.get('confirmPassword')?.errors?.['passwordRepeat']) {
+                    <div class="error-message">Confirm Password doesn't match</div>
+                  }
+                }
+              </div>
+            </div>
           </div>
-          <span (click)="backToRegister()" class="verification-moving-back">Back</span>
-        </div>
-      }
+        } @else if (verification) {
+          <div class="verification">
+            <div class="verification-head">Enter your OTP Here</div>
+            <div class="verification-body" #verificationBody>
+              <input class="verification-number" (keydown)="keyPressOnInput($event)" maxlength="1" type="tel" />
+              <input class="verification-number" (keydown)="keyPressOnInput($event)" maxlength="1" type="tel" />
+              <input class="verification-number" (keydown)="keyPressOnInput($event)" maxlength="1" type="tel" />
+              <input class="verification-number" (keydown)="keyPressOnInput($event)" maxlength="1" type="tel" />
+              <input class="verification-number" (keydown)="keyPressOnInput($event)" maxlength="1" type="tel" />
+            </div>
+          </div>
+        } @else if (codeWhichWrittenUserWasEqualFromEmail) {
+          <div class="verification" [style.margin-top]="'19px'">
+            <div class="verification-head" [style.text-align]="'center'">{{ errorMessage ? 'You are not Verified' : 'You are Verified' }}</div>
+          </div>
+          <div class="verification-done">
+            @if (!errorMessage) {
+              <svg width="140" height="140" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M70 0C31.3317 0 0 31.3317 0 70C0 108.668 31.3317 140 70 140C108.668 140 140 108.668 140 70C140 31.3317 108.668 0 70 0ZM59.1971 94.8029C58.3894 95.6106 57.2452 96.2837 56.2356 96.2837C55.226 96.2837 54.0817 95.5769 53.2404 94.7692L34.3942 75.9231L40.3846 69.9327L56.2692 85.8173L98.2692 43.5144L104.159 49.6058L59.1971 94.8029Z"
+                  fill="#4AC156" />
+              </svg>
+            } @else {
+              <svg width="140" height="140" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M70 0C31.3317 0 0 31.3317 0 70C0 108.668 31.3317 140 70 140C108.668 140 140 108.668 140 70C140 31.3317 108.668 0 70 0Z" fill="#D72F2F" />
+                <path d="M45.001 51.0042L85.0087 93.9969L91.0079 89.4959L51 45.5031L45.001 51.0042Z" fill="white" stroke="white" />
+                <path d="M88.0611 45L45.5044 87.6087L49.958 94L93.5044 51.3913L88.0611 45Z" fill="white" stroke="white" />
+              </svg>
+            }
+          </div>
+        }
+
+        @if (!codeWhichWrittenUserWasEqualFromEmail) {
+          <button
+            [disabled]="registerForm.invalid && !fillAllInputs"
+            (click)="verification ? isCodeFromUserRight() : checkEmailWasUsedBeforeToSendCode()"
+            [ngStyle]="{
+              'background-color': registerForm.invalid && !fillAllInputs ? 'gray' : '',
+              cursor: registerForm!.invalid && !fillAllInputs ? 'not-allowed' : 'pointer'
+            }"
+            [ngClass]="{ 'auth-button': true, 'verification-button': verification }">
+            {{ verification ? 'Verify' : 'Register' }}
+          </button>
+        } @else {
+          <button (click)="afterVerify()" class="auth-button">{{ errorMessage ? 'Back to register' : 'Login' }}</button>
+        }
+
+        @if (!verification && !codeWhichWrittenUserWasEqualFromEmail) {
+          <span class="auth-form-moving">Already a User? <span class="auth-form-moving-route" routerLink="/login">Login now</span></span>
+        } @else if (verification) {
+          <div class="verification-moving-wrapper">
+            <div class="auth-form-moving">
+              Not yet received?
+              <span class="auth-form-moving-route" (click)="sendCodeToEmail()">Resend?</span>
+            </div>
+            <span (click)="backToRegister()" class="verification-moving-back">Back</span>
+          </div>
+        }
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+}

@@ -1,5 +1,5 @@
 import { Component, HostListener } from '@angular/core';
-import { HeaderClickInterface } from '../../../../../types/header.interface';
+import { HeaderClickInterface } from '../../../../../types';
 
 @Component({
   selector: 'app-header',

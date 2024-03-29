@@ -1,7 +1,7 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { NotificationService } from '../../services/notification.service';
 import { NgClass, NgStyle } from '@angular/common';
-import { NotificationStatus, NotificationType } from '../../../../types/user.interface';
+import { NotificationStatus, NotificationType } from '../../../../types';
 import { Subscription } from 'rxjs';
 
 @Component({

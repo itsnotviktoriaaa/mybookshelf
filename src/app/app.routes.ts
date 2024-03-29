@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './views/auth/login/login.component';
-import { SignupComponent } from './views/auth/signup/signup.component';
-import { LayoutComponent } from './shared/components/layout/layout.component';
+import { LoginComponent } from './views';
+import { SignupComponent } from './views';
+import { LayoutComponent } from './shared';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },

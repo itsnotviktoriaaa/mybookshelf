@@ -1,5 +1,6 @@
 import { Directive } from '@angular/core';
 import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
+import { Constants } from '../constants';
 
 @Directive({
   selector: '[appPasswordNotEmail]',
@@ -23,7 +24,7 @@ export class PasswordNotEmailDirective implements Validator {
 
     if (email?.value !== password?.value && password.hasError('passwordAsEmail')) {
       password.setErrors({ passwordAsEmail: null });
-      if (!password.value.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)) {
+      if (!password.value.match(Constants.regularForPassword)) {
         password.setErrors({ pattern: true });
       }
       return { passwordAsEmail: null };

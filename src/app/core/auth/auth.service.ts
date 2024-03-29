@@ -1,7 +1,7 @@
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { Auth, createUserWithEmailAndPassword, fetchSignInMethodsForEmail, signInWithEmailAndPassword, signOut, updateProfile, user } from '@angular/fire/auth';
 import { from, Observable } from 'rxjs';
-import { UserInterface } from '../../../types/user.interface';
+import { UserInterface } from '../../../types';
 type User = import('firebase/auth').User;
 
 @Injectable({
