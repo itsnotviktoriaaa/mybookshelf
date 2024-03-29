@@ -2,7 +2,7 @@ import { Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@an
 import { NgClass, NgOptimizedImage, NgStyle } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { PasswordRepeatDirective, PasswordNotEmailDirective, NotificationService } from '../../../shared';
+import { NotificationService, PasswordNotEmailDirective, PasswordRepeatDirective } from '../../../shared';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AuthModule } from '@angular/fire/auth';
 import { AuthService } from '../../../core';

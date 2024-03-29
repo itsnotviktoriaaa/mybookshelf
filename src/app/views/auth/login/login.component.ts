@@ -1,9 +1,9 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { NgOptimizedImage, NgStyle } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../core';
-import { NotificationService, CodeMessageHandlerUtil } from '../../../shared';
+import { CodeMessageHandlerUtil, NotificationService } from '../../../shared';
 import { NotificationStatus } from '../../../../types';
 import { Subscription } from 'rxjs';
 
@@ -12,7 +12,8 @@ import { Subscription } from 'rxjs';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   standalone: true,
-  imports: [NgOptimizedImage, RouterLink, FormsModule, NgStyle, ReactiveFormsModule],
+  imports: [NgOptimizedImage, RouterLink, NgStyle, ReactiveFormsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit, OnDestroy {
   isShowPassword: boolean = false;

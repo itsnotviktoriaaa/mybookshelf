@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
@@ -8,5 +8,6 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   imports: [NgOptimizedImage, RouterLink, RouterLinkActive],
   templateUrl: './bar.component.html',
   styleUrl: './bar.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BarComponent {}

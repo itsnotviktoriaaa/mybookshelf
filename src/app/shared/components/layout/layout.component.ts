@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
 import { BarComponent } from './bar/bar.component';
 import { RouterOutlet } from '@angular/router';
@@ -8,6 +8,7 @@ import { RouterOutlet } from '@angular/router';
   standalone: true,
   imports: [HeaderComponent, BarComponent, RouterOutlet],
   templateUrl: './layout.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [
     `
       .layout-wrapper {
