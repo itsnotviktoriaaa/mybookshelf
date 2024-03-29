@@ -1,6 +1,10 @@
-import { Component, HostListener } from '@angular/core';
-import { HeaderClickInterface } from '../../../../../types';
+import { Component, HostListener, OnDestroy } from '@angular/core';
+import { HeaderClickInterface, NotificationStatus } from '../../../../../types';
 import { SvgIconComponent } from 'angular-svg-icon';
+import { AuthService } from '../../../../core';
+import { catchError, EMPTY, Subject, takeUntil, tap } from 'rxjs';
+import { Router } from '@angular/router';
+import { NotificationService } from '../../../services/notification.service';
 
 @Component({
   selector: 'app-header',
@@ -9,13 +13,18 @@ import { SvgIconComponent } from 'angular-svg-icon';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnDestroy {
   allMiniModal: boolean = false;
   langMiniModal: boolean = false;
   profileMiniModal: boolean = false;
   protected readonly HeaderClickInterfaceEnum = HeaderClickInterface;
+  authServiceDestroy$: Subject<void> = new Subject<void>();
 
-  constructor() {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private notificationService: NotificationService
+  ) {}
 
   openOrCloseMiniModal(nameOfMiniModal: HeaderClickInterface.allMiniModal | HeaderClickInterface.langMiniModal | HeaderClickInterface.profileMiniModal): void {
     if (nameOfMiniModal === HeaderClickInterface.allMiniModal) {
@@ -27,6 +36,24 @@ export class HeaderComponent {
     if (nameOfMiniModal === HeaderClickInterface.profileMiniModal) {
       this.profileMiniModal = !this.profileMiniModal;
     }
+  }
+
+  logout(): void {
+    this.authService
+      .logout()
+      .pipe(
+        tap(() => {
+          this.notificationService.notifyAboutNotification({ message: 'Success logout', status: NotificationStatus.success });
+          this.router.navigate(['/']).then(() => {});
+        }),
+        catchError(() => {
+          this.notificationService.notifyAboutNotification({ message: 'Success logout', status: NotificationStatus.success });
+          this.router.navigate(['/']).then(() => {});
+          return EMPTY;
+        }),
+        takeUntil(this.authServiceDestroy$)
+      )
+      .subscribe();
   }
 
   @HostListener('document:click', ['$event'])
@@ -43,5 +70,10 @@ export class HeaderComponent {
     if (this.profileMiniModal && !((event.target as Element).closest('.header-account-modal') || (event.target as Element).closest('.header-account-info'))) {
       this.profileMiniModal = false;
     }
+  }
+
+  ngOnDestroy(): void {
+    this.authServiceDestroy$.next();
+    this.authServiceDestroy$.complete();
   }
 }

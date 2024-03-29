@@ -31,11 +31,6 @@ export class AuthService {
     return from(promise);
   }
 
-  //потом применить для выхода, когда будет создана кнопка для выхода из системы
-  // logout(): void {
-  //   this.authService.logout();
-  // };
-
   checkEmailWasUsed(email: string): Observable<string[]> {
     const promise: Promise<string[]> = fetchSignInMethodsForEmail(this.firebaseAuth, email);
     return from(promise);
