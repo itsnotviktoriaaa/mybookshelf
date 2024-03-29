@@ -6,13 +6,14 @@ import { AuthService } from '../../../core';
 import { CodeMessageHandlerUtil, NotificationService } from '../../../shared';
 import { NotificationStatus } from '../../../../types';
 import { Subscription } from 'rxjs';
+import { SvgIconComponent } from 'angular-svg-icon';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   standalone: true,
-  imports: [NgOptimizedImage, RouterLink, NgStyle, ReactiveFormsModule],
+  imports: [NgOptimizedImage, RouterLink, NgStyle, ReactiveFormsModule, SvgIconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit, OnDestroy {

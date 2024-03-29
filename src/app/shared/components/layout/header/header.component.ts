@@ -1,10 +1,13 @@
 import { Component, HostListener } from '@angular/core';
 import { HeaderClickInterface } from '../../../../../types';
+import { SvgIconComponent } from 'angular-svg-icon';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [],
+  imports: [
+    SvgIconComponent,
+  ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })

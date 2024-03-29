@@ -10,13 +10,14 @@ import emailJs, { EmailJSResponseStatus } from '@emailjs/browser';
 import { of, Subject, Subscription } from 'rxjs';
 import { NotificationStatus, UserSignInterface } from '../../../../types';
 import { Constants } from '../../../shared/constants';
+import { SvgIconComponent } from 'angular-svg-icon';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss',
   standalone: true,
-  imports: [NgOptimizedImage, RouterLink, FormsModule, ReactiveFormsModule, NgStyle, PasswordRepeatDirective, PasswordNotEmailDirective, AngularFireAuthModule, AuthModule, NgClass],
+  imports: [NgOptimizedImage, RouterLink, FormsModule, ReactiveFormsModule, NgStyle, PasswordRepeatDirective, PasswordNotEmailDirective, AngularFireAuthModule, AuthModule, NgClass, SvgIconComponent],
 })
 export class SignupComponent implements OnInit, OnDestroy {
   registerForm: FormGroup | null = null;

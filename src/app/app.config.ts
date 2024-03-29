@@ -8,6 +8,7 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { provideHttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment.development';
+import { provideAngularSvgIcon } from 'angular-svg-icon';
 
 const scrollConfig: InMemoryScrollingOptions = {
   scrollPositionRestoration: 'enabled',
@@ -25,5 +26,6 @@ export const appConfig: ApplicationConfig = {
       provideFirestore(() => getFirestore()),
       provideStorage(() => getStorage()),
     ]),
+    provideAngularSvgIcon(),
   ],
 };
