@@ -112,11 +112,8 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   changeShowingPassword(nameOfInput: string): void {
-    if (nameOfInput === 'isShowPassword') {
-      this.isShowPassword = !this.isShowPassword;
-    } else if (nameOfInput === 'isShowConfirmPassword') {
-      this.isShowConfirmPassword = !this.isShowConfirmPassword;
-    }
+    this.isShowPassword = nameOfInput === 'isShowPassword' ? !this.isShowPassword : this.isShowPassword;
+    this.isShowConfirmPassword = nameOfInput === 'isShowConfirmPassword' ? !this.isShowConfirmPassword : this.isShowConfirmPassword;
   }
 
   checkInputsForAbleButton(verificationInputs: NodeListOf<HTMLInputElement>): void {
@@ -222,15 +219,19 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   afterVerify(): void {
     if (this.errorMessage) {
-      this.errorMessage = null;
-      this.infoFromUser = null;
-      this.verification = false;
-      this.codeWhichWrittenUserWasEqualFromEmail = false;
+      this.clearSettingsForRedrawing();
       this.registerForm?.reset();
       this.router.navigate(['/signup']).then(() => {});
     } else {
       this.router.navigate(['/login']).then(() => {});
     }
+  }
+
+  clearSettingsForRedrawing(): void {
+    this.errorMessage = null;
+    this.infoFromUser = null;
+    this.verification = false;
+    this.codeWhichWrittenUserWasEqualFromEmail = false;
   }
 
   ngOnDestroy(): void {
