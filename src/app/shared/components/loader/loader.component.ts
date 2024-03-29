@@ -1,6 +1,6 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { NotificationService } from '../../services/notification.service';
-import { Subscription } from 'rxjs';
+import { Subject, takeUntil, tap } from 'rxjs';
 
 @Component({
   selector: 'app-loader',
@@ -12,14 +12,21 @@ import { Subscription } from 'rxjs';
 export class LoaderComponent implements OnInit, OnDestroy {
   loader: boolean = false;
   notificationService: NotificationService = inject(NotificationService);
-  subscription1: Subscription | null = null;
+  getNotificationLoaderDestroy$: Subject<void> = new Subject<void>();
   ngOnInit(): void {
-    this.subscription1 = this.notificationService.getNotificationLoader().subscribe((param: boolean): void => {
-      this.loader = param;
-    });
+    this.notificationService
+      .getNotificationLoader()
+      .pipe(
+        tap((param: boolean): void => {
+          this.loader = param;
+        }),
+        takeUntil(this.getNotificationLoaderDestroy$)
+      )
+      .subscribe();
   }
 
   ngOnDestroy(): void {
-    this.subscription1?.unsubscribe();
+    this.getNotificationLoaderDestroy$.next();
+    this.getNotificationLoaderDestroy$.complete();
   }
 }

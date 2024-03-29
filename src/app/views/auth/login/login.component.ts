@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { NgOptimizedImage, NgStyle } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../core';
 import { CodeMessageHandlerUtil, NotificationService } from '../../../shared';
 import { NotificationStatus } from '../../../../types';
-import { Subscription } from 'rxjs';
+import { catchError, EMPTY, Subject, Subscription, takeUntil, tap } from 'rxjs';
 import { SvgIconComponent } from 'angular-svg-icon';
 
 @Component({
@@ -18,10 +18,11 @@ import { SvgIconComponent } from 'angular-svg-icon';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   isShowPassword: boolean = false;
-  loginForm: FormGroup | null = null;
+  loginForm!: FormGroup;
   fb: FormBuilder = inject(FormBuilder);
   errorMessage: string | null = null;
   subscription1: Subscription | null = null;
+  loginDestroy$: Subject<void> = new Subject<void>();
 
   constructor(
     private authService: AuthService,
@@ -30,9 +31,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
+    this.loginForm = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required]),
     });
   }
 
@@ -42,23 +43,28 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   login(): void {
     this.notificationService.notifyAboutNotificationLoader(true);
-    this.subscription1 = this.authService.login(this.loginForm?.value.email, this.loginForm?.value.password).subscribe({
-      next: (): void => {
-        this.notificationService.notifyAboutNotificationLoader(false);
-        this.notificationService.notifyAboutNotification({ message: 'Welcome in MyBookShelf', status: NotificationStatus.success });
-        //router to home
-        this.router.navigate(['/home']).then(() => {});
-        console.log('----- Login ------');
-      },
-      error: (err): void => {
-        this.errorMessage = CodeMessageHandlerUtil.handlerCodeMessage(err.code);
-        this.notificationService.notifyAboutNotificationLoader(false);
-        this.notificationService.notifyAboutNotification({ message: `${this.errorMessage}`, status: NotificationStatus.error });
-      },
-    });
+    this.subscription1 = this.authService
+      .login(this.loginForm.value.email, this.loginForm.value.password)
+      .pipe(
+        tap(() => {
+          this.notificationService.notifyAboutNotificationLoader(false);
+          this.notificationService.notifyAboutNotification({ message: 'Welcome in MyBookShelf', status: NotificationStatus.success });
+          this.router.navigate(['/home']).then(() => {});
+          console.log('----- Login ------');
+        }),
+        catchError(err => {
+          this.errorMessage = CodeMessageHandlerUtil.handlerCodeMessage(err.code);
+          this.notificationService.notifyAboutNotificationLoader(false);
+          this.notificationService.notifyAboutNotification({ message: `${this.errorMessage}`, status: NotificationStatus.error });
+          return EMPTY;
+        }),
+        takeUntil(this.loginDestroy$)
+      )
+      .subscribe();
   }
 
   ngOnDestroy(): void {
-    this.subscription1?.unsubscribe();
+    this.loginDestroy$.next();
+    this.loginDestroy$.complete();
   }
 }

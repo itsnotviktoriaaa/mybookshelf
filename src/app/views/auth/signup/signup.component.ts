@@ -1,13 +1,13 @@
-import { Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgClass, NgOptimizedImage, NgStyle } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NotificationService, PasswordNotEmailDirective, PasswordRepeatDirective } from '../../../shared';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AuthModule } from '@angular/fire/auth';
 import { AuthService } from '../../../core';
 import emailJs, { EmailJSResponseStatus } from '@emailjs/browser';
-import { of, Subject, Subscription } from 'rxjs';
+import { catchError, EMPTY, finalize, of, Subject, takeUntil, tap } from 'rxjs';
 import { NotificationStatus, UserSignInterface } from '../../../../types';
 import { Constants } from '../../../shared/constants';
 import { SvgIconComponent } from 'angular-svg-icon';
@@ -17,17 +17,10 @@ import { SvgIconComponent } from 'angular-svg-icon';
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss',
   standalone: true,
-  imports: [NgOptimizedImage, RouterLink, FormsModule, ReactiveFormsModule, NgStyle, PasswordRepeatDirective, PasswordNotEmailDirective, AngularFireAuthModule, AuthModule, NgClass, SvgIconComponent],
+  imports: [NgOptimizedImage, RouterLink, ReactiveFormsModule, NgStyle, PasswordRepeatDirective, PasswordNotEmailDirective, AngularFireAuthModule, AuthModule, NgClass, SvgIconComponent],
 })
 export class SignupComponent implements OnInit, OnDestroy {
-  registerForm: FormGroup | null = null;
-  fb: FormBuilder = inject(FormBuilder);
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    private notificationService: NotificationService
-  ) {}
-
+  registerForm!: FormGroup;
   isShowPassword: boolean = false;
   isShowConfirmPassword: boolean = false;
   errorMessage: string | null = null;
@@ -39,42 +32,64 @@ export class SignupComponent implements OnInit, OnDestroy {
   generatedCode: number | null = null;
   codeWhichWriteUser: string = '';
   codeWhichWrittenUserWasEqualFromEmail: boolean = false;
-  verification1: Subscription | null = null;
-  subscription2: Subscription | null = null;
-  subscription3: Subscription | null = null;
+
+  registerDestroy$: Subject<void> = new Subject<void>();
+  checkEmailWasUsedBeforeToSendCodeDestroy$: Subject<void> = new Subject<void>();
+  verificationDestroy$: Subject<void> = new Subject<void>();
+  emailJsDestroy$: Subject<void> = new Subject<void>();
+  timeout: number = 0;
+
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private notificationService: NotificationService
+  ) {}
 
   ngOnInit(): void {
-    this.registerForm = this.fb.group({
-      username: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.pattern(Constants.regularForPassword)]],
-      confirmPassword: ['', [Validators.required]],
+    this.registerForm = new FormGroup({
+      username: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.pattern(Constants.regularForPassword)]),
+      confirmPassword: new FormControl('', [Validators.required]),
     });
 
-    this.verification1 = this.verification$.subscribe((params: boolean): void => {
-      setTimeout(() => {
-        if (params) {
-          this.handleAllInputsForCode();
-        }
-      }, 0);
-    });
+    this.verification$
+      .pipe(
+        tap((params: boolean) => {
+          this.timeout = window.setTimeout(() => {
+            if (params) {
+              this.handleAllInputsForCode();
+            }
+          }, 0);
+        }),
+        takeUntil(this.verificationDestroy$),
+        finalize(() => {
+          clearTimeout(this.timeout);
+        })
+      )
+      .subscribe();
   }
 
   checkEmailWasUsedBeforeToSendCode(): void {
-    console.log(this.registerForm?.value.email);
-    this.subscription2 = this.authService.checkEmailWasUsed(this.registerForm?.value.email).subscribe({
-      next: (param: Array<string>): void => {
-        if (param && param.length === 0) {
-          this.sendCodeToEmail().then(() => {});
-        } else {
-          this.notificationService.notifyAboutNotification({ message: 'Your email address has been used before', status: NotificationStatus.error });
-        }
-      },
-      error: (err): void => {
-        this.notificationService.notifyAboutNotification({ message: 'Something went wrong. Please, try again', status: NotificationStatus.error });
-        console.log(err);
-      },
-    });
+    console.log(this.registerForm.value.email);
+    this.authService
+      .checkEmailWasUsed(this.registerForm.value.email)
+      .pipe(
+        tap((param: Array<string>) => {
+          if (param && param.length === 0) {
+            this.sendCodeToEmail().then(() => {});
+          } else {
+            this.notificationService.notifyAboutNotification({ message: 'Your email address has been used before', status: NotificationStatus.error });
+          }
+        }),
+        catchError(err => {
+          this.notificationService.notifyAboutNotification({ message: 'Something went wrong. Please, try again', status: NotificationStatus.error });
+          console.log(err);
+          return EMPTY;
+        }),
+        takeUntil(this.checkEmailWasUsedBeforeToSendCodeDestroy$)
+      )
+      .subscribe();
   }
 
   handleAllInputsForCode(): void {
@@ -155,9 +170,9 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.notificationService.notifyAboutNotificationLoader(true);
     if (!this.infoFromUser) {
       this.infoFromUser = {
-        email: this.registerForm?.value.email,
-        username: this.registerForm?.value.username,
-        password: this.registerForm?.value.password,
+        email: this.registerForm.value.email,
+        username: this.registerForm.value.username,
+        password: this.registerForm.value.password,
       };
     }
     const code: number = this.generateCode();
@@ -172,56 +187,65 @@ export class SignupComponent implements OnInit, OnDestroy {
       })
       .then((response: EmailJSResponseStatus) => response);
 
-    of(response).subscribe({
-      next: (response: EmailJSResponseStatus): void => {
-        this.notificationService.notifyAboutNotificationLoader(false);
-        console.log('Success. Status: ' + response.text + ' ' + response.status);
-        this.notificationService.notifyAboutNotification({ message: 'Code was sent on your email. Please, check and enter values', status: NotificationStatus.success });
+    of(response)
+      .pipe(
+        tap((response: EmailJSResponseStatus): void => {
+          this.notificationService.notifyAboutNotificationLoader(false);
+          console.log('Success. Status: ' + response.text + ' ' + response.status);
+          this.notificationService.notifyAboutNotification({ message: 'Code was sent on your email. Please, check and enter values', status: NotificationStatus.success });
 
-        if (!this.verification) {
-          this.verification = true;
-          this.verification$.next(true);
-        }
-      },
-      error: (error): void => {
-        this.notificationService.notifyAboutNotificationLoader(false);
-        this.notificationService.notifyAboutNotification({ message: 'Something went wrong. Please, try again', status: NotificationStatus.error });
-        console.log('sth went wrong. Error ' + error.text + ' ' + error.status);
-      },
-    });
+          if (!this.verification) {
+            this.verification = true;
+            this.verification$.next(true);
+          }
+        }),
+        catchError(error => {
+          this.notificationService.notifyAboutNotificationLoader(false);
+          this.notificationService.notifyAboutNotification({ message: 'Something went wrong. Please, try again', status: NotificationStatus.error });
+          console.log('sth went wrong. Error ' + error.text + ' ' + error.status);
+          return EMPTY;
+        }),
+        takeUntil(this.emailJsDestroy$)
+      )
+      .subscribe();
   }
 
   backToRegister(): void {
     this.verification = false;
-    this.registerForm?.reset();
+    this.registerForm.reset();
     this.errorMessage = null;
     this.router.navigate(['/signup']).then(() => {});
   }
 
   sign(): void {
     this.notificationService.notifyAboutNotificationLoader(true);
-    this.subscription3 = this.authService.register(this.infoFromUser!.email, this.infoFromUser!.username, this.infoFromUser!.password).subscribe({
-      next: (): void => {
-        this.notificationService.notifyAboutNotificationLoader(false);
-        this.verification = false;
-        this.codeWhichWrittenUserWasEqualFromEmail = true;
-        this.notificationService.notifyAboutNotification({ message: 'You have successfully registered', status: NotificationStatus.success });
-      },
-      error: (err): void => {
-        this.notificationService.notifyAboutNotificationLoader(false);
-        this.errorMessage = err.code;
-        //so that the red circle has time to load
-        this.verification = false;
-        this.codeWhichWrittenUserWasEqualFromEmail = true;
-        this.notificationService.notifyAboutNotification({ message: `Something went wrong:( Please, try again`, status: NotificationStatus.error });
-      },
-    });
+    this.authService
+      .register(this.infoFromUser!.email, this.infoFromUser!.username, this.infoFromUser!.password)
+      .pipe(
+        tap(() => {
+          this.notificationService.notifyAboutNotificationLoader(false);
+          this.verification = false;
+          this.codeWhichWrittenUserWasEqualFromEmail = true;
+          this.notificationService.notifyAboutNotification({ message: 'You have successfully registered', status: NotificationStatus.success });
+        }),
+        catchError(err => {
+          this.notificationService.notifyAboutNotificationLoader(false);
+          this.errorMessage = err.code;
+          //so that the red circle has time to load
+          this.verification = false;
+          this.codeWhichWrittenUserWasEqualFromEmail = true;
+          this.notificationService.notifyAboutNotification({ message: `Something went wrong:( Please, try again`, status: NotificationStatus.error });
+          return EMPTY;
+        }),
+        takeUntil(this.registerDestroy$)
+      )
+      .subscribe();
   }
 
   afterVerify(): void {
     if (this.errorMessage) {
       this.clearSettingsForRedrawing();
-      this.registerForm?.reset();
+      this.registerForm.reset();
       this.router.navigate(['/signup']).then(() => {});
     } else {
       this.router.navigate(['/login']).then(() => {});
@@ -236,8 +260,13 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.verification1?.unsubscribe();
-    this.subscription2?.unsubscribe();
-    this.subscription3?.unsubscribe();
+    this.emailJsDestroy$.next();
+    this.emailJsDestroy$.complete();
+    this.verificationDestroy$.next();
+    this.verificationDestroy$.complete();
+    this.registerDestroy$.next();
+    this.registerDestroy$.complete();
+    this.checkEmailWasUsedBeforeToSendCodeDestroy$.next();
+    this.checkEmailWasUsedBeforeToSendCodeDestroy$.complete();
   }
 }
