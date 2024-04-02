@@ -248,7 +248,7 @@ export class SignupComponent implements OnInit, OnDestroy {
       this.registerForm.reset();
       this.router.navigate(['/signup']).then(() => {});
     } else {
-      this.router.navigate(['/login']).then(() => {});
+      this.router.navigate(['/']).then(() => {});
     }
   }
 

@@ -1,0 +1,40 @@
+@import '../../../../assets/styles/variables';
+
+.home {
+  /* height: 100vh; */
+  padding: 0 0 0 44px;
+
+  .home-hello {
+    font-weight: 600;
+    font-size: 35px;
+    color: $primary-gray-color;
+    margin-bottom: 24px;
+    margin-top: 42px;
+  }
+
+  .home-recommended {
+    font-size: 25px;
+    color: $primary-gray-color;
+    margin-bottom: 24px;
+  }
+
+  .home-recommended-books {
+    display: flex;
+    column-gap: 40px;
+    justify-content: space-between;
+    overflow: scroll scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    margin-bottom: 53px;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .home-recommended-nothing {
+    font-size: 15px;
+    color: #2c2c2c;
+    margin-bottom: 40px;
+  }
+}

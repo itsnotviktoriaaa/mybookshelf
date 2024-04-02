@@ -9,6 +9,7 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
 import { provideHttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment.development';
 import { provideAngularSvgIcon } from 'angular-svg-icon';
+import { provideOAuthClient } from 'angular-oauth2-oidc';
 
 const scrollConfig: InMemoryScrollingOptions = {
   scrollPositionRestoration: 'enabled',
@@ -27,5 +28,6 @@ export const appConfig: ApplicationConfig = {
       provideStorage(() => getStorage()),
     ]),
     provideAngularSvgIcon(),
+    provideOAuthClient(),
   ],
 };

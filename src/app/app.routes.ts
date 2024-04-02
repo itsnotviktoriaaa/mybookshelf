@@ -5,8 +5,8 @@ import { LayoutComponent } from './shared';
 import { authForwardGuard } from './core/auth/auth-forward.guard';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', title: 'Login in MyBookShelf', component: LoginComponent, canActivate: [authForwardGuard] },
+  { path: '', title: 'Login in MyBookShelf', component: LoginComponent, canActivate: [authForwardGuard] },
+  // { path: 'login', title: 'Login in MyBookShelf', component: LoginComponent },
   {
     path: 'signup',
     title: 'Signup in MyBookShelf',
@@ -21,9 +21,14 @@ export const routes: Routes = [
       {
         path: '',
         title: 'MyBookShelf',
-        loadComponent: () => import('./views/home/home.component').then(m => m.HomeComponent),
+        loadComponent: () => import('./views/user/home/home.component').then(m => m.HomeComponent),
       },
+      // {
+      //   path: 'book/:url',
+      //   title: 'MyBookShelf',
+      //   loadComponent: () => import('./views/user/home/home.component').then(m => m.HomeComponent),
+      // },
     ],
   },
-  { path: '**', redirectTo: '/login' },
+  { path: '**', redirectTo: '/' },
 ];

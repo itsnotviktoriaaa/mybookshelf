@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
 import { BarComponent } from './bar/bar.component';
 import { RouterOutlet } from '@angular/router';
+import { GoogleApiService, UserInfoFromGoogle } from '../../../core/auth/google-api.service';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-layout',
@@ -25,11 +27,24 @@ import { RouterOutlet } from '@angular/router';
 
         .main-content-wrapper {
           background-color: #f3f3f7;
-          width: 100%;
+          width: 100vw;
           border-radius: 0 10px 0 0;
+          overflow-x: hidden;
         }
       }
     `,
   ],
 })
-export class LayoutComponent {}
+export class LayoutComponent {
+  constructor(private googleApi: GoogleApiService) {
+    this.googleApi.userProfileSubject
+      .pipe(
+        tap((user: UserInfoFromGoogle | null) => {
+          if (!user) {
+            this.googleApi.initiateAuthentication();
+          }
+        })
+      )
+      .subscribe();
+  }
+}

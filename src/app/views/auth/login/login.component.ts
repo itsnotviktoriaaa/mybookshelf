@@ -7,6 +7,7 @@ import { CodeMessageHandlerUtil, NotificationService } from '../../../shared';
 import { NotificationStatus } from '../../../../types';
 import { catchError, EMPTY, Subject, Subscription, takeUntil, tap } from 'rxjs';
 import { SvgIconComponent } from 'angular-svg-icon';
+import { GoogleApiService, UserInfoFromGoogle } from '../../../core/auth/google-api.service';
 
 @Component({
   selector: 'app-login',
@@ -23,17 +24,30 @@ export class LoginComponent implements OnInit, OnDestroy {
   errorMessage: string | null = null;
   subscription1: Subscription | null = null;
   loginDestroy$: Subject<void> = new Subject<void>();
+  userInfo?: UserInfoFromGoogle;
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private readonly googleApi: GoogleApiService
   ) {}
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required]),
+    });
+
+    if (localStorage.getItem('ClickedOnButtonForSignIn')) {
+      console.log('3333');
+      this.googleApi.initiateAuthentication();
+    }
+
+    this.googleApi.userProfileSubject.subscribe((info: UserInfoFromGoogle | null) => {
+      if (info) {
+        this.router.navigate(['/home']).then(() => {});
+      }
     });
   }
 
@@ -62,6 +76,15 @@ export class LoginComponent implements OnInit, OnDestroy {
       )
       .subscribe();
   }
+
+  googleLogin(): void {
+    localStorage.setItem('ClickedOnButtonForSignIn', 'yes');
+    this.googleApi.initiateAuthentication();
+  }
+
+  // logout(): void {
+  //   this.googleApi.signOut();
+  // }
 
   ngOnDestroy(): void {
     this.loginDestroy$.next();

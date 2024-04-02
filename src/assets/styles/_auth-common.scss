@@ -145,6 +145,20 @@
           }
         }
       }
+
+      .auth-google {
+        padding: 15px 20px;
+        background-color: $primary-orange-color;
+        color: white;
+        outline: none;
+        border: 0;
+        border-radius: 20px;
+        font-size: 15px;
+
+        &:hover {
+          background-color: $primary-orange-color-hover;
+        }
+      }
     }
   }
 }

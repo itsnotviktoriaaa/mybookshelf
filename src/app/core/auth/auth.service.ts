@@ -35,4 +35,11 @@ export class AuthService {
     const promise: Promise<string[]> = fetchSignInMethodsForEmail(this.firebaseAuth, email);
     return from(promise);
   }
+
+  //это было для использования одноразового входа, но оно не подходит, так как нужен тот же пользователь, а не созданный новый каждый раз
+  // signInWithDataFromGoogleOAuth(accessToken: string): void {
+  //   signInWithCredential(this.firebaseAuth, GoogleAuthProvider.credential(null, accessToken)).then(res => {
+  //     console.log(res);
+  //   });
+  // }
 }
