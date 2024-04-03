@@ -2,7 +2,14 @@
 
 .home {
   /* height: 100vh; */
-  padding: 0 0 0 44px;
+
+  .quotes {
+    width: 811px;
+    height: 146px;
+    background: linear-gradient(0deg, rgb(0 0 0 / 10%), rgb(0 0 0 / 10%)), linear-gradient(140.88deg, #eb5231 -29.15%, #571fcf 151.64%);
+    border-radius: 10px;
+    margin-bottom: 42px;
+  }
 
   .home-hello {
     font-weight: 600;
@@ -12,10 +19,23 @@
     margin-top: 42px;
   }
 
-  .home-recommended {
-    font-size: 25px;
-    color: $primary-gray-color;
+  .home-common-wrapper {
     margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .home-common {
+      font-size: 25px;
+      color: $primary-gray-color;
+    }
+
+    .home-show {
+      margin-right: 48px;
+      font-size: 20px;
+      color: #8a8a8a;
+      cursor: pointer;
+    }
   }
 
   .home-recommended-books {
@@ -30,9 +50,13 @@
     &::-webkit-scrollbar {
       display: none;
     }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
-  .home-recommended-nothing {
+  .home-common-nothing {
     font-size: 15px;
     color: #2c2c2c;
     margin-bottom: 40px;

@@ -36,8 +36,17 @@
       "rules": {
         "@angular-eslint/template/click-events-have-key-events": "off",
         "@angular-eslint/template/interactive-supports-focus": "off",
-        "prettier/prettier": ["error", { "parser": "angular" }]
+        "prettier/prettier": [
+          "error",
+          {
+            "parser": "angular"
+          }
+        ]
       }
+    },
+    {
+      "files": ["*.ts"],
+      "extends": ["plugin:@ngrx/recommended"]
     }
   ]
 }

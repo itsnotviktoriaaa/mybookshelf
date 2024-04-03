@@ -23,6 +23,11 @@ export const routes: Routes = [
         title: 'MyBookShelf',
         loadComponent: () => import('./views/user/home/home.component').then(m => m.HomeComponent),
       },
+      {
+        path: 'show',
+        title: 'MyBookShelf',
+        loadComponent: () => import('./views/user/show-all/show-all.component').then(m => m.ShowAllComponent),
+      },
       // {
       //   path: 'book/:url',
       //   title: 'MyBookShelf',

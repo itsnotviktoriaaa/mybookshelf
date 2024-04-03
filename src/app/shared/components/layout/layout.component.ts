@@ -23,11 +23,12 @@ import { tap } from 'rxjs';
           display: flex;
           align-items: flex-start;
           justify-content: space-between;
+          background-color: #f3f3f7;
+          border-radius: 10px;
         }
 
         .main-content-wrapper {
-          background-color: #f3f3f7;
-          width: 100vw;
+          flex: 1;
           border-radius: 0 10px 0 0;
           overflow-x: hidden;
         }
@@ -41,6 +42,7 @@ export class LayoutComponent {
       .pipe(
         tap((user: UserInfoFromGoogle | null) => {
           if (!user) {
+            console.log('wowowowow');
             this.googleApi.initiateAuthentication();
           }
         })

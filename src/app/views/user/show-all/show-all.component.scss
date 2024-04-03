@@ -1,0 +1,11 @@
+@import '../../../../assets/styles/pagination';
+
+.show {
+  padding-right: 45px;
+
+  .show-books {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px 20px;
+  }
+}

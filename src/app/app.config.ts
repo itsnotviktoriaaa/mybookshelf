@@ -10,6 +10,10 @@ import { provideHttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment.development';
 import { provideAngularSvgIcon } from 'angular-svg-icon';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
+import { provideStore } from '@ngrx/store';
+import { provideEffects } from '@ngrx/effects';
+import { homeNowReducer, homeReducer } from './ngrx/home/home.reducer';
+import { BookEffects } from './ngrx/home/home.effects';
 
 const scrollConfig: InMemoryScrollingOptions = {
   scrollPositionRestoration: 'enabled',
@@ -29,5 +33,7 @@ export const appConfig: ApplicationConfig = {
     ]),
     provideAngularSvgIcon(),
     provideOAuthClient(),
+    provideStore({ home: homeReducer, homeNow: homeNowReducer }),
+    provideEffects([BookEffects]),
   ],
 };
