@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.store.dispatch(loadRecommendedBooks());
+    this.store.dispatch(loadRecommendedBooks({ startIndex: 0 }));
     this.recommendedBooks$ = this.store.select(selectRecommendedBooks);
     this.store.dispatch(loadReadingNowBooks());
     this.readingNowBooks$ = this.store.select(selectReadingNowBooks);

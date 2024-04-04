@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable, of, tap } from 'rxjs';
 import { loadReadingNowBooks, loadRecommendedBooks } from '../../../ngrx/home/home.actions';
 import { selectReadingNowBooks, selectRecommendedBooks } from '../../../ngrx/home/home.selectors';
 import { Store } from '@ngrx/store';
@@ -15,7 +15,7 @@ import { AsyncPipe, NgIf } from '@angular/common';
   templateUrl: './show-all.component.html',
   styleUrl: './show-all.component.scss',
 })
-export class ShowAllComponent implements OnInit {
+export class ShowAllComponent implements OnInit, OnDestroy {
   query: string = 'recommended';
   showBooks$: Observable<arrayFromBookItemTransformedInterface | null> = of(null);
   pages: number[] = [];
@@ -35,12 +35,34 @@ export class ShowAllComponent implements OnInit {
 
   loadBooks() {
     if (this.query === 'recommended') {
-      this.store.dispatch(loadRecommendedBooks());
-      this.showBooks$ = this.store.select(selectRecommendedBooks);
+      this.store.dispatch(loadRecommendedBooks({ startIndex: 0 }));
+      this.showBooks$ = this.store.select(selectRecommendedBooks).pipe(
+        tap((showBooks: arrayFromBookItemTransformedInterface | null) => {
+          // console.log(showBooks);
+          this.pages = [];
+          if (showBooks) {
+            if (showBooks && showBooks.totalItems <= 10) {
+              this.pages.push(1);
+            } else if (showBooks && showBooks.totalItems > 10) {
+              const quantity: number = Math.ceil(showBooks.totalItems / 10);
+              for (let i = 1; i <= quantity; i++) {
+                this.pages.push(i);
+              }
+              // console.log(quantity);
+              // console.log(this.pages);
+            }
+          }
+        })
+      );
     } else if (this.query === 'reading') {
       this.store.dispatch(loadReadingNowBooks());
       this.showBooks$ = this.store.select(selectReadingNowBooks);
     }
+  }
+
+  test() {
+    this.store.dispatch(loadRecommendedBooks({ startIndex: 10 }));
+    this.showBooks$ = this.store.select(selectRecommendedBooks);
   }
 
   // definedPages() {
@@ -81,4 +103,8 @@ export class ShowAllComponent implements OnInit {
   //     });
   //   }
   // }
+
+  ngOnDestroy() {
+    console.log('destroy show');
+  }
 }

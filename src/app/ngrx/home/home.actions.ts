@@ -2,7 +2,7 @@ import { createAction, props } from '@ngrx/store';
 import { arrayFromBookItemTransformedInterface } from '../../../types/user/book.interface';
 
 //Actions for getting books recommended
-export const loadRecommendedBooks = createAction('[Book] Load Recommended Books');
+export const loadRecommendedBooks = createAction('[Book] Load Recommended Books', props<{ startIndex: number }>());
 export const loadRecommendedBooksSuccess = createAction('[Book] Load Recommended Books Success', props<{ data: arrayFromBookItemTransformedInterface }>());
 export const loadRecommendedBooksFailure = createAction('[Book] Load Recommended Books Failure', props<{ error: null }>());
 

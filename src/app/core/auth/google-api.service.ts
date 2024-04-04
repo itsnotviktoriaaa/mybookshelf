@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { BookInterface } from '../../../types/user/book.interface';
 import { oAuthConfig } from '../../../types';
@@ -72,8 +72,9 @@ export class GoogleApiService {
   //   return this.http.get<BookInterface>(`https://www.googleapis.com/books/v1/mylibrary/bookshelves/0/volumes`, { headers: this.authHeader() });
   // }
 
-  getRecommended(): Observable<BookInterface> {
-    return this.http.get<BookInterface>(`https://www.googleapis.com/books/v1/mylibrary/bookshelves/8/volumes`, { headers: this.authHeader() });
+  getRecommended(startIndex: number): Observable<BookInterface> {
+    const params = new HttpParams().set('startIndex', startIndex);
+    return this.http.get<BookInterface>(`https://www.googleapis.com/books/v1/mylibrary/bookshelves/8/volumes`, { params: params, headers: this.authHeader() });
   }
 
   // setFavoriteBook(): Observable<any> {

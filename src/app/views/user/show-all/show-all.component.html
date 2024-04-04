@@ -4,7 +4,8 @@
       <app-book [book]="showBook"></app-book>
     }
   </div>
-  <div *ngIf="!(showBooks$ | async)?.items" class="show-nothing">You don't have books</div>
+  <div *ngIf="(showBooks$ | async) === null" class="show-nothing">You don't have books</div>
+  <button (click)="test()" class="show-nothing">test</button>
   <!--  <div *ngIf="(showBooks$ | async)?.items">-->
 
   <!--    <div class="pagination" *ngIf="pages.length > 1">-->
