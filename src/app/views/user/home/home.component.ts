@@ -1,6 +1,6 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { BookComponent } from '../../../shared';
-import { GoogleApiService } from '../../../core/auth/google-api.service';
+import { GoogleApiService } from '../../../core';
 import { Observable, of } from 'rxjs';
 import { arrayFromBookItemTransformedInterface } from '../../../../types/user/book.interface';
 import { selectReadingNowBooks, selectRecommendedBooks } from '../../../ngrx/home/home.selectors';
@@ -15,6 +15,7 @@ import { RouterLink } from '@angular/router';
   imports: [BookComponent, AsyncPipe, NgIf, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent implements OnInit {
   recommendedBooks$: Observable<arrayFromBookItemTransformedInterface | null> = of(null);

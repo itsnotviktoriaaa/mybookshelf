@@ -10,7 +10,7 @@
       <app-book [book]="book"></app-book>
     }
   </div>
-  <h3 *ngIf="!recommendedBooks$" class="home-common-nothing">You dont have book</h3>
+  <h3 *ngIf="(recommendedBooks$ | async) === null" class="home-common-nothing">You dont have book</h3>
   <div class="home-common-wrapper">
     <h3 class="home-common">Recent Readings</h3>
     <span [routerLink]="'/home/show'" [queryParams]="{ show: 'reading' }" class="home-show">Show All</span>
@@ -20,5 +20,5 @@
       <app-book [book]="book"></app-book>
     }
   </div>
-  <h3 *ngIf="!readingNowBooks$" class="home-common-nothing">You dont have book</h3>
+  <h3 *ngIf="(readingNowBooks$ | async) === null" class="home-common-nothing">You dont have book</h3>
 </section>

@@ -17,3 +17,12 @@ export type NotificationType = {
   message: string;
   status: NotificationStatus.error | NotificationStatus.success | NotificationStatus.info;
 };
+
+export interface UserInfoFromGoogle {
+  info: {
+    sub: string;
+    email: string;
+    name: string;
+    picture: string;
+  };
+}

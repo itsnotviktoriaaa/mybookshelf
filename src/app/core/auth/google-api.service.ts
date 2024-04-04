@@ -5,21 +5,13 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { BookInterface } from '../../../types/user/book.interface';
 import { oAuthConfig } from '../../../types';
-
-export interface UserInfoFromGoogle {
-  info: {
-    sub: string;
-    email: string;
-    name: string;
-    picture: string;
-  };
-}
+import { UserInfoFromGoogle } from '../../../types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GoogleApiService {
-  books: string = 'https://www.googleapis.com/books/v1';
+
   userProfileSubject = new BehaviorSubject<UserInfoFromGoogle | null>(null);
   constructor(
     private readonly oAuthService: OAuthService,

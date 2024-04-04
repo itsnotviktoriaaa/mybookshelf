@@ -7,7 +7,8 @@ import { CodeMessageHandlerUtil, NotificationService } from '../../../shared';
 import { NotificationStatus } from '../../../../types';
 import { catchError, EMPTY, Subject, Subscription, takeUntil, tap } from 'rxjs';
 import { SvgIconComponent } from 'angular-svg-icon';
-import { GoogleApiService, UserInfoFromGoogle } from '../../../core/auth/google-api.service';
+import { UserInfoFromGoogle } from '../../../../types';
+import { GoogleApiService } from '../../../core';
 
 @Component({
   selector: 'app-login',

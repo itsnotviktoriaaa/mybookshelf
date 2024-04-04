@@ -5,7 +5,8 @@ import { AuthService } from '../../../../core';
 import { catchError, EMPTY, Subject, takeUntil, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { NotificationService } from '../../../services/notification.service';
-import { GoogleApiService, UserInfoFromGoogle } from '../../../../core/auth/google-api.service';
+import { UserInfoFromGoogle } from '../../../../../types';
+import { GoogleApiService } from '../../../../core';
 
 @Component({
   selector: 'app-header',
