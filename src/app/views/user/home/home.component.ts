@@ -1,18 +1,17 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { BookComponent } from '../../../shared';
-import { GoogleApiService } from '../../../core';
 import { Observable, of } from 'rxjs';
 import { arrayFromBookItemTransformedInterface } from '../../../../types/user/book.interface';
 import { selectReadingNowBooks, selectRecommendedBooks } from '../../../ngrx/home/home.selectors';
 import { Store } from '@ngrx/store';
 import { loadReadingNowBooks, loadRecommendedBooks } from '../../../ngrx/home/home.actions';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [BookComponent, AsyncPipe, NgIf, RouterLink],
+  imports: [BookComponent, AsyncPipe, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -20,19 +19,16 @@ import { RouterLink } from '@angular/router';
 export class HomeComponent implements OnInit {
   recommendedBooks$: Observable<arrayFromBookItemTransformedInterface | null> = of(null);
   readingNowBooks$: Observable<arrayFromBookItemTransformedInterface | null> = of(null);
-  constructor(
-    private googleApi: GoogleApiService,
-    private cdr: ChangeDetectorRef,
-    private store: Store
-  ) {}
+  constructor(private store: Store) {}
 
   ngOnInit() {
     this.store.dispatch(loadRecommendedBooks({ startIndex: 0 }));
     this.recommendedBooks$ = this.store.select(selectRecommendedBooks);
-    this.store.dispatch(loadReadingNowBooks());
+    this.store.dispatch(loadReadingNowBooks({ startIndex: 0 }));
     this.readingNowBooks$ = this.store.select(selectReadingNowBooks);
   }
 
+  // для других компонентов
   // getBooks() {
   //   this.googleApi.getBooks().subscribe(data => {
   //     console.log(data);

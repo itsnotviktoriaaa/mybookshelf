@@ -1,6 +1,6 @@
 <div (click)="navigate()" class="book-back">
   <div class="book-image" style="background-image: url({{ book.thumbnail }})">&nbsp;</div>
-  <span class="book-name">{{ book.title }}</span>
-  <span class="book-author">{{ book.author[0] }}, {{ book.publishedDate }}</span>
+  <span class="book-name">{{ book.title | reduceLetter: 'book-name' }}</span>
+  <span class="book-author">{{ book.author[0] | reduceLetter: 'book-author' }} {{ book.publishedDate | transformDateBook }}</span>
   <span class="book-review">{{ book.pageCount }}</span>
 </div>

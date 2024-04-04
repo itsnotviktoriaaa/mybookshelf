@@ -5,12 +5,13 @@ import { catchError, filter, map, of, switchMap, tap } from 'rxjs';
 import { GoogleApiService } from '../../core';
 import { arrayFromBookItemTransformedInterface, BookInterface, BookItemInterface, BookItemTransformedInterface } from '../../../types/user/book.interface';
 import { TypedAction } from '@ngrx/store/src/models';
-import { selectRecommendedBooks } from './home.selectors';
+import { selectReadingNowBooks, selectRecommendedBooks } from './home.selectors';
 import { Store } from '@ngrx/store';
 
 @Injectable()
 export class BookEffects {
   private _previousStartIndexForRecommendedBook: number = 0;
+  private _previousStartIndexForReadingBook: number = 0;
   constructor(
     private actions$: Actions,
     private googleApi: GoogleApiService,
@@ -57,8 +58,12 @@ export class BookEffects {
   loadReadingNowBooks$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(loadReadingNowBooks),
-      switchMap(() =>
-        this.googleApi.getReadingNow().pipe(
+      concatLatestFrom(() => this.store.select(selectReadingNowBooks)),
+      filter(([action, readingNowBooks]) => {
+        return !readingNowBooks || action.startIndex !== this._previousStartIndexForReadingBook;
+      }),
+      switchMap(([action]) =>
+        this.googleApi.getReadingNow(action.startIndex).pipe(
           map((data: BookInterface): { data: arrayFromBookItemTransformedInterface } & TypedAction<'[Book] Load Reading Now Books Success'> => {
             const transformedItems: BookItemTransformedInterface[] = data.items.map((item: BookItemInterface): BookItemTransformedInterface => {
               return {

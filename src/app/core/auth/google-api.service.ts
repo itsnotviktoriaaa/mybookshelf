@@ -11,7 +11,6 @@ import { UserInfoFromGoogle } from '../../../types';
   providedIn: 'root',
 })
 export class GoogleApiService {
-
   userProfileSubject = new BehaviorSubject<UserInfoFromGoogle | null>(null);
   constructor(
     private readonly oAuthService: OAuthService,
@@ -31,7 +30,6 @@ export class GoogleApiService {
           this.oAuthService.loadUserProfile().then(userProfile => {
             console.log(JSON.stringify(userProfile));
             console.log(this.oAuthService.getAccessToken());
-            console.log(JSON.stringify(userProfile));
             this.userProfileSubject.next(userProfile as UserInfoFromGoogle);
             this.authService
               .checkEmailWasUsed((userProfile as UserInfoFromGoogle).info.email)
@@ -56,8 +54,9 @@ export class GoogleApiService {
   //   return this.http.get<BookInterface>(`https://www.googleapis.com/books/v1/mylibrary/bookshelves`, { headers: this.authHeader() });
   // }
 
-  getReadingNow(): Observable<BookInterface> {
-    return this.http.get<BookInterface>(`https://www.googleapis.com/books/v1/mylibrary/bookshelves/3/volumes`, { headers: this.authHeader() });
+  getReadingNow(startIndex: number): Observable<BookInterface> {
+    const params = new HttpParams().set('maxResults', 40).set('startIndex', startIndex);
+    return this.http.get<BookInterface>(`https://www.googleapis.com/books/v1/mylibrary/bookshelves/3/volumes`, { params: params, headers: this.authHeader() });
   }
 
   // getFavorites(): Observable<BookInterface> {
@@ -65,7 +64,7 @@ export class GoogleApiService {
   // }
 
   getRecommended(startIndex: number): Observable<BookInterface> {
-    const params = new HttpParams().set('startIndex', startIndex);
+    const params = new HttpParams().set('maxResults', 40).set('startIndex', startIndex);
     return this.http.get<BookInterface>(`https://www.googleapis.com/books/v1/mylibrary/bookshelves/8/volumes`, { params: params, headers: this.authHeader() });
   }
 
