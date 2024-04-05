@@ -34,7 +34,7 @@ export const routes: Routes = [
         loadComponent: () => import('./views/user/favorites/favorites.component').then(m => m.FavoritesComponent),
       },
       {
-        path: 'book/:url',
+        path: 'book/:id',
         title: 'MyBookShelf',
         loadComponent: () => import('./views/user/detail-book/detail-book.component').then(m => m.DetailBookComponent),
       },

@@ -3,7 +3,7 @@ import { OAuthService } from 'angular-oauth2-oidc';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { AuthService } from './auth.service';
-import { BookInterface } from '../../../types/user/book.interface';
+import { AuthorInfoDetail, BookInterface, DetailBookInterface } from '../../../types/user/book.interface';
 import { oAuthConfig } from './auth.config';
 import { UserInfoFromGoogle } from '../../../types';
 
@@ -12,6 +12,7 @@ import { UserInfoFromGoogle } from '../../../types';
 })
 export class GoogleApiService {
   userProfileSubject = new BehaviorSubject<UserInfoFromGoogle | null>(null);
+  keyAPI: string = 'AIzaSyCfn6L3dAt-T-50j8JHz_wkuvwX0QmsSEU';
   constructor(
     private readonly oAuthService: OAuthService,
     private http: HttpClient,
@@ -66,6 +67,13 @@ export class GoogleApiService {
   getRecommended(startIndex: number): Observable<BookInterface> {
     const params = new HttpParams().set('maxResults', 40).set('startIndex', startIndex);
     return this.http.get<BookInterface>(`https://www.googleapis.com/books/v1/mylibrary/bookshelves/8/volumes`, { params: params, headers: this.authHeader() });
+  }
+
+  getDetailBook(idOfBook: string): Observable<DetailBookInterface> {
+    return this.http.get<DetailBookInterface>(`https://www.googleapis.com/books/v1/volumes/${idOfBook}`, { headers: this.authHeader() });
+  }
+  getAuthorDetail(author: string): Observable<AuthorInfoDetail> {
+    return this.http.get<AuthorInfoDetail>(`https://www.googleapis.com/books/v1/volumes?q=inauthor:${author}&maxResults=2&key=${this.keyAPI}`);
   }
 
   // setFavoriteBook(): Observable<any> {

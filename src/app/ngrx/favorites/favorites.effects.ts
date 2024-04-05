@@ -17,7 +17,7 @@ export class FavoritesEffects {
       ofType(loadFavoritesBooks),
       switchMap(() => {
         return this.googleApi.getFavorites().pipe(
-          map((data: BookInterface): { data: arrayFromBookItemTransformedInterface | null } => {
+          map((data: BookInterface): { data: arrayFromBookItemTransformedInterface } => {
             const transformedItems: BookItemTransformedInterface[] = data.items.map((item: BookItemInterface) => {
               return {
                 id: item.id,

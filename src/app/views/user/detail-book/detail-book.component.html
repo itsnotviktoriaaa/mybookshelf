@@ -1,1 +1,99 @@
-<section class="detail common-padding"></section>
+@if (detailBook$ | async; as detailBook) {
+  <section class="detail common-padding">
+    <div class="back-to-result">
+      <svg-icon src="assets/images/icons/arrow-small-left.svg"></svg-icon>
+      <span>Back to results</span>
+    </div>
+    <div class="detail-items">
+      <div class="detail-item-common">
+        <div class="detail-left">
+          <div class="detail-left-image">
+            <img src="{{ detailBook.thumbnail }}" alt="{{ detailBook.title }}" />
+          </div>
+          <div class="detail-left-actions">
+            <div class="detail-left-action">
+              <svg-icon src="assets/images/icons/review-icon.svg"></svg-icon>
+              <span class="detail-action-title">Review</span>
+            </div>
+            <div class="detail-left-action">
+              <svg-icon src="assets/images/icons/notes-icon.svg"></svg-icon>
+              <span class="detail-action-title">Notes</span>
+            </div>
+            <div class="detail-left-action">
+              <svg-icon src="assets/images/icons/share-icon.svg"></svg-icon>
+              <span class="detail-action-title">Share</span>
+            </div>
+          </div>
+        </div>
+        <div class="detail-center">
+          <div class="detail-center-info">
+            <h1 class="detail-center-info-title">{{ detailBook.title }}</h1>
+            <h2 class="detail-center-info-author">
+              By <a class="detail-center-info-author-decoration">{{ detailBook.authors[0] }}</a
+              >, {{ detailBook.publishedDate | transformDateBook }}
+            </h2>
+            <h3 class="detail-center-info-edition">{{ detailBook.publisher }}</h3>
+          </div>
+          <div class="detail-central-reviews">
+            @if (detailBook.averageRating) {
+              <div class="rating-mini">
+                <span [ngClass]="{ active: rating ? rating >= 1 : false }"></span>
+                <span [ngClass]="{ active: rating ? rating >= 2 : false }"></span>
+                <span [ngClass]="{ active: rating ? rating >= 3 : false }"></span>
+                <span [ngClass]="{ active: rating ? rating >= 4 : false }"></span>
+                <span [ngClass]="{ active: rating ? rating === 5 : false }"></span>
+              </div>
+              <span>{{ detailBook.averageRating }}.0 Ratings</span>
+            }
+          </div>
+          <div class="detail-central-availability">
+            <h3 class="detail-central-availability-title">Availability</h3>
+            @if (detailBook.accessInfo.epub) {
+              <div class="detail-central-availability-item">
+                <svg-icon class="detail-central-availability-item-icon" src="assets/images/icons/done-green.svg"></svg-icon>
+                <span class="detail-central-availability-item-description">EPUB</span>
+              </div>
+            }
+            @if (detailBook.accessInfo.pdf) {
+              <div class="detail-central-availability-item">
+                <svg-icon class="detail-central-availability-item-icon" src="assets/images/icons/done-green.svg"></svg-icon>
+                <span class="detail-central-availability-item-description">PDF</span>
+              </div>
+            }
+          </div>
+          <div class="detail-central-buttons">
+            <button class="detail-btn detail-btn-orange">READ</button>
+            <button class="detail-btn detail-btn-green">
+              <span class="detail-btn-green-text">LISTEN</span>
+              <div class="detail-btn-green-headphones-wrapper">
+                <svg-icon class="detail-btn-green-headphones" src="assets/images/icons/headphones.svg"></svg-icon>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="detail-right detail-item">
+        <h3 class="detail-right-title"><span class="detail-right-title-orange">About</span> Story</h3>
+        <div class="detail-right-author-wrapper">
+          <h4 class="detail-right-author-name">{{ detailBook.authors[0] }}</h4>
+          <div class="detail-right-author-image">
+            <img src="assets/images/author.png" alt="{{ detailBook.authors[0] }}" />
+          </div>
+        </div>
+        <div class="detail-right-about" [innerHTML]="detailBook.description | reduceLetter: 'author'"></div>
+        @if (author$ | async; as author) {
+          <div class="detail-right-other">
+            <div class="detail-right-other-text">Other Books</div>
+            <div class="detail-right-other-images">
+              @for (authorItem of author.items; track $index) {
+                <div class="detail-right-other-image">
+                  <img src="{{ authorItem.thumbnail }}" alt="{{ authorItem.title }}" />
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+}

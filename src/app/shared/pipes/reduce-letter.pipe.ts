@@ -14,6 +14,8 @@ export class ReduceLetterPipe implements PipeTransform {
       this.quantityPossibleLetter = 15;
     } else if (className === 'book-author') {
       this.quantityPossibleLetter = 17;
+    } else if (className === 'author') {
+      this.quantityPossibleLetter = 280;
     }
 
     if (value.length > this.quantityPossibleLetter) {
