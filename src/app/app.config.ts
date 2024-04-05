@@ -14,6 +14,8 @@ import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { homeNowReducer, homeReducer } from './ngrx/home/home.reducer';
 import { BookEffects } from './ngrx/home/home.effects';
+import { favoritesReducer } from './ngrx/favorites/favorites.reducer';
+import { FavoritesEffects } from './ngrx/favorites/favorites.effects';
 
 const scrollConfig: InMemoryScrollingOptions = {
   scrollPositionRestoration: 'enabled',
@@ -33,7 +35,7 @@ export const appConfig: ApplicationConfig = {
     ]),
     provideAngularSvgIcon(),
     provideOAuthClient(),
-    provideStore({ home: homeReducer, homeNow: homeNowReducer }),
-    provideEffects([BookEffects]),
+    provideStore({ home: homeReducer, homeNow: homeNowReducer, favorites: favoritesReducer }),
+    provideEffects([BookEffects, FavoritesEffects]),
   ],
 };

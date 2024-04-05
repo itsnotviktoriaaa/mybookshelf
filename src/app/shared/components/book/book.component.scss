@@ -1,38 +1,88 @@
 @import '../../../../assets/styles/variables';
 
 .book-back {
-  cursor: pointer;
   padding: 15px;
   background: #fff;
   border-radius: 10px;
-  max-width: 160px;
   box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
   color: $primary-gray-color;
   height: 260px;
+  display: flex;
+  column-gap: 30px;
+  transition: all 0.2s;
 
-  .book-image {
-    width: 130px;
-    height: 170px;
-    margin-bottom: 11px;
-  }
+  .book-left {
+    display: flex;
+    flex-direction: column;
 
-  .book-name {
-    font-size: 12px;
-    margin-bottom: 5px;
-  }
-
-  .book-author {
-    margin-bottom: 5px;
-    font-size: 10px;
-  }
-
-  .book-review {
-    font-size: 10px;
-
-    .book-review-all {
-      color: #a7a7a7;
+    .book-image {
+      width: 130px;
+      height: 170px;
+      margin-bottom: 11px;
     }
+
+    .book-name {
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
+
+    .book-author {
+      margin-bottom: 5px;
+      font-size: 10px;
+    }
+
+    .book-review {
+      font-size: 10px;
+
+      .book-review-all {
+        color: #a7a7a7;
+      }
+    }
+  }
+
+  .book-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .book-right-top {
+      display: flex;
+      flex-direction: column;
+      row-gap: 10px;
+      margin-top: 6px;
+
+      .book-right-top-wrapper {
+        display: flex;
+        flex-direction: column;
+        row-gap: 10px;
+
+        .book-right-top-title {
+          font-size: 15px;
+          color: $primary-gray-color;
+        }
+
+        .book-right-top-description {
+          font-size: 10px;
+          color: #747373;
+        }
+      }
+    }
+
+    .book-right-bottom {
+      display: flex;
+      flex-direction: column;
+      row-gap: 15px;
+
+      .btn-orange,
+      .btn-green {
+        width: 125px;
+        height: 40px;
+      }
+    }
+  }
+
+  &:hover {
+    transform: scale(1.01);
+    box-shadow: 0 5px 9px rgb(0 0 0 / 25%);
   }
 }

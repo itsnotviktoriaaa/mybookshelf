@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { BookInterface } from '../../../types/user/book.interface';
-import { oAuthConfig } from '../../../types';
+import { oAuthConfig } from './auth.config';
 import { UserInfoFromGoogle } from '../../../types';
 
 @Injectable({
@@ -59,9 +59,9 @@ export class GoogleApiService {
     return this.http.get<BookInterface>(`https://www.googleapis.com/books/v1/mylibrary/bookshelves/3/volumes`, { params: params, headers: this.authHeader() });
   }
 
-  // getFavorites(): Observable<BookInterface> {
-  //   return this.http.get<BookInterface>(`https://www.googleapis.com/books/v1/mylibrary/bookshelves/0/volumes`, { headers: this.authHeader() });
-  // }
+  getFavorites(): Observable<BookInterface> {
+    return this.http.get<BookInterface>(`https://www.googleapis.com/books/v1/mylibrary/bookshelves/0/volumes`, { headers: this.authHeader() });
+  }
 
   getRecommended(startIndex: number): Observable<BookInterface> {
     const params = new HttpParams().set('maxResults', 40).set('startIndex', startIndex);

@@ -15,7 +15,7 @@
     </div>
   }
   @if ((recommendedBooks$ | async) === null) {
-    <h3 class="home-common-nothing">You dont have book</h3>
+    <h3 class="common-nothing">You don't have recommended book. You should do more active in Google Book and then we sth recommend you on based your preferences:)</h3>
   }
   <div class="home-common-wrapper">
     <h3 class="home-common">Recent Readings</h3>
@@ -31,6 +31,6 @@
     </div>
   }
   @if ((readingNowBooks$ | async) === null) {
-    <h3 class="home-common-nothing">You dont have book</h3>
+    <h3 class="common-nothing">You don't have reading now books</h3>
   }
 </section>

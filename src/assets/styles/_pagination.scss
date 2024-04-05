@@ -1,7 +1,8 @@
 @import 'variables';
 
 .pagination {
-  margin-top: 79px;
+  margin-top: 75px;
+  margin-bottom: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,7 +38,7 @@
       color: $primary-gray-color;
 
       &.active {
-        background: #b6d5b9;
+        background: $primary-orange-color;
         border-radius: 50%;
       }
 

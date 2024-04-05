@@ -10,3 +10,8 @@
   align-items: center;
   justify-content: space-between;
 }
+
+@mixin text-primary-gray-600 {
+  font-weight: 600;
+  color: $primary-gray-color;
+}

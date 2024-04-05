@@ -12,6 +12,7 @@ export interface BookItemInterface {
   layerInfo: BookItemLayerInfoInterface;
   saleInfo: BookItemSaleInfoInterface;
   selfLink: string;
+  userInfo?: { updated: string };
   volumeInfo: BookItemVolumeInfoInterface;
 }
 
@@ -19,8 +20,8 @@ export interface BookItemAccessInfoInterface {
   accessViewStatus: string;
   country: string;
   embeddable: boolean;
-  epub: { isAvailable: boolean; acsTokenLink: string };
-  pdf: { isAvailable: boolean; acsTokenLink: string };
+  epub: { isAvailable: boolean; acsTokenLink?: string };
+  pdf: { isAvailable: boolean; acsTokenLink?: string };
   publicDomain: boolean;
   quoteSharingAllowed: boolean;
   textToSpeechPermission: string;
@@ -36,18 +37,19 @@ export interface BookItemLayerInfoInterface {
 }
 
 export interface BookItemSaleInfoInterface {
-  buyLink: string;
+  buyLink?: string;
   country: string;
   isEbook: boolean;
-  listPrice: { amount: number; currencyCode: string };
-  offers: Array<{ finskyOfferType: number; listPrice: { amountInMicros: number; currencyCode: string }; retailPrice: { amountInMicros: number; currencyCode: string } }>;
-  retailPrice: { amount: number; currencyCode: string };
+  listPrice?: { amount: number; currencyCode: string };
+  offers?: Array<{ finskyOfferType: number; listPrice: { amountInMicros: number; currencyCode: string }; retailPrice: { amountInMicros: number; currencyCode: string } }>;
+  retailPrice?: { amount: number; currencyCode: string };
   saleability: string;
 }
 
 export interface BookItemVolumeInfoInterface {
   allowAnonLogging: boolean;
   authors: Array<string>;
+  averageRating?: number;
   canonicalVolumeLink: string;
   categories: Array<string>;
   contentVersion: string;
@@ -62,22 +64,23 @@ export interface BookItemVolumeInfoInterface {
   printType: string;
   publishedDate: string;
   publisher: string;
+  ratingsCount?: number;
   readingModes: { text: boolean; image: boolean };
   title: string;
 }
 
 export interface BookItemTransformedInterface {
-  selfLink: string;
+  id: string;
   thumbnail: string;
   title: string;
   author: Array<string>;
   publishedDate: string;
-  fullPrice: string;
-  categories: Array<string>;
   webReaderLink: string;
   pageCount: number;
-  contentVersion: string;
-  publisher: string;
+  selfLink?: string;
+  categories?: Array<string>;
+  userInfo?: string;
+  averageRating?: number;
 }
 
 export interface arrayFromBookItemTransformedInterface {

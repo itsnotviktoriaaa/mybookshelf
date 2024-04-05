@@ -28,11 +28,16 @@ export const routes: Routes = [
         title: 'MyBookShelf',
         loadComponent: () => import('./views/user/show-all/show-all.component').then(m => m.ShowAllComponent),
       },
-      // {
-      //   path: 'book/:url',
-      //   title: 'MyBookShelf',
-      //   loadComponent: () => import('./views/user/home/home.component').then(m => m.HomeComponent),
-      // },
+      {
+        path: 'favorites',
+        title: 'MyBookShelf',
+        loadComponent: () => import('./views/user/favorites/favorites.component').then(m => m.FavoritesComponent),
+      },
+      {
+        path: 'book/:url',
+        title: 'MyBookShelf',
+        loadComponent: () => import('./views/user/detail-book/detail-book.component').then(m => m.DetailBookComponent),
+      },
     ],
   },
   { path: '**', redirectTo: '/' },

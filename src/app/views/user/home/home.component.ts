@@ -35,11 +35,6 @@ export class HomeComponent implements OnInit {
   //   });
   // }
   //
-  // getFavorites() {
-  //   this.googleApi.getFavorites().subscribe(data => {
-  //     console.log(data);
-  //   });
-  // }
 
   // setFavoriteBook() {
   //   this.googleApi.setFavoriteBook().subscribe(data => {

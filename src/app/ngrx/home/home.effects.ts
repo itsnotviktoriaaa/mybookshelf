@@ -33,17 +33,13 @@ export class BookEffects {
           map((data: BookInterface): { data: arrayFromBookItemTransformedInterface } & TypedAction<'[Book] Load Recommended Books Success'> => {
             const transformedItems: BookItemTransformedInterface[] = data.items.map((item: BookItemInterface): BookItemTransformedInterface => {
               return {
-                selfLink: item.selfLink,
+                id: item.id,
                 thumbnail: item.volumeInfo.imageLinks.thumbnail,
                 title: item.volumeInfo.title,
                 author: item.volumeInfo.authors,
                 publishedDate: item.volumeInfo.publishedDate,
-                fullPrice: item.saleInfo.listPrice?.amount + ' ' + item.saleInfo.listPrice?.currencyCode,
-                categories: item.volumeInfo.categories,
                 webReaderLink: item.accessInfo.webReaderLink,
                 pageCount: item.volumeInfo.pageCount,
-                contentVersion: item.volumeInfo.contentVersion,
-                publisher: item.volumeInfo.publisher,
               };
             });
 
@@ -67,17 +63,13 @@ export class BookEffects {
           map((data: BookInterface): { data: arrayFromBookItemTransformedInterface } & TypedAction<'[Book] Load Reading Now Books Success'> => {
             const transformedItems: BookItemTransformedInterface[] = data.items.map((item: BookItemInterface): BookItemTransformedInterface => {
               return {
-                selfLink: item.selfLink,
+                id: item.id,
                 thumbnail: item.volumeInfo.imageLinks.thumbnail,
                 title: item.volumeInfo.title,
                 author: item.volumeInfo.authors,
                 publishedDate: item.volumeInfo.publishedDate,
-                fullPrice: item.saleInfo.listPrice?.amount + ' ' + item.saleInfo.listPrice?.currencyCode,
-                categories: item.volumeInfo.categories,
                 webReaderLink: item.accessInfo.webReaderLink,
                 pageCount: item.volumeInfo.pageCount,
-                contentVersion: item.volumeInfo.contentVersion,
-                publisher: item.volumeInfo.publisher,
               };
             });
 

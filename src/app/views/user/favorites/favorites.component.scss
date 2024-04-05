@@ -1,0 +1,19 @@
+@import '../../../../assets/styles/variables';
+
+.favorites {
+  .favorites-title {
+    color: $primary-gray-color;
+    font-weight: 700;
+    font-size: 25px;
+    margin-top: 42px;
+    margin-bottom: 50px;
+  }
+
+  .favorites-books {
+    display: flex;
+    gap: 28px 66px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 20px 0;
+  }
+}

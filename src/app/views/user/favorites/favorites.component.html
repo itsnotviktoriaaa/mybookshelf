@@ -1,0 +1,13 @@
+<section class="favorites common-padding">
+  <h2 class="favorites-title">Your Favourite</h2>
+  @if (favoritesBooks$ | async; as favoritesBooks) {
+    <div class="favorites-books">
+      @for (favoriteBook of favoritesBooks.items; track $index) {
+        <app-book [bigInfo]="true" [book]="favoriteBook"></app-book>
+      }
+    </div>
+  }
+  @if ((favoritesBooks$ | async) === null) {
+    <h3 class="common-nothing">You don't have books on favorite page</h3>
+  }
+</section>
