@@ -62,7 +62,7 @@
             }
           </div>
           <div class="detail-central-buttons">
-            <button class="detail-btn detail-btn-orange">READ</button>
+            <button (click)="openPageOnGoogle(detailBook.webReaderLink)" class="detail-btn detail-btn-orange">READ</button>
             <button class="detail-btn detail-btn-green">
               <span class="detail-btn-green-text">LISTEN</span>
               <div class="detail-btn-green-headphones-wrapper">
@@ -86,7 +86,7 @@
             <div class="detail-right-other-text">Other Books</div>
             <div class="detail-right-other-images">
               @for (authorItem of author.items; track $index) {
-                <div class="detail-right-other-image">
+                <div [routerLink]="['/home/book', authorItem.id]" class="detail-right-other-image">
                   <img src="{{ authorItem.thumbnail }}" alt="{{ authorItem.title }}" />
                 </div>
               }

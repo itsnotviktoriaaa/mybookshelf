@@ -28,6 +28,7 @@ export class DetailBookEffects {
               accessInfo: { epub: data.accessInfo.epub.isAvailable, pdf: data.accessInfo.pdf.isAvailable },
               thumbnail: data.volumeInfo.imageLinks.thumbnail,
               description: data.volumeInfo.description,
+              webReaderLink: data.accessInfo.webReaderLink,
             };
 
             return loadDetailBookSuccess({ data: transformedData });

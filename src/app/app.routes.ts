@@ -38,6 +38,11 @@ export const routes: Routes = [
         title: 'MyBookShelf',
         loadComponent: () => import('./views/user/detail-book/detail-book.component').then(m => m.DetailBookComponent),
       },
+      {
+        path: 'upload',
+        title: 'MyBookShelf',
+        loadComponent: () => import('./views/user/upload/upload.component').then(m => m.UploadComponent),
+      },
     ],
   },
   { path: '**', redirectTo: '/' },

@@ -1,4 +1,5 @@
 @import '../../../../assets/styles/variables';
+@import '../../../../assets/styles/mixins';
 
 .book-back {
   padding: 15px;
@@ -82,7 +83,6 @@
   }
 
   &:hover {
-    transform: scale(1.01);
-    box-shadow: 0 5px 9px rgb(0 0 0 / 25%);
+    @include book-hover;
   }
 }

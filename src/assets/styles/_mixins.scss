@@ -15,3 +15,8 @@
   font-weight: 600;
   color: $primary-gray-color;
 }
+
+@mixin book-hover {
+  transform: scale(1.01);
+  box-shadow: 0 5px 9px rgb(0 0 0 / 25%);
+}

@@ -176,6 +176,7 @@ export interface DetailBookSmallInfo {
   accessInfo: { epub: boolean; pdf: boolean };
   thumbnail: string;
   description: string;
+  webReaderLink: string;
 }
 
 export interface AuthorInfoDetail {

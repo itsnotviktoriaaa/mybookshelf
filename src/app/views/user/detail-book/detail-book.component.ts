@@ -6,7 +6,7 @@ import { loadDetailBook } from '../../../ngrx/detail-book/detail-book.actions';
 import { selectDetailBook } from '../../../ngrx/detail-book/detail-book.selector';
 import { Observable, of, tap } from 'rxjs';
 import { AuthorSmallInterface, DetailBookSmallInfo } from '../../../../types/user/book.interface';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import { TransformDateBookPipe } from '../../../shared/pipes/transform-date-book.pipe';
 import { loadAuthor } from '../../../ngrx/author/author.actions';
 import { selectAuthor } from '../../../ngrx/author/author.selector';
@@ -15,7 +15,7 @@ import { ReduceLetterPipe } from '../../../shared/pipes/reduce-letter.pipe';
 @Component({
   selector: 'app-detail-book',
   standalone: true,
-  imports: [SvgIconComponent, NgClass, AsyncPipe, TransformDateBookPipe, ReduceLetterPipe],
+  imports: [SvgIconComponent, NgClass, AsyncPipe, TransformDateBookPipe, ReduceLetterPipe, RouterLink],
   templateUrl: './detail-book.component.html',
   styleUrl: './detail-book.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -27,7 +27,8 @@ export class DetailBookComponent implements OnInit {
 
   constructor(
     private store: Store,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -47,5 +48,9 @@ export class DetailBookComponent implements OnInit {
         })
       );
     });
+  }
+
+  openPageOnGoogle(url: string): void {
+    window.open(url, '_blank');
   }
 }
