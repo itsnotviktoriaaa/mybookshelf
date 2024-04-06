@@ -1,10 +1,10 @@
-@import "../.././../../assets/styles/variables";
+@import '../.././../../assets/styles/variables';
 
 .upload {
-  padding: 45px 90px 28px 90px;
+  padding: 45px 90px 28px;
   max-width: 732px;
   margin: 0 auto;
-  background: #FFFFFF;
+  background: #fff;
   box-sizing: border-box;
   border-radius: 10px;
   margin-bottom: 27px;
@@ -13,7 +13,7 @@
     font-weight: 600;
     font-size: 20px;
     text-align: center;
-    color: #000000;
+    color: #000;
     margin-bottom: 45px;
   }
 
@@ -29,7 +29,7 @@
       .upload-label {
         font-weight: 500;
         font-size: 16px;
-        color: #000000;
+        color: #000;
         margin-bottom: 24px;
       }
 
@@ -39,19 +39,19 @@
         max-width: 542px;
         padding: 20px 30px;
         height: 60px;
-        background: #FFFFFF;
-        border: 1px solid #D6D6D6;
+        background: #fff;
+        border: 1px solid #d6d6d6;
         border-radius: 10px;
         outline: none;
         font-size: 16px;
         color: $primary-gray-color;
-        font-family: 'Inter', sans-serif;
+        font-family: Inter, sans-serif;
         font-weight: 400;
 
         &::placeholder {
           font-weight: 500;
           font-size: 16px;
-          color: #A9A9A9;
+          color: #a9a9a9;
           opacity: 0.8;
         }
       }
@@ -61,21 +61,21 @@
         box-sizing: border-box;
         width: 100%;
         max-width: 542px;
-        background: #FFFFFF;
-        border: 1px solid #D6D6D6;
+        background: #fff;
+        border: 1px solid #d6d6d6;
         border-radius: 10px;
         outline: none;
         height: 108px;
         resize: none;
         color: $primary-gray-color;
-        font-family: 'Inter', sans-serif;
+        font-family: Inter, sans-serif;
         font-weight: 400;
 
         &::placeholder {
           font-weight: 500;
           font-size: 16px;
-          color: #A9A9A9;
-          font-family: 'Inter', sans-serif;
+          color: #a9a9a9;
+          font-family: Inter, sans-serif;
         }
       }
     }
@@ -89,7 +89,7 @@
       margin-top: 27px;
       font-weight: 600;
       font-size: 20px;
-      color: #FFFFFF;
+      color: #fff;
       background: $secondary-orange-color;
       border-radius: 5px;
       width: 100%;

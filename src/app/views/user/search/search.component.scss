@@ -1,0 +1,29 @@
+@import "../../../../assets/styles/mixins";
+
+.search {
+  padding: 0 45px;
+
+  .header-search {
+    position: relative;
+    max-width: 170px;
+    margin-bottom: 70px;
+
+    .header-search-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      column-gap: 19px;
+
+      .header-search-item {
+        position: relative;
+        top: 1px;
+      }
+    }
+
+    .header-search-modal {
+      left: 0;
+      width: 100%;
+      padding: 18px 0 25px 18px;
+    }
+  }
+}
