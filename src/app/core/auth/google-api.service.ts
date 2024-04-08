@@ -12,7 +12,6 @@ import { UserInfoFromGoogle } from '../../../types';
 })
 export class GoogleApiService {
   userProfileSubject = new BehaviorSubject<UserInfoFromGoogle | null>(null);
-  keyAPI: string = 'AIzaSyCfn6L3dAt-T-50j8JHz_wkuvwX0QmsSEU';
   constructor(
     private readonly oAuthService: OAuthService,
     private http: HttpClient,
@@ -73,7 +72,7 @@ export class GoogleApiService {
     return this.http.get<DetailBookInterface>(`https://www.googleapis.com/books/v1/volumes/${idOfBook}`, { headers: this.authHeader() });
   }
   getAuthorDetail(author: string): Observable<AuthorInfoDetail> {
-    return this.http.get<AuthorInfoDetail>(`https://www.googleapis.com/books/v1/volumes?q=inauthor:${author}&maxResults=2&key=${this.keyAPI}`);
+    return this.http.get<AuthorInfoDetail>(`https://www.googleapis.com/books/v1/volumes?q=inauthor:${author}&maxResults=2`);
   }
 
   // setFavoriteBook(): Observable<any> {

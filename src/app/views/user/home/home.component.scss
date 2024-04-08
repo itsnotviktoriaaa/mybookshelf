@@ -3,6 +3,10 @@
 
 .home {
   /* height: 100vh; */
+  height: calc(100vh - 221px);
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 
   .quotes {
     width: 811px;

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable, of, tap } from 'rxjs';
 import { loadReadingNowBooks, loadRecommendedBooks } from '../../../ngrx/home/home.actions';
@@ -24,6 +24,7 @@ export class ShowAllComponent implements OnInit {
   startIndex: number = 0;
   maxLengthWhichGetFromBookApi: number = 40;
   activeParams: ActiveParamsType = { show: 'recommended' };
+  @ViewChild('startSection') startSection!: ElementRef;
 
   constructor(
     private activatedRoute: ActivatedRoute,

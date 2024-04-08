@@ -1,4 +1,4 @@
-<section class="show user-common-padding">
+<section #startSection class="show user-common-padding">
   @if (showBooks$ | async; as showBooks) {
     <div class="show-books">
       @for (showBook of showBooks.items; track $index) {

@@ -1,6 +1,11 @@
 @import '../../../../assets/styles/variables';
 
 .favorites {
+  height: calc(100vh - 221px);
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
   .favorites-title {
     color: $primary-gray-color;
     font-weight: 700;

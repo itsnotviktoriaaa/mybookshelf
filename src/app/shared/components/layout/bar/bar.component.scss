@@ -7,7 +7,7 @@
   border-radius: 10px 0 0 10px;
   display: flex;
   flex-direction: column;
-  min-height: 994px;
+  height: calc(100vh - 108px);
   box-sizing: border-box;
   justify-content: space-between;
 

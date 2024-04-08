@@ -1,185 +1,187 @@
-<section class="auth signup">
-  <div class="container">
-    <div class="logo">
-      <img ngSrc="/assets/images/logo.png" alt="MyBookShelf" priority height="93" width="150" />
-    </div>
-    <div class="auth-form" [formGroup]="registerForm" appPasswordRepeat appPasswordNotEmail>
-      <div class="auth-form-head">
-        @if (verification) {
-          <span class="auth-form-head-greeting">Verification</span>
-          <span class="auth-form-head-description">Check your E-mail for OTP</span>
-        } @else if (!verification && !codeWhichWrittenUserWasEqualFromEmail) {
-          <span class="auth-form-head-greeting">Registration</span>
-          <span class="auth-form-head-description">For Both Staff & Students</span>
-        } @else if (codeWhichWrittenUserWasEqualFromEmail) {
-          <span class="auth-form-head-greeting">Verification</span>
-          <span class="auth-form-head-description">Thank you</span>
-        }
+<section class="signup-wrapper">
+  <div class="auth signup">
+    <div class="container">
+      <div class="logo">
+        <img ngSrc="/assets/images/logo.png" alt="MyBookShelf" priority height="93" width="150" />
       </div>
-
-      @if (!verification && !codeWhichWrittenUserWasEqualFromEmail) {
-        <div class="auth-form-inputs">
-          <div class="auth-form-input">
-            <label for="name">Name</label>
-            <div class="auth-form-input-wrapper">
-              <div class="auth-form-input-wrapper-extra">
-                <input
-                  class="input"
-                  [ngStyle]="{ 'border-color': registerForm.get('username')?.invalid && (registerForm.get('username')?.dirty || registerForm.get('username')?.touched) ? 'red' : '' }"
-                  id="name"
-                  placeholder="Write your name"
-                  type="text"
-                  formControlName="username" />
-              </div>
-              @if (registerForm.get('username')?.invalid && (registerForm.get('username')?.dirty || registerForm.get('username')?.touched)) {
-                <div class="error-message">Name is required.</div>
-              }
-            </div>
-          </div>
-          <div class="auth-form-input">
-            <label for="email">Email</label>
-            <div class="auth-form-input-wrapper">
-              <div class="auth-form-input-wrapper-extra">
-                <input
-                  class="input"
-                  id="email"
-                  [ngStyle]="{ 'border-color': registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched) ? 'red' : '' }"
-                  placeholder="Write your email"
-                  type="text"
-                  formControlName="email" />
-              </div>
-              @if (registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)) {
-                @if (registerForm.get('email')?.errors?.['required']) {
-                  <div class="error-message">Email is required.</div>
-                }
-
-                @if (registerForm.get('email')?.errors?.['email']) {
-                  <div class="error-message">Email is incorrect.</div>
-                }
-              }
-            </div>
-          </div>
-          <div class="auth-form-input">
-            <label for="password">Password</label>
-            <div class="auth-form-input-wrapper">
-              <div class="auth-form-input-wrapper-extra">
-                <input
-                  class="input input-check"
-                  id="password"
-                  [ngStyle]="{ 'border-color': registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched) ? 'red' : '' }"
-                  placeholder="Write your password"
-                  [type]="isShowPassword ? 'text' : 'password'"
-                  formControlName="password" />
-
-                <div class="eye-wrapper">
-                  @if (!isShowPassword) {
-                    <svg-icon src="assets/images/icons/eye-close.svg" (click)="changeShowingPassword('isShowPassword')"></svg-icon>
-                  }
-                  @if (isShowPassword) {
-                    <svg-icon src="assets/images/icons/eye-open.svg" (click)="changeShowingPassword('isShowPassword')"></svg-icon>
-                  }
-                </div>
-              </div>
-              @if (registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)) {
-                @if (registerForm.get('password')?.errors?.['required']) {
-                  <div class="error-message">Password is required.</div>
-                }
-
-                @if (registerForm.get('password')?.errors?.['pattern']) {
-                  <div class="error-message">
-                    Password is not strong. The password must be at least 8 characters long and contain at least one number, one lowercase letter and one uppercase letter.
-                  </div>
-                }
-
-                @if (registerForm.get('email')?.value && registerForm.get('password')?.errors?.['passwordAsEmail']) {
-                  <div class="error-message">Password must not be an email.</div>
-                }
-              }
-            </div>
-          </div>
-          <div class="auth-form-input">
-            <label for="confirm-password">Confirm Password</label>
-            <div class="auth-form-input-wrapper">
-              <div class="auth-form-input-wrapper-extra">
-                <input
-                  class="input input-check"
-                  id="confirm-password"
-                  [ngStyle]="{
-                    'border-color': registerForm.get('confirmPassword')?.invalid && (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched) ? 'red' : ''
-                  }"
-                  placeholder="Write your password again"
-                  [type]="isShowConfirmPassword ? 'text' : 'password'"
-                  formControlName="confirmPassword" />
-                <div class="eye-wrapper">
-                  @if (!isShowConfirmPassword) {
-                    <svg-icon src="assets/images/icons/eye-close.svg" (click)="changeShowingPassword('isShowConfirmPassword')"></svg-icon>
-                  }
-                  @if (isShowConfirmPassword) {
-                    <svg-icon src="assets/images/icons/eye-open.svg" (click)="changeShowingPassword('isShowConfirmPassword')"></svg-icon>
-                  }
-                </div>
-              </div>
-              @if (registerForm.get('confirmPassword')?.invalid && (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched)) {
-                @if (registerForm.get('confirmPassword')?.errors?.['required']) {
-                  <div class="error-message">Confirm Password is required.</div>
-                }
-                @if (registerForm.get('confirmPassword')?.errors?.['passwordRepeat']) {
-                  <div class="error-message">Confirm Password doesn't match</div>
-                }
-              }
-            </div>
-          </div>
-        </div>
-      } @else if (verification) {
-        <div class="verification">
-          <div class="verification-head">Enter your OTP Here</div>
-          <div class="verification-body" #verificationBody>
-            <input class="verification-number" (keydown)="keyPressOnInput($event)" maxlength="1" type="tel" />
-            <input class="verification-number" (keydown)="keyPressOnInput($event)" maxlength="1" type="tel" />
-            <input class="verification-number" (keydown)="keyPressOnInput($event)" maxlength="1" type="tel" />
-            <input class="verification-number" (keydown)="keyPressOnInput($event)" maxlength="1" type="tel" />
-            <input class="verification-number" (keydown)="keyPressOnInput($event)" maxlength="1" type="tel" />
-          </div>
-        </div>
-      } @else if (codeWhichWrittenUserWasEqualFromEmail) {
-        <div class="verification" [style.margin-top]="'19px'">
-          <div class="verification-head" [style.text-align]="'center'">{{ errorMessage ? 'You are not Verified' : 'You are Verified' }}</div>
-        </div>
-        <div class="verification-done">
-          @if (!errorMessage) {
-            <svg-icon src="assets/images/icons/done-circle.svg"></svg-icon>
-          } @else {
-            <svg-icon src="assets/images/icons/cancel-circle.svg"></svg-icon>
+      <div class="auth-form" [formGroup]="registerForm" appPasswordRepeat appPasswordNotEmail>
+        <div class="auth-form-head">
+          @if (verification) {
+            <span class="auth-form-head-greeting">Verification</span>
+            <span class="auth-form-head-description">Check your E-mail for OTP</span>
+          } @else if (!verification && !codeWhichWrittenUserWasEqualFromEmail) {
+            <span class="auth-form-head-greeting">Registration</span>
+            <span class="auth-form-head-description">For Both Staff & Students</span>
+          } @else if (codeWhichWrittenUserWasEqualFromEmail) {
+            <span class="auth-form-head-greeting">Verification</span>
+            <span class="auth-form-head-description">Thank you</span>
           }
         </div>
-      }
 
-      @if (!codeWhichWrittenUserWasEqualFromEmail) {
-        <button
-          [disabled]="registerForm.invalid && !fillAllInputs"
-          (click)="verification ? isCodeFromUserRight() : checkEmailWasUsedBeforeToSendCode()"
-          [ngStyle]="{
+        @if (!verification && !codeWhichWrittenUserWasEqualFromEmail) {
+          <div class="auth-form-inputs">
+            <div class="auth-form-input">
+              <label for="name">Name</label>
+              <div class="auth-form-input-wrapper">
+                <div class="auth-form-input-wrapper-extra">
+                  <input
+                    class="input"
+                    [ngStyle]="{ 'border-color': registerForm.get('username')?.invalid && (registerForm.get('username')?.dirty || registerForm.get('username')?.touched) ? 'red' : '' }"
+                    id="name"
+                    placeholder="Write your name"
+                    type="text"
+                    formControlName="username" />
+                </div>
+                @if (registerForm.get('username')?.invalid && (registerForm.get('username')?.dirty || registerForm.get('username')?.touched)) {
+                  <div class="error-message">Name is required.</div>
+                }
+              </div>
+            </div>
+            <div class="auth-form-input">
+              <label for="email">Email</label>
+              <div class="auth-form-input-wrapper">
+                <div class="auth-form-input-wrapper-extra">
+                  <input
+                    class="input"
+                    id="email"
+                    [ngStyle]="{ 'border-color': registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched) ? 'red' : '' }"
+                    placeholder="Write your email"
+                    type="text"
+                    formControlName="email" />
+                </div>
+                @if (registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)) {
+                  @if (registerForm.get('email')?.errors?.['required']) {
+                    <div class="error-message">Email is required.</div>
+                  }
+
+                  @if (registerForm.get('email')?.errors?.['email']) {
+                    <div class="error-message">Email is incorrect.</div>
+                  }
+                }
+              </div>
+            </div>
+            <div class="auth-form-input">
+              <label for="password">Password</label>
+              <div class="auth-form-input-wrapper">
+                <div class="auth-form-input-wrapper-extra">
+                  <input
+                    class="input input-check"
+                    id="password"
+                    [ngStyle]="{ 'border-color': registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched) ? 'red' : '' }"
+                    placeholder="Write your password"
+                    [type]="isShowPassword ? 'text' : 'password'"
+                    formControlName="password" />
+
+                  <div class="eye-wrapper">
+                    @if (!isShowPassword) {
+                      <svg-icon src="assets/images/icons/eye-close.svg" (click)="changeShowingPassword('isShowPassword')"></svg-icon>
+                    }
+                    @if (isShowPassword) {
+                      <svg-icon src="assets/images/icons/eye-open.svg" (click)="changeShowingPassword('isShowPassword')"></svg-icon>
+                    }
+                  </div>
+                </div>
+                @if (registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)) {
+                  @if (registerForm.get('password')?.errors?.['required']) {
+                    <div class="error-message">Password is required.</div>
+                  }
+
+                  @if (registerForm.get('password')?.errors?.['pattern']) {
+                    <div class="error-message">
+                      Password is not strong. The password must be at least 8 characters long and contain at least one number, one lowercase letter and one uppercase letter.
+                    </div>
+                  }
+
+                  @if (registerForm.get('email')?.value && registerForm.get('password')?.errors?.['passwordAsEmail']) {
+                    <div class="error-message">Password must not be an email.</div>
+                  }
+                }
+              </div>
+            </div>
+            <div class="auth-form-input">
+              <label for="confirm-password">Confirm Password</label>
+              <div class="auth-form-input-wrapper">
+                <div class="auth-form-input-wrapper-extra">
+                  <input
+                    class="input input-check"
+                    id="confirm-password"
+                    [ngStyle]="{
+                    'border-color': registerForm.get('confirmPassword')?.invalid && (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched) ? 'red' : ''
+                  }"
+                    placeholder="Write your password again"
+                    [type]="isShowConfirmPassword ? 'text' : 'password'"
+                    formControlName="confirmPassword" />
+                  <div class="eye-wrapper">
+                    @if (!isShowConfirmPassword) {
+                      <svg-icon src="assets/images/icons/eye-close.svg" (click)="changeShowingPassword('isShowConfirmPassword')"></svg-icon>
+                    }
+                    @if (isShowConfirmPassword) {
+                      <svg-icon src="assets/images/icons/eye-open.svg" (click)="changeShowingPassword('isShowConfirmPassword')"></svg-icon>
+                    }
+                  </div>
+                </div>
+                @if (registerForm.get('confirmPassword')?.invalid && (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched)) {
+                  @if (registerForm.get('confirmPassword')?.errors?.['required']) {
+                    <div class="error-message">Confirm Password is required.</div>
+                  }
+                  @if (registerForm.get('confirmPassword')?.errors?.['passwordRepeat']) {
+                    <div class="error-message">Confirm Password doesn't match</div>
+                  }
+                }
+              </div>
+            </div>
+          </div>
+        } @else if (verification) {
+          <div class="verification">
+            <div class="verification-head">Enter your OTP Here</div>
+            <div class="verification-body" #verificationBody>
+              <input class="verification-number" (keydown)="keyPressOnInput($event)" maxlength="1" type="tel" />
+              <input class="verification-number" (keydown)="keyPressOnInput($event)" maxlength="1" type="tel" />
+              <input class="verification-number" (keydown)="keyPressOnInput($event)" maxlength="1" type="tel" />
+              <input class="verification-number" (keydown)="keyPressOnInput($event)" maxlength="1" type="tel" />
+              <input class="verification-number" (keydown)="keyPressOnInput($event)" maxlength="1" type="tel" />
+            </div>
+          </div>
+        } @else if (codeWhichWrittenUserWasEqualFromEmail) {
+          <div class="verification" [style.margin-top]="'19px'">
+            <div class="verification-head" [style.text-align]="'center'">{{ errorMessage ? 'You are not Verified' : 'You are Verified' }}</div>
+          </div>
+          <div class="verification-done">
+            @if (!errorMessage) {
+              <svg-icon src="assets/images/icons/done-circle.svg"></svg-icon>
+            } @else {
+              <svg-icon src="assets/images/icons/cancel-circle.svg"></svg-icon>
+            }
+          </div>
+        }
+
+        @if (!codeWhichWrittenUserWasEqualFromEmail) {
+          <button
+            [disabled]="registerForm.invalid && !fillAllInputs"
+            (click)="verification ? isCodeFromUserRight() : checkEmailWasUsedBeforeToSendCode()"
+            [ngStyle]="{
             'background-color': registerForm.invalid && !fillAllInputs ? 'gray' : '',
             cursor: registerForm.invalid && !fillAllInputs ? 'not-allowed' : 'pointer'
           }"
-          [ngClass]="{ 'auth-button': true, 'verification-button': verification }">
-          {{ verification ? 'Verify' : 'Register' }}
-        </button>
-      } @else {
-        <button (click)="afterVerify()" class="auth-button">{{ errorMessage ? 'Back to register' : 'Login' }}</button>
-      }
+            [ngClass]="{ 'auth-button': true, 'verification-button': verification }">
+            {{ verification ? 'Verify' : 'Register' }}
+          </button>
+        } @else {
+          <button (click)="afterVerify()" class="auth-button">{{ errorMessage ? 'Back to register' : 'Login' }}</button>
+        }
 
-      @if (!verification && !codeWhichWrittenUserWasEqualFromEmail) {
-        <span class="auth-form-moving">Already a User? <span class="auth-form-moving-route" routerLink="/">Login now</span></span>
-      } @else if (verification) {
-        <div class="verification-moving-wrapper">
-          <div class="auth-form-moving">
-            Not yet received?
-            <span class="auth-form-moving-route" (click)="sendCodeToEmail()">Resend?</span>
+        @if (!verification && !codeWhichWrittenUserWasEqualFromEmail) {
+          <span class="auth-form-moving">Already a User? <span class="auth-form-moving-route" routerLink="/">Login now</span></span>
+        } @else if (verification) {
+          <div class="verification-moving-wrapper">
+            <div class="auth-form-moving">
+              Not yet received?
+              <span class="auth-form-moving-route" (click)="sendCodeToEmail()">Resend?</span>
+            </div>
+            <span (click)="backToRegister()" class="verification-moving-back">Back</span>
           </div>
-          <span (click)="backToRegister()" class="verification-moving-back">Back</span>
-        </div>
-      }
+        }
+      </div>
     </div>
   </div>
 </section>

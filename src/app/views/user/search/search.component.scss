@@ -1,7 +1,11 @@
-@import "../../../../assets/styles/mixins";
+@import '../../../../assets/styles/mixins';
 
 .search {
-  padding: 0 45px;
+  padding: 10px 45px 0 45px;
+  height: calc(100vh - 228px);
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 
   .header-search {
     position: relative;

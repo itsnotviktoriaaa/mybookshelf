@@ -19,6 +19,7 @@ import { tap } from 'rxjs';
         background-image: url('/assets/images/layout/layout-background.webp');
         background-size: cover;
         background-repeat: no-repeat;
+        height: 100vh;
 
         .layout {
           display: flex;
@@ -26,12 +27,14 @@ import { tap } from 'rxjs';
           justify-content: space-between;
           background-color: #f3f3f7;
           border-radius: 10px;
+          height: calc(100vh - 108px);
         }
 
         .main-content-wrapper {
           flex: 1;
           border-radius: 0 10px 0 0;
           overflow-x: hidden;
+          overflow-y: hidden;
         }
       }
     `,

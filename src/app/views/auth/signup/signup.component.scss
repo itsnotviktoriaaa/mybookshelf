@@ -1,79 +1,84 @@
 @import '../../../../assets/styles/auth-common';
 @import '../../../../assets/styles/variables';
+.signup-wrapper {
+  overflow-y: scroll;
+  height: 100vh;
 
-.signup {
-  .container {
-    .logo {
-      margin-bottom: 54px;
-    }
-
-    .auth-form {
-      .auth-form-head {
-        margin-bottom: 31px;
+  .signup {
+    .container {
+      .logo {
+        margin-bottom: 54px;
       }
 
-      .auth-form-inputs {
-        margin-bottom: 38px;
-
-        .auth-form-input:not(:last-child) {
-          margin-bottom: 20px;
-        }
-      }
-
-      .verification {
-        margin-top: 35px;
-
-        .verification-head {
-          font-weight: 600;
-          font-size: 18px;
-          color: $primary-gray-color;
-          margin-bottom: 20px;
+      .auth-form {
+        .auth-form-head {
+          margin-bottom: 31px;
         }
 
-        .verification-body {
-          display: flex;
-          column-gap: 40px;
-          margin-bottom: 90px;
+        .auth-form-inputs {
+          margin-bottom: 38px;
 
-          .verification-number {
-            border-bottom: 5px solid $primary-gray-color;
-            width: 50px;
-            border-top: 0;
-            border-left: 0;
-            border-right: 0;
-            border-radius: 4px;
-            outline: none;
-            height: 87px;
-            text-align: center;
-            font-size: 55px;
+          .auth-form-input:not(:last-child) {
+            margin-bottom: 20px;
           }
         }
-      }
 
-      .verification-done {
-        text-align: center;
-        margin-bottom: 81px;
-        margin-top: 19px;
-      }
+        .verification {
+          margin-top: 35px;
 
-      .auth-button {
-        margin-bottom: 38px;
-      }
+          .verification-head {
+            font-weight: 600;
+            font-size: 18px;
+            color: $primary-gray-color;
+            margin-bottom: 20px;
+          }
 
-      .verification-button {
-        margin-bottom: 78px;
-      }
+          .verification-body {
+            display: flex;
+            column-gap: 40px;
+            margin-bottom: 90px;
 
-      .verification-moving-wrapper {
-        display: flex;
-        justify-content: space-between;
+            .verification-number {
+              border-bottom: 5px solid $primary-gray-color;
+              width: 50px;
+              border-top: 0;
+              border-left: 0;
+              border-right: 0;
+              border-radius: 4px;
+              outline: none;
+              height: 87px;
+              text-align: center;
+              font-size: 55px;
+            }
+          }
+        }
 
-        .verification-moving-back {
-          cursor: pointer;
-          font-size: 16px;
-          color: $primary-gray-color;
+        .verification-done {
+          text-align: center;
+          margin-bottom: 81px;
+          margin-top: 19px;
+        }
+
+        .auth-button {
+          margin-bottom: 38px;
+        }
+
+        .verification-button {
+          margin-bottom: 78px;
+        }
+
+        .verification-moving-wrapper {
+          display: flex;
+          justify-content: space-between;
+
+          .verification-moving-back {
+            cursor: pointer;
+            font-size: 16px;
+            color: $primary-gray-color;
+          }
         }
       }
     }
   }
 }
+
