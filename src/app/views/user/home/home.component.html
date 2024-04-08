@@ -7,15 +7,19 @@
       <span [routerLink]="'/home/show'" [queryParams]="{ show: 'recommended' }" class="home-show">Show All</span>
     }
   </div>
-  @if (recommendedBooks$ | async; as recommendedBooks) {
-    <div class="home-recommended-books">
-      @for (book of recommendedBooks?.items; track $index) {
-        <app-book [book]="book"></app-book>
-      }
-    </div>
-  }
-  @if ((recommendedBooks$ | async) === null) {
-    <h3 class="common-nothing">You don't have recommended book. You should do more active in Google Book and then we sth recommend you on based your preferences:)</h3>
+  @if (miniLoader) {
+    <app-minimodal [miniLoader]="miniLoader"></app-minimodal>
+  } @else {
+    @if (recommendedBooks$ | async; as recommendedBooks) {
+      <div class="home-recommended-books">
+        @for (book of recommendedBooks?.items; track $index) {
+          <app-book [book]="book"></app-book>
+        }
+      </div>
+    }
+    @if ((recommendedBooks$ | async) === null) {
+      <h3 class="common-nothing">You don't have recommended book. You should do more active in Google Book and then we sth recommend you on based your preferences:)</h3>
+    }
   }
   <div class="home-common-wrapper">
     <h3 class="home-common">Recent Readings</h3>
@@ -23,14 +27,18 @@
       <span [routerLink]="'/home/show'" [queryParams]="{ show: 'reading' }" class="home-show">Show All</span>
     }
   </div>
-  @if (readingNowBooks$ | async; as readingNowBooks) {
-    <div class="home-recommended-books">
-      @for (book of readingNowBooks?.items; track $index) {
-        <app-book [book]="book"></app-book>
-      }
-    </div>
-  }
-  @if ((readingNowBooks$ | async) === null) {
-    <h3 class="common-nothing">You don't have reading now books</h3>
+  @if (miniLoader1 || (readingNowBooks$ | async) === null) {
+    <app-minimodal [miniLoader1]="miniLoader1"></app-minimodal>
+  } @else {
+    @if (readingNowBooks$ | async; as readingNowBooks) {
+      <div class="home-recommended-books">
+        @for (book of readingNowBooks?.items; track $index) {
+          <app-book [book]="book"></app-book>
+        }
+      </div>
+    }
+    @if ((readingNowBooks$ | async) === null) {
+      <h3 class="common-nothing">You don't have reading now books</h3>
+    }
   }
 </section>

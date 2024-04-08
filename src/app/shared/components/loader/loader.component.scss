@@ -14,30 +14,8 @@
   top: 0;
   left: 0;
 
-  .loader {
-    width: 50px;
-    height: 50px;
-    border-radius: 20%;
-    border: 10px solid $primary-orange-color;
-    animation: loading linear 3s infinite;
-  }
-
   .loader-message {
     font-size: 15px;
     color: #fff;
-  }
-}
-
-@keyframes loading {
-  0% {
-    transform: rotate(0);
-  }
-
-  50% {
-    transform: rotate(180deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
   }
 }

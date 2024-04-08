@@ -29,6 +29,44 @@ button {
   border: 0;
 }
 
+.loader-wrap {
+  padding-top: 10px;
+  padding-bottom: 25px;
+  display: flex;
+  justify-content: center;
+}
+
+.loader {
+  width: 50px;
+  height: 50px;
+  border-radius: 20%;
+  border: 10px solid $primary-orange-color;
+  animation: loading linear 3s infinite;
+}
+
+@keyframes loading {
+  0% {
+    transform: rotate(0);
+  }
+
+  50% {
+    transform: rotate(180deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.info-message {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  row-gap: 10px;
+  align-items: center;
+}
+
 .button-orange-transparent {
   padding: 6px 12px;
   box-sizing: border-box;

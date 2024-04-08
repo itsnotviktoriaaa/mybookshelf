@@ -60,7 +60,9 @@
                 }
 
                 @if (loginForm.get('password')?.errors?.['pattern']) {
-                  <div class="error-message">Password is not strong. The password must be at least 8 characters long and contain at least one number, one lowercase letter and one uppercase letter.</div>
+                  <div class="error-message">
+                    Password is not strong. The password must be at least 8 characters long and contain at least one number, one lowercase letter and one uppercase letter.
+                  </div>
                 }
               }
             </div>
@@ -71,9 +73,9 @@
           class="auth-button"
           [disabled]="loginForm.invalid"
           [ngStyle]="{
-          'background-color': loginForm.invalid ? 'gray' : '',
-          cursor: loginForm.invalid && (loginForm.dirty || loginForm.touched) ? 'not-allowed' : 'pointer'
-        }"
+            'background-color': loginForm.invalid ? 'gray' : '',
+            cursor: loginForm.invalid && (loginForm.dirty || loginForm.touched) ? 'not-allowed' : 'pointer'
+          }"
           (click)="login()">
           Login
         </button>

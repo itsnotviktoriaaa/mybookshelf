@@ -33,7 +33,6 @@ export class FavoritesEffects {
                 averageRating: item.volumeInfo.averageRating,
               };
             });
-
             return loadFavoritesBooksSuccess({ data: { items: transformedItems, totalItems: data.totalItems } });
           }),
           catchError(error => of(loadFavoritesBooksFailure({ error })))

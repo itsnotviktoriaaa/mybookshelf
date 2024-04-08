@@ -2,7 +2,9 @@
   <div (click)="openDetailBook('small-book')" class="book-left" [ngStyle]="{ cursor: bigInfo ? 'default' : 'pointer' }">
     <div class="book-image" style="background-image: url({{ book.thumbnail }})">&nbsp;</div>
     <span class="book-name">{{ book.title | reduceLetter: 'book-name' }}</span>
-    <span class="book-author">{{ book.author[0] | reduceLetter: 'book-author' }} {{ book.publishedDate | transformDateBook }}</span>
+    @if (book.author && book.author.length > 0) {
+      <span class="book-author">{{ book.author[0] | reduceLetter: 'book-author' }} {{ book.publishedDate | transformDateBook }}</span>
+    }
     @if (book.averageRating) {
       <span class="book-review">{{ book.averageRating }}<span class="book-review-all">/5</span></span>
     } @else {

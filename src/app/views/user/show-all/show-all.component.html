@@ -1,10 +1,13 @@
-<section #startSection class="show user-common-padding">
-  @if (showBooks$ | async; as showBooks) {
-    <div class="show-books">
-      @for (showBook of showBooks.items; track $index) {
-        <app-book [book]="showBook"></app-book>
-      }
-    </div>
+<section class="show user-common-padding">
+  <app-minimodal [miniLoader]="miniLoader"></app-minimodal>
+  @if (!miniLoader) {
+    @if (showBooks$ | async; as showBooks) {
+      <div class="show-books">
+        @for (showBook of showBooks.items; track $index) {
+          <app-book [book]="showBook"></app-book>
+        }
+      </div>
+    }
   }
   @if ((showBooks$ | async) === null) {
     <div class="show-nothing">You don't have books</div>
