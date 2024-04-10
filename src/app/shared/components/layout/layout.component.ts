@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
 import { BarComponent } from './bar/bar.component';
 import { RouterOutlet } from '@angular/router';
-import { UserInfoFromGoogle } from '../../../../types';
+import { UserInfoFromGoogle } from '../../../types/auth';
 import { GoogleApiService } from '../../../core';
 import { tap } from 'rxjs';
 

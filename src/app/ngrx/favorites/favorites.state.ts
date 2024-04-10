@@ -1,4 +1,4 @@
-import { arrayFromBookItemTransformedInterface } from '../../../types/user/book.interface';
+import { arrayFromBookItemTransformedInterface } from '../../types/user';
 
 export interface FavoritesState {
   favoritesBooks: arrayFromBookItemTransformedInterface | null;

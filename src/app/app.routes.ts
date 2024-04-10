@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './views';
 import { SignupComponent } from './views';
-import { LayoutComponent } from './shared';
+import { LayoutComponent } from './shared/components';
 import { authForwardGuard } from './core/auth/auth-forward.guard';
 
 export const routes: Routes = [
@@ -21,6 +21,7 @@ export const routes: Routes = [
       {
         path: '',
         title: 'MyBookShelf',
+        pathMatch: 'full',
         loadComponent: () => import('./views/user/home/home.component').then(m => m.HomeComponent),
       },
       {

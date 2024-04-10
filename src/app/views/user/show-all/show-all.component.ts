@@ -1,15 +1,13 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Observable, of, tap } from 'rxjs';
-import { loadReadingNowBooks, loadRecommendedBooks } from '../../../ngrx/home/home.actions';
-import { selectReadingNowBooks, selectRecommendedBooks } from '../../../ngrx/home/home.selectors';
-import { Store } from '@ngrx/store';
-import { arrayFromBookItemTransformedInterface } from '../../../../types/user/book.interface';
-import { BookComponent } from '../../../shared';
+import { BehaviorSubject, Observable, of, tap } from 'rxjs';
+import { arrayFromBookItemTransformedInterface } from '../../../types/user';
+import { BookComponent } from '../../../shared/components';
 import { AsyncPipe, NgClass } from '@angular/common';
-import { ActiveParamsType } from '../../../../types';
+import { ActiveParamsType } from '../../../types/user';
 import { SvgIconComponent } from 'angular-svg-icon';
-import { MiniModalComponent } from '../../../shared/components/minimodal/minimodal.component';
+import { MiniModalComponent } from '../../../shared/components';
+import { HomeFacade } from '../../../ngrx/home/home.facade';
 
 @Component({
   selector: 'app-show-all',
@@ -25,13 +23,12 @@ export class ShowAllComponent implements OnInit {
   startIndex: number = 0;
   maxLengthWhichGetFromBookApi: number = 40;
   activeParams: ActiveParamsType = { show: 'recommended' };
-  miniLoader: boolean = true;
+  miniLoader$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private store: Store,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private homeFacade: HomeFacade
   ) {}
 
   ngOnInit() {
@@ -50,26 +47,22 @@ export class ShowAllComponent implements OnInit {
   }
 
   loadBooks() {
-    this.miniLoader = true;
+    this.miniLoader$.next(true);
     if (this.activeParams.show === 'recommended') {
-      this.store.dispatch(loadRecommendedBooks({ startIndex: this.startIndex }));
-      this.showBooks$ = this.store.select(selectRecommendedBooks).pipe(
+      this.homeFacade.loadRecommendedBooks(this.startIndex);
+      this.showBooks$ = this.homeFacade.getRecommendedBooks().pipe(
         tap((showBooks: arrayFromBookItemTransformedInterface | null) => {
-          setTimeout(() => {
-            this.miniLoader = false;
-            this.cdr.detectChanges();
-          }, 1000);
+          console.log(showBooks);
+          this.miniLoader$.next(false);
+          console.log(this.miniLoader$.getValue());
           this.definedQuantityOfPages(showBooks);
         })
       );
     } else if (this.activeParams.show === 'reading') {
-      this.store.dispatch(loadReadingNowBooks({ startIndex: this.startIndex }));
-      this.showBooks$ = this.store.select(selectReadingNowBooks).pipe(
+      this.homeFacade.loadReadingNowBooks(this.startIndex);
+      this.showBooks$ = this.homeFacade.getReadingNowBooks().pipe(
         tap((showBooks: arrayFromBookItemTransformedInterface | null) => {
-          setTimeout(() => {
-            this.miniLoader = false;
-            this.cdr.detectChanges();
-          }, 1000);
+          this.miniLoader$.next(false);
           this.definedQuantityOfPages(showBooks);
         })
       );

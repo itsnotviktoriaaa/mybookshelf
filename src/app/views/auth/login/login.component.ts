@@ -3,11 +3,12 @@ import { NgOptimizedImage, NgStyle } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../core';
-import { CodeMessageHandlerUtil, NotificationService } from '../../../shared';
-import { NotificationStatus } from '../../../../types';
+import { NotificationService } from '../../../shared/services';
+import { CodeMessageHandlerUtil } from '../../../shared/utils';
+import { NotificationStatus } from '../../../types/auth';
 import { catchError, EMPTY, Subject, Subscription, takeUntil, tap } from 'rxjs';
 import { SvgIconComponent } from 'angular-svg-icon';
-import { UserInfoFromGoogle } from '../../../../types';
+import { UserInfoFromGoogle } from '../../../types/auth';
 import { GoogleApiService } from '../../../core';
 
 @Component({
@@ -40,11 +41,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       password: new FormControl('', [Validators.required]),
     });
 
-    if (localStorage.getItem('ClickedOnButtonForSignIn')) {
-      console.log('3333');
-      this.googleApi.initiateAuthentication();
-    }
-
+    //первый подход, когда использовался firebase
     this.googleApi.userProfileSubject.subscribe((info: UserInfoFromGoogle | null) => {
       if (info) {
         this.router.navigate(['/home']).then(() => {});
@@ -79,7 +76,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   googleLogin(): void {
-    localStorage.setItem('ClickedOnButtonForSignIn', 'yes');
     this.googleApi.initiateAuthentication();
   }
 

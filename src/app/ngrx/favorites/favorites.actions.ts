@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { arrayFromBookItemTransformedInterface } from '../../../types/user/book.interface';
+import { arrayFromBookItemTransformedInterface } from '../../types/user';
 
 export const loadFavoritesBooks = createAction('[Favorites] Load Favorites Books');
 export const loadFavoritesBooksSuccess = createAction('[Favorites] Load Favorites Books Success', props<{ data: arrayFromBookItemTransformedInterface }>());

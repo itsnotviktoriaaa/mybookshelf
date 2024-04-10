@@ -1,12 +1,10 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { BookComponent } from '../../../shared';
-import { Store } from '@ngrx/store';
-import { loadFavoritesBooks } from '../../../ngrx/favorites/favorites.actions';
-import { Observable, of, tap } from 'rxjs';
-import { arrayFromBookItemTransformedInterface } from '../../../../types/user/book.interface';
-import { selectFavoritesBooks } from '../../../ngrx/favorites/favorites.selector';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { BookComponent } from '../../../shared/components';
+import { BehaviorSubject, Observable, of, tap } from 'rxjs';
+import { arrayFromBookItemTransformedInterface } from '../../../types/user';
 import { AsyncPipe } from '@angular/common';
-import { MiniModalComponent } from '../../../shared/components/minimodal/minimodal.component';
+import { MiniModalComponent } from '../../../shared/components';
+import { FavoritesFacade } from '../../../ngrx/favorites/favorites.facade';
 
 @Component({
   selector: 'app-favorites',
@@ -18,21 +16,18 @@ import { MiniModalComponent } from '../../../shared/components/minimodal/minimod
 })
 export class FavoritesComponent implements OnInit {
   favoritesBooks$: Observable<arrayFromBookItemTransformedInterface | null> = of(null);
-  miniLoader: boolean = true;
+  miniLoader$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   constructor(
-    private store: Store,
-    private cdr: ChangeDetectorRef
+    private favoriteFacade: FavoritesFacade
   ) {}
 
   ngOnInit(): void {
-    // this.miniLoader = true;
-    this.store.dispatch(loadFavoritesBooks());
-    this.favoritesBooks$ = this.store.select(selectFavoritesBooks).pipe(
-      tap(() => {
-        setTimeout(() => {
-          this.miniLoader = false;
-          this.cdr.detectChanges();
-        }, 1000);
+    this.miniLoader$.next(true);
+    this.favoriteFacade.loadFavoritesBooks();
+    this.favoritesBooks$ = this.favoriteFacade.getFavoritesBooks().pipe(
+      tap((books) => {
+        console.log(books);
+        this.miniLoader$.next(false);
       })
     );
   }

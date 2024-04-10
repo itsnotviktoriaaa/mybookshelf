@@ -69,15 +69,17 @@
         }
       </div>
       <div class="header-account">
-        <div class="header-back header-account-wrapper">
-          <div class="header-account-image" style="background-image: url({{ userInfo?.info?.picture }})">&nbsp;</div>
-          <div (click)="openOrCloseMiniModal(HeaderClickInterfaceEnum.profileMiniModal)" class="header-back-info header-account-info">
-            <span class="header-back-text header-account-info-text">{{ userInfo?.info?.name }}</span>
-            <span [class]="{ 'header-account-info-icon': true, active: profileMiniModal }">
+        @if (userInfo$ | async; as userInfo) {
+          <div class="header-back header-account-wrapper">
+            <div class="header-account-image" style="background-image: url({{ userInfo?.info?.picture }})">&nbsp;</div>
+            <div (click)="openOrCloseMiniModal(HeaderClickInterfaceEnum.profileMiniModal)" class="header-back-info header-account-info">
+              <span class="header-back-text header-account-info-text">{{ userInfo?.info?.name }}</span>
+              <span [class]="{ 'header-account-info-icon': true, active: profileMiniModal }">
               <svg-icon src="assets/images/icons/arrow-in-mini-modal.svg"></svg-icon>
             </span>
+            </div>
           </div>
-        </div>
+        }
         @if (profileMiniModal) {
           <div class="header-modal header-account-modal">
             <ul class="header-modal-items">

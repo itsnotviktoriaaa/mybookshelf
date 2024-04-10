@@ -8,8 +8,7 @@ export const authForwardGuard: CanActivateFn = (route: ActivatedRouteSnapshot, s
   const router: Router = inject(Router);
   const oAuthService: OAuthService = inject(OAuthService);
   oAuthService.configure(oAuthConfig);
-  oAuthService.logoutUrl = 'https://www.google.com/accounts/Logout';
-
+  console.log('HIIIII');
   if (state.url === '/' || state.url === '/signup') {
     return from(oAuthService.loadDiscoveryDocument()).pipe(
       switchMap(() => oAuthService.tryLoginImplicitFlow()),
@@ -23,13 +22,14 @@ export const authForwardGuard: CanActivateFn = (route: ActivatedRouteSnapshot, s
         }
       })
     );
-  } else if (state.url === '/home') {
+  } else if (state.url.includes('/home')) {
     return from(oAuthService.loadDiscoveryDocument()).pipe(
       switchMap(() => oAuthService.tryLoginImplicitFlow()),
       switchMap(() => {
         if (!oAuthService.hasValidAccessToken()) {
           return of(router.createUrlTree(['/']));
         } else {
+          console.log('WE ARE HEREEE');
           return of(true);
         }
       }),
@@ -41,36 +41,4 @@ export const authForwardGuard: CanActivateFn = (route: ActivatedRouteSnapshot, s
   }
 
   return of(true);
-
-  //было сделано до того как сделала регистрацию через Google OAuth
-
-  // return authService.user$.pipe(
-  //   map((user: User | null) => {
-  //     const isExistUserName: string | null | undefined = user?.displayName;
-  //     if (state.url === '/login' && isExistUserName) {
-  //       return router.createUrlTree(['/home']);
-  //     } else if (state.url === '/login' && !isExistUserName) {
-  //       return true;
-  //     }
-  //
-  //     if (state.url === '/signup' && isExistUserName) {
-  //       return router.createUrlTree(['/home']);
-  //     } else if (state.url === '/signup' && !isExistUserName) {
-  //       return true;
-  //     }
-  //
-  //     if (state.url === '/home' && isExistUserName) {
-  //       return true;
-  //     } else if (state.url === '/home' && !isExistUserName) {
-  //       return router.createUrlTree(['/login']);
-  //     }
-  //
-  //     return true;
-  //   }),
-  //   catchError(err => {
-  //     console.log(err);
-  //     //тут лучше потом на типо 404
-  //     return of(router.createUrlTree(['/']));
-  //   })
-  // );
 };

@@ -1,13 +1,13 @@
 <section class="detail">
   <div class="info-message detail-info-message">
-    @if (miniLoader) {
+    @if (miniLoader$ | async; as miniLoader) {
       <app-minimodal [miniLoader]="miniLoader"></app-minimodal>
     }
-    @if ((detailBook$ | async) === null && !miniLoader) {
+    @if ((detailBook$ | async) === null && !miniLoader$) {
       <div class="common-nothing">No information available</div>
     }
   </div>
-  @if (!miniLoader) {
+  @if ((miniLoader$ | async) === false) {
     @if (detailBook$ | async; as detailBook) {
       <div class="common-padding">
         <div class="back-to-result">

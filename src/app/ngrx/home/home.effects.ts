@@ -3,7 +3,7 @@ import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { loadReadingNowBooks, loadReadingNowBooksFailure, loadReadingNowBooksSuccess, loadRecommendedBooks, loadRecommendedBooksFailure, loadRecommendedBooksSuccess } from './home.actions';
 import { catchError, filter, map, of, switchMap, tap } from 'rxjs';
 import { GoogleApiService } from '../../core';
-import { arrayFromBookItemTransformedInterface, BookInterface, BookItemInterface, BookItemTransformedInterface } from '../../../types/user/book.interface';
+import { arrayFromBookItemTransformedInterface, BookInterface, BookItemInterface, BookItemTransformedInterface } from '../../types/user';
 import { TypedAction } from '@ngrx/store/src/models';
 import { selectReadingNowBooks, selectRecommendedBooks } from './home.selectors';
 import { Store } from '@ngrx/store';

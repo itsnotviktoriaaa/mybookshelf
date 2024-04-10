@@ -3,33 +3,34 @@ import { OAuthService } from 'angular-oauth2-oidc';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { AuthService } from './auth.service';
-import { AuthorInfoDetail, BookInterface, DetailBookInterface } from '../../../types/user/book.interface';
+import { AuthorInfoDetail, BookInterface, DetailBookInterface } from '../../types/user';
 import { oAuthConfig } from './auth.config';
-import { UserInfoFromGoogle } from '../../../types';
+import { UserInfoFromGoogle } from '../../types/auth';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GoogleApiService {
-  userProfileSubject = new BehaviorSubject<UserInfoFromGoogle | null>(null);
+  userProfileSubject: BehaviorSubject<UserInfoFromGoogle | null> = new BehaviorSubject<UserInfoFromGoogle | null>(null);
   constructor(
     private readonly oAuthService: OAuthService,
     private http: HttpClient,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   initiateAuthentication(): void {
     console.log('here');
     this.oAuthService.configure(oAuthConfig);
-    this.oAuthService.logoutUrl = 'https://www.google.com/accounts/Logout';
     this.oAuthService.loadDiscoveryDocument().then(() => {
       this.oAuthService.tryLoginImplicitFlow().then(() => {
         if (!this.oAuthService.hasValidAccessToken()) {
           this.oAuthService.initLoginFlow();
         } else {
           this.oAuthService.loadUserProfile().then(userProfile => {
-            console.log(JSON.stringify(userProfile));
-            console.log(this.oAuthService.getAccessToken());
+            // console.log(JSON.stringify(userProfile));
+            // console.log(this.oAuthService.getAccessToken());
             this.userProfileSubject.next(userProfile as UserInfoFromGoogle);
             this.authService
               .checkEmailWasUsed((userProfile as UserInfoFromGoogle).info.email)
@@ -48,6 +49,8 @@ export class GoogleApiService {
         }
       });
     });
+
+    this.oAuthService.setupAutomaticSilentRefresh();
   }
 
   // getBooks(): Observable<BookInterface> {
@@ -84,7 +87,10 @@ export class GoogleApiService {
   }
 
   signOut(): void {
-    this.oAuthService.logOut();
+    this.oAuthService.revokeTokenAndLogout().then(() => {
+      this.oAuthService.logOut();
+      this.router.navigate(['/']);
+    });
   }
 
   private authHeader(): HttpHeaders {

@@ -2,14 +2,15 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/co
 import { NgClass, NgOptimizedImage, NgStyle } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NotificationService, PasswordNotEmailDirective, PasswordRepeatDirective } from '../../../shared';
+import { PasswordNotEmailDirective, PasswordRepeatDirective } from '../../../shared/directives';
+import { NotificationService } from '../../../shared/services';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AuthModule } from '@angular/fire/auth';
 import { AuthService } from '../../../core';
 import emailJs, { EmailJSResponseStatus } from '@emailjs/browser';
 import { catchError, EMPTY, finalize, of, Subject, takeUntil, tap } from 'rxjs';
-import { NotificationStatus, UserSignInterface } from '../../../../types';
-import { Constants } from '../../../shared/constants';
+import { NotificationStatus, UserSignInterface } from '../../../types/auth';
+import { Constants } from '../../../shared/constans';
 import { SvgIconComponent } from 'angular-svg-icon';
 
 @Component({

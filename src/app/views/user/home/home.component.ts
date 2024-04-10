@@ -1,13 +1,13 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { BookComponent } from '../../../shared';
-import { Observable, of, tap } from 'rxjs';
-import { arrayFromBookItemTransformedInterface } from '../../../../types/user/book.interface';
-import { selectReadingNowBooks, selectRecommendedBooks } from '../../../ngrx/home/home.selectors';
-import { Store } from '@ngrx/store';
-import { loadReadingNowBooks, loadRecommendedBooks } from '../../../ngrx/home/home.actions';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { BookComponent } from '../../../shared/components';
+import { BehaviorSubject, tap } from 'rxjs';
+import { arrayFromBookItemTransformedInterface } from '../../../types/user';
 import { AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { MiniModalComponent } from '../../../shared/components/minimodal/minimodal.component';
+import { MiniModalComponent } from '../../../shared/components';
+import { GoogleApiService } from '../../../core';
+import { UserInfoFromGoogle } from '../../../types/auth';
+import { HomeFacade } from '../../../ngrx/home/home.facade';
 
 @Component({
   selector: 'app-home',
@@ -18,49 +18,51 @@ import { MiniModalComponent } from '../../../shared/components/minimodal/minimod
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent implements OnInit {
-  recommendedBooks$: Observable<arrayFromBookItemTransformedInterface | null> = of(null);
-  readingNowBooks$: Observable<arrayFromBookItemTransformedInterface | null> = of(null);
-  miniLoader: boolean = true;
-  miniLoader1: boolean = true;
+  recommendedBooks$: BehaviorSubject<arrayFromBookItemTransformedInterface | null> = new BehaviorSubject<arrayFromBookItemTransformedInterface | null>(null);
+  readingNowBooks$: BehaviorSubject<arrayFromBookItemTransformedInterface | null> = new BehaviorSubject<arrayFromBookItemTransformedInterface | null>(null);
+  miniLoader$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  miniLoader1$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  // loading: boolean = true;
   constructor(
-    private store: Store,
-    private cdr: ChangeDetectorRef
+    private googleApi: GoogleApiService,
+    private homeFacade: HomeFacade
   ) {}
 
   ngOnInit() {
-    this.miniLoader = true;
-    this.miniLoader1 = true;
-    this.store.dispatch(loadRecommendedBooks({ startIndex: 0 }));
-    this.recommendedBooks$ = this.store.select(selectRecommendedBooks).pipe(
-      tap(() => {
-        setTimeout(() => {
-          this.miniLoader = false;
-          this.cdr.detectChanges();
-        }, 1000);
-      })
-    );
-    this.store.dispatch(loadReadingNowBooks({ startIndex: 0 }));
-    this.readingNowBooks$ = this.store.select(selectReadingNowBooks).pipe(
-      tap(() => {
-        setTimeout(() => {
-          this.miniLoader1 = false;
-          this.cdr.detectChanges();
-        }, 1000);
-      })
-    );
+    this.miniLoader$.next(true);
+    this.miniLoader1$.next(true);
+    this.googleApi.userProfileSubject.subscribe((user: UserInfoFromGoogle | null) => {
+      if (user) {
+        this.homeFacade.loadRecommendedBooks(0);
+        this.homeFacade
+          .getRecommendedBooks()
+          .pipe(
+            tap((book: arrayFromBookItemTransformedInterface | null) => {
+              console.log(book);
+              this.recommendedBooks$.next(book);
+              this.miniLoader$.next(false);
+            })
+          )
+          .subscribe();
+
+        // this.store.select(selectLoading).subscribe(loading => {
+        //   if (!loading) {
+        //     this.loading = loading;
+        //     console.log(loading);
+        //   }
+        // });
+
+        this.homeFacade.loadReadingNowBooks(0);
+        this.homeFacade
+          .getReadingNowBooks()
+          .pipe(
+            tap((books: arrayFromBookItemTransformedInterface | null) => {
+              this.readingNowBooks$.next(books);
+              this.miniLoader1$.next(false);
+            })
+          )
+          .subscribe();
+      }
+    });
   }
-
-  // для других компонентов
-  // getBooks() {
-  //   this.googleApi.getBooks().subscribe(data => {
-  //     console.log(data);
-  //   });
-  // }
-  //
-
-  // setFavoriteBook() {
-  //   this.googleApi.setFavoriteBook().subscribe(data => {
-  //     console.log(data);
-  //   });
-  // }
 }

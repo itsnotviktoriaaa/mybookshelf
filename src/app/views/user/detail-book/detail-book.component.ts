@@ -1,17 +1,14 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { AsyncPipe, NgClass } from '@angular/common';
-import { Store } from '@ngrx/store';
-import { loadDetailBook } from '../../../ngrx/detail-book/detail-book.actions';
-import { selectDetailBook } from '../../../ngrx/detail-book/detail-book.selector';
-import { Observable, of, tap } from 'rxjs';
-import { AuthorSmallInterface, DetailBookSmallInfo } from '../../../../types/user/book.interface';
+import { BehaviorSubject, Observable, of, tap } from 'rxjs';
+import { AuthorSmallInterface, DetailBookSmallInfo } from '../../../types/user';
 import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
-import { TransformDateBookPipe } from '../../../shared/pipes/transform-date-book.pipe';
-import { loadAuthor } from '../../../ngrx/author/author.actions';
-import { selectAuthor } from '../../../ngrx/author/author.selector';
-import { ReduceLetterPipe } from '../../../shared/pipes/reduce-letter.pipe';
-import { MiniModalComponent } from '../../../shared/components/minimodal/minimodal.component';
+import { TransformDateBookPipe } from '../../../shared/pipes';
+import { ReduceLetterPipe } from '../../../shared/pipes';
+import { MiniModalComponent } from '../../../shared/components';
+import { DetailBookFacade } from '../../../ngrx/detail-book/detail-book.facade';
+import { AuthorFacade } from '../../../ngrx/author/author.facade';
 
 @Component({
   selector: 'app-detail-book',
@@ -25,30 +22,27 @@ export class DetailBookComponent implements OnInit {
   detailBook$: Observable<DetailBookSmallInfo | null> = of(null);
   author$: Observable<AuthorSmallInterface | null> = of(null);
   rating: number | null | undefined = 0;
-  miniLoader: boolean = true;
+  miniLoader$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
   constructor(
-    private store: Store,
     private activatedRoute: ActivatedRoute,
-    private cdr: ChangeDetectorRef,
-    private router: Router
+    private router: Router,
+    private detailBookFacade: DetailBookFacade,
+    private authorFacade: AuthorFacade
   ) {}
 
   ngOnInit(): void {
-    this.miniLoader = true;
     this.activatedRoute.params.subscribe((params: Params) => {
+      this.miniLoader$.next(true);
       const idOfBook = params['id'];
       console.log(idOfBook);
-      this.store.dispatch(loadDetailBook({ idOfBook: idOfBook }));
-      this.detailBook$ = this.store.select(selectDetailBook).pipe(
+      this.detailBookFacade.loadDetailBook(idOfBook);
+      this.detailBook$ = this.detailBookFacade.getDetailBook().pipe(
         tap((data: DetailBookSmallInfo | null) => {
-          setTimeout(() => {
-            this.miniLoader = false;
-            this.cdr.detectChanges();
-          }, 1000);
+          this.miniLoader$.next(false);
           if (data) {
-            this.store.dispatch(loadAuthor({ author: data?.authors[0].split(' ').join('+').toLowerCase() }));
-            this.author$ = this.store.select(selectAuthor);
+            this.authorFacade.loadAuthor(data?.authors[0].split(' ').join('+').toLowerCase());
+            this.author$ = this.authorFacade.getDetailBook();
             if (data.averageRating) {
               this.rating = Math.round(data.averageRating);
             }
@@ -63,7 +57,7 @@ export class DetailBookComponent implements OnInit {
   }
 
   openOtherBook(authorId: string) {
-    this.miniLoader = true;
+    this.miniLoader$.next(true);
     this.router.navigate(['/home/book', authorId]);
   }
 }

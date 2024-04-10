@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { GoogleApiService } from '../../core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
-import { AuthorInfoDetail, AuthorSmallInterface } from '../../../types/user/book.interface';
+import { AuthorInfoDetail, AuthorSmallInterface } from '../../types/user';
 import { loadAuthor, loadAuthorFailure, loadAuthorSuccess } from './author.actions';
 import { TypedAction } from '@ngrx/store/src/models';
 

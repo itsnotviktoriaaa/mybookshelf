@@ -1,15 +1,15 @@
 <section class="show user-common-padding">
-  <app-minimodal [miniLoader]="miniLoader"></app-minimodal>
-  @if (!miniLoader) {
-    @if (showBooks$ | async; as showBooks) {
-      <div class="show-books">
-        @for (showBook of showBooks.items; track $index) {
-          <app-book [book]="showBook"></app-book>
-        }
-      </div>
-    }
+  @if (miniLoader$ | async; as miniLoader) {
+    <app-minimodal [miniLoader]="miniLoader"></app-minimodal>
   }
-  @if ((showBooks$ | async) === null) {
+  @if (showBooks$ | async; as showBooks) {
+    <div class="show-books">
+      @for (showBook of showBooks.items; track $index) {
+        <app-book [book]="showBook"></app-book>
+      }
+    </div>
+  }
+  @if ((showBooks$ | async) === null && !miniLoader$.getValue()) {
     <div class="show-nothing">You don't have books</div>
   }
   @if (pages.length > 1) {

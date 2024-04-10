@@ -3,7 +3,7 @@ import { GoogleApiService } from '../../core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { loadFavoritesBooks, loadFavoritesBooksFailure, loadFavoritesBooksSuccess } from './favorites.actions';
 import { catchError, map, of, switchMap } from 'rxjs';
-import { arrayFromBookItemTransformedInterface, BookInterface, BookItemInterface, BookItemTransformedInterface } from '../../../types/user/book.interface';
+import { arrayFromBookItemTransformedInterface, BookInterface, BookItemInterface, BookItemTransformedInterface } from '../../types/user';
 
 @Injectable()
 export class FavoritesEffects {

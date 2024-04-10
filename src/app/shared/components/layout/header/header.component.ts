@@ -1,17 +1,19 @@
-import { ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { HeaderClickInterface, NotificationStatus } from '../../../../../types';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { NotificationStatus } from '../../../../types/auth';
+import { HeaderClickInterface } from '../../../../types/user';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { AuthService } from '../../../../core';
-import { catchError, EMPTY, Subject, takeUntil, tap } from 'rxjs';
+import { BehaviorSubject, catchError, EMPTY, Subject, takeUntil, tap } from 'rxjs';
 import { Router } from '@angular/router';
-import { NotificationService } from '../../../services/notification.service';
-import { UserInfoFromGoogle } from '../../../../../types';
+import { NotificationService } from '../../../services';
+import { UserInfoFromGoogle } from '../../../../types/auth';
 import { GoogleApiService } from '../../../../core';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [SvgIconComponent],
+  imports: [SvgIconComponent, AsyncPipe],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
@@ -21,26 +23,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
   profileMiniModal: boolean = false;
   protected readonly HeaderClickInterfaceEnum = HeaderClickInterface;
   authServiceDestroy$: Subject<void> = new Subject<void>();
-  userInfo?: UserInfoFromGoogle;
+  userInfo$: BehaviorSubject<UserInfoFromGoogle | null> = new BehaviorSubject<UserInfoFromGoogle | null>(null);
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private notificationService: NotificationService,
-    private googleApi: GoogleApiService,
-    private cdr: ChangeDetectorRef
+    private googleApi: GoogleApiService
   ) {}
 
   ngOnInit(): void {
     this.googleApi.userProfileSubject.subscribe((info: UserInfoFromGoogle | null) => {
-      if (info) {
-        this.userInfo = info;
-        this.cdr.detectChanges();
-        console.log(this.userInfo.info.name);
-        console.log(this.userInfo.info.email);
-        console.log(this.userInfo.info.picture);
-        console.log(this.userInfo.info.sub);
-      }
+      this.userInfo$.next(info);
     });
   }
 
@@ -77,7 +71,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   logoutForGoogle(): void {
     this.googleApi.signOut();
     this.authService.logout();
-    localStorage.removeItem('ClickedOnButtonForSignIn');
   }
 
   @HostListener('document:click', ['$event'])
