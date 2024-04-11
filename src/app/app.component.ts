@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NotificationComponent } from './shared/components';
-import { LoaderComponent } from './shared/components';
+import { LoaderComponent, NotificationComponent } from 'app/shared';
 
 @Component({
   selector: 'app-root',

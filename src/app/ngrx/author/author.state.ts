@@ -1,4 +1,4 @@
-import { AuthorSmallInterface } from '../../types/user';
+import { AuthorSmallInterface } from 'types/';
 
 export interface AuthorState {
   author: AuthorSmallInterface | null;

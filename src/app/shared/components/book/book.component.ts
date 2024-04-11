@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { BookItemTransformedInterface } from '../../../types/user';
+import { BookItemTransformedInterface } from 'types/';
 import { Router } from '@angular/router';
-import { ReduceLetterPipe } from '../../pipes';
-import { TransformDateBookPipe } from '../../pipes';
+import { ReduceLetterPipe } from '../../';
+import { TransformDateBookPipe } from '../../';
 import { NgStyle } from '@angular/common';
-import { TransformFavoriteDatePipe } from '../../pipes';
+import { TransformFavoriteDatePipe } from '../../';
 
 @Component({
   selector: 'app-book',

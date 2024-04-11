@@ -1,7 +1,7 @@
 import { Store } from '@ngrx/store';
-import { loadFavoritesBooks } from './favorites.actions';
-import { selectFavoritesBooks } from './favorites.selector';
-import { arrayFromBookItemTransformedInterface } from '../../types/user';
+import { loadFavoritesBooks } from './';
+import { selectFavoritesBooks } from './';
+import { arrayFromBookItemTransformedInterface } from 'types/';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 

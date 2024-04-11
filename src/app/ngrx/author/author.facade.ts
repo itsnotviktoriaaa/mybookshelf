@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { loadAuthor } from './author.actions';
+import { loadAuthor } from './';
 import { Observable } from 'rxjs';
-import { AuthorSmallInterface } from '../../types/user';
-import { selectAuthor } from './author.selector';
+import { AuthorSmallInterface } from 'types/';
+import { selectAuthor } from './';
 
 @Injectable({
   providedIn: 'root',

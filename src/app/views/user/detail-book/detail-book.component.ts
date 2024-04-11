@@ -2,13 +2,13 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { BehaviorSubject, Observable, of, tap } from 'rxjs';
-import { AuthorSmallInterface, DetailBookSmallInfo } from '../../../types/user';
+import { AuthorSmallInterface, DetailBookSmallInfo } from 'types/';
 import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
-import { TransformDateBookPipe } from '../../../shared/pipes';
-import { ReduceLetterPipe } from '../../../shared/pipes';
-import { MiniModalComponent } from '../../../shared/components';
-import { DetailBookFacade } from '../../../ngrx/detail-book/detail-book.facade';
-import { AuthorFacade } from '../../../ngrx/author/author.facade';
+import { TransformDateBookPipe } from 'shared/';
+import { ReduceLetterPipe } from 'shared/';
+import { MiniModalComponent } from 'shared/';
+import { DetailBookFacade } from 'ngr/';
+import { AuthorFacade } from 'ngr/';
 
 @Component({
   selector: 'app-detail-book',

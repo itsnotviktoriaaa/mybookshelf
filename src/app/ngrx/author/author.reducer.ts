@@ -1,13 +1,13 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { loadAuthorFailure, loadAuthorSuccess } from './author.actions';
-import { AuthorState } from './author.state';
+import { loadAuthorFailure, loadAuthorSuccess } from './';
+import { AuthorState } from './';
 
-export const initialState: AuthorState = {
+export const initialStateAuthor: AuthorState = {
   author: null,
 };
 
 const _authorState = createReducer(
-  initialState,
+  initialStateAuthor,
   on(loadAuthorSuccess, (state, { data }) => ({
     ...state,
     author: data,

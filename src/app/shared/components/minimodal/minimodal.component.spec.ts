@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MinimodalComponent } from './minimodal.component';
+import { MiniModalComponent } from 'shared/components';
 
-describe('MinimodalComponent', () => {
-  let component: MinimodalComponent;
-  let fixture: ComponentFixture<MinimodalComponent>;
+describe('MiniModalComponent', () => {
+  let component: MiniModalComponent;
+  let fixture: ComponentFixture<MiniModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MinimodalComponent],
+      imports: [MiniModalComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(MinimodalComponent);
+    fixture = TestBed.createComponent(MiniModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

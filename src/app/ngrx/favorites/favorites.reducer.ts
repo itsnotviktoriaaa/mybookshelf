@@ -1,13 +1,13 @@
-import { FavoritesState } from './favorites.state';
+import { FavoritesState } from './';
 import { Action, createReducer, on } from '@ngrx/store';
-import { loadFavoritesBooksFailure, loadFavoritesBooksSuccess } from './favorites.actions';
+import { loadFavoritesBooksFailure, loadFavoritesBooksSuccess } from './';
 
-export const initialState: FavoritesState = {
+export const initialStateFavorites: FavoritesState = {
   favoritesBooks: null,
 };
 
 const _favoritesState = createReducer(
-  initialState,
+  initialStateFavorites,
   on(loadFavoritesBooksSuccess, (state, { data }) => ({
     ...state,
     favoritesBooks: data,

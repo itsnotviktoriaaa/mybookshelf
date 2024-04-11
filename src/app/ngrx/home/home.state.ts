@@ -1,4 +1,4 @@
-import { arrayFromBookItemTransformedInterface } from '../../types/user';
+import { arrayFromBookItemTransformedInterface } from 'types/';
 
 export interface HomeState {
   recommendedBooks: arrayFromBookItemTransformedInterface | null;

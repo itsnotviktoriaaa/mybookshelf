@@ -1,8 +1,8 @@
 import { Store } from '@ngrx/store';
-import { loadReadingNowBooks, loadRecommendedBooks } from './home.actions';
+import { loadReadingNowBooks, loadRecommendedBooks } from './';
 import { Observable } from 'rxjs';
-import { arrayFromBookItemTransformedInterface } from '../../types/user';
-import { selectReadingNowBooks, selectRecommendedBooks } from './home.selectors';
+import { arrayFromBookItemTransformedInterface } from 'types/';
+import { selectReadingNowBooks, selectRecommendedBooks } from './';
 import { Injectable } from '@angular/core';
 
 @Injectable({

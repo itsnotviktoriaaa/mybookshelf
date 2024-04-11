@@ -7,19 +7,19 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { provideHttpClient } from '@angular/common/http';
-import { environment } from '../environments/environment.development';
 import { provideAngularSvgIcon } from 'angular-svg-icon';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
-import { homeNowReducer, homeReducer } from './ngrx/home/home.reducer';
-import { BookEffects } from './ngrx/home/home.effects';
-import { favoritesReducer } from './ngrx/favorites/favorites.reducer';
-import { FavoritesEffects } from './ngrx/favorites/favorites.effects';
-import { DetailBookEffects } from './ngrx/detail-book/detail-book.effects';
-import { detailReducer } from './ngrx/detail-book/detail-book.reducer';
-import { AuthorEffects } from './ngrx/author/author.effects';
-import { authorReducer } from './ngrx/author/author.reducer';
+import { homeNowReducer, homeReducer } from 'ngr/';
+import { BookEffects } from 'ngr/';
+import { favoritesReducer } from 'ngr/';
+import { FavoritesEffects } from 'ngr/';
+import { DetailBookEffects } from 'ngr/';
+import { detailReducer } from 'ngr/';
+import { AuthorEffects } from 'ngr/';
+import { authorReducer } from 'ngr/';
+import { environment } from '../environments/environment.development';
 
 const scrollConfig: InMemoryScrollingOptions = {
   scrollPositionRestoration: 'enabled',

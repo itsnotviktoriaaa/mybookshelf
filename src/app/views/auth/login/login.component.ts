@@ -2,14 +2,14 @@ import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@
 import { NgOptimizedImage, NgStyle } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthService } from '../../../core';
-import { NotificationService } from '../../../shared/services';
-import { CodeMessageHandlerUtil } from '../../../shared/utils';
-import { NotificationStatus } from '../../../types/auth';
+import { AuthService } from 'core/';
+import { NotificationService } from 'shared/';
+import { CodeMessageHandlerUtil } from 'shared/';
+import { NotificationStatus } from 'types/';
 import { catchError, EMPTY, Subject, Subscription, takeUntil, tap } from 'rxjs';
 import { SvgIconComponent } from 'angular-svg-icon';
-import { UserInfoFromGoogle } from '../../../types/auth';
-import { GoogleApiService } from '../../../core';
+import { UserInfoFromGoogle } from 'types/';
+import { GoogleApiService } from 'core/';
 
 @Component({
   selector: 'app-login',

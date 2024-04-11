@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { GoogleApiService } from '../../core';
+import { GoogleApiService } from 'core/';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
-import { AuthorInfoDetail, AuthorSmallInterface } from '../../types/user';
-import { loadAuthor, loadAuthorFailure, loadAuthorSuccess } from './author.actions';
+import { AuthorInfoDetail, AuthorSmallInterface } from 'types/';
+import { loadAuthor, loadAuthorFailure, loadAuthorSuccess } from './';
 import { TypedAction } from '@ngrx/store/src/models';
 
 @Injectable()

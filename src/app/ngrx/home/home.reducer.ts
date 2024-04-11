@@ -1,14 +1,14 @@
 import { createReducer, on, Action } from '@ngrx/store';
-import { loadRecommendedBooksSuccess, loadRecommendedBooksFailure, loadReadingNowBooksSuccess, loadReadingNowBooksFailure, loadRecommendedBooks } from './home.actions';
-import { HomeNowState, HomeState } from './home.state';
+import { loadRecommendedBooksSuccess, loadRecommendedBooksFailure, loadReadingNowBooksSuccess, loadReadingNowBooksFailure, loadRecommendedBooks } from './';
+import { HomeNowState, HomeState } from './';
 
-export const initialState: HomeState = {
+export const initialStateHome: HomeState = {
   recommendedBooks: null,
   loading: false,
 };
 
 const _homeReducer = createReducer(
-  initialState,
+  initialStateHome,
   on(loadRecommendedBooks, state => ({
     ...state,
     loading: true,
@@ -29,12 +29,12 @@ export function homeReducer(state: HomeState | undefined, action: Action) {
   return _homeReducer(state, action);
 }
 
-export const initialState1: HomeNowState = {
+export const initialStateReading: HomeNowState = {
   readingNowBooks: null,
 };
 
 const _homeNowReducer = createReducer(
-  initialState1,
+  initialStateReading,
   on(loadReadingNowBooksSuccess, (state, { data }) => ({
     ...state,
     readingNowBooks: data,

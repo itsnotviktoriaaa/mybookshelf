@@ -1,8 +1,6 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './views';
-import { SignupComponent } from './views';
-import { LayoutComponent } from './shared/components';
-import { authForwardGuard } from './core/auth/auth-forward.guard';
+import { LoginComponent, SignupComponent } from 'app/views/auth';
+import { authForwardGuard, LayoutComponent } from 'app/shared';
 
 export const routes: Routes = [
   { path: '', title: 'Login in MyBookShelf', component: LoginComponent, canActivate: [authForwardGuard] },
@@ -21,33 +19,32 @@ export const routes: Routes = [
       {
         path: '',
         title: 'MyBookShelf',
-        pathMatch: 'full',
-        loadComponent: () => import('./views/user/home/home.component').then(m => m.HomeComponent),
+        loadComponent: () => import('app/views/').then(c => c.HomeComponent),
       },
       {
         path: 'show',
         title: 'MyBookShelf',
-        loadComponent: () => import('./views/user/show-all/show-all.component').then(m => m.ShowAllComponent),
+        loadComponent: () => import('app/views/').then(c => c.ShowAllComponent),
       },
       {
         path: 'favorites',
         title: 'MyBookShelf',
-        loadComponent: () => import('./views/user/favorites/favorites.component').then(m => m.FavoritesComponent),
+        loadComponent: () => import('app/views/').then(c => c.FavoritesComponent),
       },
       {
         path: 'book/:id',
         title: 'MyBookShelf',
-        loadComponent: () => import('./views/user/detail-book/detail-book.component').then(m => m.DetailBookComponent),
+        loadComponent: () => import('app/views/').then(c => c.DetailBookComponent),
       },
       {
         path: 'upload',
         title: 'MyBookShelf',
-        loadComponent: () => import('./views/user/upload/upload.component').then(m => m.UploadComponent),
+        loadComponent: () => import('app/views/').then(c => c.UploadComponent),
       },
       {
         path: 'search',
         title: 'MyBookShelf',
-        loadComponent: () => import('./views/user/search/search.component').then(m => m.SearchComponent),
+        loadComponent: () => import('app/views/').then(c => c.SearchComponent),
       },
     ],
   },

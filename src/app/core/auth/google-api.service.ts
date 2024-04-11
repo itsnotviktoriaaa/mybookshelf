@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { AuthService } from './auth.service';
-import { AuthorInfoDetail, BookInterface, DetailBookInterface } from '../../types/user';
-import { oAuthConfig } from './auth.config';
-import { UserInfoFromGoogle } from '../../types/auth';
+import { AuthService } from './';
+import { AuthorInfoDetail, BookInterface, DetailBookInterface } from 'types/';
+import { oAuthConfig } from 'config/';
+import { UserInfoFromGoogle } from 'types/';
 import { Router } from '@angular/router';
 
 @Injectable({

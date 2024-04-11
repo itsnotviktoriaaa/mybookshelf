@@ -1,6 +1,6 @@
 import { ActivatedRouteSnapshot, CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
-import { oAuthConfig } from './auth.config';
+import { oAuthConfig } from 'config/';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { catchError, from, of, switchMap } from 'rxjs';
 

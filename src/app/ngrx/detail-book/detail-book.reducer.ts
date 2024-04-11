@@ -1,13 +1,13 @@
-import { DetailBookState } from './detail-book.state';
+import { DetailBookState } from './';
 import { Action, createReducer, on } from '@ngrx/store';
-import { loadDetailBookFailure, loadDetailBookSuccess } from './detail-book.actions';
+import { loadDetailBookFailure, loadDetailBookSuccess } from './';
 
-export const initialState: DetailBookState = {
+export const initialStateDetailBook: DetailBookState = {
   detailBook: null,
 };
 
 const _detailBookState = createReducer(
-  initialState,
+  initialStateDetailBook,
   on(loadDetailBookSuccess, (state, { data }) => ({
     ...state,
     detailBook: data,

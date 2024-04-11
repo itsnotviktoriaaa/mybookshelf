@@ -1,7 +1,7 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { NotificationService } from '../../services';
+import { NotificationService } from 'shared/services';
 import { NgClass, NgStyle } from '@angular/common';
-import { NotificationStatus, NotificationType } from '../../../types/auth';
+import { NotificationStatus, NotificationType } from 'types/';
 import { finalize, Subject, takeUntil, tap } from 'rxjs';
 
 @Component({

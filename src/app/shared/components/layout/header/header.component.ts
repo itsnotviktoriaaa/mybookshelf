@@ -1,13 +1,13 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { NotificationStatus } from '../../../../types/auth';
-import { HeaderClickInterface } from '../../../../types/user';
+import { NotificationStatus } from 'types/auth';
+import { HeaderClickInterface } from 'types/user';
 import { SvgIconComponent } from 'angular-svg-icon';
-import { AuthService } from '../../../../core';
+import { AuthService } from 'core/';
 import { BehaviorSubject, catchError, EMPTY, Subject, takeUntil, tap } from 'rxjs';
 import { Router } from '@angular/router';
-import { NotificationService } from '../../../services';
-import { UserInfoFromGoogle } from '../../../../types/auth';
-import { GoogleApiService } from '../../../../core';
+import { NotificationService } from 'shared/';
+import { UserInfoFromGoogle } from 'types/';
+import { GoogleApiService } from 'core/';
 import { AsyncPipe } from '@angular/common';
 
 @Component({
