@@ -19,7 +19,9 @@
 
   .home-hello {
     font-size: 35px;
+
     @include text-primary-gray-600;
+
     margin-top: 42px;
   }
 

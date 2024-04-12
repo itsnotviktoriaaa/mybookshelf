@@ -58,7 +58,7 @@ export class DetailBookComponent implements OnInit {
         tap((data: DetailBookSmallInfo | null) => {
           this.miniLoader$.next({ miniLoader: false });
           if (data) {
-            this.authorFacade.loadAuthor(data?.authors[0].split(' ').join('+').toLowerCase());
+            this.authorFacade.loadAuthor(this.search(data));
             this.author$ = this.authorFacade.getDetailBook();
             if (data.averageRating) {
               this.rating = Math.round(data.averageRating);
@@ -69,11 +69,15 @@ export class DetailBookComponent implements OnInit {
     });
   }
 
+  search(data: DetailBookSmallInfo): string {
+    return data.authors[0].split(' ').join('+').toLowerCase();
+  }
+
   openPageOnGoogle(url: string): void {
     window.open(url, '_blank');
   }
 
-  openOtherBook(authorId: string) {
+  openOtherBook(authorId: string): void {
     this.miniLoader$.next({ miniLoader: true });
     this.router.navigate(['/home/book', authorId]);
   }

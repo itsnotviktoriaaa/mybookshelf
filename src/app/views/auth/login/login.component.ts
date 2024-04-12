@@ -91,10 +91,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.googleApi.initiateAuthentication();
   }
 
-  // logout(): void {
-  //   this.googleApi.signOut();
-  // }
-
   ngOnDestroy(): void {
     this.loginDestroy$.next();
     this.loginDestroy$.complete();

@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     private homeFacade: HomeFacade
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.googleApi.userProfileSubject.subscribe((user: UserInfoFromGoogle | null) => {
       if (user) {
         this.homeFacade.loadRecommendedBooks(0);
@@ -66,7 +66,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.homeDestroy$.next();
     this.homeDestroy$.complete();
   }

@@ -33,7 +33,7 @@ export class ShowAllComponent implements OnInit {
     private homeFacade: HomeFacade
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       const queryParams = params['show'];
       this.activeParams.show =
@@ -53,7 +53,7 @@ export class ShowAllComponent implements OnInit {
     });
   }
 
-  loadBooks() {
+  loadBooks(): void {
     this.miniLoader$.next({ miniLoader: true });
     if (this.activeParams.show === 'recommended') {
       this.homeFacade.loadRecommendedBooks(this.startIndex);
@@ -98,14 +98,14 @@ export class ShowAllComponent implements OnInit {
     }
   }
 
-  openPage(page: number) {
+  openPage(page: number): void {
     this.activeParams.page = page;
     this.router.navigate(['/home/show'], {
       queryParams: this.activeParams,
     });
   }
 
-  openPrevPage() {
+  openPrevPage(): void {
     if (this.activeParams.page && this.activeParams.page > 1) {
       this.activeParams.page--;
       this.router
@@ -116,7 +116,7 @@ export class ShowAllComponent implements OnInit {
     }
   }
 
-  openNextPage() {
+  openNextPage(): void {
     if (this.activeParams.page && this.activeParams.page < this.pages.length) {
       this.activeParams.page++;
       this.router

@@ -20,14 +20,14 @@ export class BookComponent {
 
   constructor(private router: Router) {}
 
-  openDetailBook(sizeBook: 'small-book' | 'big-book') {
+  openDetailBook(sizeBook: 'small-book' | 'big-book'): void {
     if (sizeBook === 'small-book' && !this.bigInfo) {
       this.router.navigate(['home/book/', this.book?.id]).then(() => {});
     } else if (sizeBook === 'big-book') {
       this.router.navigate(['home/book/', this.book?.id]).then(() => {});
     }
   }
-  openGoogleInfo() {
+  openGoogleInfo(): void {
     window.open(this.book?.webReaderLink, '_blank');
   }
 }

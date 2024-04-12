@@ -1,4 +1,9 @@
-@if (!miniLoader.miniLoader && googleArrayFromHome && googleArrayFromHome.items && googleArrayFromHome.items.length > 0) {
+@if (
+  !miniLoader.miniLoader &&
+  googleArrayFromHome &&
+  googleArrayFromHome.items &&
+  googleArrayFromHome.items.length > 0
+) {
   <div class="home-recommended-books">
     @for (book of googleArrayFromHome.items; track $index) {
       <app-book [book]="book"></app-book>

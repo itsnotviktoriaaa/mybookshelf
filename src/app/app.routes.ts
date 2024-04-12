@@ -11,7 +11,6 @@ export const routes: Routes = [
     component: LoginComponent,
     canActivate: [authForwardGuard],
   },
-  // { path: 'login', title: 'Login in MyBookShelf', component: LoginComponent },
   {
     path: 'signup',
     title: 'Signup in MyBookShelf',
