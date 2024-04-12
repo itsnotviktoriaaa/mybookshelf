@@ -27,7 +27,7 @@ export class FavoritesComponent implements OnInit {
     this.miniLoader$.next({ miniLoader: true });
     this.favoriteFacade.loadFavoritesBooks();
     this.favoritesBooks$ = this.favoriteFacade.getFavoritesBooks().pipe(
-      tap(books => {
+      tap((books: arrayFromBookItemTransformedInterface | null): void => {
         console.log(books);
         this.miniLoader$.next({ miniLoader: false });
       })

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { NgOptimizedImage, NgStyle } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -6,10 +6,11 @@ import { AuthService } from '../../../core';
 import { NotificationService } from '../../../shared/services';
 import { CodeMessageHandlerUtil } from '../../../shared/utils';
 import { NotificationStatus } from '../../../types/auth';
-import { catchError, EMPTY, Subject, Subscription, takeUntil, tap } from 'rxjs';
+import { catchError, EMPTY, Observable, tap } from 'rxjs';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { UserInfoFromGoogle } from '../../../types/auth';
 import { GoogleApiService } from '../../../core';
+import { SubscribeDecorator } from '../../../decorators/subscribe-decorator';
 
 @Component({
   selector: 'app-login',
@@ -19,12 +20,10 @@ import { GoogleApiService } from '../../../core';
   imports: [NgOptimizedImage, RouterLink, NgStyle, ReactiveFormsModule, SvgIconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   isShowPassword: boolean = false;
   errorMessage: string | null = null;
-  subscription1: Subscription | null = null;
-  loginDestroy$: Subject<void> = new Subject<void>();
 
   constructor(
     private authService: AuthService,
@@ -53,38 +52,34 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   login(): void {
     this.notificationService.notifyAboutNotificationLoader(true);
-    this.subscription1 = this.authService
-      .login(this.loginForm.value.email, this.loginForm.value.password)
-      .pipe(
-        tap(() => {
-          this.notificationService.notifyAboutNotificationLoader(false);
-          this.notificationService.notifyAboutNotification({
-            message: 'Welcome in MyBookShelf',
-            status: NotificationStatus.success,
-          });
-          this.router.navigate(['/home']).then(() => {});
-          console.log('----- Login ------');
-        }),
-        catchError(err => {
-          this.errorMessage = CodeMessageHandlerUtil.handlerCodeMessage(err.code);
-          this.notificationService.notifyAboutNotificationLoader(false);
-          this.notificationService.notifyAboutNotification({
-            message: `${this.errorMessage}`,
-            status: NotificationStatus.error,
-          });
-          return EMPTY;
-        }),
-        takeUntil(this.loginDestroy$)
-      )
-      .subscribe();
+    this.loginObservable().subscribe();
+  }
+
+  @SubscribeDecorator()
+  loginObservable(): Observable<void> {
+    return this.authService.login(this.loginForm.value.email, this.loginForm.value.password).pipe(
+      tap(() => {
+        this.notificationService.notifyAboutNotificationLoader(false);
+        this.notificationService.notifyAboutNotification({
+          message: 'Welcome in MyBookShelf',
+          status: NotificationStatus.success,
+        });
+        this.router.navigate(['/home']).then(() => {});
+        console.log('----- Login ------');
+      }),
+      catchError(err => {
+        this.errorMessage = CodeMessageHandlerUtil.handlerCodeMessage(err.code);
+        this.notificationService.notifyAboutNotificationLoader(false);
+        this.notificationService.notifyAboutNotification({
+          message: `${this.errorMessage}`,
+          status: NotificationStatus.error,
+        });
+        return EMPTY;
+      })
+    );
   }
 
   googleLogin(): void {
     this.googleApi.initiateAuthentication();
-  }
-
-  ngOnDestroy(): void {
-    this.loginDestroy$.next();
-    this.loginDestroy$.complete();
   }
 }

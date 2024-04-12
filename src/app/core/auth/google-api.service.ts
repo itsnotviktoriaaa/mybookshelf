@@ -31,10 +31,10 @@ export class GoogleApiService {
           this.oAuthService.initLoginFlow();
         } else {
           this.oAuthService.loadUserProfile().then(userProfile => {
+            this.oAuthService.setupAutomaticSilentRefresh();
+            this.userProfileSubject.next(userProfile as UserInfoFromGoogle);
             // console.log(JSON.stringify(userProfile));
             // console.log(this.oAuthService.getAccessToken());
-            this.userProfileSubject.next(userProfile as UserInfoFromGoogle);
-            this.oAuthService.setupAutomaticSilentRefresh();
             this.authService
               .checkEmailWasUsed(this.userProfileSubject.getValue()!.info.email)
               .pipe(

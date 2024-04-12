@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { BookComponent } from '../../../shared/components';
-import { BehaviorSubject, Subject, takeUntil, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { arrayFromBookItemTransformedInterface } from '../../../types/user';
 import { AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
@@ -9,6 +9,7 @@ import { GoogleApiService } from '../../../core';
 import { UserInfoFromGoogle } from '../../../types/auth';
 import { HomeFacade } from '../../../ngrx/home/home.facade';
 import { GoogleHomeComponent } from '../../../shared/components/google-home/google-home.component';
+import { SubscribeDecorator } from '../../../decorators/subscribe-decorator';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,7 @@ import { GoogleHomeComponent } from '../../../shared/components/google-home/goog
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit {
   recommendedBooks$: BehaviorSubject<arrayFromBookItemTransformedInterface | null> =
     new BehaviorSubject<arrayFromBookItemTransformedInterface | null>(null);
 
@@ -33,8 +34,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     miniLoader: boolean;
   }>({ miniLoader: true });
 
-  homeDestroy$: Subject<void> = new Subject<void>();
-  // loading: boolean = true;
   constructor(
     private googleApi: GoogleApiService,
     private homeFacade: HomeFacade
@@ -44,34 +43,32 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.googleApi.userProfileSubject.subscribe((user: UserInfoFromGoogle | null) => {
       if (user) {
         this.homeFacade.loadRecommendedBooks(0);
-        this.homeFacade
-          .getRecommendedBooks()
-          .pipe(
-            tap((book: arrayFromBookItemTransformedInterface | null) => {
-              console.log(book);
-              this.recommendedBooks$.next(book);
-              this.miniLoader$.next({ miniLoader: false });
-            }),
-            takeUntil(this.homeDestroy$)
-          )
-          .subscribe();
+        this.getRecommendedBooksObservable().subscribe();
 
         this.homeFacade.loadReadingNowBooks(0);
-        this.homeFacade
-          .getReadingNowBooks()
-          .pipe(
-            tap((books: arrayFromBookItemTransformedInterface | null) => {
-              this.readingNowBooks$.next(books);
-              this.miniLoaderReading$.next({ miniLoader: false });
-            })
-          )
-          .subscribe();
+        this.getReadingNowBooksObservable().subscribe();
       }
     });
   }
 
-  ngOnDestroy(): void {
-    this.homeDestroy$.next();
-    this.homeDestroy$.complete();
+  @SubscribeDecorator()
+  getRecommendedBooksObservable(): Observable<arrayFromBookItemTransformedInterface | null> {
+    return this.homeFacade.getRecommendedBooks().pipe(
+      tap((book: arrayFromBookItemTransformedInterface | null) => {
+        console.log(book);
+        this.recommendedBooks$.next(book);
+        this.miniLoader$.next({ miniLoader: false });
+      })
+    );
+  }
+
+  @SubscribeDecorator()
+  getReadingNowBooksObservable(): Observable<arrayFromBookItemTransformedInterface | null> {
+    return this.homeFacade.getReadingNowBooks().pipe(
+      tap((books: arrayFromBookItemTransformedInterface | null) => {
+        this.readingNowBooks$.next(books);
+        this.miniLoaderReading$.next({ miniLoader: false });
+      })
+    );
   }
 }
