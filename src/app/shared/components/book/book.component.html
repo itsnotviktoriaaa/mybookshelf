@@ -1,32 +1,36 @@
-<div class="book-back" [ngStyle]="{ width: bigInfo ? '308px' : '160px' }">
-  <div (click)="openDetailBook('small-book')" class="book-left" [ngStyle]="{ cursor: bigInfo ? 'default' : 'pointer' }">
-    <div class="book-image" style="background-image: url({{ book.thumbnail }})">&nbsp;</div>
-    <span class="book-name">{{ book.title | reduceLetter: 'book-name' }}</span>
-    @if (book.author && book.author.length > 0) {
-      <span class="book-author">{{ book.author[0] | reduceLetter: 'book-author' }} {{ book.publishedDate | transformDateBook }}</span>
-    }
-    @if (book.averageRating) {
-      <span class="book-review">{{ book.averageRating }}<span class="book-review-all">/5</span></span>
-    } @else {
-      <span class="book-review">{{ book.pageCount ? book.pageCount : '—' }} pages</span>
+@if (book) {
+  <div class="book-back" [ngClass]="{ 'big-book': bigInfo, 'small-book': !bigInfo }">
+    <div (click)="openDetailBook('small-book')" class="book-left" [ngStyle]="{ cursor: bigInfo ? 'default' : 'pointer' }">
+      <div class="book-image" style="background-image: url({{ book.thumbnail }})">&nbsp;</div>
+      <span class="book-name">{{ book.title | reduceLetter: 'book-name' }}</span>
+      @if (book.author && book.author.length > 0) {
+        <span class="book-author">{{ book.author[0] | reduceLetter: 'book-author' }} {{ book.publishedDate | transformDateBook }}</span>
+      }
+      @if (book.averageRating) {
+        <span class="book-review">{{ book.averageRating }}<span class="book-review-all">/5</span></span>
+      } @else {
+        <span class="book-review">{{ book.pageCount ? book.pageCount : '—' }} pages</span>
+      }
+    </div>
+    @if (bigInfo) {
+      <div class="book-right">
+        <div class="book-right-top">
+          <div class="book-right-top-wrapper">
+            <span class="book-right-top-title">Borrowed on</span>
+            @if (book.userInfo) {
+              <span class="book-right-top-description">{{ book.userInfo | transformFavoriteDate }}</span>
+            }
+          </div>
+          <div class="book-right-top-wrapper">
+            <span class="book-right-top-title">Categories</span>
+            <span class="book-right-top-description">{{ book.categories ? book.categories[0] : '—' }}</span>
+          </div>
+        </div>
+        <div class="book-right-bottom">
+          <button (click)="openGoogleInfo()" class="btn-green button-green-full">E-BOOK</button>
+          <button (click)="openDetailBook('big-book')" class="btn-orange button-orange-transparent">Read</button>
+        </div>
+      </div>
     }
   </div>
-  @if (bigInfo) {
-    <div class="book-right">
-      <div class="book-right-top">
-        <div class="book-right-top-wrapper">
-          <span class="book-right-top-title">Borrowed on</span>
-          <span class="book-right-top-description">{{ book.userInfo! | transformFavoriteDate }}</span>
-        </div>
-        <div class="book-right-top-wrapper">
-          <span class="book-right-top-title">Categories</span>
-          <span class="book-right-top-description">{{ book.categories ? book.categories[0] : '—' }}</span>
-        </div>
-      </div>
-      <div class="book-right-bottom">
-        <button (click)="openGoogleInfo()" class="btn-green button-green-full">E-BOOK</button>
-        <button (click)="openDetailBook('big-book')" class="btn-orange button-orange-transparent">Read</button>
-      </div>
-    </div>
-  }
-</div>
+}

@@ -1,5 +1,13 @@
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, fetchSignInMethodsForEmail, signInWithEmailAndPassword, signOut, updateProfile, user } from '@angular/fire/auth';
+import {
+  Auth,
+  createUserWithEmailAndPassword,
+  fetchSignInMethodsForEmail,
+  signInWithEmailAndPassword,
+  signOut,
+  updateProfile,
+  user,
+} from '@angular/fire/auth';
 import { from, Observable } from 'rxjs';
 import { UserInterface } from '../../types/auth';
 type User = import('firebase/auth').User;
@@ -17,7 +25,9 @@ export class AuthService {
   currentUserSig: WritableSignal<UserInterface | null | undefined> = signal<UserInterface | null | undefined>(undefined);
 
   register(email: string, username: string, password: string): Observable<void> {
-    const promise: Promise<void> = createUserWithEmailAndPassword(this.firebaseAuth, email, password).then(response => updateProfile(response.user, { displayName: username }));
+    const promise: Promise<void> = createUserWithEmailAndPassword(this.firebaseAuth, email, password).then(response =>
+      updateProfile(response.user, { displayName: username })
+    );
     return from(promise);
   }
 

@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { AuthorInfoDetail, BookInterface, DetailBookInterface } from '../../types/user';
-import { oAuthConfig } from './auth.config';
+import { oAuthConfig } from '../../config';
 import { UserInfoFromGoogle } from '../../types/auth';
 import { Router } from '@angular/router';
 
@@ -32,15 +32,20 @@ export class GoogleApiService {
             // console.log(JSON.stringify(userProfile));
             // console.log(this.oAuthService.getAccessToken());
             this.userProfileSubject.next(userProfile as UserInfoFromGoogle);
+            this.oAuthService.setupAutomaticSilentRefresh();
             this.authService
-              .checkEmailWasUsed((userProfile as UserInfoFromGoogle).info.email)
+              .checkEmailWasUsed(this.userProfileSubject.getValue()!.info.email)
               .pipe(
                 tap((param: string[]) => {
                   if (param && param.length > 0) {
                     console.log('here we are');
-                    this.authService.login((userProfile as UserInfoFromGoogle).info.email, (userProfile as UserInfoFromGoogle).info.sub);
+                    this.authService.login(this.userProfileSubject.getValue()!.info.email, this.userProfileSubject.getValue()!.info.sub);
                   } else {
-                    this.authService.register((userProfile as UserInfoFromGoogle).info.email, (userProfile as UserInfoFromGoogle).info.name, (userProfile as UserInfoFromGoogle).info.sub);
+                    this.authService.register(
+                      this.userProfileSubject.getValue()!.info.email,
+                      this.userProfileSubject.getValue()!.info.name,
+                      (userProfile as UserInfoFromGoogle).info.sub
+                    );
                   }
                 })
               )
@@ -49,8 +54,6 @@ export class GoogleApiService {
         }
       });
     });
-
-    this.oAuthService.setupAutomaticSilentRefresh();
   }
 
   // getBooks(): Observable<BookInterface> {
@@ -59,7 +62,10 @@ export class GoogleApiService {
 
   getReadingNow(startIndex: number): Observable<BookInterface> {
     const params = new HttpParams().set('maxResults', 40).set('startIndex', startIndex);
-    return this.http.get<BookInterface>(`https://www.googleapis.com/books/v1/mylibrary/bookshelves/3/volumes`, { params: params, headers: this.authHeader() });
+    return this.http.get<BookInterface>(`https://www.googleapis.com/books/v1/mylibrary/bookshelves/3/volumes`, {
+      params: params,
+      headers: this.authHeader(),
+    });
   }
 
   getFavorites(): Observable<BookInterface> {
@@ -68,7 +74,10 @@ export class GoogleApiService {
 
   getRecommended(startIndex: number): Observable<BookInterface> {
     const params = new HttpParams().set('maxResults', 40).set('startIndex', startIndex);
-    return this.http.get<BookInterface>(`https://www.googleapis.com/books/v1/mylibrary/bookshelves/8/volumes`, { params: params, headers: this.authHeader() });
+    return this.http.get<BookInterface>(`https://www.googleapis.com/books/v1/mylibrary/bookshelves/8/volumes`, {
+      params: params,
+      headers: this.authHeader(),
+    });
   }
 
   getDetailBook(idOfBook: string): Observable<DetailBookInterface> {

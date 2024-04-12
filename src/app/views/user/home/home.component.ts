@@ -18,8 +18,11 @@ import { HomeFacade } from '../../../ngrx/home/home.facade';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent implements OnInit {
-  recommendedBooks$: BehaviorSubject<arrayFromBookItemTransformedInterface | null> = new BehaviorSubject<arrayFromBookItemTransformedInterface | null>(null);
-  readingNowBooks$: BehaviorSubject<arrayFromBookItemTransformedInterface | null> = new BehaviorSubject<arrayFromBookItemTransformedInterface | null>(null);
+  recommendedBooks$: BehaviorSubject<arrayFromBookItemTransformedInterface | null> =
+    new BehaviorSubject<arrayFromBookItemTransformedInterface | null>(null);
+  readingNowBooks$: BehaviorSubject<arrayFromBookItemTransformedInterface | null> = new BehaviorSubject<arrayFromBookItemTransformedInterface | null>(
+    null
+  );
   miniLoader$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   miniLoader1$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   // loading: boolean = true;

@@ -24,6 +24,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   protected readonly HeaderClickInterfaceEnum = HeaderClickInterface;
   authServiceDestroy$: Subject<void> = new Subject<void>();
   userInfo$: BehaviorSubject<UserInfoFromGoogle | null> = new BehaviorSubject<UserInfoFromGoogle | null>(null);
+  headerModalItems: string[] = ['All', 'Title', 'Author', 'Text', 'Subjects'];
+  headerModalLangItems: string[] = ['Eng', 'Rus'];
+  headerModalAccountItems: string[] = ['Profile', 'Favourite', 'My Books', 'Logout'];
 
   constructor(
     private authService: AuthService,
@@ -38,7 +41,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
 
-  openOrCloseMiniModal(nameOfMiniModal: HeaderClickInterface.allMiniModal | HeaderClickInterface.langMiniModal | HeaderClickInterface.profileMiniModal): void {
+  openOrCloseMiniModal(
+    nameOfMiniModal: HeaderClickInterface.allMiniModal | HeaderClickInterface.langMiniModal | HeaderClickInterface.profileMiniModal
+  ): void {
     if (nameOfMiniModal === HeaderClickInterface.allMiniModal) {
       this.allMiniModal = !this.allMiniModal;
     }
@@ -75,7 +80,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   @HostListener('document:click', ['$event'])
   click(event: Event) {
-    if (this.allMiniModal && !((event.target as Element).closest('.header-search-modal') || (event.target as Element).closest('.header-search-all'))) {
+    if (
+      this.allMiniModal &&
+      !((event.target as Element).closest('.header-search-modal') || (event.target as Element).closest('.header-search-all'))
+    ) {
       this.allMiniModal = false;
     }
 
@@ -83,7 +91,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.langMiniModal = false;
     }
 
-    if (this.profileMiniModal && !((event.target as Element).closest('.header-account-modal') || (event.target as Element).closest('.header-account-info'))) {
+    if (
+      this.profileMiniModal &&
+      !((event.target as Element).closest('.header-account-modal') || (event.target as Element).closest('.header-account-info'))
+    ) {
       this.profileMiniModal = false;
     }
   }

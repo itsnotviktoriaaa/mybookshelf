@@ -1,7 +1,7 @@
 <section class="favorites common-padding">
   <h2 class="favorites-title">Your Favourite</h2>
   @if (miniLoader$ | async; as miniLoader) {
-    <app-minimodal [miniLoader]="miniLoader"></app-minimodal>
+    <app-mini-modal [miniLoader]="miniLoader"></app-mini-modal>
   } @else {
     @if (favoritesBooks$ | async; as favoritesBooks) {
       <div class="favorites-books">

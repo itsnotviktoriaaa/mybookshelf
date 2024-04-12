@@ -9,6 +9,7 @@ import { SvgIconComponent } from 'angular-svg-icon';
   styleUrl: './search.component.scss',
 })
 export class SearchComponent {
+  headerModalSearchItems: string[] = ['Engineering', 'Medical', 'Arts & Science', 'Architecture', 'Law'];
   browseMiniModal: boolean = false;
 
   openOrCloseMiniModal(): void {

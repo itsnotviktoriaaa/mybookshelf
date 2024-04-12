@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MinimodalComponent } from './minimodal.component';
+import { StarComponent } from './star.component';
 
-describe('MinimodalComponent', () => {
-  let component: MinimodalComponent;
-  let fixture: ComponentFixture<MinimodalComponent>;
+describe('StarComponent', () => {
+  let component: StarComponent;
+  let fixture: ComponentFixture<StarComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MinimodalComponent],
+      imports: [StarComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(MinimodalComponent);
+    fixture = TestBed.createComponent(StarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,7 +1,7 @@
 <section class="detail">
   <div class="info-message detail-info-message">
     @if (miniLoader$ | async; as miniLoader) {
-      <app-minimodal [miniLoader]="miniLoader"></app-minimodal>
+      <app-mini-modal [miniLoader]="miniLoader"></app-mini-modal>
     }
     @if ((detailBook$ | async) === null && !miniLoader$) {
       <div class="common-nothing">No information available</div>
@@ -21,18 +21,12 @@
                 <img src="{{ detailBook.thumbnail }}" alt="{{ detailBook.title }}" />
               </div>
               <div class="detail-left-actions">
-                <div class="detail-left-action">
-                  <svg-icon src="assets/images/icons/review-icon.svg"></svg-icon>
-                  <span class="detail-action-title">Review</span>
-                </div>
-                <div class="detail-left-action">
-                  <svg-icon src="assets/images/icons/notes-icon.svg"></svg-icon>
-                  <span class="detail-action-title">Notes</span>
-                </div>
-                <div class="detail-left-action">
-                  <svg-icon src="assets/images/icons/share-icon.svg"></svg-icon>
-                  <span class="detail-action-title">Share</span>
-                </div>
+                @for (action of actions; track $index) {
+                  <div class="detail-left-action">
+                    <svg-icon src="assets/images/icons/{{ action.svg }}"></svg-icon>
+                    <span class="detail-action-title">{{ action.title }}</span>
+                  </div>
+                }
               </div>
             </div>
             <div class="detail-center">
@@ -42,35 +36,27 @@
                   By <a class="detail-center-info-author-decoration">{{ detailBook.authors[0] }}</a
                   >, {{ detailBook.publishedDate | transformDateBook }}
                 </h2>
-                <h3 class="detail-center-info-edition">{{ detailBook.publisher }}</h3>
+                @if (detailBook.publisher) {
+                  <h3 class="detail-center-info-edition">{{ detailBook.publisher }}</h3>
+                }
               </div>
-              <div class="detail-central-reviews">
-                @if (detailBook.averageRating) {
-                  <div class="rating-mini">
-                    <span [ngClass]="{ active: rating ? rating >= 1 : false }"></span>
-                    <span [ngClass]="{ active: rating ? rating >= 2 : false }"></span>
-                    <span [ngClass]="{ active: rating ? rating >= 3 : false }"></span>
-                    <span [ngClass]="{ active: rating ? rating >= 4 : false }"></span>
-                    <span [ngClass]="{ active: rating ? rating === 5 : false }"></span>
-                  </div>
+              @if (detailBook.averageRating) {
+                <div class="detail-central-reviews">
+                  <app-star [rating]="rating"></app-star>
                   <span>{{ detailBook.averageRating }}.0 Ratings</span>
-                }
-              </div>
-              <div class="detail-central-availability">
-                <h3 class="detail-central-availability-title">Availability</h3>
-                @if (detailBook.accessInfo.epub) {
-                  <div class="detail-central-availability-item">
-                    <svg-icon class="detail-central-availability-item-icon" src="assets/images/icons/done-green.svg"></svg-icon>
-                    <span class="detail-central-availability-item-description">EPUB</span>
-                  </div>
-                }
-                @if (detailBook.accessInfo.pdf) {
-                  <div class="detail-central-availability-item">
-                    <svg-icon class="detail-central-availability-item-icon" src="assets/images/icons/done-green.svg"></svg-icon>
-                    <span class="detail-central-availability-item-description">PDF</span>
-                  </div>
-                }
-              </div>
+                </div>
+              }
+              @if (detailBook.accessInfo && detailBook.accessInfo.length > 0) {
+                <div class="detail-central-availability">
+                  <h3 class="detail-central-availability-title">Availability</h3>
+                  @for (accessInfo of detailBook.accessInfo; track $index) {
+                    <div class="detail-central-availability-item">
+                      <svg-icon class="detail-central-availability-item-icon" src="assets/images/icons/done-green.svg"></svg-icon>
+                      <span class="detail-central-availability-item-description">{{ accessInfo }}</span>
+                    </div>
+                  }
+                </div>
+              }
               <div class="detail-central-buttons">
                 <button (click)="openPageOnGoogle(detailBook.webReaderLink)" class="detail-btn detail-btn-orange">READ</button>
                 <button class="detail-btn detail-btn-green">

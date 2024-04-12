@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-minimodal',
+  selector: 'app-mini-modal',
   standalone: true,
-  templateUrl: './minimodal.component.html',
+  templateUrl: './mini-modal.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MiniModalComponent {

@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './views';
 import { SignupComponent } from './views';
 import { LayoutComponent } from './shared/components';
-import { authForwardGuard } from './core/auth/auth-forward.guard';
+import { authForwardGuard } from './shared/guards';
 
 export const routes: Routes = [
   { path: '', title: 'Login in MyBookShelf', component: LoginComponent, canActivate: [authForwardGuard] },

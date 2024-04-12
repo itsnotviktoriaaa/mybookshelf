@@ -26,7 +26,12 @@
                 <div class="auth-form-input-wrapper-extra">
                   <input
                     class="input"
-                    [ngStyle]="{ 'border-color': registerForm.get('username')?.invalid && (registerForm.get('username')?.dirty || registerForm.get('username')?.touched) ? 'red' : '' }"
+                    [ngStyle]="{
+                      'border-color':
+                        registerForm.get('username')?.invalid && (registerForm.get('username')?.dirty || registerForm.get('username')?.touched)
+                          ? 'red'
+                          : ''
+                    }"
                     id="name"
                     placeholder="Write your name"
                     type="text"
@@ -44,7 +49,10 @@
                   <input
                     class="input"
                     id="email"
-                    [ngStyle]="{ 'border-color': registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched) ? 'red' : '' }"
+                    [ngStyle]="{
+                      'border-color':
+                        registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched) ? 'red' : ''
+                    }"
                     placeholder="Write your email"
                     type="text"
                     formControlName="email" />
@@ -67,7 +75,12 @@
                   <input
                     class="input input-check"
                     id="password"
-                    [ngStyle]="{ 'border-color': registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched) ? 'red' : '' }"
+                    [ngStyle]="{
+                      'border-color':
+                        registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)
+                          ? 'red'
+                          : ''
+                    }"
                     placeholder="Write your password"
                     [type]="isShowPassword ? 'text' : 'password'"
                     formControlName="password" />
@@ -88,7 +101,8 @@
 
                   @if (registerForm.get('password')?.errors?.['pattern']) {
                     <div class="error-message">
-                      Password is not strong. The password must be at least 8 characters long and contain at least one number, one lowercase letter and one uppercase letter.
+                      Password is not strong. The password must be at least 8 characters long and contain at least one number, one lowercase letter
+                      and one uppercase letter.
                     </div>
                   }
 
@@ -106,7 +120,11 @@
                     class="input input-check"
                     id="confirm-password"
                     [ngStyle]="{
-                      'border-color': registerForm.get('confirmPassword')?.invalid && (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched) ? 'red' : ''
+                      'border-color':
+                        registerForm.get('confirmPassword')?.invalid &&
+                        (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched)
+                          ? 'red'
+                          : ''
                     }"
                     placeholder="Write your password again"
                     [type]="isShowConfirmPassword ? 'text' : 'password'"
@@ -120,7 +138,10 @@
                     }
                   </div>
                 </div>
-                @if (registerForm.get('confirmPassword')?.invalid && (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched)) {
+                @if (
+                  registerForm.get('confirmPassword')?.invalid &&
+                  (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched)
+                ) {
                   @if (registerForm.get('confirmPassword')?.errors?.['required']) {
                     <div class="error-message">Confirm Password is required.</div>
                   }

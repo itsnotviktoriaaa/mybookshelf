@@ -1,6 +1,6 @@
 <section class="show user-common-padding">
   @if (miniLoader$ | async; as miniLoader) {
-    <app-minimodal [miniLoader]="miniLoader"></app-minimodal>
+    <app-mini-modal [miniLoader]="miniLoader"></app-mini-modal>
   }
   @if (showBooks$ | async; as showBooks) {
     <div class="show-books">
@@ -19,7 +19,12 @@
       </div>
       <div class="pagination-pages">
         @for (page of pages; track $index) {
-          <a class="pagination-page" (click)="openPage(page)" [ngClass]="{ active: this.activeParams.page ? this.activeParams.page === page : page === 1 }">{{ page }}</a>
+          <a
+            class="pagination-page"
+            (click)="openPage(page)"
+            [ngClass]="{ active: this.activeParams.page ? this.activeParams.page === page : page === 1 }"
+            >{{ page }}</a
+          >
         }
       </div>
       <div class="pagination-arrow" (click)="openNextPage()" [class.disabled]="activeParams.page ? activeParams.page === pages.length : false">

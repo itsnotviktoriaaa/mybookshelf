@@ -2,18 +2,19 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { BehaviorSubject, Observable, of, tap } from 'rxjs';
-import { AuthorSmallInterface, DetailBookSmallInfo } from '../../../types/user';
+import { ActionsInterface, AuthorSmallInterface, DetailBookSmallInfo } from '../../../types/user';
 import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import { TransformDateBookPipe } from '../../../shared/pipes';
 import { ReduceLetterPipe } from '../../../shared/pipes';
 import { MiniModalComponent } from '../../../shared/components';
 import { DetailBookFacade } from '../../../ngrx/detail-book/detail-book.facade';
 import { AuthorFacade } from '../../../ngrx/author/author.facade';
+import { StarComponent } from '../../../shared/components/star';
 
 @Component({
   selector: 'app-detail-book',
   standalone: true,
-  imports: [SvgIconComponent, NgClass, AsyncPipe, TransformDateBookPipe, ReduceLetterPipe, RouterLink, MiniModalComponent],
+  imports: [SvgIconComponent, NgClass, AsyncPipe, TransformDateBookPipe, ReduceLetterPipe, RouterLink, MiniModalComponent, StarComponent],
   templateUrl: './detail-book.component.html',
   styleUrl: './detail-book.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -21,8 +22,13 @@ import { AuthorFacade } from '../../../ngrx/author/author.facade';
 export class DetailBookComponent implements OnInit {
   detailBook$: Observable<DetailBookSmallInfo | null> = of(null);
   author$: Observable<AuthorSmallInterface | null> = of(null);
-  rating: number | null | undefined = 0;
+  rating: number = 0;
   miniLoader$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  actions: ActionsInterface[] = [
+    { svg: 'review-icon.svg', title: 'Review' },
+    { svg: 'notes-icon.svg', title: 'Notes' },
+    { svg: 'share-icon.svg', title: 'Share' },
+  ];
 
   constructor(
     private activatedRoute: ActivatedRoute,

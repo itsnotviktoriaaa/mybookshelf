@@ -18,7 +18,18 @@ import { SvgIconComponent } from 'angular-svg-icon';
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss',
   standalone: true,
-  imports: [NgOptimizedImage, RouterLink, ReactiveFormsModule, NgStyle, PasswordRepeatDirective, PasswordNotEmailDirective, AngularFireAuthModule, AuthModule, NgClass, SvgIconComponent],
+  imports: [
+    NgOptimizedImage,
+    RouterLink,
+    ReactiveFormsModule,
+    NgStyle,
+    PasswordRepeatDirective,
+    PasswordNotEmailDirective,
+    AngularFireAuthModule,
+    AuthModule,
+    NgClass,
+    SvgIconComponent,
+  ],
 })
 export class SignupComponent implements OnInit, OnDestroy {
   registerForm!: FormGroup;
@@ -80,7 +91,10 @@ export class SignupComponent implements OnInit, OnDestroy {
           if (param && param.length === 0) {
             this.sendCodeToEmail().then(() => {});
           } else {
-            this.notificationService.notifyAboutNotification({ message: 'Your email address has been used before', status: NotificationStatus.error });
+            this.notificationService.notifyAboutNotification({
+              message: 'Your email address has been used before',
+              status: NotificationStatus.error,
+            });
           }
         }),
         catchError(err => {
@@ -193,7 +207,10 @@ export class SignupComponent implements OnInit, OnDestroy {
         tap((response: EmailJSResponseStatus): void => {
           this.notificationService.notifyAboutNotificationLoader(false);
           console.log('Success. Status: ' + response.text + ' ' + response.status);
-          this.notificationService.notifyAboutNotification({ message: 'Code was sent on your email. Please, check and enter values', status: NotificationStatus.success });
+          this.notificationService.notifyAboutNotification({
+            message: 'Code was sent on your email. Please, check and enter values',
+            status: NotificationStatus.success,
+          });
 
           if (!this.verification) {
             this.verification = true;

@@ -17,7 +17,9 @@
               <div class="auth-form-input-wrapper-extra">
                 <input
                   class="input"
-                  [ngStyle]="{ 'border-color': loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched) ? 'red' : '' }"
+                  [ngStyle]="{
+                    'border-color': loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched) ? 'red' : ''
+                  }"
                   id="email"
                   formControlName="email"
                   placeholder="Write your email"
@@ -40,7 +42,10 @@
               <div class="auth-form-input-wrapper-extra">
                 <input
                   class="input input-check"
-                  [ngStyle]="{ 'border-color': loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched) ? 'red' : '' }"
+                  [ngStyle]="{
+                    'border-color':
+                      loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched) ? 'red' : ''
+                  }"
                   formControlName="password"
                   id="password"
                   placeholder="Write your password"
@@ -61,7 +66,8 @@
 
                 @if (loginForm.get('password')?.errors?.['pattern']) {
                   <div class="error-message">
-                    Password is not strong. The password must be at least 8 characters long and contain at least one number, one lowercase letter and one uppercase letter.
+                    Password is not strong. The password must be at least 8 characters long and contain at least one number, one lowercase letter and
+                    one uppercase letter.
                   </div>
                 }
               }

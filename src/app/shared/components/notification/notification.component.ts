@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NotificationService } from '../../services';
 import { NgClass, NgStyle } from '@angular/common';
 import { NotificationStatus, NotificationType } from '../../../types/auth';
@@ -15,9 +15,10 @@ export class NotificationComponent implements OnInit, OnDestroy {
   message: string | null = null;
   protected readonly NotificationStatusEnum = NotificationStatus;
   status!: NotificationStatus.error | NotificationStatus.success | NotificationStatus.info;
-  notificationService: NotificationService = inject(NotificationService);
   timeout: number = 0;
   notificationServiceDestroy$: Subject<void> = new Subject<void>();
+
+  constructor(private notificationService: NotificationService) {}
 
   ngOnInit(): void {
     this.notificationService

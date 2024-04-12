@@ -1,0 +1,7 @@
+<div class="rating-mini">
+  <span [ngClass]="{ active: rating ? rating >= 1 : false }"></span>
+  <span [ngClass]="{ active: rating ? rating >= 2 : false }"></span>
+  <span [ngClass]="{ active: rating ? rating >= 3 : false }"></span>
+  <span [ngClass]="{ active: rating ? rating >= 4 : false }"></span>
+  <span [ngClass]="{ active: rating ? rating === 5 : false }"></span>
+</div>

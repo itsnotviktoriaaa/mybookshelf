@@ -1,8 +1,10 @@
 @if (message) {
   <div class="notification-wrapper">
     <span
-      [ngStyle]="{
-        'background-color': status === NotificationStatusEnum.success ? 'rgba(28, 224, 6, 0.76)' : status === NotificationStatusEnum.error ? 'rgba(206, 6, 6, 0.76)' : 'rgba(2, 124, 201, 0.76)'
+      [ngClass]="{
+        'status-success': status === NotificationStatusEnum.success,
+        'status-error': status === NotificationStatusEnum.error,
+        'status-info': status === NotificationStatusEnum.info
       }"
       class="notification-message"
       >{{ message }}</span

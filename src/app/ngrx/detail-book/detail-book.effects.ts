@@ -25,12 +25,19 @@ export class DetailBookEffects {
               publishedDate: data.volumeInfo.publishedDate,
               publisher: data.volumeInfo.publisher,
               averageRating: data.volumeInfo.averageRating,
-              accessInfo: { epub: data.accessInfo.epub.isAvailable, pdf: data.accessInfo.pdf.isAvailable },
+              accessInfo: [],
               thumbnail: data.volumeInfo.imageLinks.thumbnail,
               description: data.volumeInfo.description,
               webReaderLink: data.accessInfo.webReaderLink,
             };
 
+            if (data.accessInfo.epub.isAvailable) {
+              transformedData.accessInfo.push('EPUB');
+            }
+
+            if (data.accessInfo.pdf.isAvailable) {
+              transformedData.accessInfo.push('PDF');
+            }
             return loadDetailBookSuccess({ data: transformedData });
           }),
           catchError(error => of(loadDetailBookFailure({ error })))

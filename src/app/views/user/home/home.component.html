@@ -15,12 +15,14 @@
     </div>
   } @else {
     @if ((recommendedBooks$ | async) === null && !miniLoader$.getValue()) {
-      <h3 class="common-nothing">You don't have recommended book. You should do more active in Google Book and then we sth recommend you on based your preferences:)</h3>
+      <h3 class="common-nothing">
+        You don't have recommended book. You should do more active in Google Book and then we sth recommend you on based your preferences:)
+      </h3>
     }
   }
   @if ((recommendedBooks$ | async) === null) {
     @if (miniLoader$ | async; as miniLoader) {
-      <app-minimodal [miniLoader]="miniLoader"></app-minimodal>
+      <app-mini-modal [miniLoader]="miniLoader"></app-mini-modal>
     }
   }
   <div class="home-common-wrapper">
@@ -30,7 +32,7 @@
     }
   </div>
   @if (miniLoader1$ | async; as miniLoader1) {
-    <app-minimodal [miniLoader1]="miniLoader1"></app-minimodal>
+    <app-mini-modal [miniLoader1]="miniLoader1"></app-mini-modal>
   } @else {
     @if (readingNowBooks$ | async; as readingNowBooks) {
       <div class="home-recommended-books">

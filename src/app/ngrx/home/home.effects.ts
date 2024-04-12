@@ -1,6 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
-import { loadReadingNowBooks, loadReadingNowBooksFailure, loadReadingNowBooksSuccess, loadRecommendedBooks, loadRecommendedBooksFailure, loadRecommendedBooksSuccess } from './home.actions';
+import {
+  loadReadingNowBooks,
+  loadReadingNowBooksFailure,
+  loadReadingNowBooksSuccess,
+  loadRecommendedBooks,
+  loadRecommendedBooksFailure,
+  loadRecommendedBooksSuccess,
+} from './home.actions';
 import { catchError, filter, map, of, switchMap, tap } from 'rxjs';
 import { GoogleApiService } from '../../core';
 import { arrayFromBookItemTransformedInterface, BookInterface, BookItemInterface, BookItemTransformedInterface } from '../../types/user';

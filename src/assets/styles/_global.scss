@@ -183,3 +183,23 @@ li {
 .user-common-padding {
   padding-left: 44px;
 }
+
+.status-success {
+  background-color: rgb(28 224 6 / 76%);
+}
+
+.status-error {
+  background-color: rgb(206 6 6 / 76%);
+}
+
+.status-info {
+  background-color: rgb(2 124 201 / 76%);
+}
+
+.big-book {
+  max-width: 310px;
+}
+
+.small-book {
+  max-width: 160px;
+}

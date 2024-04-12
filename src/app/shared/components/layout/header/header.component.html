@@ -11,21 +11,11 @@
         @if (allMiniModal) {
           <div class="header-modal header-search-modal">
             <ul class="header-modal-items">
-              <li class="header-modal-item">
-                <a>All</a>
-              </li>
-              <li class="header-modal-item">
-                <a>Title</a>
-              </li>
-              <li class="header-modal-item">
-                <a>Author</a>
-              </li>
-              <li class="header-modal-item">
-                <a>Text</a>
-              </li>
-              <li class="header-modal-item">
-                <a>Subjects</a>
-              </li>
+              @for (headerModalItem of headerModalItems; track $index) {
+                <li class="header-modal-item">
+                  <a>{{ headerModalItem }}</a>
+                </li>
+              }
             </ul>
           </div>
         }
@@ -35,7 +25,10 @@
       </div>
       <div class="header-search-find">
         <div class="header-search-find-loop">
-          <svg-icon class="header-search-find-loop-icon" [svgStyle]="{ position: 'relative', 'top.px': 2 }" src="assets/images/icons/header-loop.svg"></svg-icon>
+          <svg-icon
+            class="header-search-find-loop-icon"
+            [svgStyle]="{ position: 'relative', 'top.px': 2 }"
+            src="assets/images/icons/header-loop.svg"></svg-icon>
         </div>
         <div class="header-search-find-scan">
           <svg-icon src="assets/images/icons/header-scan.svg" [svgStyle]="{ position: 'relative', 'top.px': 1 }"></svg-icon>
@@ -58,12 +51,11 @@
         @if (langMiniModal) {
           <div class="header-modal header-lang-modal">
             <ul class="header-modal-items">
-              <li class="header-modal-item">
-                <a>Eng</a>
-              </li>
-              <li class="header-modal-item">
-                <a>Rus</a>
-              </li>
+              @for (headerModalLangItem of headerModalLangItems; track $index) {
+                <li class="header-modal-item">
+                  <a>{{ headerModalLangItem }}</a>
+                </li>
+              }
             </ul>
           </div>
         }
@@ -75,26 +67,19 @@
             <div (click)="openOrCloseMiniModal(HeaderClickInterfaceEnum.profileMiniModal)" class="header-back-info header-account-info">
               <span class="header-back-text header-account-info-text">{{ userInfo?.info?.name }}</span>
               <span [class]="{ 'header-account-info-icon': true, active: profileMiniModal }">
-              <svg-icon src="assets/images/icons/arrow-in-mini-modal.svg"></svg-icon>
-            </span>
+                <svg-icon src="assets/images/icons/arrow-in-mini-modal.svg"></svg-icon>
+              </span>
             </div>
           </div>
         }
         @if (profileMiniModal) {
           <div class="header-modal header-account-modal">
             <ul class="header-modal-items">
-              <li class="header-modal-item">
-                <a>Profile</a>
-              </li>
-              <li class="header-modal-item">
-                <a>Favourite</a>
-              </li>
-              <li class="header-modal-item">
-                <a>My Books</a>
-              </li>
-              <li class="header-modal-item">
-                <a (click)="logoutForGoogle()">Logout</a>
-              </li>
+              @for (headerModalAccountItem of headerModalAccountItems; track $index; let last = $last) {
+                <li class="header-modal-item">
+                  <a (click)="last ? logoutForGoogle() : null">{{ headerModalAccountItem }}</a>
+                </li>
+              }
             </ul>
           </div>
         }

@@ -41,7 +41,11 @@ export interface BookItemSaleInfoInterface {
   country: string;
   isEbook: boolean;
   listPrice?: { amount: number; currencyCode: string };
-  offers?: Array<{ finskyOfferType: number; listPrice: { amountInMicros: number; currencyCode: string }; retailPrice: { amountInMicros: number; currencyCode: string } }>;
+  offers?: Array<{
+    finskyOfferType: number;
+    listPrice: { amountInMicros: number; currencyCode: string };
+    retailPrice: { amountInMicros: number; currencyCode: string };
+  }>;
   retailPrice?: { amount: number; currencyCode: string };
   saleability: string;
 }
@@ -173,7 +177,7 @@ export interface DetailBookSmallInfo {
   publishedDate: string;
   publisher: string;
   averageRating?: number;
-  accessInfo: { epub: boolean; pdf: boolean };
+  accessInfo: string[];
   thumbnail: string;
   description: string;
   webReaderLink: string;
@@ -261,4 +265,9 @@ export interface AuthorInfoDetail {
 export interface AuthorSmallInterface {
   totalItems: number;
   items: Array<{ id: string; thumbnail: string; title: string }>;
+}
+
+export interface ActionsInterface {
+  svg: string;
+  title: string;
 }
