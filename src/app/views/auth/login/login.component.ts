@@ -1,7 +1,13 @@
 import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { NgOptimizedImage, NgStyle } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { AuthService } from '../../../core';
 import { NotificationService } from '../../../shared/services';
 import { CodeMessageHandlerUtil } from '../../../shared/utils';
@@ -60,14 +66,20 @@ export class LoginComponent implements OnInit, OnDestroy {
       .pipe(
         tap(() => {
           this.notificationService.notifyAboutNotificationLoader(false);
-          this.notificationService.notifyAboutNotification({ message: 'Welcome in MyBookShelf', status: NotificationStatus.success });
+          this.notificationService.notifyAboutNotification({
+            message: 'Welcome in MyBookShelf',
+            status: NotificationStatus.success,
+          });
           this.router.navigate(['/home']).then(() => {});
           console.log('----- Login ------');
         }),
         catchError(err => {
           this.errorMessage = CodeMessageHandlerUtil.handlerCodeMessage(err.code);
           this.notificationService.notifyAboutNotificationLoader(false);
-          this.notificationService.notifyAboutNotification({ message: `${this.errorMessage}`, status: NotificationStatus.error });
+          this.notificationService.notifyAboutNotification({
+            message: `${this.errorMessage}`,
+            status: NotificationStatus.error,
+          });
           return EMPTY;
         }),
         takeUntil(this.loginDestroy$)

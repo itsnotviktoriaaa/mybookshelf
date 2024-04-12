@@ -2,7 +2,8 @@
   <h2 class="favorites-title">Your Favourite</h2>
   @if (miniLoader$ | async; as miniLoader) {
     <app-mini-modal [miniLoader]="miniLoader"></app-mini-modal>
-  } @else {
+  }
+  @if ((miniLoader$ | async)?.miniLoader === false) {
     @if (favoritesBooks$ | async; as favoritesBooks) {
       <div class="favorites-books">
         @for (favoriteBook of favoritesBooks.items; track $index) {
@@ -11,7 +12,7 @@
       </div>
     }
   }
-  @if ((favoritesBooks$ | async) === null && (miniLoader$ | async) === false) {
+  @if ((favoritesBooks$ | async) === null && (miniLoader$ | async)?.miniLoader === false) {
     <h3 class="common-nothing">You don't have books on favorite page</h3>
   }
 </section>

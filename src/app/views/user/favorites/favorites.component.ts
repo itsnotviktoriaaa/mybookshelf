@@ -16,16 +16,18 @@ import { FavoritesFacade } from '../../../ngrx/favorites/favorites.facade';
 })
 export class FavoritesComponent implements OnInit {
   favoritesBooks$: Observable<arrayFromBookItemTransformedInterface | null> = of(null);
-  miniLoader$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  miniLoader$: BehaviorSubject<{ miniLoader: boolean }> = new BehaviorSubject<{
+    miniLoader: boolean;
+  }>({ miniLoader: true });
   constructor(private favoriteFacade: FavoritesFacade) {}
 
   ngOnInit(): void {
-    this.miniLoader$.next(true);
+    this.miniLoader$.next({ miniLoader: true });
     this.favoriteFacade.loadFavoritesBooks();
     this.favoritesBooks$ = this.favoriteFacade.getFavoritesBooks().pipe(
       tap(books => {
         console.log(books);
-        this.miniLoader$.next(false);
+        this.miniLoader$.next({ miniLoader: false });
       })
     );
   }

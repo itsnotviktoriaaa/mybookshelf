@@ -14,7 +14,16 @@ import { StarComponent } from '../../../shared/components/star';
 @Component({
   selector: 'app-detail-book',
   standalone: true,
-  imports: [SvgIconComponent, NgClass, AsyncPipe, TransformDateBookPipe, ReduceLetterPipe, RouterLink, MiniModalComponent, StarComponent],
+  imports: [
+    SvgIconComponent,
+    NgClass,
+    AsyncPipe,
+    TransformDateBookPipe,
+    ReduceLetterPipe,
+    RouterLink,
+    MiniModalComponent,
+    StarComponent,
+  ],
   templateUrl: './detail-book.component.html',
   styleUrl: './detail-book.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -23,7 +32,9 @@ export class DetailBookComponent implements OnInit {
   detailBook$: Observable<DetailBookSmallInfo | null> = of(null);
   author$: Observable<AuthorSmallInterface | null> = of(null);
   rating: number = 0;
-  miniLoader$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  miniLoader$: BehaviorSubject<{ miniLoader: boolean }> = new BehaviorSubject<{
+    miniLoader: boolean;
+  }>({ miniLoader: true });
   actions: ActionsInterface[] = [
     { svg: 'review-icon.svg', title: 'Review' },
     { svg: 'notes-icon.svg', title: 'Notes' },
@@ -39,13 +50,13 @@ export class DetailBookComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params: Params) => {
-      this.miniLoader$.next(true);
+      this.miniLoader$.next({ miniLoader: true });
       const idOfBook = params['id'];
       console.log(idOfBook);
       this.detailBookFacade.loadDetailBook(idOfBook);
       this.detailBook$ = this.detailBookFacade.getDetailBook().pipe(
         tap((data: DetailBookSmallInfo | null) => {
-          this.miniLoader$.next(false);
+          this.miniLoader$.next({ miniLoader: false });
           if (data) {
             this.authorFacade.loadAuthor(data?.authors[0].split(' ').join('+').toLowerCase());
             this.author$ = this.authorFacade.getDetailBook();
@@ -63,7 +74,7 @@ export class DetailBookComponent implements OnInit {
   }
 
   openOtherBook(authorId: string) {
-    this.miniLoader$.next(true);
+    this.miniLoader$.next({ miniLoader: true });
     this.router.navigate(['/home/book', authorId]);
   }
 }

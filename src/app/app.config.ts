@@ -1,5 +1,10 @@
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
-import { InMemoryScrollingFeature, InMemoryScrollingOptions, provideRouter, withInMemoryScrolling } from '@angular/router';
+import {
+  InMemoryScrollingFeature,
+  InMemoryScrollingOptions,
+  provideRouter,
+  withInMemoryScrolling,
+} from '@angular/router';
 
 import { routes } from './app.routes';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
@@ -39,7 +44,13 @@ export const appConfig: ApplicationConfig = {
     ]),
     provideAngularSvgIcon(),
     provideOAuthClient(),
-    provideStore({ home: homeReducer, homeNow: homeNowReducer, favorites: favoritesReducer, detailBook: detailReducer, author: authorReducer }),
+    provideStore({
+      home: homeReducer,
+      homeNow: homeNowReducer,
+      favorites: favoritesReducer,
+      detailBook: detailReducer,
+      author: authorReducer,
+    }),
     provideEffects([BookEffects, FavoritesEffects, DetailBookEffects, AuthorEffects]),
   ],
 };

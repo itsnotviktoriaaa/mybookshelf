@@ -61,7 +61,10 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.registerForm = new FormGroup({
       username: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required, Validators.pattern(Constants.regularForPassword)]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.pattern(Constants.regularForPassword),
+      ]),
       confirmPassword: new FormControl('', [Validators.required]),
     });
 
@@ -98,7 +101,10 @@ export class SignupComponent implements OnInit, OnDestroy {
           }
         }),
         catchError(err => {
-          this.notificationService.notifyAboutNotification({ message: 'Something went wrong. Please, try again', status: NotificationStatus.error });
+          this.notificationService.notifyAboutNotification({
+            message: 'Something went wrong. Please, try again',
+            status: NotificationStatus.error,
+          });
           console.log(err);
           return EMPTY;
         }),
@@ -109,7 +115,8 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   handleAllInputsForCode(): void {
     if (this.verificationBody && this.verificationBody.nativeElement && this.verification) {
-      const verificationInputs = this.verificationBody.nativeElement.querySelectorAll('.verification-number');
+      const verificationInputs =
+        this.verificationBody.nativeElement.querySelectorAll('.verification-number');
 
       for (let i: number = 0; i < verificationInputs.length; i++) {
         console.log('handle inputs');
@@ -120,7 +127,11 @@ export class SignupComponent implements OnInit, OnDestroy {
 
           if (currentCode && currentCode === 'Backspace' && i !== 0) {
             verificationInputs[i - 1].focus();
-          } else if (currentValue && currentValue.length === 1 && i < verificationInputs.length - 1) {
+          } else if (
+            currentValue &&
+            currentValue.length === 1 &&
+            i < verificationInputs.length - 1
+          ) {
             verificationInputs[i + 1].focus();
           }
 
@@ -143,15 +154,21 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   changeShowingPassword(nameOfInput: string): void {
-    this.isShowPassword = nameOfInput === 'isShowPassword' ? !this.isShowPassword : this.isShowPassword;
-    this.isShowConfirmPassword = nameOfInput === 'isShowConfirmPassword' ? !this.isShowConfirmPassword : this.isShowConfirmPassword;
+    this.isShowPassword =
+      nameOfInput === 'isShowPassword' ? !this.isShowPassword : this.isShowPassword;
+    this.isShowConfirmPassword =
+      nameOfInput === 'isShowConfirmPassword'
+        ? !this.isShowConfirmPassword
+        : this.isShowConfirmPassword;
   }
 
   checkInputsForAbleButton(verificationInputs: NodeListOf<HTMLInputElement>): void {
     console.log(verificationInputs);
-    this.fillAllInputs = Array.from(verificationInputs).every((input: HTMLInputElement): boolean => {
-      return input.value !== '';
-    });
+    this.fillAllInputs = Array.from(verificationInputs).every(
+      (input: HTMLInputElement): boolean => {
+        return input.value !== '';
+      }
+    );
 
     if (this.fillAllInputs) {
       this.getCodeFromInputsWhichWroteUser(verificationInputs);
@@ -177,7 +194,10 @@ export class SignupComponent implements OnInit, OnDestroy {
       console.log('Код введен идентичный сгенерированному');
       this.sign();
     } else {
-      this.notificationService.notifyAboutNotification({ message: 'Incorrect code, try entering the code again', status: NotificationStatus.error });
+      this.notificationService.notifyAboutNotification({
+        message: 'Incorrect code, try entering the code again',
+        status: NotificationStatus.error,
+      });
     }
   }
 
@@ -219,7 +239,10 @@ export class SignupComponent implements OnInit, OnDestroy {
         }),
         catchError(error => {
           this.notificationService.notifyAboutNotificationLoader(false);
-          this.notificationService.notifyAboutNotification({ message: 'Something went wrong. Please, try again', status: NotificationStatus.error });
+          this.notificationService.notifyAboutNotification({
+            message: 'Something went wrong. Please, try again',
+            status: NotificationStatus.error,
+          });
           console.log('sth went wrong. Error ' + error.text + ' ' + error.status);
           return EMPTY;
         }),
@@ -244,7 +267,10 @@ export class SignupComponent implements OnInit, OnDestroy {
           this.notificationService.notifyAboutNotificationLoader(false);
           this.verification = false;
           this.codeWhichWrittenUserWasEqualFromEmail = true;
-          this.notificationService.notifyAboutNotification({ message: 'You have successfully registered', status: NotificationStatus.success });
+          this.notificationService.notifyAboutNotification({
+            message: 'You have successfully registered',
+            status: NotificationStatus.success,
+          });
         }),
         catchError(err => {
           this.notificationService.notifyAboutNotificationLoader(false);
@@ -252,7 +278,10 @@ export class SignupComponent implements OnInit, OnDestroy {
           //so that the red circle has time to load
           this.verification = false;
           this.codeWhichWrittenUserWasEqualFromEmail = true;
-          this.notificationService.notifyAboutNotification({ message: `Something went wrong:( Please, try again`, status: NotificationStatus.error });
+          this.notificationService.notifyAboutNotification({
+            message: `Something went wrong:( Please, try again`,
+            status: NotificationStatus.error,
+          });
           return EMPTY;
         }),
         takeUntil(this.registerDestroy$)

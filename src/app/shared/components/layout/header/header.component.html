@@ -2,7 +2,9 @@
   <div class="header-items">
     <div class="header-search">
       <div class="header-search-all-wrapper">
-        <div (click)="openOrCloseMiniModal(HeaderClickInterfaceEnum.allMiniModal)" class="header-search-all">
+        <div
+          (click)="openOrCloseMiniModal(HeaderClickInterfaceEnum.allMiniModal)"
+          class="header-search-all">
           <span class="header-class-all-text">All</span>
           <span [class]="{ 'header-class-all-arrow': true, active: allMiniModal }">
             <svg-icon src="assets/images/icons/arrow-in-mini-modal.svg"></svg-icon>
@@ -31,7 +33,9 @@
             src="assets/images/icons/header-loop.svg"></svg-icon>
         </div>
         <div class="header-search-find-scan">
-          <svg-icon src="assets/images/icons/header-scan.svg" [svgStyle]="{ position: 'relative', 'top.px': 1 }"></svg-icon>
+          <svg-icon
+            src="assets/images/icons/header-scan.svg"
+            [svgStyle]="{ position: 'relative', 'top.px': 1 }"></svg-icon>
         </div>
       </div>
     </div>
@@ -41,7 +45,9 @@
           <div class="header-lang-item">
             <svg-icon src="assets/images/icons/header-lang.svg"></svg-icon>
           </div>
-          <div (click)="openOrCloseMiniModal(HeaderClickInterfaceEnum.langMiniModal)" class="header-back-info header-lang-info">
+          <div
+            (click)="openOrCloseMiniModal(HeaderClickInterfaceEnum.langMiniModal)"
+            class="header-back-info header-lang-info">
             <span class="header-back-text header-lang-info-text">Lang</span>
             <span [class]="{ 'header-lang-info-icon': true, active: langMiniModal }">
               <svg-icon src="assets/images/icons/arrow-in-mini-modal.svg"></svg-icon>
@@ -63,9 +69,17 @@
       <div class="header-account">
         @if (userInfo$ | async; as userInfo) {
           <div class="header-back header-account-wrapper">
-            <div class="header-account-image" style="background-image: url({{ userInfo?.info?.picture }})">&nbsp;</div>
-            <div (click)="openOrCloseMiniModal(HeaderClickInterfaceEnum.profileMiniModal)" class="header-back-info header-account-info">
-              <span class="header-back-text header-account-info-text">{{ userInfo?.info?.name }}</span>
+            <div
+              class="header-account-image"
+              style="background-image: url({{ userInfo?.info?.picture }})">
+              &nbsp;
+            </div>
+            <div
+              (click)="openOrCloseMiniModal(HeaderClickInterfaceEnum.profileMiniModal)"
+              class="header-back-info header-account-info">
+              <span class="header-back-text header-account-info-text">{{
+                userInfo?.info?.name
+              }}</span>
               <span [class]="{ 'header-account-info-icon': true, active: profileMiniModal }">
                 <svg-icon src="assets/images/icons/arrow-in-mini-modal.svg"></svg-icon>
               </span>
@@ -75,7 +89,11 @@
         @if (profileMiniModal) {
           <div class="header-modal header-account-modal">
             <ul class="header-modal-items">
-              @for (headerModalAccountItem of headerModalAccountItems; track $index; let last = $last) {
+              @for (
+                headerModalAccountItem of headerModalAccountItems;
+                track $index;
+                let last = $last
+              ) {
                 <li class="header-modal-item">
                   <a (click)="last ? logoutForGoogle() : null">{{ headerModalAccountItem }}</a>
                 </li>

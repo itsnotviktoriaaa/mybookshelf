@@ -3,11 +3,11 @@
     @if (miniLoader$ | async; as miniLoader) {
       <app-mini-modal [miniLoader]="miniLoader"></app-mini-modal>
     }
-    @if ((detailBook$ | async) === null && !miniLoader$) {
+    @if ((detailBook$ | async) === null && (miniLoader$ | async)?.miniLoader === false) {
       <div class="common-nothing">No information available</div>
     }
   </div>
-  @if ((miniLoader$ | async) === false) {
+  @if ((miniLoader$ | async)?.miniLoader === false) {
     @if (detailBook$ | async; as detailBook) {
       <div class="common-padding">
         <div class="back-to-result">
@@ -51,32 +51,46 @@
                   <h3 class="detail-central-availability-title">Availability</h3>
                   @for (accessInfo of detailBook.accessInfo; track $index) {
                     <div class="detail-central-availability-item">
-                      <svg-icon class="detail-central-availability-item-icon" src="assets/images/icons/done-green.svg"></svg-icon>
-                      <span class="detail-central-availability-item-description">{{ accessInfo }}</span>
+                      <svg-icon
+                        class="detail-central-availability-item-icon"
+                        src="assets/images/icons/done-green.svg"></svg-icon>
+                      <span class="detail-central-availability-item-description">{{
+                        accessInfo
+                      }}</span>
                     </div>
                   }
                 </div>
               }
               <div class="detail-central-buttons">
-                <button (click)="openPageOnGoogle(detailBook.webReaderLink)" class="detail-btn detail-btn-orange">READ</button>
+                <button
+                  (click)="openPageOnGoogle(detailBook.webReaderLink)"
+                  class="detail-btn detail-btn-orange">
+                  READ
+                </button>
                 <button class="detail-btn detail-btn-green">
                   <span class="detail-btn-green-text">LISTEN</span>
                   <div class="detail-btn-green-headphones-wrapper">
-                    <svg-icon class="detail-btn-green-headphones" src="assets/images/icons/headphones.svg"></svg-icon>
+                    <svg-icon
+                      class="detail-btn-green-headphones"
+                      src="assets/images/icons/headphones.svg"></svg-icon>
                   </div>
                 </button>
               </div>
             </div>
           </div>
           <div class="detail-right detail-item">
-            <h3 class="detail-right-title"><span class="detail-right-title-orange">About</span> Story</h3>
+            <h3 class="detail-right-title">
+              <span class="detail-right-title-orange">About</span> Story
+            </h3>
             <div class="detail-right-author-wrapper">
               <h4 class="detail-right-author-name">{{ detailBook.authors[0] }}</h4>
               <div class="detail-right-author-image">
                 <img src="assets/images/author.png" alt="{{ detailBook.authors[0] }}" />
               </div>
             </div>
-            <div class="detail-right-about" [innerHTML]="detailBook.description | reduceLetter: 'author'"></div>
+            <div
+              class="detail-right-about"
+              [innerHTML]="detailBook.description | reduceLetter: 'author'"></div>
             @if (author$ | async; as author) {
               <div class="detail-right-other">
                 <div class="detail-right-other-text">Other Books</div>

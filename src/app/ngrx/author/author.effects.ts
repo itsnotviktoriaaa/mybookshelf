@@ -19,14 +19,17 @@ export class AuthorEffects {
       switchMap(action => {
         return this.googleApi.getAuthorDetail(action.author).pipe(
           map((data: AuthorInfoDetail): { data: AuthorSmallInterface } & TypedAction<string> => {
-            const transformedDataItems: { thumbnail: string; id: string; title: string }[] = data.items.map(item => {
-              return {
-                id: item.id,
-                thumbnail: item.volumeInfo.imageLinks.thumbnail,
-                title: item.volumeInfo.title,
-              };
+            const transformedDataItems: { thumbnail: string; id: string; title: string }[] =
+              data.items.map(item => {
+                return {
+                  id: item.id,
+                  thumbnail: item.volumeInfo.imageLinks.thumbnail,
+                  title: item.volumeInfo.title,
+                };
+              });
+            return loadAuthorSuccess({
+              data: { totalItems: data.totalItems, items: transformedDataItems },
             });
-            return loadAuthorSuccess({ data: { totalItems: data.totalItems, items: transformedDataItems } });
           }),
           catchError(error => of(loadAuthorFailure({ error })))
         );

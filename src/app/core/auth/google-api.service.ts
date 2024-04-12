@@ -12,7 +12,8 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class GoogleApiService {
-  userProfileSubject: BehaviorSubject<UserInfoFromGoogle | null> = new BehaviorSubject<UserInfoFromGoogle | null>(null);
+  userProfileSubject: BehaviorSubject<UserInfoFromGoogle | null> =
+    new BehaviorSubject<UserInfoFromGoogle | null>(null);
   constructor(
     private readonly oAuthService: OAuthService,
     private http: HttpClient,
@@ -39,7 +40,10 @@ export class GoogleApiService {
                 tap((param: string[]) => {
                   if (param && param.length > 0) {
                     console.log('here we are');
-                    this.authService.login(this.userProfileSubject.getValue()!.info.email, this.userProfileSubject.getValue()!.info.sub);
+                    this.authService.login(
+                      this.userProfileSubject.getValue()!.info.email,
+                      this.userProfileSubject.getValue()!.info.sub
+                    );
                   } else {
                     this.authService.register(
                       this.userProfileSubject.getValue()!.info.email,
@@ -62,29 +66,43 @@ export class GoogleApiService {
 
   getReadingNow(startIndex: number): Observable<BookInterface> {
     const params = new HttpParams().set('maxResults', 40).set('startIndex', startIndex);
-    return this.http.get<BookInterface>(`https://www.googleapis.com/books/v1/mylibrary/bookshelves/3/volumes`, {
-      params: params,
-      headers: this.authHeader(),
-    });
+    return this.http.get<BookInterface>(
+      `https://www.googleapis.com/books/v1/mylibrary/bookshelves/3/volumes`,
+      {
+        params: params,
+        headers: this.authHeader(),
+      }
+    );
   }
 
   getFavorites(): Observable<BookInterface> {
-    return this.http.get<BookInterface>(`https://www.googleapis.com/books/v1/mylibrary/bookshelves/0/volumes`, { headers: this.authHeader() });
+    return this.http.get<BookInterface>(
+      `https://www.googleapis.com/books/v1/mylibrary/bookshelves/0/volumes`,
+      { headers: this.authHeader() }
+    );
   }
 
   getRecommended(startIndex: number): Observable<BookInterface> {
     const params = new HttpParams().set('maxResults', 40).set('startIndex', startIndex);
-    return this.http.get<BookInterface>(`https://www.googleapis.com/books/v1/mylibrary/bookshelves/8/volumes`, {
-      params: params,
-      headers: this.authHeader(),
-    });
+    return this.http.get<BookInterface>(
+      `https://www.googleapis.com/books/v1/mylibrary/bookshelves/8/volumes`,
+      {
+        params: params,
+        headers: this.authHeader(),
+      }
+    );
   }
 
   getDetailBook(idOfBook: string): Observable<DetailBookInterface> {
-    return this.http.get<DetailBookInterface>(`https://www.googleapis.com/books/v1/volumes/${idOfBook}`, { headers: this.authHeader() });
+    return this.http.get<DetailBookInterface>(
+      `https://www.googleapis.com/books/v1/volumes/${idOfBook}`,
+      { headers: this.authHeader() }
+    );
   }
   getAuthorDetail(author: string): Observable<AuthorInfoDetail> {
-    return this.http.get<AuthorInfoDetail>(`https://www.googleapis.com/books/v1/volumes?q=inauthor:${author}&maxResults=2`);
+    return this.http.get<AuthorInfoDetail>(
+      `https://www.googleapis.com/books/v1/volumes?q=inauthor:${author}&maxResults=2`
+    );
   }
 
   // setFavoriteBook(): Observable<any> {

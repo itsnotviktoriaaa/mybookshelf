@@ -23,7 +23,9 @@ export class ShowAllComponent implements OnInit {
   startIndex: number = 0;
   maxLengthWhichGetFromBookApi: number = 40;
   activeParams: ActiveParamsType = { show: 'recommended' };
-  miniLoader$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  miniLoader$: BehaviorSubject<{ miniLoader: boolean }> = new BehaviorSubject<{
+    miniLoader: boolean;
+  }>({ miniLoader: true });
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -34,7 +36,12 @@ export class ShowAllComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       const queryParams = params['show'];
-      this.activeParams.show = queryParams === 'recommended' ? 'recommended' : queryParams === 'reading' ? 'reading' : 'recommended';
+      this.activeParams.show =
+        queryParams === 'recommended'
+          ? 'recommended'
+          : queryParams === 'reading'
+            ? 'reading'
+            : 'recommended';
       if (Object.prototype.hasOwnProperty.call(params, 'page')) {
         this.activeParams.page = +params['page'];
         console.log(this.activeParams);
@@ -47,13 +54,13 @@ export class ShowAllComponent implements OnInit {
   }
 
   loadBooks() {
-    this.miniLoader$.next(true);
+    this.miniLoader$.next({ miniLoader: true });
     if (this.activeParams.show === 'recommended') {
       this.homeFacade.loadRecommendedBooks(this.startIndex);
       this.showBooks$ = this.homeFacade.getRecommendedBooks().pipe(
         tap((showBooks: arrayFromBookItemTransformedInterface | null) => {
           console.log(showBooks);
-          this.miniLoader$.next(false);
+          this.miniLoader$.next({ miniLoader: false });
           console.log(this.miniLoader$.getValue());
           this.definedQuantityOfPages(showBooks);
         })
@@ -62,7 +69,7 @@ export class ShowAllComponent implements OnInit {
       this.homeFacade.loadReadingNowBooks(this.startIndex);
       this.showBooks$ = this.homeFacade.getReadingNowBooks().pipe(
         tap((showBooks: arrayFromBookItemTransformedInterface | null) => {
-          this.miniLoader$.next(false);
+          this.miniLoader$.next({ miniLoader: false });
           this.definedQuantityOfPages(showBooks);
         })
       );

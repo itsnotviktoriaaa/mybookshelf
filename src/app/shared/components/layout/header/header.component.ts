@@ -23,7 +23,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   profileMiniModal: boolean = false;
   protected readonly HeaderClickInterfaceEnum = HeaderClickInterface;
   authServiceDestroy$: Subject<void> = new Subject<void>();
-  userInfo$: BehaviorSubject<UserInfoFromGoogle | null> = new BehaviorSubject<UserInfoFromGoogle | null>(null);
+  userInfo$: BehaviorSubject<UserInfoFromGoogle | null> =
+    new BehaviorSubject<UserInfoFromGoogle | null>(null);
   headerModalItems: string[] = ['All', 'Title', 'Author', 'Text', 'Subjects'];
   headerModalLangItems: string[] = ['Eng', 'Rus'];
   headerModalAccountItems: string[] = ['Profile', 'Favourite', 'My Books', 'Logout'];
@@ -42,7 +43,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   openOrCloseMiniModal(
-    nameOfMiniModal: HeaderClickInterface.allMiniModal | HeaderClickInterface.langMiniModal | HeaderClickInterface.profileMiniModal
+    nameOfMiniModal:
+      | HeaderClickInterface.allMiniModal
+      | HeaderClickInterface.langMiniModal
+      | HeaderClickInterface.profileMiniModal
   ): void {
     if (nameOfMiniModal === HeaderClickInterface.allMiniModal) {
       this.allMiniModal = !this.allMiniModal;
@@ -60,11 +64,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .logout()
       .pipe(
         tap(() => {
-          this.notificationService.notifyAboutNotification({ message: 'Success logout', status: NotificationStatus.success });
+          this.notificationService.notifyAboutNotification({
+            message: 'Success logout',
+            status: NotificationStatus.success,
+          });
           this.router.navigate(['/']).then(() => {});
         }),
         catchError(() => {
-          this.notificationService.notifyAboutNotification({ message: 'Success logout', status: NotificationStatus.success });
+          this.notificationService.notifyAboutNotification({
+            message: 'Success logout',
+            status: NotificationStatus.success,
+          });
           this.router.navigate(['/']).then(() => {});
           return EMPTY;
         }),
@@ -82,18 +92,30 @@ export class HeaderComponent implements OnInit, OnDestroy {
   click(event: Event) {
     if (
       this.allMiniModal &&
-      !((event.target as Element).closest('.header-search-modal') || (event.target as Element).closest('.header-search-all'))
+      !(
+        (event.target as Element).closest('.header-search-modal') ||
+        (event.target as Element).closest('.header-search-all')
+      )
     ) {
       this.allMiniModal = false;
     }
 
-    if (this.langMiniModal && !((event.target as Element).closest('.header-lang-modal') || (event.target as Element).closest('.header-lang-info'))) {
+    if (
+      this.langMiniModal &&
+      !(
+        (event.target as Element).closest('.header-lang-modal') ||
+        (event.target as Element).closest('.header-lang-info')
+      )
+    ) {
       this.langMiniModal = false;
     }
 
     if (
       this.profileMiniModal &&
-      !((event.target as Element).closest('.header-account-modal') || (event.target as Element).closest('.header-account-info'))
+      !(
+        (event.target as Element).closest('.header-account-modal') ||
+        (event.target as Element).closest('.header-account-info')
+      )
     ) {
       this.profileMiniModal = false;
     }

@@ -2,19 +2,24 @@
   @if (miniLoader$ | async; as miniLoader) {
     <app-mini-modal [miniLoader]="miniLoader"></app-mini-modal>
   }
-  @if (showBooks$ | async; as showBooks) {
-    <div class="show-books">
-      @for (showBook of showBooks.items; track $index) {
-        <app-book [book]="showBook"></app-book>
-      }
-    </div>
+  @if ((miniLoader$ | async)?.miniLoader === false) {
+    @if (showBooks$ | async; as showBooks) {
+      <div class="show-books">
+        @for (showBook of showBooks.items; track $index) {
+          <app-book [book]="showBook"></app-book>
+        }
+      </div>
+    }
   }
-  @if ((showBooks$ | async) === null && !miniLoader$.getValue()) {
+  @if ((showBooks$ | async) === null && (miniLoader$ | async)?.miniLoader === false) {
     <div class="show-nothing">You don't have books</div>
   }
   @if (pages.length > 1) {
     <div class="pagination">
-      <div class="pagination-arrow" (click)="openPrevPage()" [class.disabled]="activeParams.page ? activeParams.page === 1 : true">
+      <div
+        class="pagination-arrow"
+        (click)="openPrevPage()"
+        [class.disabled]="activeParams.page ? activeParams.page === 1 : true">
         <svg-icon src="assets/images/icons/arrow-left.svg"></svg-icon>
       </div>
       <div class="pagination-pages">
@@ -22,13 +27,20 @@
           <a
             class="pagination-page"
             (click)="openPage(page)"
-            [ngClass]="{ active: this.activeParams.page ? this.activeParams.page === page : page === 1 }"
+            [ngClass]="{
+              active: this.activeParams.page ? this.activeParams.page === page : page === 1
+            }"
             >{{ page }}</a
           >
         }
       </div>
-      <div class="pagination-arrow" (click)="openNextPage()" [class.disabled]="activeParams.page ? activeParams.page === pages.length : false">
-        <svg-icon [svgStyle]="{ 'rotate.deg': 180 }" src="assets/images/icons/arrow-left.svg"></svg-icon>
+      <div
+        class="pagination-arrow"
+        (click)="openNextPage()"
+        [class.disabled]="activeParams.page ? activeParams.page === pages.length : false">
+        <svg-icon
+          [svgStyle]="{ 'rotate.deg': 180 }"
+          src="assets/images/icons/arrow-left.svg"></svg-icon>
       </div>
     </div>
   }

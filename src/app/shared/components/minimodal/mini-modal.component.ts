@@ -7,7 +7,11 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MiniModalComponent {
-  @Input() miniLoader: boolean = true;
-  @Input() miniLoader1: boolean = false;
+  @Input() miniLoader: { miniLoader: boolean } = { miniLoader: false };
+  @Input() miniLoaderReading: { miniLoader: boolean } = { miniLoader: false };
   constructor() {}
+
+  // ngOnChanges() {
+  //   console.log(this.miniLoader);
+  // }
 }

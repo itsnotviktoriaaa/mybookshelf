@@ -2,7 +2,11 @@ import { Injectable } from '@angular/core';
 import { GoogleApiService } from '../../core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
-import { loadDetailBook, loadDetailBookFailure, loadDetailBookSuccess } from './detail-book.actions';
+import {
+  loadDetailBook,
+  loadDetailBookFailure,
+  loadDetailBookSuccess,
+} from './detail-book.actions';
 import { DetailBookInterface, DetailBookSmallInfo } from '../../types/user';
 
 @Injectable()
