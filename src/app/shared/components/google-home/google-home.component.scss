@@ -1,3 +1,17 @@
-h3 {
-  color: #359f3d;
+.home-recommended-books {
+  display: flex;
+  column-gap: 40px;
+  overflow: scroll scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  margin-bottom: 53px;
+  padding: 20px 0;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }

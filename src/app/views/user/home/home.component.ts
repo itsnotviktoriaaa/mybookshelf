@@ -8,11 +8,12 @@ import { MiniModalComponent } from '../../../shared/components';
 import { GoogleApiService } from '../../../core';
 import { UserInfoFromGoogle } from '../../../types/auth';
 import { HomeFacade } from '../../../ngrx/home/home.facade';
+import { GoogleHomeComponent } from '../../../shared/components/google-home/google-home.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [BookComponent, AsyncPipe, RouterLink, MiniModalComponent],
+  imports: [BookComponent, AsyncPipe, RouterLink, MiniModalComponent, GoogleHomeComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
