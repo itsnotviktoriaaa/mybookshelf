@@ -6,8 +6,8 @@ import { NotificationType } from '../../types/auth';
   providedIn: 'root',
 })
 export class NotificationService {
-  notification$: Subject<NotificationType> = new Subject<NotificationType>();
   loader$: Subject<boolean> = new Subject<boolean>();
+  notification$: Subject<NotificationType> = new Subject<NotificationType>();
 
   getNotification(): Observable<NotificationType> {
     return this.notification$.asObservable();

@@ -8,4 +8,6 @@ export const environment = {
     messagingSenderId: '555465691254',
     appId: '1:555465691254:web:b7a43bec009264f6154f57',
   },
+  googleLibraryApi: 'https://www.googleapis.com/books/v1/mylibrary/bookshelves/',
+  googleVolumeApi: 'https://www.googleapis.com/books/v1/volumes',
 };

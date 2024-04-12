@@ -33,23 +33,28 @@ import { SvgIconComponent } from 'angular-svg-icon';
 })
 export class SignupComponent implements OnInit, OnDestroy {
   registerForm!: FormGroup;
+  timeout: number = 0;
+
   isShowPassword: boolean = false;
   isShowConfirmPassword: boolean = false;
+
   errorMessage: string | null = null;
   infoFromUser: UserSignInterface | null = null;
+
   verification: boolean = false;
   verification$: Subject<boolean> = new Subject<boolean>();
-  @ViewChild('verificationBody') verificationBody: ElementRef | null = null;
+
   fillAllInputs: boolean = false;
   generatedCode: number | null = null;
   codeWhichWriteUser: string = '';
   codeWhichWrittenUserWasEqualFromEmail: boolean = false;
 
-  registerDestroy$: Subject<void> = new Subject<void>();
-  checkEmailWasUsedBeforeToSendCodeDestroy$: Subject<void> = new Subject<void>();
-  verificationDestroy$: Subject<void> = new Subject<void>();
   emailJsDestroy$: Subject<void> = new Subject<void>();
-  timeout: number = 0;
+  registerDestroy$: Subject<void> = new Subject<void>();
+  verificationDestroy$: Subject<void> = new Subject<void>();
+  checkEmailWasUsedBeforeToSendCodeDestroy$: Subject<void> = new Subject<void>();
+
+  @ViewChild('verificationBody') verificationBody: ElementRef | null = null;
 
   constructor(
     private authService: AuthService,

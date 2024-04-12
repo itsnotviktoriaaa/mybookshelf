@@ -21,13 +21,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   allMiniModal: boolean = false;
   langMiniModal: boolean = false;
   profileMiniModal: boolean = false;
+  headerModalLangItems: string[] = ['Eng', 'Rus'];
+  headerModalItems: string[] = ['All', 'Title', 'Author', 'Text', 'Subjects'];
+  headerModalAccountItems: string[] = ['Profile', 'Favourite', 'My Books', 'Logout'];
   protected readonly HeaderClickInterfaceEnum = HeaderClickInterface;
   authServiceDestroy$: Subject<void> = new Subject<void>();
   userInfo$: BehaviorSubject<UserInfoFromGoogle | null> =
     new BehaviorSubject<UserInfoFromGoogle | null>(null);
-  headerModalItems: string[] = ['All', 'Title', 'Author', 'Text', 'Subjects'];
-  headerModalLangItems: string[] = ['Eng', 'Rus'];
-  headerModalAccountItems: string[] = ['Profile', 'Favourite', 'My Books', 'Logout'];
 
   constructor(
     private authService: AuthService,

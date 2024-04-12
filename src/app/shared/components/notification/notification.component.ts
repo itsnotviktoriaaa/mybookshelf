@@ -13,10 +13,10 @@ import { finalize, Subject, takeUntil, tap } from 'rxjs';
 })
 export class NotificationComponent implements OnInit, OnDestroy {
   message: string | null = null;
-  protected readonly NotificationStatusEnum = NotificationStatus;
-  status!: NotificationStatus.error | NotificationStatus.success | NotificationStatus.info;
   timeout: number = 0;
+  protected readonly NotificationStatusEnum = NotificationStatus;
   notificationServiceDestroy$: Subject<void> = new Subject<void>();
+  status!: NotificationStatus.error | NotificationStatus.success | NotificationStatus.info;
 
   constructor(private notificationService: NotificationService) {}
 

@@ -16,9 +16,11 @@ import { FavoritesFacade } from '../../../ngrx/favorites/favorites.facade';
 })
 export class FavoritesComponent implements OnInit {
   favoritesBooks$: Observable<arrayFromBookItemTransformedInterface | null> = of(null);
+
   miniLoader$: BehaviorSubject<{ miniLoader: boolean }> = new BehaviorSubject<{
     miniLoader: boolean;
   }>({ miniLoader: true });
+
   constructor(private favoriteFacade: FavoritesFacade) {}
 
   ngOnInit(): void {

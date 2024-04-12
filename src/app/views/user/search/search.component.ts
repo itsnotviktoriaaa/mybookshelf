@@ -9,6 +9,8 @@ import { SvgIconComponent } from 'angular-svg-icon';
   styleUrl: './search.component.scss',
 })
 export class SearchComponent {
+  browseMiniModal: boolean = false;
+
   headerModalSearchItems: string[] = [
     'Engineering',
     'Medical',
@@ -16,7 +18,6 @@ export class SearchComponent {
     'Architecture',
     'Law',
   ];
-  browseMiniModal: boolean = false;
 
   openOrCloseMiniModal(): void {
     this.browseMiniModal = !this.browseMiniModal;

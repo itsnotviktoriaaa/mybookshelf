@@ -8,7 +8,9 @@ export const authForwardGuard: CanActivateFn = (route: ActivatedRouteSnapshot, s
   const router: Router = inject(Router);
   const oAuthService: OAuthService = inject(OAuthService);
   oAuthService.configure(oAuthConfig);
+
   console.log('HIIIII');
+
   if (state.url === '/' || state.url === '/signup') {
     return from(oAuthService.loadDiscoveryDocument()).pipe(
       switchMap(() => oAuthService.tryLoginImplicitFlow()),

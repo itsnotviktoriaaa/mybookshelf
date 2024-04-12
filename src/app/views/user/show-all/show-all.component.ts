@@ -18,11 +18,13 @@ import { HomeFacade } from '../../../ngrx/home/home.facade';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShowAllComponent implements OnInit {
-  showBooks$: Observable<arrayFromBookItemTransformedInterface | null> = of(null);
   pages: number[] = [];
   startIndex: number = 0;
   maxLengthWhichGetFromBookApi: number = 40;
   activeParams: ActiveParamsType = { show: 'recommended' };
+
+  showBooks$: Observable<arrayFromBookItemTransformedInterface | null> = of(null);
+
   miniLoader$: BehaviorSubject<{ miniLoader: boolean }> = new BehaviorSubject<{
     miniLoader: boolean;
   }>({ miniLoader: true });

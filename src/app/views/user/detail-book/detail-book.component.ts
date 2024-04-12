@@ -29,17 +29,20 @@ import { StarComponent } from '../../../shared/components/star';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DetailBookComponent implements OnInit {
-  detailBook$: Observable<DetailBookSmallInfo | null> = of(null);
-  author$: Observable<AuthorSmallInterface | null> = of(null);
   rating: number = 0;
-  miniLoader$: BehaviorSubject<{ miniLoader: boolean }> = new BehaviorSubject<{
-    miniLoader: boolean;
-  }>({ miniLoader: true });
+
   actions: ActionsInterface[] = [
     { svg: 'review-icon.svg', title: 'Review' },
     { svg: 'notes-icon.svg', title: 'Notes' },
     { svg: 'share-icon.svg', title: 'Share' },
   ];
+
+  author$: Observable<AuthorSmallInterface | null> = of(null);
+  detailBook$: Observable<DetailBookSmallInfo | null> = of(null);
+
+  miniLoader$: BehaviorSubject<{ miniLoader: boolean }> = new BehaviorSubject<{
+    miniLoader: boolean;
+  }>({ miniLoader: true });
 
   constructor(
     private activatedRoute: ActivatedRoute,

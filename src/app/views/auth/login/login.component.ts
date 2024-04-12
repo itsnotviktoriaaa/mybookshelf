@@ -1,13 +1,7 @@
-import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { NgOptimizedImage, NgStyle } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../core';
 import { NotificationService } from '../../../shared/services';
 import { CodeMessageHandlerUtil } from '../../../shared/utils';
@@ -26,13 +20,11 @@ import { GoogleApiService } from '../../../core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  isShowPassword: boolean = false;
   loginForm!: FormGroup;
-  fb: FormBuilder = inject(FormBuilder);
+  isShowPassword: boolean = false;
   errorMessage: string | null = null;
   subscription1: Subscription | null = null;
   loginDestroy$: Subject<void> = new Subject<void>();
-  userInfo?: UserInfoFromGoogle;
 
   constructor(
     private authService: AuthService,

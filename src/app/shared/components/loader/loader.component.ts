@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NotificationService } from '../../services';
 import { Subject, takeUntil, tap } from 'rxjs';
 
@@ -11,8 +11,8 @@ import { Subject, takeUntil, tap } from 'rxjs';
 })
 export class LoaderComponent implements OnInit, OnDestroy {
   loader: boolean = false;
-  notificationService: NotificationService = inject(NotificationService);
   getNotificationLoaderDestroy$: Subject<void> = new Subject<void>();
+  constructor(private notificationService: NotificationService) {}
   ngOnInit(): void {
     this.notificationService
       .getNotificationLoader()

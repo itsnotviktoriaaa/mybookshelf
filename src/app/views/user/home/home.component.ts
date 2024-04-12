@@ -21,14 +21,18 @@ import { GoogleHomeComponent } from '../../../shared/components/google-home/goog
 export class HomeComponent implements OnInit, OnDestroy {
   recommendedBooks$: BehaviorSubject<arrayFromBookItemTransformedInterface | null> =
     new BehaviorSubject<arrayFromBookItemTransformedInterface | null>(null);
+
   readingNowBooks$: BehaviorSubject<arrayFromBookItemTransformedInterface | null> =
     new BehaviorSubject<arrayFromBookItemTransformedInterface | null>(null);
+
   miniLoader$: BehaviorSubject<{ miniLoader: boolean }> = new BehaviorSubject<{
     miniLoader: boolean;
   }>({ miniLoader: true });
+
   miniLoaderReading$: BehaviorSubject<{ miniLoader: boolean }> = new BehaviorSubject<{
     miniLoader: boolean;
   }>({ miniLoader: true });
+
   homeDestroy$: Subject<void> = new Subject<void>();
   // loading: boolean = true;
   constructor(
