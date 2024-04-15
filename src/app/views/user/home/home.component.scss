@@ -18,11 +18,11 @@
   }
 
   .home-hello {
-    font-size: 35px;
+    font-size: 2.2em;
 
     @include text-primary-gray-600;
 
-    margin-top: 42px;
+    margin-top: 1em;
   }
 
   .home-common-wrapper {
@@ -33,13 +33,13 @@
     justify-content: space-between;
 
     .home-common {
-      font-size: 25px;
+      font-size: 1.5em;
       color: var(--primary-dark-gray-color);
     }
 
     .home-show {
-      margin-right: 48px;
-      font-size: 20px;
+      margin-right: 2.3em;
+      font-size: 1.3em;
       color: var(--primary-gray-text-color);
       cursor: pointer;
     }

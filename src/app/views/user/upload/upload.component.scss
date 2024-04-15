@@ -7,7 +7,7 @@
   -ms-overflow-style: none;
 
   .upload {
-    padding: 45px 90px 28px;
+    padding: 5em;
     max-width: 732px;
     margin: 0 auto 27px;
     background: var(--white-color);
@@ -16,7 +16,7 @@
 
     .upload-title {
       font-weight: 600;
-      font-size: 20px;
+      font-size: 1.2em;
       text-align: center;
       color: var(--black-color);
       margin-bottom: 45px;
@@ -33,7 +33,7 @@
 
         .upload-label {
           font-weight: 500;
-          font-size: 16px;
+          font-size: 1em;
           color: var(--black-color);
           margin-bottom: 24px;
         }
@@ -48,14 +48,14 @@
           border: 1px solid var(--primary-light-gray-color);
           border-radius: 10px;
           outline: none;
-          font-size: 16px;
+          font-size: 1.03em;
           color: var(--primary-dark-gray-color);
           font-family: Inter, sans-serif;
           font-weight: 400;
 
           &::placeholder {
             font-weight: 500;
-            font-size: 16px;
+            font-size: 1.03em;
             color: var(--primary-gray-color);
             opacity: 0.8;
           }

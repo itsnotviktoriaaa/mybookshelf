@@ -79,12 +79,12 @@
 
           .detail-center-info-title {
             font-weight: 400;
-            font-size: 35px;
+            font-size: 2.2em;
             color: var(--primary-dark-gray-color);
           }
 
           .detail-center-info-author {
-            font-size: 15px;
+            font-size: 0.9em;
             color: var(--primary-dark-gray-color);
 
             .detail-center-info-author-decoration {
@@ -94,7 +94,7 @@
           }
 
           .detail-center-info-edition {
-            font-size: 15px;
+            font-size: 0.9em;
             color: var(--primary-gray-color);
           }
         }
@@ -113,8 +113,7 @@
 
           .detail-central-availability-title {
             font-weight: 700;
-            font-size: 14px;
-            line-height: 17px;
+            font-size: 0.9em;
             color: var(--primary-dark-gray-color);
             margin-bottom: 11px;
           }
@@ -131,7 +130,7 @@
             }
 
             .detail-central-availability-item-description {
-              font-size: 15px;
+              font-size: 0.9em;
               color: var(--primary-dark-gray-color);
             }
 
@@ -228,7 +227,7 @@
         }
 
         .detail-right-about {
-          font-size: 13px;
+          font-size: 0.8em;
           line-height: 128.52%;
           color: var(--primary-dark-gray-color);
           margin-bottom: 22px;

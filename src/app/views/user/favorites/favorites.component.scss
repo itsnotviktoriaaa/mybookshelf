@@ -9,14 +9,13 @@
   .favorites-title {
     color: var(--primary-dark-gray-color);
     font-weight: 700;
-    font-size: 25px;
-    margin-top: 42px;
-    margin-bottom: 50px;
+    font-size: 1.5em;
+    margin: 1.7em 0;
   }
 
   .favorites-books {
     display: flex;
-    gap: 28px 66px;
+    gap: 2em;
     justify-content: space-between;
     flex-wrap: wrap;
     padding: 20px 0;

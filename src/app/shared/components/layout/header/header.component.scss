@@ -18,17 +18,19 @@
       background: var(--white-color);
       box-shadow: 0 0 4px rgb(0 0 0 / 25%);
       border-radius: 40px;
-      max-width: 541px;
+      max-width: 100%;
       display: flex;
       align-items: center;
 
       .header-search-all-wrapper {
-        padding: 12px 11px 13px 37px;
-        max-width: 102px;
-        box-sizing: border-box;
         background: var(--main-light-color);
         border-radius: 40px 0 0 40px;
         position: relative;
+        width: 95px;
+        height: 49px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         .header-search-all {
           display: flex;
@@ -56,13 +58,13 @@
 
       .header-search-input-wrapper {
         .header-search-input {
-          padding: 12px 12px 13px 21px;
+          padding: 12px;
 
           @include primary-gray-20;
 
           border: 0;
           outline: none;
-          width: 350px;
+          width: 100%;
           box-sizing: border-box;
 
           &::placeholder {
@@ -112,7 +114,9 @@
         .header-lang-wrapper {
           @include flex-center-space-between;
 
-          padding: 14px 29px 13px 25px;
+          width: 173px;
+          height: 50px;
+          justify-content: center;
           column-gap: 19px;
 
           .header-lang-item {
@@ -133,15 +137,17 @@
         position: relative;
 
         .header-account-wrapper {
-          padding: 3px 29px 2px 3px;
           display: flex;
           align-items: center;
-          justify-content: space-between;
           column-gap: 18px;
+          height: 50px;
+          padding-right: 20px;
+          justify-content: flex-start;
 
           .header-account-image {
             width: 45px;
             height: 45px;
+            margin-left: 3px;
             border-radius: 50%;
             border: 1px solid var(--white-color);
             box-sizing: border-box;
