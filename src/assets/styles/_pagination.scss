@@ -1,4 +1,4 @@
-@import 'variables';
+@import 'color';
 
 .pagination {
   margin-top: 75px;
@@ -35,10 +35,10 @@
       margin-right: 15px;
       cursor: pointer;
       font-size: 20px;
-      color: $primary-gray-color;
+      color: var(--primary-dark-gray-color);
 
       &.active {
-        background: $primary-orange-color;
+        background: var(--primary-orange-color);
         border-radius: 50%;
       }
 

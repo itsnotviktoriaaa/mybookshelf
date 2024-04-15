@@ -14,6 +14,7 @@ import { tap } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [
     `
+      @import '../../../../assets/styles/color';
       .layout-wrapper {
         padding: 48px 35px 38px 35px;
         background-image: url('/assets/images/layout/layout-background.webp');
@@ -25,7 +26,7 @@ import { tap } from 'rxjs';
           display: flex;
           align-items: flex-start;
           justify-content: space-between;
-          background-color: #f3f3f7;
+          background-color: var(--main-light-color);
           border-radius: 10px;
           height: calc(100vh - 108px);
         }

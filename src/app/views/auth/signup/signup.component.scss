@@ -1,5 +1,5 @@
 @import '../../../../assets/styles/auth-common';
-@import '../../../../assets/styles/variables';
+@import '../../../../assets/styles/color';
 
 .signup-wrapper {
   overflow-y: scroll;
@@ -30,7 +30,7 @@
           .verification-head {
             font-weight: 600;
             font-size: 18px;
-            color: $primary-gray-color;
+            color: var(--primary-dark-gray-color);
             margin-bottom: 20px;
           }
 
@@ -40,7 +40,7 @@
             margin-bottom: 90px;
 
             .verification-number {
-              border-bottom: 5px solid $primary-gray-color;
+              border-bottom: 5px solid var(--primary-dark-gray-color);
               width: 50px;
               border-top: 0;
               border-left: 0;
@@ -75,7 +75,7 @@
           .verification-moving-back {
             cursor: pointer;
             font-size: 16px;
-            color: $primary-gray-color;
+            color: var(--primary-dark-gray-color);
           }
         }
       }

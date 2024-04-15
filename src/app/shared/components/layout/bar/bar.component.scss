@@ -1,9 +1,9 @@
-@import '../../../../../assets/styles/variables';
+@import '../../../../../assets/styles/color';
 
 .bar-container {
   padding: 38px 0 51px 68px;
   min-width: 306px;
-  background-color: #fff;
+  background-color: var(--white-color);
   border-radius: 10px 0 0 10px;
   display: flex;
   flex-direction: column;
@@ -28,7 +28,7 @@
         .menu-item {
           .menu-item-a {
             font-size: 20px;
-            color: #8a8a8a;
+            color: var(--primary-gray-text-color);
             text-decoration: none;
 
             .icon {
@@ -37,11 +37,11 @@
             }
 
             &:hover {
-              color: $primary-gray-color;
+              color: var(--primary-dark-gray-color);
 
               svg-icon {
                 path {
-                  fill: $primary-gray-color;
+                  fill: var(--primary-dark-gray-color);
                 }
               }
             }
@@ -52,12 +52,12 @@
           }
 
           .menu-active {
-            color: $primary-gray-color;
+            color: var(--primary-dark-gray-color);
 
             .icon {
               svg {
                 path {
-                  fill: $primary-gray-color;
+                  fill: var(--primary-dark-gray-color);
                 }
               }
             }
@@ -77,10 +77,10 @@
         a {
           text-decoration: none;
           font-size: 15px;
-          color: #8a8a8a;
+          color: var(--primary-gray-text-color);
 
           &:hover {
-            color: $primary-gray-color;
+            color: var(--primary-dark-gray-color);
           }
         }
       }

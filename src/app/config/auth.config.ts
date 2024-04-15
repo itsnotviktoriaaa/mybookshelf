@@ -6,4 +6,5 @@ export const oAuthConfig: AuthConfig = {
   redirectUri: window.location.origin + '/home',
   clientId: '382002706810-teb9davo49276rcigiqil67s79bn77kb.apps.googleusercontent.com',
   scope: 'openid profile email https://www.googleapis.com/auth/books',
+  useSilentRefresh: true,
 };

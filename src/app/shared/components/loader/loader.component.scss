@@ -1,4 +1,4 @@
-@import '../../../../assets/styles/variables';
+@import '../../../../assets/styles/color';
 
 .loader-wrapper {
   width: 100%;
@@ -16,6 +16,6 @@
 
   .loader-message {
     font-size: 15px;
-    color: #fff;
+    color: var(--white-color);
   }
 }

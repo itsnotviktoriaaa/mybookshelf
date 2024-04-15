@@ -1,7 +1,7 @@
-@import 'variables';
+@import 'color';
 
 @mixin primary-gray-20 {
-  color: $primary-gray-color;
+  color: var(--primary-dark-gray-color);
   font-size: 20px;
 }
 
@@ -13,7 +13,7 @@
 
 @mixin text-primary-gray-600 {
   font-weight: 600;
-  color: $primary-gray-color;
+  color: var(--primary-dark-gray-color);
 }
 
 @mixin book-hover {

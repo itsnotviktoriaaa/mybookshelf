@@ -1,4 +1,4 @@
-@import 'variables';
+@import 'color';
 
 .auth {
   padding: 82px 0;
@@ -13,7 +13,7 @@
   .container {
     box-shadow: 0 0 20px rgb(0 0 0 / 25%);
     border-radius: 10px;
-    background-color: #fff;
+    background-color: var(--white-color);
     max-width: 565px;
     min-height: 917px;
     box-sizing: border-box;
@@ -38,13 +38,13 @@
 
         .auth-form-head-greeting {
           font-size: 20px;
-          color: $primary-gray-color;
+          color: var(--primary-dark-gray-color);
           margin-bottom: 14px;
         }
 
         .auth-form-head-description {
           font-size: 15px;
-          color: #ababab;
+          color: var(--primary-gray-color);
         }
       }
 
@@ -58,7 +58,7 @@
             font-weight: 600;
             font-size: 16px;
             line-height: 100%;
-            color: #4d4d4d;
+            color: var(--gray-label-color);
           }
 
           .auth-form-input-wrapper {
@@ -72,11 +72,11 @@
                 box-sizing: border-box;
                 width: 422px;
                 height: 56px;
-                background: #fff;
-                border: 1px solid #dcd9d9;
+                background: var(--white-color);
+                border: 1px solid var(--primary-light-gray-color);
                 border-radius: 8px;
                 font-size: 16px;
-                color: $primary-gray-color;
+                color: var(--primary-dark-gray-color);
                 font-family: Inter, sans-serif;
                 font-weight: 400;
                 outline: none;
@@ -117,37 +117,37 @@
         width: 100%;
         box-sizing: border-box;
         height: 48px;
-        background: $primary-orange-color;
+        background: var(--primary-orange-color);
         border-radius: 8px;
         font-weight: 600;
         font-size: 16px;
-        color: #fff;
+        color: var(--white-color);
 
         &:hover {
-          background: $primary-orange-color-hover;
+          background: var(--primary-orange-color-hover);
         }
       }
 
       .auth-form-moving {
         font-size: 16px;
-        color: $primary-gray-color;
+        color: var(--primary-dark-gray-color);
         margin-bottom: 45px;
         text-align: center;
 
         .auth-form-moving-route {
-          color: $primary-gray-color;
-          border-bottom: 1px solid $primary-gray-color;
+          color: var(--primary-dark-gray-color);
+          border-bottom: 1px solid var(--primary-dark-gray-color);
           cursor: pointer;
 
           &:hover {
-            color: #090909;
+            color: var(--black-color);
           }
         }
       }
 
       .auth-google {
         padding: 15px 20px;
-        background-color: $primary-orange-color;
+        background-color: var(--primary-orange-color);
         color: white;
         outline: none;
         border: 0;
@@ -155,7 +155,7 @@
         font-size: 15px;
 
         &:hover {
-          background-color: $primary-orange-color-hover;
+          background-color: var(--primary-orange-color-hover);
         }
       }
     }

@@ -1,4 +1,4 @@
-@import '../../../../assets/styles/variables';
+@import '../../../../assets/styles/color';
 
 .favorites {
   height: calc(100vh - 221px);
@@ -7,7 +7,7 @@
   -ms-overflow-style: none;
 
   .favorites-title {
-    color: $primary-gray-color;
+    color: var(--primary-dark-gray-color);
     font-weight: 700;
     font-size: 25px;
     margin-top: 42px;

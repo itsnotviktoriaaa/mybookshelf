@@ -1,12 +1,12 @@
-@import '../../../../assets/styles/variables';
 @import '../../../../assets/styles/mixins';
+@import '../../../../assets/styles/color';
 
 .book-back {
   padding: 15px;
-  background: #fff;
+  background: var(--white-color);
   border-radius: 10px;
   box-sizing: border-box;
-  color: $primary-gray-color;
+  color: var(--primary-dark-gray-color);
   height: 260px;
   display: flex;
   column-gap: 30px;
@@ -36,7 +36,7 @@
       font-size: 10px;
 
       .book-review-all {
-        color: #a7a7a7;
+        color: var(--primary-gray-color);
       }
     }
   }
@@ -59,12 +59,12 @@
 
         .book-right-top-title {
           font-size: 15px;
-          color: $primary-gray-color;
+          color: var(--primary-dark-gray-color);
         }
 
         .book-right-top-description {
           font-size: 10px;
-          color: #747373;
+          color: var(--gray-text-color);
         }
       }
     }

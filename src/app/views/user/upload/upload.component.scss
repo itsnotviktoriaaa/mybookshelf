@@ -1,4 +1,4 @@
-@import '../.././../../assets/styles/variables';
+@import '../../../../assets/styles/color';
 
 .upload-wrapper {
   height: calc(100vh - 221px);
@@ -9,17 +9,16 @@
   .upload {
     padding: 45px 90px 28px;
     max-width: 732px;
-    margin: 0 auto;
-    background: #fff;
+    margin: 0 auto 27px;
+    background: var(--white-color);
     box-sizing: border-box;
     border-radius: 10px;
-    margin-bottom: 27px;
 
     .upload-title {
       font-weight: 600;
       font-size: 20px;
       text-align: center;
-      color: #000;
+      color: var(--black-color);
       margin-bottom: 45px;
     }
 
@@ -35,7 +34,7 @@
         .upload-label {
           font-weight: 500;
           font-size: 16px;
-          color: #000;
+          color: var(--black-color);
           margin-bottom: 24px;
         }
 
@@ -45,19 +44,19 @@
           max-width: 542px;
           padding: 20px 30px;
           height: 60px;
-          background: #fff;
-          border: 1px solid #d6d6d6;
+          background: var(--white-color);
+          border: 1px solid var(--primary-light-gray-color);
           border-radius: 10px;
           outline: none;
           font-size: 16px;
-          color: $primary-gray-color;
+          color: var(--primary-dark-gray-color);
           font-family: Inter, sans-serif;
           font-weight: 400;
 
           &::placeholder {
             font-weight: 500;
             font-size: 16px;
-            color: #a9a9a9;
+            color: var(--primary-gray-color);
             opacity: 0.8;
           }
         }
@@ -67,20 +66,20 @@
           box-sizing: border-box;
           width: 100%;
           max-width: 542px;
-          background: #fff;
-          border: 1px solid #d6d6d6;
+          background: var(--white-color);
+          border: 1px solid var(--primary-light-gray-color);
           border-radius: 10px;
           outline: none;
           height: 108px;
           resize: none;
-          color: $primary-gray-color;
+          color: var(--primary-dark-gray-color);
           font-family: Inter, sans-serif;
           font-weight: 400;
 
           &::placeholder {
             font-weight: 500;
             font-size: 16px;
-            color: #a9a9a9;
+            color: var(--primary-gray-color);
             font-family: Inter, sans-serif;
           }
         }
@@ -95,15 +94,15 @@
         margin-top: 27px;
         font-weight: 600;
         font-size: 20px;
-        color: #fff;
-        background: $secondary-orange-color;
+        color: var(--white-color);
+        background: var(--secondary-orange-color);
         border-radius: 5px;
         width: 100%;
         max-width: 315px;
         height: 64px;
 
         &:hover {
-          background: $primary-orange-color-hover;
+          background: var(--primary-orange-color-hover);
         }
       }
     }
