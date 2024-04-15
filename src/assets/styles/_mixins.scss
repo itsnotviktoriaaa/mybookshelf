@@ -11,6 +11,16 @@
   justify-content: space-between;
 }
 
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex-align-center {
+  display: flex;
+  align-items: center;
+}
+
 @mixin text-primary-gray-600 {
   font-weight: 600;
   color: var(--primary-dark-gray-color);
@@ -19,4 +29,14 @@
 @mixin book-hover {
   transform: scale(1.01);
   box-shadow: 0 5px 9px rgb(0 0 0 / 25%);
+}
+
+@mixin border-outline-none {
+  outline: none;
+  border: 0;
+}
+
+@mixin primary-dark-gray-color-09 {
+  font-size: 0.9em;
+  color: var(--primary-dark-gray-color);
 }

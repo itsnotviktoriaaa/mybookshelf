@@ -1,3 +1,4 @@
+@import 'mixins';
 @import 'color';
 
 .auth {
@@ -28,8 +29,7 @@
     }
 
     .auth-form {
-      display: flex;
-      flex-direction: column;
+      @include flex-column;
 
       .auth-form-head {
         display: flex;
@@ -149,8 +149,9 @@
         padding: 15px 20px;
         background-color: var(--primary-orange-color);
         color: white;
-        outline: none;
-        border: 0;
+
+        @include border-outline-none;
+
         border-radius: 20px;
         font-size: 15px;
 

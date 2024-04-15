@@ -1,3 +1,4 @@
+@import '../../../../assets/styles/mixins';
 @import '../../../../assets/styles/color';
 
 .upload-wrapper {
@@ -23,8 +24,8 @@
     }
 
     .upload-items {
-      display: flex;
-      flex-direction: column;
+      @include flex-column;
+
       row-gap: 20px;
 
       .upload-item {

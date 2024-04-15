@@ -55,8 +55,8 @@
             column-gap: 27px;
 
             .detail-left-action {
-              display: flex;
-              flex-direction: column;
+              @include flex-column;
+
               row-gap: 7px;
               align-items: center;
               cursor: pointer;
@@ -71,8 +71,8 @@
         }
 
         .detail-center-info {
-          display: flex;
-          flex-direction: column;
+          @include flex-column;
+
           row-gap: 17px;
           margin-bottom: 40px;
           max-width: 509px;
@@ -84,8 +84,7 @@
           }
 
           .detail-center-info-author {
-            font-size: 0.9em;
-            color: var(--primary-dark-gray-color);
+            @include primary-dark-gray-color-09;
 
             .detail-center-info-author-decoration {
               text-decoration: underline;
@@ -113,8 +112,9 @@
 
           .detail-central-availability-title {
             font-weight: 700;
-            font-size: 0.9em;
-            color: var(--primary-dark-gray-color);
+
+            @include primary-dark-gray-color-09;
+
             margin-bottom: 11px;
           }
 
@@ -130,8 +130,7 @@
             }
 
             .detail-central-availability-item-description {
-              font-size: 0.9em;
-              color: var(--primary-dark-gray-color);
+              @include primary-dark-gray-color-09;
             }
 
             &:last-child {
@@ -227,9 +226,10 @@
         }
 
         .detail-right-about {
-          font-size: 0.8em;
           line-height: 128.52%;
-          color: var(--primary-dark-gray-color);
+
+          @include primary-dark-gray-color-09;
+
           margin-bottom: 22px;
         }
 
