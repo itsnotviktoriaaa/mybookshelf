@@ -25,6 +25,8 @@ import { DetailBookEffects } from './ngrx/detail-book/detail-book.effects';
 import { detailReducer } from './ngrx/detail-book/detail-book.reducer';
 import { AuthorEffects } from './ngrx/author/author.effects';
 import { authorReducer } from './ngrx/author/author.reducer';
+import { searchReducer } from './ngrx/search/search.reducer';
+import { SearchEffects } from './ngrx/search/search.effects';
 
 const scrollConfig: InMemoryScrollingOptions = {
   scrollPositionRestoration: 'enabled',
@@ -50,7 +52,14 @@ export const appConfig: ApplicationConfig = {
       favorites: favoritesReducer,
       detailBook: detailReducer,
       author: authorReducer,
+      search: searchReducer,
     }),
-    provideEffects([BookEffects, FavoritesEffects, DetailBookEffects, AuthorEffects]),
+    provideEffects([
+      BookEffects,
+      FavoritesEffects,
+      DetailBookEffects,
+      AuthorEffects,
+      SearchEffects,
+    ]),
   ],
 };

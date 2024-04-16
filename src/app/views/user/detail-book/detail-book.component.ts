@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { BehaviorSubject, Observable, of, tap } from 'rxjs';
-import { ActionsInterface, AuthorSmallInterface, DetailBookSmallInfo } from '../../../types/user';
+import { ActionsInterface, SearchSmallInterface, DetailBookSmallInfo } from '../../../types/user';
 import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import { TransformDateBookPipe } from '../../../shared/pipes';
 import { ReduceLetterPipe } from '../../../shared/pipes';
@@ -37,7 +37,7 @@ export class DetailBookComponent implements OnInit {
     { svg: 'share-icon.svg', title: 'Share' },
   ];
 
-  author$: Observable<AuthorSmallInterface | null> = of(null);
+  author$: Observable<SearchSmallInterface | null> = of(null);
   detailBook$: Observable<DetailBookSmallInfo | null> = of(null);
 
   miniLoader$: BehaviorSubject<{ miniLoader: boolean }> = new BehaviorSubject<{

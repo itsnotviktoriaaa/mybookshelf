@@ -217,3 +217,24 @@ li {
 .small-book {
   max-width: 160px;
 }
+
+.search-header-title {
+  font-weight: 500;
+
+  @include content-gray-color-12;
+}
+
+.content-info-title {
+  @include content-gray-color-12;
+
+  max-width: 365px;
+}
+
+.content-info-author {
+  font-size: 1em;
+  max-width: 365px;
+}
+
+.content-info-edition {
+  font-size: 0.6em;
+}

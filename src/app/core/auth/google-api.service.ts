@@ -3,7 +3,7 @@ import { OAuthService } from 'angular-oauth2-oidc';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { AuthService } from './auth.service';
-import { AuthorInfoDetail, BookInterface, DetailBookInterface } from '../../types/user';
+import { SearchInfoDetail, BookInterface, DetailBookInterface } from '../../types/user';
 import { oAuthConfig } from '../../config';
 import { UserInfoFromGoogle } from '../../types/auth';
 import { Router } from '@angular/router';
@@ -86,9 +86,14 @@ export class GoogleApiService {
       headers: this.authHeader(),
     });
   }
-  getAuthorDetail(author: string): Observable<AuthorInfoDetail> {
-    return this.http.get<AuthorInfoDetail>(
+  getAuthorDetail(author: string): Observable<SearchInfoDetail> {
+    return this.http.get<SearchInfoDetail>(
       `${environment.googleVolumeApi}?q=inauthor:${author}&maxResults=2`
+    );
+  }
+  getSearchBooksDefault(): Observable<SearchInfoDetail> {
+    return this.http.get<SearchInfoDetail>(
+      `${environment.googleVolumeApi}?q=search+terms&maxResults=40`
     );
   }
 

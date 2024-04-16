@@ -1,5 +1,5 @@
-import { AuthorSmallInterface } from '../../types/user';
+import { SearchSmallInterface } from '../../types/user';
 
 export interface AuthorState {
-  author: AuthorSmallInterface | null;
+  author: SearchSmallInterface | null;
 }

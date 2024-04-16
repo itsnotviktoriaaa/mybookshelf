@@ -183,7 +183,7 @@ export interface DetailBookSmallInfo {
   webReaderLink: string;
 }
 
-export interface AuthorInfoDetail {
+export interface SearchInfoDetail {
   kind: string;
   totalItems: number;
   items: Array<{
@@ -262,9 +262,24 @@ export interface AuthorInfoDetail {
   }>;
 }
 
-export interface AuthorSmallInterface {
+export interface SearchSmallInterface {
   totalItems: number;
   items: Array<{ id: string; thumbnail: string; title: string }>;
+}
+
+export interface SearchInterface {
+  totalItems: number;
+  items: SearchDetailInterface[];
+}
+export interface SearchDetailInterface {
+  id: string;
+  title: string;
+  authors: Array<string>;
+  publishedDate: string;
+  publisher?: string;
+  thumbnail: string;
+  categories?: Array<string>;
+  pageCount: number;
 }
 
 export interface ActionsInterface {

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { GoogleApiService } from '../../core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
-import { AuthorInfoDetail, AuthorSmallInterface } from '../../types/user';
+import { SearchInfoDetail, SearchSmallInterface } from '../../types/user';
 import { loadAuthor, loadAuthorFailure, loadAuthorSuccess } from './author.actions';
 import { TypedAction } from '@ngrx/store/src/models';
 
@@ -18,7 +18,7 @@ export class AuthorEffects {
       ofType(loadAuthor),
       switchMap(action => {
         return this.googleApi.getAuthorDetail(action.author).pipe(
-          map((data: AuthorInfoDetail): { data: AuthorSmallInterface } & TypedAction<string> => {
+          map((data: SearchInfoDetail): { data: SearchSmallInterface } & TypedAction<string> => {
             const transformedDataItems: { thumbnail: string; id: string; title: string }[] =
               data.items.map(item => {
                 return {

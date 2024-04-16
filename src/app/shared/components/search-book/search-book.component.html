@@ -1,1 +1,47 @@
-<p>search-book works!</p>
+@if (searchBook) {
+  <div class="content-row">
+    <div class="content-td">
+      <div class="content-info-wrapper">
+        <div class="content-image" style="background-image: url({{ searchBook.thumbnail }})">
+          &nbsp;
+        </div>
+        <div class="content-info">
+          @if (searchBook.title) {
+            <h3 class="content-info-title">{{ searchBook.title }}</h3>
+          }
+          @if (searchBook.authors && searchBook.authors.length > 0 && searchBook.publishedDate) {
+            <span class="content-info-author"
+              >{{ searchBook.authors[0] }} {{ searchBook.publishedDate | transformDateBook }}</span
+            >
+          }
+          @if (searchBook.publisher) {
+            <span class="content-info-edition">{{ searchBook.publisher }}</span>
+          }
+        </div>
+      </div>
+    </div>
+    @if (searchBook.pageCount) {
+      <div class="content-td">{{ searchBook.pageCount }}</div>
+    }
+    <div class="content-td">
+      @if (searchBook.categories && searchBook.categories.length > 0) {
+        <div class="content-category">
+          @for (category of searchBook.categories; track $index) {
+            <span>{{ category }}</span>
+          }
+        </div>
+      }
+    </div>
+    <div class="content-td">
+      <div class="content-favorite">
+        <svg-icon src="assets/images/icons/heart-white.svg"></svg-icon>
+        <!--      <svg-icon src="assets/images/icons/heart-red.svg"></svg-icon>-->
+      </div>
+    </div>
+    <div class="content-td">
+      <button (click)="openDetailPage()" class="btn-orange button-orange-transparent">
+        Preview
+      </button>
+    </div>
+  </div>
+}

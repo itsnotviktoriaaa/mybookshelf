@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { loadAuthor } from './author.actions';
 import { Observable } from 'rxjs';
-import { AuthorSmallInterface } from '../../types/user';
+import { SearchSmallInterface } from '../../types/user';
 import { selectAuthor } from './author.selector';
 
 @Injectable({
@@ -15,7 +15,7 @@ export class AuthorFacade {
     this.store.dispatch(loadAuthor({ author }));
   }
 
-  getDetailBook(): Observable<AuthorSmallInterface | null> {
+  getDetailBook(): Observable<SearchSmallInterface | null> {
     return this.store.select(selectAuthor);
   }
 }

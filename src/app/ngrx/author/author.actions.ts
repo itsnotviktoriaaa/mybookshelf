@@ -1,10 +1,10 @@
 import { createAction, props } from '@ngrx/store';
-import { AuthorSmallInterface } from '../../types/user';
+import { SearchSmallInterface } from '../../types/user';
 
 export const loadAuthor = createAction('[Author] Load Detail Author', props<{ author: string }>());
 export const loadAuthorSuccess = createAction(
   '[Author] Load Detail Author Success',
-  props<{ data: AuthorSmallInterface }>()
+  props<{ data: SearchSmallInterface }>()
 );
 export const loadAuthorFailure = createAction(
   '[Author] Load Detail Author Failure',

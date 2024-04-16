@@ -36,6 +36,11 @@
   border: 0;
 }
 
+@mixin content-gray-color-12 {
+  font-size: 1.2em;
+  color: var(--gray-label-color);
+}
+
 @mixin primary-dark-gray-color-09 {
   font-size: 0.9em;
   color: var(--primary-dark-gray-color);
