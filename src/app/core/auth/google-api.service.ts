@@ -91,9 +91,13 @@ export class GoogleApiService {
       `${environment.googleVolumeApi}?q=inauthor:${author}&maxResults=2`
     );
   }
-  getSearchBooksDefault(startIndex = 0, maxResults = 40): Observable<SearchInfoDetail> {
+  getSearchBooksDefault(
+    term = 'search+terms',
+    startIndex = 0,
+    maxResults = 40
+  ): Observable<SearchInfoDetail> {
     return this.http.get<SearchInfoDetail>(
-      `${environment.googleVolumeApi}?q=search+terms&maxResults=${maxResults}&startIndex=${startIndex}`
+      `${environment.googleVolumeApi}?q=${term}&maxResults=${maxResults}&startIndex=${startIndex}`
     );
   }
 

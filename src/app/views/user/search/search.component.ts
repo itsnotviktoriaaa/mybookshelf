@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, HostListener, OnInit } from '@angular/core';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { SearchBookComponent } from '../../../shared/components';
-import { filter, Observable, of, tap } from 'rxjs';
+import { BehaviorSubject, filter, tap } from 'rxjs';
 import {
   arrayFromBookItemTransformedInterface,
   BookItemTransformedInterface,
@@ -10,6 +10,7 @@ import {
 import { SearchFacade } from '../../../ngrx/search/search.facade';
 import { AsyncPipe } from '@angular/common';
 import { FavoritesFacade } from '../../../ngrx/favorites/favorites.facade';
+import { SearchStateService } from '../../../shared/services/search-state.service';
 
 @Component({
   selector: 'app-search',
@@ -173,31 +174,47 @@ export class SearchComponent implements OnInit {
     'Adventure stories',
   ];
 
-  searchBooks$: Observable<SearchInterface | null> = of(null);
+  searchBooks$: BehaviorSubject<SearchInterface | null> =
+    new BehaviorSubject<SearchInterface | null>(null);
   idOfFavorites: string[] = [];
 
   constructor(
     private searchFacade: SearchFacade,
-    private favoriteFacade: FavoritesFacade
+    private favoriteFacade: FavoritesFacade,
+    private searchStateService: SearchStateService
   ) {}
 
   ngOnInit(): void {
-    this.searchFacade.loadSearchBooks();
-    this.searchBooks$ = this.searchFacade.getSearchBooks().pipe(filter(data => !!data));
-
-    this.favoriteFacade.loadFavoritesBooks();
-    this.favoriteFacade
-      .getFavoritesBooks()
+    this.searchStateService
+      .getSearchString()
       .pipe(
-        filter((data: arrayFromBookItemTransformedInterface | null) => !!data),
-        tap((books: arrayFromBookItemTransformedInterface | null): void => {
-          const newArrayWithIdOfFavorites: string[] = [];
-          if (books && books.items && books.items.length > 0) {
-            books.items.forEach((item: BookItemTransformedInterface): void => {
-              newArrayWithIdOfFavorites.push(item.id);
+        tap((param: string): void => {
+          console.log(param);
+          const newValue: string = param ? param : 'search+terms';
+          this.searchFacade.loadSearchBooks(newValue);
+          this.searchFacade
+            .getSearchBooks()
+            .pipe(filter(data => !!data))
+            .subscribe(data => {
+              this.searchBooks$.next(data);
             });
-            this.idOfFavorites = newArrayWithIdOfFavorites;
-          }
+
+          this.favoriteFacade.loadFavoritesBooks();
+          this.favoriteFacade
+            .getFavoritesBooks()
+            .pipe(
+              filter((data: arrayFromBookItemTransformedInterface | null) => !!data),
+              tap((books: arrayFromBookItemTransformedInterface | null): void => {
+                const newArrayWithIdOfFavorites: string[] = [];
+                if (books && books.items && books.items.length > 0) {
+                  books.items.forEach((item: BookItemTransformedInterface): void => {
+                    newArrayWithIdOfFavorites.push(item.id);
+                  });
+                  this.idOfFavorites = newArrayWithIdOfFavorites;
+                }
+              })
+            )
+            .subscribe();
         })
       )
       .subscribe();

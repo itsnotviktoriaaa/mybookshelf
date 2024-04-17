@@ -1,7 +1,10 @@
 import { createAction, props } from '@ngrx/store';
 import { SearchInterface } from '../../types/user';
 
-export const loadSearchBooks = createAction('[Search] Load Search Books');
+export const loadSearchBooks = createAction(
+  '[Search] Load Search Books',
+  props<{ term: string }>()
+);
 export const loadSearchBooksSuccess = createAction(
   '[Search] Load Search Books Success',
   props<{ data: SearchInterface }>()

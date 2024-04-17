@@ -11,9 +11,9 @@ import { selectSearchBooks } from './search.selector';
 export class SearchFacade {
   constructor(private store: Store) {}
 
-  loadSearchBooks(): void {
+  loadSearchBooks(term: string): void {
     console.log('Load search books method called');
-    this.store.dispatch(loadSearchBooks());
+    this.store.dispatch(loadSearchBooks({ term }));
   }
   getSearchBooks(): Observable<SearchInterface | null> {
     console.log('Get search books method called');

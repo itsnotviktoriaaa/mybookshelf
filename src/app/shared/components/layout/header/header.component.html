@@ -23,7 +23,16 @@
         }
       </div>
       <div class="header-search-input-wrapper">
-        <input class="header-search-input" type="text" placeholder="Search" />
+        <input
+          [formControl]="searchField"
+          class="header-search-input"
+          type="text"
+          placeholder="Search" />
+        <div class="header-search-offers">
+          <div class="header-search-offer">Flowers</div>
+          <div class="header-search-offer">Flowers</div>
+          <div class="header-search-offer">Flowers</div>
+        </div>
       </div>
       <div class="header-search-find">
         <div class="header-search-find-loop">
