@@ -28,11 +28,13 @@
           class="header-search-input"
           type="text"
           placeholder="Search" />
-        <div class="header-search-offers">
-          <div class="header-search-offer">Flowers</div>
-          <div class="header-search-offer">Flowers</div>
-          <div class="header-search-offer">Flowers</div>
-        </div>
+        @if (searchTexts$ | async; as searchTexts) {
+          <div class="header-search-offers">
+            @for (searchText of searchTexts; track $index) {
+              <div class="header-search-offer">{{ searchText }}</div>
+            }
+          </div>
+        }
       </div>
       <div class="header-search-find">
         <div class="header-search-find-loop">

@@ -1,6 +1,10 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { NotificationStatus } from '../../../../types/auth';
-import { HeaderClickInterface } from '../../../../types/user';
+import {
+  HeaderClickInterface,
+  SearchDetailInterface,
+  SearchInterface,
+} from '../../../../types/user';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { AuthService } from '../../../../core';
 import {
@@ -9,6 +13,7 @@ import {
   debounceTime,
   distinctUntilChanged,
   EMPTY,
+  map,
   Subject,
   takeUntil,
   tap,
@@ -20,6 +25,7 @@ import { GoogleApiService } from '../../../../core';
 import { AsyncPipe } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { SearchStateService } from '../../../services/search-state.service';
+import { SearchFacade } from '../../../../ngrx/search/search.facade';
 
 @Component({
   selector: 'app-header',
@@ -37,6 +43,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   headerModalAccountItems: string[] = ['Profile', 'Favourite', 'My Books', 'Logout'];
   protected readonly HeaderClickInterfaceEnum = HeaderClickInterface;
   searchField: FormControl = new FormControl();
+  searchTexts$: BehaviorSubject<string[] | null> = new BehaviorSubject<string[] | null>(null);
   authServiceDestroy$: Subject<void> = new Subject<void>();
   userInfo$: BehaviorSubject<UserInfoFromGoogle | null> =
     new BehaviorSubject<UserInfoFromGoogle | null>(null);
@@ -46,7 +53,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private router: Router,
     private notificationService: NotificationService,
     private googleApi: GoogleApiService,
-    private searchStateService: SearchStateService
+    private searchStateService: SearchStateService,
+    private searchFacade: SearchFacade
   ) {}
 
   ngOnInit(): void {
@@ -60,7 +68,36 @@ export class HeaderComponent implements OnInit, OnDestroy {
         if (value && value.length > 4) {
           console.log(value);
           const transformedValue: string = this.transformSearchString(value);
-          this.searchStateService.setSearchString(transformedValue);
+          // this.searchStateService.setSearchString(transformedValue);
+
+          this.searchFacade.loadSearchBooks(transformedValue);
+          this.searchFacade
+            .getSearchBooks()
+            .pipe(
+              map((data: SearchInterface | null) => {
+                if (data && data.items) {
+                  return data.items.map((item: SearchDetailInterface): string => {
+                    if (item.title) {
+                      return item.title;
+                    }
+                    return '';
+                  });
+                }
+                return [];
+              }),
+              map((data: string[]): string[] => {
+                const newArrayOfRequests = new Set<string>();
+                data.forEach((text: string): void => {
+                  newArrayOfRequests.add(text);
+                });
+                return Array.from(newArrayOfRequests.values());
+              }),
+              tap((data: string[]): void => {
+                console.log(data);
+                this.searchTexts$.next(data);
+              })
+            )
+            .subscribe();
         }
       });
   }

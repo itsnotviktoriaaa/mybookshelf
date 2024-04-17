@@ -207,6 +207,8 @@ li {
   display: flex;
   flex-direction: column;
   color: var(--primary-dark-gray-color);
+  max-height: 200px;
+  overflow-y: scroll;
 }
 
 .header-search-offer {
