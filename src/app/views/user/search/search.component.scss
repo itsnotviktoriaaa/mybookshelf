@@ -26,8 +26,8 @@
 
     .header-search-modal {
       left: 0;
-      width: 100%;
-      padding: 18px 0 25px 18px;
+      max-height: 200px;
+      overflow-y: scroll;
     }
   }
 

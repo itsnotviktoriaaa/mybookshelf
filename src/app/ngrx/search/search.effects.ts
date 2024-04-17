@@ -19,18 +19,20 @@ export class SearchEffects {
       switchMap(() => {
         return this.googleApi.getSearchBooksDefault().pipe(
           map((data: SearchInfoDetail): { data: SearchInterface } & TypedAction<string> => {
+            console.log(data);
             const transformedDataItems: SearchDetailInterface[] = data.items.map(item => {
               return {
                 id: item.id,
-                thumbnail: item.volumeInfo.imageLinks.thumbnail,
-                title: item.volumeInfo.title,
-                authors: item.volumeInfo.authors,
-                publishedDate: item.volumeInfo.publishedDate,
-                publisher: item.volumeInfo.publisher,
-                categories: item.volumeInfo.categories,
-                pageCount: item.volumeInfo.pageCount,
+                thumbnail: item.volumeInfo?.imageLinks?.thumbnail,
+                title: item.volumeInfo?.title,
+                authors: item.volumeInfo?.authors,
+                publishedDate: item.volumeInfo?.publishedDate,
+                publisher: item.volumeInfo?.publisher,
+                categories: item.volumeInfo?.categories,
+                pageCount: item.volumeInfo?.pageCount,
               };
             });
+
             return loadSearchBooksSuccess({
               data: { totalItems: data.totalItems, items: transformedDataItems },
             });

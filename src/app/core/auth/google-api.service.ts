@@ -91,15 +91,27 @@ export class GoogleApiService {
       `${environment.googleVolumeApi}?q=inauthor:${author}&maxResults=2`
     );
   }
-  getSearchBooksDefault(): Observable<SearchInfoDetail> {
+  getSearchBooksDefault(startIndex = 0, maxResults = 40): Observable<SearchInfoDetail> {
     return this.http.get<SearchInfoDetail>(
-      `${environment.googleVolumeApi}?q=search+terms&maxResults=40`
+      `${environment.googleVolumeApi}?q=search+terms&maxResults=${maxResults}&startIndex=${startIndex}`
     );
   }
 
-  // setFavoriteBook(): Observable<any> {
-  //   return this.http.post(`${environment.googleLibraryApi}0/addVolume?volumeId=NRWlitmahXkC`, {}, { headers: this.authHeader() });
-  // }
+  setFavoriteBook(id: string): Observable<NonNullable<unknown>> {
+    return this.http.post(
+      `${environment.googleLibraryApi}0/addVolume?volumeId=${id}`,
+      {},
+      { headers: this.authHeader() }
+    );
+  }
+
+  removeFavoriteBook(id: string): Observable<NonNullable<unknown>> {
+    return this.http.post(
+      `${environment.googleLibraryApi}0/removeVolume?volumeId=${id}`,
+      {},
+      { headers: this.authHeader() }
+    );
+  }
 
   isLoggedIn(): boolean {
     return this.oAuthService.hasValidAccessToken();

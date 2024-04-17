@@ -8,14 +8,18 @@ export const initialState: SearchState = {
 
 const _searchState = createReducer(
   initialState,
-  on(loadSearchBooksSuccess, (state, { data }) => ({
-    ...state,
-    search: data,
-  })),
-  on(loadSearchBooksFailure, state => ({
-    ...state,
-    search: null,
-  }))
+  on(loadSearchBooksSuccess, (state, { data }) => {
+    return {
+      ...state,
+      search: data,
+    };
+  }),
+  on(loadSearchBooksFailure, state => {
+    return {
+      ...state,
+      search: null,
+    };
+  })
 );
 
 export function searchReducer(state: SearchState | undefined, action: Action) {

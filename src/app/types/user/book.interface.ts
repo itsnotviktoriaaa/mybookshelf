@@ -272,14 +272,14 @@ export interface SearchInterface {
   items: SearchDetailInterface[];
 }
 export interface SearchDetailInterface {
-  id: string;
-  title: string;
-  authors: Array<string>;
-  publishedDate: string;
+  id?: string;
+  title?: string;
+  authors?: Array<string>;
+  publishedDate?: string;
   publisher?: string;
   thumbnail: string;
   categories?: Array<string>;
-  pageCount: number;
+  pageCount?: number;
 }
 
 export interface ActionsInterface {

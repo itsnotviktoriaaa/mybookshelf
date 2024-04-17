@@ -31,7 +31,9 @@
     <div class="content">
       @if (searchBooks$ | async; as searchBooks) {
         @for (searchBook of searchBooks.items; track $index) {
-          <app-search-book [searchBook]="searchBook"></app-search-book>
+          <app-search-book
+            [searchBook]="searchBook"
+            [idOfFavorites]="idOfFavorites"></app-search-book>
         }
       }
     </div>

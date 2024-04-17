@@ -2,9 +2,11 @@
   <div class="content-row">
     <div class="content-td">
       <div class="content-info-wrapper">
-        <div class="content-image" style="background-image: url({{ searchBook.thumbnail }})">
-          &nbsp;
-        </div>
+        @if (searchBook.thumbnail) {
+          <div class="content-image" style="background-image: url({{ searchBook.thumbnail }})">
+            &nbsp;
+          </div>
+        }
         <div class="content-info">
           @if (searchBook.title) {
             <h3 class="content-info-title">{{ searchBook.title }}</h3>
@@ -22,6 +24,8 @@
     </div>
     @if (searchBook.pageCount) {
       <div class="content-td">{{ searchBook.pageCount }}</div>
+    } @else {
+      <div class="content-td">-</div>
     }
     <div class="content-td">
       @if (searchBook.categories && searchBook.categories.length > 0) {
@@ -30,12 +34,22 @@
             <span>{{ category }}</span>
           }
         </div>
+      } @else {
+        <div class="content-category">
+          <span>-</span>
+        </div>
       }
     </div>
     <div class="content-td">
       <div class="content-favorite">
-        <svg-icon src="assets/images/icons/heart-white.svg"></svg-icon>
-        <!--      <svg-icon src="assets/images/icons/heart-red.svg"></svg-icon>-->
+        @if (isFavorite) {
+          <svg-icon
+            [attr.disabled]=""
+            (click)="removeFavorite()"
+            src="assets/images/icons/heart-red.svg"></svg-icon>
+        } @else {
+          <svg-icon (click)="addFavorite()" src="assets/images/icons/heart-white.svg"></svg-icon>
+        }
       </div>
     </div>
     <div class="content-td">
