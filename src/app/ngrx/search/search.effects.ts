@@ -17,7 +17,7 @@ export class SearchEffects {
     return this.actions$.pipe(
       ofType(loadSearchBooks),
       switchMap(action => {
-        return this.googleApi.getSearchBooksDefault(action.term).pipe(
+        return this.googleApi.getSearchBooksDefault(action.params).pipe(
           map((data: SearchInfoDetail): { data: SearchInterface } & TypedAction<string> => {
             console.log(data);
             const transformedDataItems: SearchDetailInterface[] = data.items.map(item => {

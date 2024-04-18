@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostListener, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { SearchBookComponent } from '../../../shared/components';
 import { BehaviorSubject, filter, tap } from 'rxjs';
@@ -10,7 +10,8 @@ import {
 import { SearchFacade } from '../../../ngrx/search/search.facade';
 import { AsyncPipe } from '@angular/common';
 import { FavoritesFacade } from '../../../ngrx/favorites/favorites.facade';
-import { SearchStateService } from '../../../shared/services/search-state.service';
+import { ActivatedRoute, Params } from '@angular/router';
+import { ActiveParamsType, ActiveParamUtil } from '../../../shared/utils/active-param.util';
 
 @Component({
   selector: 'app-search',
@@ -181,53 +182,48 @@ export class SearchComponent implements OnInit {
   constructor(
     private searchFacade: SearchFacade,
     private favoriteFacade: FavoritesFacade,
-    private searchStateService: SearchStateService
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.searchStateService
-      .getSearchString()
-      .pipe(
-        tap((param: string): void => {
-          console.log(param);
-          const newValue: string = param ? param : 'search+terms';
-          this.searchFacade.loadSearchBooks(newValue);
-          this.searchFacade
-            .getSearchBooks()
-            .pipe(filter(data => !!data))
-            .subscribe(data => {
-              this.searchBooks$.next(data);
-            });
+    this.activatedRoute.queryParams.subscribe((params: Params): void => {
+      console.log(params);
+      const newParams: ActiveParamsType = ActiveParamUtil.processParam(params);
+      this.searchFacade.loadSearchBooks(newParams);
+      this.searchFacade
+        .getSearchBooks()
+        .pipe(filter(data => !!data))
+        .subscribe(data => {
+          this.searchBooks$.next(data);
+        });
 
-          this.favoriteFacade.loadFavoritesBooks();
-          this.favoriteFacade
-            .getFavoritesBooks()
-            .pipe(
-              filter((data: arrayFromBookItemTransformedInterface | null) => !!data),
-              tap((books: arrayFromBookItemTransformedInterface | null): void => {
-                const newArrayWithIdOfFavorites: string[] = [];
-                if (books && books.items && books.items.length > 0) {
-                  books.items.forEach((item: BookItemTransformedInterface): void => {
-                    newArrayWithIdOfFavorites.push(item.id);
-                  });
-                  this.idOfFavorites = newArrayWithIdOfFavorites;
-                }
-              })
-            )
-            .subscribe();
-        })
-      )
-      .subscribe();
+      this.favoriteFacade.loadFavoritesBooks();
+      this.favoriteFacade
+        .getFavoritesBooks()
+        .pipe(
+          filter((data: arrayFromBookItemTransformedInterface | null) => !!data),
+          tap((books: arrayFromBookItemTransformedInterface | null): void => {
+            const newArrayWithIdOfFavorites: string[] = [];
+            if (books && books.items && books.items.length > 0) {
+              books.items.forEach((item: BookItemTransformedInterface): void => {
+                newArrayWithIdOfFavorites.push(item.id);
+              });
+              this.idOfFavorites = newArrayWithIdOfFavorites;
+            }
+          })
+        )
+        .subscribe();
+    });
   }
 
   openOrCloseMiniModal(): void {
     this.browseMiniModal = !this.browseMiniModal;
   }
 
-  @HostListener('document:click', ['$event'])
-  click(event: Event) {
-    if (this.browseMiniModal && !(event.target as Element).closest('.header-search-info')) {
-      this.browseMiniModal = false;
-    }
-  }
+  // @HostListener('document:click', ['$event'])
+  // click(event: Event) {
+  //   if (this.browseMiniModal && !(event.target as Element).closest('.header-search-info')) {
+  //     this.browseMiniModal = false;
+  //   }
+  // }
 }

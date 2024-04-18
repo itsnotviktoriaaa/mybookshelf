@@ -5,7 +5,7 @@
         <div
           (click)="openOrCloseMiniModal(HeaderClickInterfaceEnum.allMiniModal)"
           class="header-search-all">
-          <span class="header-class-all-text">All</span>
+          <span class="header-class-all-text">{{ (selectedHeaderModalItem | async)!.select }}</span>
           <span [class]="{ 'header-class-all-arrow': true, active: allMiniModal }">
             <svg-icon src="assets/images/icons/arrow-in-mini-modal.svg"></svg-icon>
           </span>
@@ -15,7 +15,9 @@
             <ul class="header-modal-items">
               @for (headerModalItem of headerModalItems; track $index) {
                 <li class="header-modal-item">
-                  <a>{{ headerModalItem }}</a>
+                  <a (click)="changeSelectedHeaderModalItem(headerModalItem)">{{
+                    headerModalItem
+                  }}</a>
                 </li>
               }
             </ul>
@@ -39,6 +41,7 @@
       <div class="header-search-find">
         <div class="header-search-find-loop">
           <svg-icon
+            (click)="searchBooks()"
             class="header-search-find-loop-icon"
             [svgStyle]="{ position: 'relative', 'top.px': 2 }"
             src="assets/images/icons/header-loop.svg"></svg-icon>

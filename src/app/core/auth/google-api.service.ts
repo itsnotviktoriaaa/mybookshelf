@@ -8,6 +8,7 @@ import { oAuthConfig } from '../../config';
 import { UserInfoFromGoogle } from '../../types/auth';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment.development';
+import { ActiveParamsType } from '../../shared/utils/active-param.util';
 
 @Injectable({
   providedIn: 'root',
@@ -91,14 +92,10 @@ export class GoogleApiService {
       `${environment.googleVolumeApi}?q=inauthor:${author}&maxResults=2`
     );
   }
-  getSearchBooksDefault(
-    term = 'search+terms',
-    startIndex = 0,
-    maxResults = 40
-  ): Observable<SearchInfoDetail> {
-    return this.http.get<SearchInfoDetail>(
-      `${environment.googleVolumeApi}?q=${term}&maxResults=${maxResults}&startIndex=${startIndex}`
-    );
+  getSearchBooksDefault(params: ActiveParamsType): Observable<SearchInfoDetail> {
+    const queryString: string = `q=${params.q}&maxResults=${params.maxResults}&startIndex=${params.startIndex}`;
+
+    return this.http.get<SearchInfoDetail>(`${environment.googleVolumeApi}?${queryString}`);
   }
 
   setFavoriteBook(id: string): Observable<NonNullable<unknown>> {
