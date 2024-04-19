@@ -1,5 +1,4 @@
 import { createAction, props } from '@ngrx/store';
-import { SearchInterface } from '../../types/user';
 
 export const loadSearchLiveBooks = createAction(
   '[Search Live] Load Search Live Books',
@@ -7,7 +6,7 @@ export const loadSearchLiveBooks = createAction(
 );
 export const loadSearchLiveBooksSuccess = createAction(
   '[Search Live] Load Search Live Books Success',
-  props<{ data: SearchInterface }>()
+  props<{ data: string[] }>()
 );
 export const loadSearchLiveBooksFailure = createAction(
   '[Search Live] Load Search Live Books Failure',

@@ -1,10 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { NotificationStatus, UserInfoFromGoogle } from '../../../../types/auth';
-import {
-  HeaderClickInterface,
-  SearchDetailInterface,
-  SearchInterface,
-} from '../../../../types/user';
+import { HeaderClickInterface } from '../../../../types/user';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { AuthService, GoogleApiService } from '../../../../core';
 import {
@@ -13,7 +9,6 @@ import {
   debounceTime,
   distinctUntilChanged,
   EMPTY,
-  map,
   Subject,
   take,
   takeUntil,
@@ -85,37 +80,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe((value: string): void => {
         this.searchTextTransformed = this.transformSearchString(value);
         if (value && value.length > 4) {
-          this.searchLiveFacade.loadSearchLiveBooks(
-            value,
-            this.selectedHeaderModalItem.getValue()!.toLowerCase()
-          );
-          this.searchLiveFacade
-            .getSearchLiveBooks()
-            .pipe(
-              map((data: SearchInterface | null) => {
-                if (data && data.items) {
-                  return data.items.map((item: SearchDetailInterface): string => {
-                    if (item.title) {
-                      return item.title;
-                    }
-                    return '';
-                  });
-                }
-                return [];
-              }),
-              map((data: string[]): string[] => {
-                const newArrayOfRequests = new Set<string>();
-                data.forEach((text: string): void => {
-                  newArrayOfRequests.add(text);
-                });
-                return Array.from(newArrayOfRequests.values());
-              }),
-              tap((data: string[]): void => {
-                // console.log(data);
-                this.searchTexts$.next(data);
-              })
-            )
-            .subscribe();
+          if (this.selectedHeaderModalItem.getValue()!.toLowerCase() !== 'subject') {
+            this.searchLiveFacade.loadSearchLiveBooks(
+              value,
+              this.selectedHeaderModalItem.getValue()!.toLowerCase()
+            );
+
+            this.searchLiveFacade
+              .getSearchLiveBooks()
+              .pipe(
+                tap((data: string[] | null): void => {
+                  console.log(data);
+                  this.searchTexts$.next(data);
+                })
+              )
+              .subscribe();
+          }
         }
       });
   }
