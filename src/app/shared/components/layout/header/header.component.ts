@@ -158,13 +158,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   searchBooks(): void {
-    console.log('YYYY');
     this.searchStateService
       .getSearchCategory()
       .pipe(
         take(1),
         tap((category: string): void => {
           let categoryNew: string = category;
+          console.log(categoryNew);
           if (!window.location.href.includes('search')) {
             categoryNew = 'computers';
           }
@@ -184,6 +184,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe();
+  }
+
+  chooseOfferFromLiveSearch(text: string): void {
+    this.searchField.setValue(text, { emitEvent: false });
+    this.searchTextTransformed = this.transformSearchString(text);
+    this.searchTexts$.next(null);
   }
 
   ngOnDestroy(): void {

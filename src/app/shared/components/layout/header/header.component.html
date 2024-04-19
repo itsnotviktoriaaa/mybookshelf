@@ -33,7 +33,7 @@
         @if (searchTexts$ | async; as searchTexts) {
           <div class="header-search-offers">
             @for (searchText of searchTexts; track searchText) {
-              <div class="header-search-offer">{{ searchText }}</div>
+              <div (click)="chooseOfferFromLiveSearch(searchText)" class="header-search-offer">{{ searchText }}</div>
             }
           </div>
         }

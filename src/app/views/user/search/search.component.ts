@@ -197,6 +197,7 @@ export class SearchComponent implements OnInit {
         tap((type: string): void => {
           if (type.toLowerCase() === 'subject') {
             this.headerModalSearchText.next(this.headerModalSearchItems[1]);
+            this.searchStateService.setSearchCategory(this.headerModalSearchItems[1]);
           } else {
             this.headerModalSearchText.next('Browse');
           }
