@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { NotificationStatus, UserInfoFromGoogle } from '../../../../types/auth';
 import {
   HeaderClickInterface,
@@ -37,9 +37,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   allMiniModal: boolean = false;
   langMiniModal: boolean = false;
   profileMiniModal: boolean = false;
-  selectedHeaderModalItem: BehaviorSubject<{ select: string }> = new BehaviorSubject<{
-    select: string;
-  }>({ select: 'All' });
+  selectedHeaderModalItem = new BehaviorSubject<{ select: string } | null>(null);
   headerModalLangItems: string[] = ['Eng', 'Rus'];
   headerModalItems: string[] = ['All', 'Title', 'Author', 'Text', 'Subjects'];
   headerModalAccountItems: string[] = ['Profile', 'Favourite', 'My Books', 'Logout'];
@@ -61,8 +59,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.selectedHeaderModalItem.next({ select: 'All' });
     this.googleApi.userProfileSubject.subscribe((info: UserInfoFromGoogle | null) => {
-      this.userInfo$.next(info);
+      if (info) {
+        this.userInfo$.next(info);
+      }
     });
 
     this.searchField.valueChanges
@@ -164,52 +165,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
   changeSelectedHeaderModalItem(headerModalItem: string): void {
     this.selectedHeaderModalItem.next({ select: headerModalItem });
     this.allMiniModal = false;
-    console.log(this.selectedHeaderModalItem.getValue().select);
+    // console.log(this.selectedHeaderModalItem.getValue().select);
   }
 
   searchBooks(): void {
     //тут будет изменение url параметров
-    this.router
-      .navigate(['/home/search'], {
-        queryParams: {
-          text: this.searchTextTransformed,
-          type: this.selectedHeaderModalItem.getValue().select.toLowerCase(),
-        },
-      })
-      .then((): void => {});
-  }
-
-  @HostListener('document:click', ['$event'])
-  click(event: Event) {
-    if (
-      this.allMiniModal &&
-      !(
-        (event.target as Element).closest('.header-search-modal') ||
-        (event.target as Element).closest('.header-search-all')
-      )
-    ) {
-      this.allMiniModal = false;
-    }
-
-    if (
-      this.langMiniModal &&
-      !(
-        (event.target as Element).closest('.header-lang-modal') ||
-        (event.target as Element).closest('.header-lang-info')
-      )
-    ) {
-      this.langMiniModal = false;
-    }
-
-    if (
-      this.profileMiniModal &&
-      !(
-        (event.target as Element).closest('.header-account-modal') ||
-        (event.target as Element).closest('.header-account-info')
-      )
-    ) {
-      this.profileMiniModal = false;
-    }
+    // this.router
+    //   .navigate(['/home/search'], {
+    //     queryParams: {
+    //       text: this.searchTextTransformed,
+    //       type: this.selectedHeaderModalItem?.getValue().select.toLowerCase(),
+    //     },
+    //   })
+    //   .then((): void => {});
   }
 
   ngOnDestroy(): void {

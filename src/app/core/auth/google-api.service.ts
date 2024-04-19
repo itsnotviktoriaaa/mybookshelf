@@ -33,9 +33,9 @@ export class GoogleApiService {
         } else {
           this.oAuthService.loadUserProfile().then(userProfile => {
             this.oAuthService.setupAutomaticSilentRefresh();
-            this.userProfileSubject.next(userProfile as UserInfoFromGoogle);
-            // console.log(JSON.stringify(userProfile));
             // console.log(this.oAuthService.getAccessToken());
+            // console.log(JSON.stringify(userProfile));
+            this.userProfileSubject.next(userProfile as UserInfoFromGoogle);
             this.authService
               .checkEmailWasUsed(this.userProfileSubject.getValue()!.info.email)
               .pipe(

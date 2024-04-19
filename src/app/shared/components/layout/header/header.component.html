@@ -5,7 +5,7 @@
         <div
           (click)="openOrCloseMiniModal(HeaderClickInterfaceEnum.allMiniModal)"
           class="header-search-all">
-          <span class="header-class-all-text">{{ (selectedHeaderModalItem | async)!.select }}</span>
+          <span class="header-class-all-text">{{ (selectedHeaderModalItem | async)?.select }}</span>
           <span [class]="{ 'header-class-all-arrow': true, active: allMiniModal }">
             <svg-icon src="assets/images/icons/arrow-in-mini-modal.svg"></svg-icon>
           </span>
@@ -13,7 +13,7 @@
         @if (allMiniModal) {
           <div class="header-modal header-search-modal">
             <ul class="header-modal-items">
-              @for (headerModalItem of headerModalItems; track $index) {
+              @for (headerModalItem of headerModalItems; track headerModalItem) {
                 <li class="header-modal-item">
                   <a (click)="changeSelectedHeaderModalItem(headerModalItem)">{{
                     headerModalItem
@@ -32,7 +32,7 @@
           placeholder="Search" />
         @if (searchTexts$ | async; as searchTexts) {
           <div class="header-search-offers">
-            @for (searchText of searchTexts; track $index) {
+            @for (searchText of searchTexts; track searchText) {
               <div class="header-search-offer">{{ searchText }}</div>
             }
           </div>
@@ -71,7 +71,7 @@
         @if (langMiniModal) {
           <div class="header-modal header-lang-modal">
             <ul class="header-modal-items">
-              @for (headerModalLangItem of headerModalLangItems; track $index) {
+              @for (headerModalLangItem of headerModalLangItems; track headerModalLangItem) {
                 <li class="header-modal-item">
                   <a>{{ headerModalLangItem }}</a>
                 </li>
@@ -105,7 +105,7 @@
             <ul class="header-modal-items">
               @for (
                 headerModalAccountItem of headerModalAccountItems;
-                track $index;
+                track headerModalAccountItem;
                 let last = $last
               ) {
                 <li class="header-modal-item">
