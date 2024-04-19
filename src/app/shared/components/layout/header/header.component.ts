@@ -79,6 +79,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .pipe(debounceTime(500), distinctUntilChanged())
       .subscribe((value: string): void => {
         this.searchTextTransformed = this.transformSearchString(value);
+
+        if (!value) {
+          this.searchTexts$.next(null);
+        }
+
         if (value && value.length > 4) {
           if (this.selectedHeaderModalItem.getValue()!.toLowerCase() !== 'subject') {
             this.searchLiveFacade.loadSearchLiveBooks(
@@ -158,6 +163,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   searchBooks(): void {
+    this.searchTexts$.next(null);
     this.searchStateService
       .getSearchCategory()
       .pipe(
