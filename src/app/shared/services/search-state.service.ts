@@ -5,23 +5,23 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class SearchStateService {
-  private searchTest$: BehaviorSubject<string> = new BehaviorSubject<string>('');
-  private searchType$: BehaviorSubject<string> = new BehaviorSubject<string>('all');
+  private searchCategory$: BehaviorSubject<string> = new BehaviorSubject<string>('Browse');
+  private searchType$: BehaviorSubject<string> = new BehaviorSubject<string>('All');
   constructor() {}
 
-  setSearchString(test: string): void {
-    this.searchTest$.next(test);
+  setSearchCategory(category: string): void {
+    this.searchCategory$.next(category);
   }
 
-  getSearchString(): Observable<string> {
-    return this.searchTest$.asObservable();
+  getSearchCategory(): Observable<string> {
+    return this.searchCategory$.asObservable();
   }
 
-  setSearchType(type: string): void {
+  setHeaderModalItem(type: string): void {
     this.searchType$.next(type);
   }
 
-  getSearchType(): Observable<string> {
+  getHeaderModalItem(): Observable<string> {
     return this.searchType$.asObservable();
   }
 }

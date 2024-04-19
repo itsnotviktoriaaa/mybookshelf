@@ -9,14 +9,13 @@
 
   .header-search {
     position: relative;
-    max-width: 170px;
+    max-width: 650px;
     margin-bottom: 70px;
 
     .header-search-wrapper {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      column-gap: 19px;
+      display: inline-block;
+      padding: 10px 25px;
+      height: unset;
 
       .header-search-item {
         position: relative;

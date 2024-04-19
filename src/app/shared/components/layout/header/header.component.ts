@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { NotificationStatus, UserInfoFromGoogle } from '../../../../types/auth';
 import {
+  ActiveParamsSearchType,
   HeaderClickInterface,
   SearchDetailInterface,
   SearchInterface,
@@ -23,7 +24,8 @@ import { NotificationService } from '../../../services';
 import { AsyncPipe } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchFacade } from '../../../../ngrx/search/search.facade';
-import { ActiveParamsType, ActiveParamUtil } from '../../../utils/active-param.util';
+import { ActiveParamUtil } from '../../../utils/active-param.util';
+import { SearchStateService } from '../../../services/search-state.service';
 
 @Component({
   selector: 'app-header',
@@ -37,9 +39,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   allMiniModal: boolean = false;
   langMiniModal: boolean = false;
   profileMiniModal: boolean = false;
-  selectedHeaderModalItem = new BehaviorSubject<{ select: string } | null>(null);
+  selectedHeaderModalItem = new BehaviorSubject<string | null>(null);
   headerModalLangItems: string[] = ['Eng', 'Rus'];
-  headerModalItems: string[] = ['All', 'Title', 'Author', 'Text', 'Subjects'];
+  headerModalItems: string[] = ['All', 'Title', 'Author', 'Text', 'Subject'];
   headerModalAccountItems: string[] = ['Profile', 'Favourite', 'My Books', 'Logout'];
   protected readonly HeaderClickInterfaceEnum = HeaderClickInterface;
   searchField: FormControl = new FormControl();
@@ -55,29 +57,42 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private notificationService: NotificationService,
     private googleApi: GoogleApiService,
     private searchFacade: SearchFacade,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private searchStateService: SearchStateService
   ) {}
 
   ngOnInit(): void {
-    this.selectedHeaderModalItem.next({ select: 'All' });
+    this.selectedHeaderModalItem.next('All');
     this.googleApi.userProfileSubject.subscribe((info: UserInfoFromGoogle | null) => {
       if (info) {
         this.userInfo$.next(info);
       }
     });
 
+    this.searchStateService
+      .getSearchCategory()
+      .pipe(
+        tap((category: string): void => {
+          if (category.toLowerCase() !== 'browse') {
+            this.selectedHeaderModalItem.next('Subject');
+          } else {
+            this.selectedHeaderModalItem.next('All');
+          }
+        })
+      )
+      .subscribe();
+
     this.searchField.valueChanges
       .pipe(debounceTime(500), distinctUntilChanged())
       .subscribe((value: string): void => {
         if (value && value.length > 4) {
           console.log(value);
-          const transformedValue: string = this.transformSearchString(value);
+          this.searchTextTransformed = this.transformSearchString(value);
           // this.searchStateService.setSearchString(transformedValue);
-          this.searchTextTransformed = transformedValue;
 
           this.router.navigate([], { queryParams: { text: value } }).then(() => {
             this.activatedRoute.queryParams.subscribe((params: Params): void => {
-              const newParams: ActiveParamsType = ActiveParamUtil.processParam(params);
+              const newParams: ActiveParamsSearchType = ActiveParamUtil.processParam(params);
               this.searchFacade.loadSearchBooks(newParams);
               this.searchFacade
                 .getSearchBooks()
@@ -101,7 +116,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
                     return Array.from(newArrayOfRequests.values());
                   }),
                   tap((data: string[]): void => {
-                    console.log(data);
+                    // console.log(data);
                     this.searchTexts$.next(data);
                   })
                 )
@@ -163,21 +178,34 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   changeSelectedHeaderModalItem(headerModalItem: string): void {
-    this.selectedHeaderModalItem.next({ select: headerModalItem });
+    this.selectedHeaderModalItem.next(headerModalItem);
+    this.searchStateService.setHeaderModalItem(headerModalItem);
     this.allMiniModal = false;
-    // console.log(this.selectedHeaderModalItem.getValue().select);
   }
 
   searchBooks(): void {
-    //тут будет изменение url параметров
-    // this.router
-    //   .navigate(['/home/search'], {
-    //     queryParams: {
-    //       text: this.searchTextTransformed,
-    //       type: this.selectedHeaderModalItem?.getValue().select.toLowerCase(),
-    //     },
-    //   })
-    //   .then((): void => {});
+    this.searchStateService
+      .getSearchCategory()
+      .pipe(
+        tap((category: string): void => {
+          let categoryNew: string = category;
+
+          if (!window.location.href.includes('search')) {
+            categoryNew = 'computers';
+          }
+
+          this.router
+            .navigate(['/home/search'], {
+              queryParams: {
+                text: this.searchTextTransformed,
+                type: this.selectedHeaderModalItem?.getValue()?.toLowerCase(),
+                category: categoryNew.toLowerCase(),
+              },
+            })
+            .then((): void => {});
+        })
+      )
+      .subscribe();
   }
 
   ngOnDestroy(): void {

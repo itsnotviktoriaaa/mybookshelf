@@ -3,6 +3,7 @@ import { SvgIconComponent } from 'angular-svg-icon';
 import { SearchBookComponent } from '../../../shared/components';
 import { BehaviorSubject, filter, tap } from 'rxjs';
 import {
+  ActiveParamsSearchType,
   arrayFromBookItemTransformedInterface,
   BookItemTransformedInterface,
   SearchInterface,
@@ -11,7 +12,8 @@ import { SearchFacade } from '../../../ngrx/search/search.facade';
 import { AsyncPipe } from '@angular/common';
 import { FavoritesFacade } from '../../../ngrx/favorites/favorites.facade';
 import { ActivatedRoute, Params } from '@angular/router';
-import { ActiveParamsType, ActiveParamUtil } from '../../../shared/utils/active-param.util';
+import { ActiveParamUtil } from '../../../shared/utils/active-param.util';
+import { SearchStateService } from '../../../shared/services/search-state.service';
 
 @Component({
   selector: 'app-search',
@@ -23,8 +25,9 @@ import { ActiveParamsType, ActiveParamUtil } from '../../../shared/utils/active-
 })
 export class SearchComponent implements OnInit {
   browseMiniModal: boolean = false;
-
+  headerModalSearchText = new BehaviorSubject<string | null>(null);
   headerModalSearchItems: string[] = [
+    'Browse',
     'Computers',
     'Study Aids',
     'Religion',
@@ -182,13 +185,28 @@ export class SearchComponent implements OnInit {
   constructor(
     private searchFacade: SearchFacade,
     private favoriteFacade: FavoritesFacade,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private searchStateService: SearchStateService
   ) {}
 
   ngOnInit(): void {
+    this.headerModalSearchText.next('Browse');
+    this.searchStateService
+      .getHeaderModalItem()
+      .pipe(
+        tap((type: string): void => {
+          if (type.toLowerCase() === 'subject') {
+            this.headerModalSearchText.next(this.headerModalSearchItems[1]);
+          } else {
+            this.headerModalSearchText.next('Browse');
+          }
+        })
+      )
+      .subscribe();
+
     this.activatedRoute.queryParams.subscribe((params: Params): void => {
       console.log(params);
-      const newParams: ActiveParamsType = ActiveParamUtil.processParam(params);
+      const newParams: ActiveParamsSearchType = ActiveParamUtil.processParam(params);
       this.searchFacade.loadSearchBooks(newParams);
       this.searchFacade
         .getSearchBooks()
@@ -218,6 +236,12 @@ export class SearchComponent implements OnInit {
 
   openOrCloseMiniModal(): void {
     this.browseMiniModal = !this.browseMiniModal;
+  }
+
+  chooseCategory(headerModalSearchText: string): void {
+    this.headerModalSearchText.next(headerModalSearchText);
+    this.browseMiniModal = false;
+    this.searchStateService.setSearchCategory(headerModalSearchText);
   }
 
   // @HostListener('document:click', ['$event'])

@@ -1,10 +1,9 @@
 import { createAction, props } from '@ngrx/store';
-import { SearchInterface } from '../../types/user';
-import { ActiveParamsType } from '../../shared/utils/active-param.util';
+import { ActiveParamsSearchType, SearchInterface } from '../../types/user';
 
 export const loadSearchBooks = createAction(
   '[Search] Load Search Books',
-  props<{ params: ActiveParamsType }>()
+  props<{ params: ActiveParamsSearchType }>()
 );
 export const loadSearchBooksSuccess = createAction(
   '[Search] Load Search Books Success',

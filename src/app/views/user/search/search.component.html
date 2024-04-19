@@ -2,7 +2,9 @@
   <div class="header-search">
     <div class="header-back header-search-wrapper">
       <div (click)="openOrCloseMiniModal()" class="header-back-info header-search-info">
-        <span class="header-back-text header-search-info-text">Browse</span>
+        <span class="header-back-text header-search-info-text">{{
+          headerModalSearchText | async
+        }}</span>
         <span [class]="{ 'header-search-info-icon': true, active: browseMiniModal }">
           <svg-icon src="assets/images/icons/arrow-in-mini-modal.svg"></svg-icon>
         </span>
@@ -13,7 +15,7 @@
         <ul class="header-modal-items">
           @for (headerModalSearchItem of headerModalSearchItems; track $index) {
             <li class="header-modal-item">
-              <a>{{ headerModalSearchItem }}</a>
+              <a (click)="chooseCategory(headerModalSearchItem)">{{ headerModalSearchItem }}</a>
             </li>
           }
         </ul>

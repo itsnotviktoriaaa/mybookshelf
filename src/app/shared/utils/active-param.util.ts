@@ -1,24 +1,17 @@
 import { Params } from '@angular/router';
+import { ActiveParamsSearchType, NamesOfKeys } from '../../types/user';
 
-export type ActiveParamsType = {
-  q: string;
-  maxResults: number;
-  startIndex: number;
-};
-
-export enum NamesOfKeys {
-  all = 'all',
-  intitle = 'title',
-  inauthor = 'author',
-  intext = 'text',
-  subject = 'subject',
-}
 /* eslint-disable no-prototype-builtins */
 export class ActiveParamUtil {
-  static processParam(params: Params): ActiveParamsType {
-    const activeParams: ActiveParamsType = { q: 'search+term', maxResults: 40, startIndex: 0 };
+  static processParam(params: Params): ActiveParamsSearchType {
+    const activeParams: ActiveParamsSearchType = {
+      q: 'search+term',
+      maxResults: 40,
+      startIndex: 0,
+    };
     let typeForRequest: string = '';
     let textFromInput: string = '';
+    let category: string = '';
 
     if (params.hasOwnProperty('type')) {
       const type: string = params['type'];
@@ -48,12 +41,16 @@ export class ActiveParamUtil {
       textFromInput = params['text'];
     }
 
+    if (params.hasOwnProperty('category') && params['category'].toLowerCase() !== 'browse') {
+      category = params['category'];
+    }
+
     if (textFromInput && !typeForRequest) {
       activeParams.q = textFromInput;
     } else if (textFromInput && typeForRequest && typeForRequest !== `+${NamesOfKeys.subject}:`) {
       activeParams.q = '' + typeForRequest + textFromInput;
     } else if (textFromInput && typeForRequest && typeForRequest === `+${NamesOfKeys.subject}:`) {
-      activeParams.q = textFromInput + typeForRequest + 'computers';
+      activeParams.q = textFromInput + typeForRequest + category;
     }
 
     console.log(activeParams);

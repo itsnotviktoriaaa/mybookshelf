@@ -3,12 +3,16 @@ import { OAuthService } from 'angular-oauth2-oidc';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { AuthService } from './auth.service';
-import { SearchInfoDetail, BookInterface, DetailBookInterface } from '../../types/user';
+import {
+  SearchInfoDetail,
+  BookInterface,
+  DetailBookInterface,
+  ActiveParamsSearchType,
+} from '../../types/user';
 import { oAuthConfig } from '../../config';
 import { UserInfoFromGoogle } from '../../types/auth';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment.development';
-import { ActiveParamsType } from '../../shared/utils/active-param.util';
 
 @Injectable({
   providedIn: 'root',
@@ -92,7 +96,7 @@ export class GoogleApiService {
       `${environment.googleVolumeApi}?q=inauthor:${author}&maxResults=2`
     );
   }
-  getSearchBooksDefault(params: ActiveParamsType): Observable<SearchInfoDetail> {
+  getSearchBooksDefault(params: ActiveParamsSearchType): Observable<SearchInfoDetail> {
     const queryString: string = `q=${params.q}&maxResults=${params.maxResults}&startIndex=${params.startIndex}`;
 
     return this.http.get<SearchInfoDetail>(`${environment.googleVolumeApi}?${queryString}`);
