@@ -3,15 +3,19 @@ import { ActiveParamsSearchType, NamesOfKeys } from '../../types/user';
 
 /* eslint-disable no-prototype-builtins */
 export class ActiveParamUtil {
-  static processParam(params: Params): ActiveParamsSearchType {
+  static processParam(params: Params, text?: string): ActiveParamsSearchType {
     const activeParams: ActiveParamsSearchType = {
-      q: 'search+term',
+      q: '',
       maxResults: 40,
       startIndex: 0,
     };
     let typeForRequest: string = '';
     let textFromInput: string = '';
     let category: string = '';
+
+    if (text) {
+      activeParams.q = text;
+    }
 
     if (params.hasOwnProperty('type')) {
       const type: string = params['type'];
@@ -45,12 +49,22 @@ export class ActiveParamUtil {
       category = params['category'];
     }
 
-    if (textFromInput && !typeForRequest) {
-      activeParams.q = textFromInput;
-    } else if (textFromInput && typeForRequest && typeForRequest !== `+${NamesOfKeys.subject}:`) {
-      activeParams.q = '' + typeForRequest + textFromInput;
-    } else if (textFromInput && typeForRequest && typeForRequest === `+${NamesOfKeys.subject}:`) {
+    if (textFromInput) {
       activeParams.q = textFromInput + typeForRequest + category;
+    } else {
+      activeParams.q += typeForRequest + category;
+    }
+
+    if (textFromInput && typeForRequest === `+${NamesOfKeys.subject}:`) {
+      activeParams.q = textFromInput + typeForRequest + category;
+    } else if (!textFromInput && typeForRequest === `+${NamesOfKeys.subject}:`) {
+      activeParams.q = typeForRequest + category;
+    } else if (textFromInput) {
+      activeParams.q = typeForRequest + textFromInput;
+    }
+
+    if (!activeParams.q) {
+      activeParams.q = 'search+term';
     }
 
     console.log(activeParams);

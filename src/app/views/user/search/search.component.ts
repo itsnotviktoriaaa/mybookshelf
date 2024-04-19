@@ -207,6 +207,7 @@ export class SearchComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params: Params): void => {
       console.log(params);
       const newParams: ActiveParamsSearchType = ActiveParamUtil.processParam(params);
+
       this.searchFacade.loadSearchBooks(newParams);
       this.searchFacade
         .getSearchBooks()

@@ -15,7 +15,7 @@ import {
   distinctUntilChanged,
   EMPTY,
   map,
-  Subject,
+  Subject, take,
   takeUntil,
   tap,
 } from 'rxjs';
@@ -85,43 +85,46 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.searchField.valueChanges
       .pipe(debounceTime(500), distinctUntilChanged())
       .subscribe((value: string): void => {
+        this.searchTextTransformed = this.transformSearchString(value);
         if (value && value.length > 4) {
           console.log(value);
-          this.searchTextTransformed = this.transformSearchString(value);
+          // this.searchTextTransformed = this.transformSearchString(value);
           // this.searchStateService.setSearchString(transformedValue);
 
-          this.router.navigate([], { queryParams: { text: value } }).then(() => {
-            this.activatedRoute.queryParams.subscribe((params: Params): void => {
-              const newParams: ActiveParamsSearchType = ActiveParamUtil.processParam(params);
-              this.searchFacade.loadSearchBooks(newParams);
-              this.searchFacade
-                .getSearchBooks()
-                .pipe(
-                  map((data: SearchInterface | null) => {
-                    if (data && data.items) {
-                      return data.items.map((item: SearchDetailInterface): string => {
-                        if (item.title) {
-                          return item.title;
-                        }
-                        return '';
-                      });
-                    }
-                    return [];
-                  }),
-                  map((data: string[]): string[] => {
-                    const newArrayOfRequests = new Set<string>();
-                    data.forEach((text: string): void => {
-                      newArrayOfRequests.add(text);
+          this.activatedRoute.queryParams.subscribe((params: Params): void => {
+            const newParams: ActiveParamsSearchType = ActiveParamUtil.processParam(
+              params,
+              this.searchTextTransformed
+            );
+            console.log(newParams);
+            this.searchFacade.loadSearchBooks(newParams);
+            this.searchFacade
+              .getSearchBooks()
+              .pipe(
+                map((data: SearchInterface | null) => {
+                  if (data && data.items) {
+                    return data.items.map((item: SearchDetailInterface): string => {
+                      if (item.title) {
+                        return item.title;
+                      }
+                      return '';
                     });
-                    return Array.from(newArrayOfRequests.values());
-                  }),
-                  tap((data: string[]): void => {
-                    // console.log(data);
-                    this.searchTexts$.next(data);
-                  })
-                )
-                .subscribe();
-            });
+                  }
+                  return [];
+                }),
+                map((data: string[]): string[] => {
+                  const newArrayOfRequests = new Set<string>();
+                  data.forEach((text: string): void => {
+                    newArrayOfRequests.add(text);
+                  });
+                  return Array.from(newArrayOfRequests.values());
+                }),
+                tap((data: string[]): void => {
+                  // console.log(data);
+                  this.searchTexts$.next(data);
+                })
+              )
+              .subscribe();
           });
         }
       });
@@ -180,18 +183,23 @@ export class HeaderComponent implements OnInit, OnDestroy {
   changeSelectedHeaderModalItem(headerModalItem: string): void {
     this.selectedHeaderModalItem.next(headerModalItem);
     this.searchStateService.setHeaderModalItem(headerModalItem);
+
     this.allMiniModal = false;
   }
 
   searchBooks(): void {
+    console.log('YYYY');
     this.searchStateService
       .getSearchCategory()
       .pipe(
+        take(1),
         tap((category: string): void => {
           let categoryNew: string = category;
-
           if (!window.location.href.includes('search')) {
             categoryNew = 'computers';
+          }
+          if (this.selectedHeaderModalItem.getValue()?.toLowerCase() !== 'subject') {
+            categoryNew = 'browse';
           }
 
           this.router

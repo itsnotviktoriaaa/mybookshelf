@@ -39,5 +39,8 @@
         }
       }
     </div>
+    @if ((searchBooks$ | async) === null) {
+      You must choose options
+    }
   </div>
 </section>
