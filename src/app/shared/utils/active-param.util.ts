@@ -70,4 +70,30 @@ export class ActiveParamUtil {
     console.log(activeParams);
     return activeParams;
   }
+
+  static processTypeForLive(typeFromInput: string): string {
+    let typeForRequest: string = '';
+
+    switch (typeFromInput.toLowerCase()) {
+      case NamesOfKeys.all:
+        typeForRequest = '';
+        break;
+      case NamesOfKeys.inauthor:
+        typeForRequest = `+in${NamesOfKeys.inauthor}:`;
+        break;
+      case NamesOfKeys.intitle:
+        typeForRequest = `+in${NamesOfKeys.intitle}:`;
+        break;
+      case NamesOfKeys.intext:
+        typeForRequest = `+in${NamesOfKeys.intext}:`;
+        break;
+      case NamesOfKeys.subject:
+        typeForRequest = `+${NamesOfKeys.subject}:`;
+        break;
+      default:
+        typeForRequest = `+in${NamesOfKeys.intitle}:`;
+    }
+
+    return typeForRequest;
+  }
 }

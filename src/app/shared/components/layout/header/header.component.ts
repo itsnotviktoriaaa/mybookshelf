@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { NotificationStatus, UserInfoFromGoogle } from '../../../../types/auth';
 import {
-  ActiveParamsSearchType,
   HeaderClickInterface,
   SearchDetailInterface,
   SearchInterface,
@@ -15,17 +14,17 @@ import {
   distinctUntilChanged,
   EMPTY,
   map,
-  Subject, take,
+  Subject,
+  take,
   takeUntil,
   tap,
 } from 'rxjs';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { NotificationService } from '../../../services';
 import { AsyncPipe } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SearchFacade } from '../../../../ngrx/search/search.facade';
-import { ActiveParamUtil } from '../../../utils/active-param.util';
 import { SearchStateService } from '../../../services/search-state.service';
+import { SearchLiveFacade } from '../../../../ngrx/search-live/search-live.facade';
 
 @Component({
   selector: 'app-header',
@@ -56,8 +55,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private router: Router,
     private notificationService: NotificationService,
     private googleApi: GoogleApiService,
-    private searchFacade: SearchFacade,
-    private activatedRoute: ActivatedRoute,
+    private searchLiveFacade: SearchLiveFacade,
     private searchStateService: SearchStateService
   ) {}
 
@@ -87,45 +85,37 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe((value: string): void => {
         this.searchTextTransformed = this.transformSearchString(value);
         if (value && value.length > 4) {
-          console.log(value);
-          // this.searchTextTransformed = this.transformSearchString(value);
-          // this.searchStateService.setSearchString(transformedValue);
-
-          this.activatedRoute.queryParams.subscribe((params: Params): void => {
-            const newParams: ActiveParamsSearchType = ActiveParamUtil.processParam(
-              params,
-              this.searchTextTransformed
-            );
-            console.log(newParams);
-            this.searchFacade.loadSearchBooks(newParams);
-            this.searchFacade
-              .getSearchBooks()
-              .pipe(
-                map((data: SearchInterface | null) => {
-                  if (data && data.items) {
-                    return data.items.map((item: SearchDetailInterface): string => {
-                      if (item.title) {
-                        return item.title;
-                      }
-                      return '';
-                    });
-                  }
-                  return [];
-                }),
-                map((data: string[]): string[] => {
-                  const newArrayOfRequests = new Set<string>();
-                  data.forEach((text: string): void => {
-                    newArrayOfRequests.add(text);
+          this.searchLiveFacade.loadSearchLiveBooks(
+            value,
+            this.selectedHeaderModalItem.getValue()!.toLowerCase()
+          );
+          this.searchLiveFacade
+            .getSearchLiveBooks()
+            .pipe(
+              map((data: SearchInterface | null) => {
+                if (data && data.items) {
+                  return data.items.map((item: SearchDetailInterface): string => {
+                    if (item.title) {
+                      return item.title;
+                    }
+                    return '';
                   });
-                  return Array.from(newArrayOfRequests.values());
-                }),
-                tap((data: string[]): void => {
-                  // console.log(data);
-                  this.searchTexts$.next(data);
-                })
-              )
-              .subscribe();
-          });
+                }
+                return [];
+              }),
+              map((data: string[]): string[] => {
+                const newArrayOfRequests = new Set<string>();
+                data.forEach((text: string): void => {
+                  newArrayOfRequests.add(text);
+                });
+                return Array.from(newArrayOfRequests.values());
+              }),
+              tap((data: string[]): void => {
+                // console.log(data);
+                this.searchTexts$.next(data);
+              })
+            )
+            .subscribe();
         }
       });
   }

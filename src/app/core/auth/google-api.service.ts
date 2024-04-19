@@ -13,6 +13,7 @@ import { oAuthConfig } from '../../config';
 import { UserInfoFromGoogle } from '../../types/auth';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment.development';
+import { ActiveParamUtil } from '../../shared/utils/active-param.util';
 
 @Injectable({
   providedIn: 'root',
@@ -99,6 +100,12 @@ export class GoogleApiService {
   getSearchBooksDefault(params: ActiveParamsSearchType): Observable<SearchInfoDetail> {
     const queryString: string = `q=${params.q}&maxResults=${params.maxResults}&startIndex=${params.startIndex}`;
 
+    return this.http.get<SearchInfoDetail>(`${environment.googleVolumeApi}?${queryString}`);
+  }
+
+  getSearchBooksLive(textFromInput: string, typeFromInput: string): Observable<SearchInfoDetail> {
+    const typeTransformed: string = ActiveParamUtil.processTypeForLive(typeFromInput);
+    const queryString: string = `q=${typeTransformed}${textFromInput}`;
     return this.http.get<SearchInfoDetail>(`${environment.googleVolumeApi}?${queryString}`);
   }
 

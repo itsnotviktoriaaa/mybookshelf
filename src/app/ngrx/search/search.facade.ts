@@ -12,11 +12,9 @@ export class SearchFacade {
   constructor(private store: Store) {}
 
   loadSearchBooks(params: ActiveParamsSearchType): void {
-    console.log('Load search books method called');
     this.store.dispatch(loadSearchBooks({ params }));
   }
   getSearchBooks(): Observable<SearchInterface | null> {
-    console.log('Get search books method called');
     return this.store.select(selectSearchBooks);
   }
 }
