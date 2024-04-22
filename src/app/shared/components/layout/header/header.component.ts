@@ -95,7 +95,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.searchTexts$.next(null);
         }
 
-        if (value && value.length > 4) {
+        if (value && value.length > 4 && !this.isFavoritePage$.getValue()) {
           if (this.selectedHeaderModalItem.getValue()!.toLowerCase() !== 'subject') {
             this.searchLiveFacade.loadSearchLiveBooks(
               value,
@@ -178,6 +178,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   searchBooks(): void {
     this.searchTexts$.next(null);
+
+    if (this.isFavoritePage$.getValue()) {
+      this.router
+        .navigate(['/home/favorites'], {
+          queryParams: {
+            text: this.searchTextTransformed,
+          },
+        })
+        .then((): void => {});
+      return;
+    }
+
     this.searchStateService
       .getSearchCategory()
       .pipe(
