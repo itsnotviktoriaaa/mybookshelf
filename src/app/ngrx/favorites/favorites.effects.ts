@@ -24,8 +24,8 @@ export class FavoritesEffects {
   loadFavoritesBooks$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(loadFavoritesBooks),
-      switchMap(() => {
-        return this.googleApi.getFavorites().pipe(
+      switchMap(action => {
+        return this.googleApi.getFavorites(action.params).pipe(
           map((data: BookInterface): { data: arrayFromBookItemTransformedInterface } => {
             const transformedItems: BookItemTransformedInterface[] = data.items.map(
               (item: BookItemInterface) => {
@@ -44,8 +44,11 @@ export class FavoritesEffects {
                 };
               }
             );
+
+            const uniqueItems: BookItemTransformedInterface[] =
+              this.filterUniqueBooks(transformedItems);
             return loadFavoritesBooksSuccess({
-              data: { items: transformedItems, totalItems: data.totalItems },
+              data: { items: uniqueItems, totalItems: data.totalItems },
             });
           }),
           catchError(error => of(loadFavoritesBooksFailure({ error })))
@@ -53,4 +56,8 @@ export class FavoritesEffects {
       })
     );
   });
+
+  filterUniqueBooks(books: BookItemTransformedInterface[]): BookItemTransformedInterface[] {
+    return books.filter((book, index, self) => index === self.findIndex(b => b.id === book.id));
+  }
 }

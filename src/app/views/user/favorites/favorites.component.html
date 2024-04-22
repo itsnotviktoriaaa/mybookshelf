@@ -6,7 +6,7 @@
   @if ((miniLoader$ | async)?.miniLoader === false) {
     @if (favoritesBooks$ | async; as favoritesBooks) {
       <div class="favorites-books">
-        @for (favoriteBook of favoritesBooks.items; track $index) {
+        @for (favoriteBook of favoritesBooks.items; track favoriteBook) {
           <app-book [bigInfo]="true" [book]="favoriteBook"></app-book>
         }
       </div>

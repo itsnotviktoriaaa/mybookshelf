@@ -96,4 +96,18 @@ export class ActiveParamUtil {
 
     return typeForRequest;
   }
+
+  static processParamsForFavoritePage(params: Params): ActiveParamsSearchType {
+    const activeParams: ActiveParamsSearchType = {
+      q: '',
+      maxResults: 40,
+      startIndex: 0,
+    };
+
+    if (params.hasOwnProperty('text')) {
+      activeParams.q = params['text'];
+    }
+
+    return activeParams;
+  }
 }

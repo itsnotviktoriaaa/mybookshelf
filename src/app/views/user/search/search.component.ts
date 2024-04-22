@@ -217,7 +217,10 @@ export class SearchComponent implements OnInit {
           this.searchBooks$.next(data);
         });
 
-      this.favoriteFacade.loadFavoritesBooks();
+      const newParamsForFavorite: ActiveParamsSearchType =
+        ActiveParamUtil.processParamsForFavoritePage(params);
+
+      this.favoriteFacade.loadFavoritesBooks(newParamsForFavorite);
       this.favoriteFacade
         .getFavoritesBooks()
         .pipe(

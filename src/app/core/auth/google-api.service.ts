@@ -74,8 +74,14 @@ export class GoogleApiService {
     });
   }
 
-  getFavorites(): Observable<BookInterface> {
-    return this.http.get<BookInterface>(`${environment.googleLibraryApi}0/volumes?maxResults=40`, {
+  getFavorites(params: ActiveParamsSearchType): Observable<BookInterface> {
+    let queryString: string = `maxResults=${params.maxResults}&startIndex=${params.startIndex}`;
+
+    if (params.q) {
+      queryString = `q=${params.q}&` + queryString;
+    }
+
+    return this.http.get<BookInterface>(`${environment.googleLibraryApi}0/volumes?${queryString}`, {
       headers: this.authHeader(),
     });
   }
