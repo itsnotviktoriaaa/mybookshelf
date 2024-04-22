@@ -4,9 +4,12 @@
       <div class="header-search-all-wrapper">
         <div
           (click)="openOrCloseMiniModal(HeaderClickInterfaceEnum.allMiniModal)"
-          class="header-search-all">
+          class="header-search-all"
+          [ngStyle]="{ cursor: (isFavoritePage$ | async) ? 'default' : 'pointer' }">
           <span class="header-class-all-text">{{ selectedHeaderModalItem | async }}</span>
-          <span [class]="{ 'header-class-all-arrow': true, active: allMiniModal }">
+          <span
+            [class]="{ 'header-class-all-arrow': true, active: allMiniModal }"
+            [ngStyle]="{ display: (isFavoritePage$ | async) ? 'none' : 'block' }">
             <svg-icon src="assets/images/icons/arrow-in-mini-modal.svg"></svg-icon>
           </span>
         </div>

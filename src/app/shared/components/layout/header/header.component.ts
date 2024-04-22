@@ -16,7 +16,7 @@ import {
 } from 'rxjs';
 import { Router } from '@angular/router';
 import { NotificationService } from '../../../services';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgStyle } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchStateService } from '../../../services/search-state.service';
 import { SearchLiveFacade } from '../../../../ngrx/search-live/search-live.facade';
@@ -24,7 +24,7 @@ import { SearchLiveFacade } from '../../../../ngrx/search-live/search-live.facad
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [SvgIconComponent, AsyncPipe, ReactiveFormsModule, FormsModule],
+  imports: [SvgIconComponent, AsyncPipe, ReactiveFormsModule, FormsModule, NgStyle],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -34,6 +34,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   langMiniModal: boolean = false;
   profileMiniModal: boolean = false;
   selectedHeaderModalItem = new BehaviorSubject<string | null>(null);
+  isFavoritePage$ = new BehaviorSubject<boolean>(false);
   headerModalLangItems: string[] = ['Eng', 'Rus'];
   headerModalItems: string[] = ['All', 'Title', 'Author', 'Text', 'Subject'];
   headerModalAccountItems: string[] = ['Profile', 'Favourite', 'My Books', 'Logout'];
@@ -55,6 +56,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.searchStateService
+      .getFavoritePage()
+      .pipe(
+        tap((param: boolean): void => {
+          this.isFavoritePage$.next(param);
+          this.selectedHeaderModalItem.next('All');
+        })
+      )
+      .subscribe();
+
     this.selectedHeaderModalItem.next('All');
     this.googleApi.userProfileSubject.subscribe((info: UserInfoFromGoogle | null) => {
       if (info) {
@@ -116,6 +127,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       | HeaderClickInterface.profileMiniModal
   ): void {
     if (nameOfMiniModal === HeaderClickInterface.allMiniModal) {
+      if (window.location.href.includes('favorites')) {
+        return;
+      }
       this.allMiniModal = !this.allMiniModal;
     }
     if (nameOfMiniModal === HeaderClickInterface.langMiniModal) {

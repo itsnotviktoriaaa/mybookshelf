@@ -75,7 +75,7 @@ export class GoogleApiService {
   }
 
   getFavorites(): Observable<BookInterface> {
-    return this.http.get<BookInterface>(`${environment.googleLibraryApi}0/volumes`, {
+    return this.http.get<BookInterface>(`${environment.googleLibraryApi}0/volumes?maxResults=40`, {
       headers: this.authHeader(),
     });
   }
