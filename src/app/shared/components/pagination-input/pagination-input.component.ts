@@ -48,6 +48,7 @@ export class PaginationInputComponent implements OnInit, OnChanges {
             (this.quantityOfPages$ && +value > (this.quantityOfPages$.getValue() as number))
           ) {
             this.inputValue.setValue('1', { emitEvent: true });
+            return '1';
           }
           return String(value);
         })
@@ -104,5 +105,11 @@ export class PaginationInputComponent implements OnInit, OnChanges {
     if (currentValue - 10 >= 1) {
       this.inputValue.setValue(String(currentValue - 10), { emitEvent: true });
     }
+  }
+
+  keyPressOnInput(event: KeyboardEvent): boolean {
+    const regExForInputWhenUserBuyCoins: RegExp = /^[0-9]$/;
+
+    return !(!regExForInputWhenUserBuyCoins.test(event.key) && event.code !== 'Backspace');
   }
 }

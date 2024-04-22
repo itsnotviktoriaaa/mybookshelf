@@ -92,11 +92,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .pipe(
         filter(value => {
           value = value.trim();
+          console.log(value);
           if (!value) {
             this.searchTexts$.next(null);
+            this.searchTextTransformed = '';
             return false;
           }
 
+          this.searchTextTransformed = this.transformSearchString(value);
           return true;
         }),
         map(value => value.trim()),
@@ -104,12 +107,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
         distinctUntilChanged()
       )
       .subscribe((value: string): void => {
-        this.searchTextTransformed = this.transformSearchString(value);
-
-        // if (!value) {
-        //   this.searchTexts$.next(null);
-        // }
-
         if (value && value.length > 4 && !this.isFavoritePage$.getValue()) {
           if (this.selectedHeaderModalItem.getValue()!.toLowerCase() !== 'subject') {
             this.searchLiveFacade.loadSearchLiveBooks(

@@ -5,7 +5,9 @@
         <svg-icon
           (click)="decrementBig()"
           [svgStyle]="{ transform: 'rotate(180deg)' }"
-          [ngClass]="{ disabled: true }"
+          [ngClass]="{
+            disabled: (valueFromInput$ | async)!.valueOf() - 10 <= 0
+          }"
           src="assets/images/icons/pagination-input/arrow-big-right-pagination-input.svg"></svg-icon>
       </span>
       <span>
@@ -13,24 +15,33 @@
           (click)="decrement()"
           [svgStyle]="{ transform: 'rotate(180deg)' }"
           [ngClass]="{
-            disabled: !((quantityOfPages$ | async) > (valueFromInput$ | async))
+            disabled: (valueFromInput$ | async)!.valueOf() <= 1
           }"
           src="assets/images/icons/pagination-input/arrow-mini-right-pagination-input.svg"></svg-icon>
       </span>
       <span class="hard-pagination-input">
-        <input [formControl]="inputValue" class="hard-pagination-inp" type="tel" />
+        <input
+          [formControl]="inputValue"
+          class="hard-pagination-inp"
+          (keydown)="keyPressOnInput($event)"
+          type="tel" />
         <span>{{ quantityOfPages$ | async }} pages</span>
       </span>
       <span>
         <svg-icon
           (click)="increment()"
-          [ngClass]="{ disabled: true }"
+          [ngClass]="{
+            disabled: (quantityOfPages$ | async)!.valueOf() <= (valueFromInput$ | async)!.valueOf()
+          }"
           src="assets/images/icons/pagination-input/arrow-mini-right-pagination-input.svg"></svg-icon>
       </span>
       <span>
         <svg-icon
           (click)="incrementBig()"
-          [ngClass]="{ disabled: true }"
+          [ngClass]="{
+            disabled:
+              (quantityOfPages$ | async)!.valueOf() <= (valueFromInput$ | async)!.valueOf() + 10
+          }"
           src="assets/images/icons/pagination-input/arrow-big-right-pagination-input.svg"></svg-icon>
       </span>
     </div>
