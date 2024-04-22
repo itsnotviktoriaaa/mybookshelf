@@ -9,6 +9,8 @@ import {
   debounceTime,
   distinctUntilChanged,
   EMPTY,
+  filter,
+  map,
   Subject,
   take,
   takeUntil,
@@ -87,7 +89,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe();
 
     this.searchField.valueChanges
-      .pipe(debounceTime(500), distinctUntilChanged())
+      .pipe(
+        filter(value => {
+          value = value.trim();
+          if (!value) {
+            this.searchTexts$.next(null);
+            return false;
+          }
+
+          return true;
+        }),
+        map(value => value.trim()),
+        debounceTime(500),
+        distinctUntilChanged()
+      )
       .subscribe((value: string): void => {
         this.searchTextTransformed = this.transformSearchString(value);
 

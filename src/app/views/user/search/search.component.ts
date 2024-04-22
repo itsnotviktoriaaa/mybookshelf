@@ -210,12 +210,9 @@ export class SearchComponent implements OnInit {
       const newParams: ActiveParamsSearchType = ActiveParamUtil.processParam(params);
 
       this.searchFacade.loadSearchBooks(newParams);
-      this.searchFacade
-        .getSearchBooks()
-        .pipe(filter(data => !!data))
-        .subscribe(data => {
-          this.searchBooks$.next(data);
-        });
+      this.searchFacade.getSearchBooks().subscribe(data => {
+        this.searchBooks$.next(data);
+      });
 
       const newParamsForFavorite: ActiveParamsSearchType =
         ActiveParamUtil.processParamsForFavoritePage(params);
