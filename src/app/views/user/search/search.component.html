@@ -43,4 +43,6 @@
       You must choose options
     }
   </div>
+  <app-pagination-input
+    [quantityOfBooks]="(searchBooks$ | async)?.totalItems"></app-pagination-input>
 </section>

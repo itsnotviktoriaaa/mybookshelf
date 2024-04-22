@@ -49,6 +49,12 @@ export class ActiveParamUtil {
       category = params['category'];
     }
 
+    if (params.hasOwnProperty('page')) {
+      activeParams.startIndex = ActiveParamUtil.defineStartIndexFromNumberOfPage(
+        Number(params['page'])
+      );
+    }
+
     if (textFromInput) {
       activeParams.q = textFromInput + typeForRequest + category;
     } else {
@@ -108,6 +114,16 @@ export class ActiveParamUtil {
       activeParams.q = params['text'];
     }
 
+    if (params.hasOwnProperty('page')) {
+      activeParams.startIndex = ActiveParamUtil.defineStartIndexFromNumberOfPage(
+        Number(params['page'])
+      );
+    }
+
     return activeParams;
+  }
+
+  static defineStartIndexFromNumberOfPage(number: number): number {
+    return number * 40 - 40;
   }
 }

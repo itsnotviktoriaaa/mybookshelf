@@ -1,0 +1,38 @@
+@if ((isShow | async) === true) {
+  <div class="hard-pagination-wrapper">
+    <div class="hard-pagination">
+      <span>
+        <svg-icon
+          (click)="decrementBig()"
+          [svgStyle]="{ transform: 'rotate(180deg)' }"
+          [ngClass]="{ disabled: true }"
+          src="assets/images/icons/pagination-input/arrow-big-right-pagination-input.svg"></svg-icon>
+      </span>
+      <span>
+        <svg-icon
+          (click)="decrement()"
+          [svgStyle]="{ transform: 'rotate(180deg)' }"
+          [ngClass]="{
+            disabled: !((quantityOfPages$ | async) > (valueFromInput$ | async))
+          }"
+          src="assets/images/icons/pagination-input/arrow-mini-right-pagination-input.svg"></svg-icon>
+      </span>
+      <span class="hard-pagination-input">
+        <input [formControl]="inputValue" class="hard-pagination-inp" type="tel" />
+        <span>{{ quantityOfPages$ | async }} pages</span>
+      </span>
+      <span>
+        <svg-icon
+          (click)="increment()"
+          [ngClass]="{ disabled: true }"
+          src="assets/images/icons/pagination-input/arrow-mini-right-pagination-input.svg"></svg-icon>
+      </span>
+      <span>
+        <svg-icon
+          (click)="incrementBig()"
+          [ngClass]="{ disabled: true }"
+          src="assets/images/icons/pagination-input/arrow-big-right-pagination-input.svg"></svg-icon>
+      </span>
+    </div>
+  </div>
+}

@@ -106,9 +106,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe((value: string): void => {
         this.searchTextTransformed = this.transformSearchString(value);
 
-        if (!value) {
-          this.searchTexts$.next(null);
-        }
+        // if (!value) {
+        //   this.searchTexts$.next(null);
+        // }
 
         if (value && value.length > 4 && !this.isFavoritePage$.getValue()) {
           if (this.selectedHeaderModalItem.getValue()!.toLowerCase() !== 'subject') {

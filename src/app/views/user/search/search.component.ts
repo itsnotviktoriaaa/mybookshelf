@@ -14,11 +14,12 @@ import { FavoritesFacade } from '../../../ngrx/favorites/favorites.facade';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ActiveParamUtil } from '../../../shared/utils/active-param.util';
 import { SearchStateService } from '../../../shared/services/search-state.service';
+import { PaginationInputComponent } from '../../../shared/components/pagination-input/pagination-input.component';
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [SvgIconComponent, SearchBookComponent, AsyncPipe],
+  imports: [SvgIconComponent, SearchBookComponent, AsyncPipe, PaginationInputComponent],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
