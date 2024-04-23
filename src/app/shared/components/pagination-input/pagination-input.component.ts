@@ -32,6 +32,7 @@ export class PaginationInputComponent implements OnInit, OnChanges {
       this.queryParams = params;
       if (this.queryParams['page']) {
         this.inputValue.setValue(this.queryParams['page']);
+        this.valueFromInput$.next(+this.queryParams['page']);
       }
     });
 

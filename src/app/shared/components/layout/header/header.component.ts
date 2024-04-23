@@ -16,7 +16,7 @@ import {
   takeUntil,
   tap,
 } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NotificationService } from '../../../services';
 import { AsyncPipe, NgStyle } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -37,6 +37,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   profileMiniModal: boolean = false;
   selectedHeaderModalItem = new BehaviorSubject<string | null>(null);
   isFavoritePage$ = new BehaviorSubject<boolean>(false);
+  paramsFromUrl: Params = {};
   headerModalLangItems: string[] = ['Eng', 'Rus'];
   headerModalItems: string[] = ['All', 'Title', 'Author', 'Text', 'Subject'];
   headerModalAccountItems: string[] = ['Profile', 'Favourite', 'My Books', 'Logout'];
@@ -54,26 +55,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private notificationService: NotificationService,
     private googleApi: GoogleApiService,
     private searchLiveFacade: SearchLiveFacade,
-    private searchStateService: SearchStateService
+    private searchStateService: SearchStateService,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.searchStateService
-      .getFavoritePage()
-      .pipe(
-        tap((param: boolean): void => {
-          this.isFavoritePage$.next(param);
-          this.selectedHeaderModalItem.next('All');
-        })
-      )
-      .subscribe();
-
-    this.selectedHeaderModalItem.next('All');
     this.googleApi.userProfileSubject.subscribe((info: UserInfoFromGoogle | null) => {
       if (info) {
         this.userInfo$.next(info);
       }
     });
+
+    this.selectedHeaderModalItem.next('All');
 
     this.searchStateService
       .getSearchCategory()
@@ -81,7 +74,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
         tap((category: string): void => {
           if (category.toLowerCase() !== 'browse') {
             this.selectedHeaderModalItem.next('Subject');
-          } else {
+          }
+        })
+      )
+      .subscribe();
+
+    this.activatedRoute.queryParams.subscribe((params: Params): void => {
+      this.setValuesFromParams(params);
+      this.paramsFromUrl = params;
+    });
+
+    this.searchStateService
+      .getFavoritePage()
+      .pipe(
+        tap((param: boolean): void => {
+          this.isFavoritePage$.next(param);
+          if (!this.paramsFromUrl['type']) {
             this.selectedHeaderModalItem.next('All');
           }
         })
@@ -130,6 +138,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   transformSearchString(value: string): string {
     return value.split(' ').join('+');
+  }
+
+  transformTextFromParams(value: string): string {
+    return value.split('+').join(' ');
   }
 
   openOrCloseMiniModal(
@@ -234,6 +246,25 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.searchField.setValue(text, { emitEvent: false });
     this.searchTextTransformed = this.transformSearchString(text);
     this.searchTexts$.next(null);
+  }
+
+  setValuesFromParams(params: Params): void {
+    console.log(params);
+    if (params.hasOwnProperty('type')) {
+      console.log(params['type'].slice(0, 1).toUpperCase() + params['type'].slice(1));
+      this.selectedHeaderModalItem.next(
+        params['type'].slice(0, 1).toUpperCase() + params['type'].slice(1)
+      );
+      this.searchStateService.setHeaderModalItem(
+        params['type'].slice(0, 1).toUpperCase() + params['type'].slice(1)
+      );
+    }
+
+    if (params.hasOwnProperty('text') && params['text']) {
+      this.searchField.setValue(this.transformTextFromParams(params['text']), { emitEvent: false });
+      console.log(params['text']);
+      this.searchTextTransformed = this.transformTextFromParams(params['text']);
+    }
   }
 
   ngOnDestroy(): void {

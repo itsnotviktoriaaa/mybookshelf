@@ -208,6 +208,9 @@ export class SearchComponent implements OnInit {
 
     this.activatedRoute.queryParams.subscribe((params: Params): void => {
       console.log(params);
+
+      this.setValuesFromParams(params);
+
       const newParams: ActiveParamsSearchType = ActiveParamUtil.processParam(params);
 
       this.searchFacade.loadSearchBooks(newParams);
@@ -245,6 +248,18 @@ export class SearchComponent implements OnInit {
     this.headerModalSearchText.next(headerModalSearchText);
     this.browseMiniModal = false;
     this.searchStateService.setSearchCategory(headerModalSearchText);
+  }
+
+  setValuesFromParams(params: Params): void {
+    console.log(params);
+    if (params.hasOwnProperty('category')) {
+      this.headerModalSearchText.next(
+        params['category'].slice(0, 1).toUpperCase() + params['category'].slice(1)
+      );
+      this.searchStateService.setSearchCategory(
+        params['category'].slice(0, 1).toUpperCase() + params['category'].slice(1)
+      );
+    }
   }
 
   // @HostListener('document:click', ['$event'])

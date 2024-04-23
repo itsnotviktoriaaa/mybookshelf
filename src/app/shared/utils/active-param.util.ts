@@ -1,7 +1,6 @@
 import { Params } from '@angular/router';
 import { ActiveParamsSearchType, NamesOfKeys } from '../../types/user';
 
-/* eslint-disable no-prototype-builtins */
 export class ActiveParamUtil {
   static processParam(params: Params, text?: string): ActiveParamsSearchType {
     const activeParams: ActiveParamsSearchType = {
