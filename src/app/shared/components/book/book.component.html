@@ -25,9 +25,9 @@
         <div class="book-right-top">
           <div class="book-right-top-wrapper">
             <span class="book-right-top-title">Borrowed on</span>
-            @if (book.userInfo) {
+            @if (book.userInfo || selfBook) {
               <span class="book-right-top-description">{{
-                book.userInfo | transformFavoriteDate
+                (book.userInfo ? book.userInfo : book.publishedDate) | transformFavoriteDate
               }}</span>
             }
           </div>
@@ -39,7 +39,9 @@
           </div>
         </div>
         <div class="book-right-bottom">
-          <button (click)="openGoogleInfo()" class="btn-green button-green-full">E-BOOK</button>
+          @if (!selfBook) {
+            <button (click)="openGoogleInfo()" class="btn-green button-green-full">E-BOOK</button>
+          }
           <button (click)="openDetailBook('big-book')" class="btn-orange button-orange-transparent">
             Read
           </button>

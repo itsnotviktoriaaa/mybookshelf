@@ -228,6 +228,13 @@ li {
   }
 }
 
+.list-books {
+  display: flex;
+  gap: 2em;
+  flex-wrap: wrap;
+  padding: 20px 0;
+}
+
 .user-common-padding {
   padding-left: 44px;
 }

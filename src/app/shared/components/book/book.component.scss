@@ -17,6 +17,8 @@
     flex-direction: column;
 
     .book-image {
+      background-size: cover;
+      background-position: center;
       width: 130px;
       height: 170px;
       margin-bottom: 11px;

@@ -81,9 +81,9 @@ export class UploadComponent implements OnInit {
       this.notificationService.notifyAboutNotificationLoader(true);
       const selfBook: SelfBookUploadInterface = {
         title: this.uploadForm.controls['title'].value,
-        author: this.uploadForm.controls['author'].value,
+        author: [this.uploadForm.controls['author'].value],
         description: this.uploadForm.controls['description'].value,
-        date: new Date().toISOString(),
+        publishedDate: new Date().toISOString(),
       };
 
       this.databaseService

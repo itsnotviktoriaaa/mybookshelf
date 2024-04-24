@@ -17,17 +17,23 @@ import { TransformFavoriteDatePipe } from '../../pipes';
 export class BookComponent {
   @Input() book: BookItemTransformedInterface | null = null;
   @Input() bigInfo: boolean = false;
+  @Input() selfBook: boolean = false;
 
   constructor(private router: Router) {}
 
   openDetailBook(sizeBook: 'small-book' | 'big-book'): void {
     if (sizeBook === 'small-book' && !this.bigInfo) {
       this.router.navigate(['home/book/', this.book?.id]).then(() => {});
-    } else if (sizeBook === 'big-book') {
+    } else if (sizeBook === 'big-book' && !this.selfBook) {
       this.router.navigate(['home/book/', this.book?.id]).then(() => {});
+    } else if (this.selfBook) {
+      console.log(this.book?.webReaderLink);
+      this.readBook();
     }
   }
   openGoogleInfo(): void {
     window.open(this.book?.webReaderLink, '_blank');
   }
+
+  readBook() {}
 }

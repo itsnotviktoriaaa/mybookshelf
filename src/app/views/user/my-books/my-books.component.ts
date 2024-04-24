@@ -3,17 +3,18 @@ import { DatabaseService } from '../../../shared/services/database.service';
 import { map, Observable, of, take, tap } from 'rxjs';
 import { DocumentData } from '@firebase/firestore';
 import { AsyncPipe } from '@angular/common';
-import { SelfBookInterface } from '../../../types/user/self-book.interface';
+import { BookComponent } from '../../../shared/components';
+import { BookItemTransformedInterface } from '../../../types/user';
 
 @Component({
   selector: 'app-my-books',
   standalone: true,
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, BookComponent],
   templateUrl: './my-books.component.html',
   styleUrl: './my-books.component.scss',
 })
 export class MyBooksComponent implements OnInit {
-  selfBooks$: Observable<SelfBookInterface[] | null> = of(null);
+  selfBooks$: Observable<BookItemTransformedInterface[] | null> = of(null);
 
   constructor(private databaseService: DatabaseService) {}
 
@@ -26,13 +27,14 @@ export class MyBooksComponent implements OnInit {
       map((data: DocumentData[]) => {
         return data.map((item: DocumentData) => {
           return {
+            id: '',
             title: item['title'],
             author: item['author'],
             description: item['description'],
-            pdfUrl: item['pdfUrl'],
-            photoUrl: item['photoUrl'],
-            date: item['date'],
-          } as SelfBookInterface;
+            webReaderLink: item['webReaderLink'],
+            thumbnail: item['thumbnail'],
+            publishedDate: item['publishedDate'],
+          } as BookItemTransformedInterface;
         });
       })
     );

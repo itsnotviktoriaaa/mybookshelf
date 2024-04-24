@@ -5,12 +5,4 @@
   overflow-y: scroll;
   scrollbar-width: none;
   -ms-overflow-style: none;
-
-  .favorites-books {
-    display: flex;
-    gap: 2em;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    padding: 20px 0;
-  }
 }

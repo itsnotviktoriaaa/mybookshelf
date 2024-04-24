@@ -99,11 +99,11 @@ export class DatabaseService {
         this.uploadToStorage(pdfPath, pdfInput, pdfContentType as UploadMetadata),
         this.uploadToStorage(photoPath, photoInput, photoContentType as UploadMetadata),
       ])
-        .then(([pdfUrl, photoUrl]): void => {
+        .then(([webReaderLink, thumbnail]): void => {
           const selfBookAfterUploadedFiles: SelfBookUploadInterface | SelfBookInterface = selfBook;
-          if (pdfUrl && photoUrl) {
-            (selfBookAfterUploadedFiles as SelfBookInterface).pdfUrl = pdfUrl;
-            (selfBookAfterUploadedFiles as SelfBookInterface).photoUrl = photoUrl;
+          if (webReaderLink && thumbnail) {
+            (selfBookAfterUploadedFiles as SelfBookInterface).webReaderLink = webReaderLink;
+            (selfBookAfterUploadedFiles as SelfBookInterface).thumbnail = thumbnail;
             this.createSelfBook(selfBookAfterUploadedFiles as SelfBookInterface).subscribe({
               next: () => observer.next(),
               error: error => observer.error(error),

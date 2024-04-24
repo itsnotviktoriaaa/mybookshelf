@@ -80,7 +80,7 @@ export interface BookItemTransformedInterface {
   author: Array<string>;
   publishedDate: string;
   webReaderLink: string;
-  pageCount: number;
+  pageCount?: number;
   selfLink?: string;
   categories?: Array<string>;
   userInfo?: string;
