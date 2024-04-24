@@ -1,0 +1,10 @@
+<section class="my-books common-padding">
+  <h2 class="common-title">My Books</h2>
+  @if (selfBooks$ | async; as selfBooks) {
+    @for (selfBook of selfBooks; track selfBook) {
+      <div>{{ selfBook.title }}</div>
+      <div>{{ selfBook.author }}</div>
+      <div>{{ selfBook.description }}</div>
+    }
+  }
+</section>

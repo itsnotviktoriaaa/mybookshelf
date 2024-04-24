@@ -211,6 +211,13 @@ li {
   overflow-y: scroll;
 }
 
+.common-title {
+  color: var(--primary-dark-gray-color);
+  font-weight: 700;
+  font-size: 1.5em;
+  margin: 1.7em 0;
+}
+
 .header-search-offer {
   cursor: pointer;
   padding: 5px;

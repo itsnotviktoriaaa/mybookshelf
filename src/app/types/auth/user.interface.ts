@@ -1,6 +1,7 @@
 export interface UserInterface {
   email: string;
   username: string;
+  uid?: string;
 }
 
 export interface UserSignInterface extends UserInterface {

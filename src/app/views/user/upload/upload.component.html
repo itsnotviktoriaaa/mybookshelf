@@ -1,30 +1,110 @@
 <section class="upload-wrapper">
   <div class="upload">
     <div class="upload-title">Upload Your Book</div>
-    <div class="upload-items">
-      <div class="upload-item">
-        <label class="upload-label" for="title">Title</label>
-        <input class="upload-input" placeholder="Book title" id="title" type="text" />
+    <form [formGroup]="uploadForm" class="upload-items">
+      <div class="upload-item-wrapper">
+        <div class="upload-item">
+          <label class="upload-label" for="title">Title</label>
+          <input
+            [ngStyle]="{
+              'border-color':
+                uploadForm.get('title')?.invalid &&
+                (uploadForm.get('title')?.dirty || uploadForm.get('title')?.touched)
+                  ? 'red'
+                  : ''
+            }"
+            formControlName="title"
+            class="upload-input"
+            placeholder="Book title"
+            id="title"
+            type="text" />
+        </div>
+        @if (
+          uploadForm.get('title')?.invalid &&
+          (uploadForm.get('title')?.dirty || uploadForm.get('title')?.touched)
+        ) {
+          <div class="error-message">You have to write title name</div>
+        }
       </div>
-      <div class="upload-item">
-        <label class="upload-label" for="author">Author</label>
-        <input class="upload-input" placeholder="Author" id="author" type="text" />
+      <div class="upload-item-wrapper">
+        <div class="upload-item">
+          <label class="upload-label" for="author">Author</label>
+          <input
+            [ngStyle]="{
+              'border-color':
+                uploadForm.get('author')?.invalid &&
+                (uploadForm.get('author')?.dirty || uploadForm.get('author')?.touched)
+                  ? 'red'
+                  : ''
+            }"
+            formControlName="author"
+            class="upload-input"
+            placeholder="Author"
+            id="author"
+            type="text" />
+        </div>
+        @if (
+          uploadForm.get('author')?.invalid &&
+          (uploadForm.get('author')?.dirty || uploadForm.get('author')?.touched)
+        ) {
+          <div class="error-message">You have to write author name</div>
+        }
       </div>
-      <div class="upload-item">
-        <label class="upload-label" for="description">Description</label>
-        <textarea class="upload-textarea" id="description" placeholder="Purpose"></textarea>
+      <div class="upload-item-wrapper">
+        <div class="upload-item">
+          <label class="upload-label" for="description">Description</label>
+          <textarea
+            [ngStyle]="{
+              'border-color':
+                uploadForm.get('description')?.invalid &&
+                (uploadForm.get('description')?.dirty || uploadForm.get('description')?.touched)
+                  ? 'red'
+                  : ''
+            }"
+            formControlName="description"
+            class="upload-textarea"
+            id="description"
+            placeholder="Purpose"></textarea>
+        </div>
+        @if (
+          uploadForm.get('description')?.invalid &&
+          (uploadForm.get('description')?.dirty || uploadForm.get('description')?.touched)
+        ) {
+          <div class="error-message">You have to write description</div>
+        }
       </div>
-      <div class="upload-item">
-        <label class="upload-label" for="file">File</label>
-        <input class="upload-input" placeholder="Upload book file" id="file" type="text" />
+      <div class="upload-item-wrapper">
+        <div class="upload-item">
+          <label class="upload-label" for="pdfFile">File</label>
+          <input
+            #pdfFileInput
+            class="upload-input"
+            placeholder="Upload book file"
+            type="file"
+            id="pdfFile"
+            (change)="onPdfFileSelected($event)" />
+        </div>
       </div>
-      <div class="upload-item">
-        <label class="upload-label" for="image">Image</label>
-        <input class="upload-input" placeholder="Image" id="image" type="text" />
+      <div class="upload-item-wrapper">
+        <div class="upload-item">
+          <label class="upload-label" for="photoFile">Image</label>
+          <input
+            #photoFileInput
+            class="upload-input"
+            placeholder="Image"
+            type="file"
+            id="photoFile"
+            (change)="onPhotoFileSelected($event)" />
+        </div>
       </div>
-    </div>
+    </form>
     <div class="upload-button">
-      <button class="btn-upload">UPLOAD</button>
+      <button
+        [disabled]="uploadForm.invalid || !pdfFile || !photoFile"
+        (click)="upload()"
+        class="btn-upload">
+        UPLOAD
+      </button>
     </div>
   </div>
 </section>

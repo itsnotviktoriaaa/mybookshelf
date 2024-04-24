@@ -19,6 +19,7 @@ export class AppComponent {
   //       this.authService.currentUserSig.set({
   //         email: user.email!,
   //         username: user.displayName!,
+  //         uid: user.uid,
   //       });
   //     } else {
   //       this.authService.currentUserSig.set(null);
@@ -27,10 +28,9 @@ export class AppComponent {
   //     console.log(this.authService.currentUserSig());
   //   });
   //
-  //   //для отображения имени пользовптеля потом использовать вот это в html
+  //   //для отображения имени пользователя потом использовать вот это в html
   //   // {{authService.currentUserSig()?.username}}
   // }
-  //
   // ngOnDestroy(): void {
   //   this.subscription1?.unsubscribe();
   // }

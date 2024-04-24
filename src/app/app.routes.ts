@@ -53,6 +53,12 @@ export const routes: Routes = [
           import('./views/user/upload/upload.component').then(m => m.UploadComponent),
       },
       {
+        path: 'books',
+        title: 'MyBookShelf',
+        loadComponent: () =>
+          import('./views/user/my-books/my-books.component').then(m => m.MyBooksComponent),
+      },
+      {
         path: 'search',
         title: 'MyBookShelf',
         loadComponent: () =>
