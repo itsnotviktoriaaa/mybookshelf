@@ -19,6 +19,16 @@
       } @else {
         <span class="book-review">{{ book.pageCount ? book.pageCount : '—' }} pages</span>
       }
+      @if (bigInfo && selfBook) {
+        <div class="book-actions">
+          <svg-icon
+            (click)="editSelfBook()"
+            [src]="'assets/images/icons/icon-self-edit.svg'"></svg-icon>
+          <svg-icon
+            (click)="deleteSelfBook()"
+            [src]="'assets/images/icons/icon-self-trash.svg'"></svg-icon>
+        </div>
+      }
     </div>
     @if (bigInfo) {
       <div class="book-right">
@@ -47,10 +57,6 @@
           </button>
         </div>
       </div>
-      @if (selfBook) {
-        <button (click)="editSelfBook()">Edit</button>
-        <button (click)="deleteSelfBook()">Delete</button>
-      }
     }
   </div>
 }

@@ -9,7 +9,18 @@ import {
   getDoc,
   updateDoc,
 } from '@angular/fire/firestore';
-import { catchError, filter, from, Observable, of, switchMap, tap, throwError } from 'rxjs';
+import {
+  catchError,
+  filter,
+  forkJoin,
+  from,
+  map,
+  Observable,
+  of,
+  switchMap,
+  tap,
+  throwError,
+} from 'rxjs';
 import { SelfBookInterface, SelfBookUploadInterface } from '../../types/user/self-book.interface';
 import { AuthService } from '../../core';
 import { CollectionReference, DocumentData } from '@firebase/firestore';
@@ -117,11 +128,41 @@ export class DatabaseService {
     return of([]);
   }
 
-  deleteContact(id: string): Observable<void> {
+  deleteBookAndFile(id: string, urlPdf: string, urlPhoto: string): Observable<void> {
+    const deleteBook$ = this.deleteSelfBook(id);
+    const deleteFilePdf$ = this.deleteFileByUrl(urlPdf);
+    const deleteFilePhoto$ = this.deleteFileByUrl(urlPhoto);
+
+    return forkJoin({
+      deleteBook: deleteBook$,
+      deleteFilePdf: deleteFilePdf$,
+      deleteFilePhoto: deleteFilePhoto$,
+    }).pipe(
+      map(() => {
+        console.log('Book and files deleted successfully');
+      }),
+      catchError(error => {
+        console.error('Error deleting book or file:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  deleteSelfBook(id: string): Observable<void> {
     const document = doc(this.firestore, `users/${this.path}/books`, id);
     return from(deleteDoc(document)).pipe(
       catchError(error => {
         return throwError(() => error);
+      })
+    );
+  }
+
+  deleteFileByUrl(url: string): Observable<void> {
+    const storageRef = ref(this.storage, url);
+    return from(deleteObject(storageRef)).pipe(
+      catchError(error => {
+        console.error('Error deleting file:', error);
+        throw error;
       })
     );
   }
@@ -139,16 +180,6 @@ export class DatabaseService {
       }
     }
     return null;
-  }
-
-  deletePhotoByUrl(url: string): Observable<void> {
-    const storageRef = ref(this.storage, url);
-    return from(deleteObject(storageRef)).pipe(
-      catchError(error => {
-        console.error('Error deleting file:', error);
-        throw error;
-      })
-    );
   }
 
   uploadFilesAndCreateBook(

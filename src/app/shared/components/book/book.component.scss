@@ -41,6 +41,17 @@
         color: var(--primary-gray-color);
       }
     }
+
+    .book-actions {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      column-gap: 8px;
+
+      svg-icon {
+        cursor: pointer;
+      }
+    }
   }
 
   .book-right {

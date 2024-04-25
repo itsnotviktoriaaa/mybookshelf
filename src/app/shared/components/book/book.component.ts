@@ -7,11 +7,19 @@ import { NgClass, NgStyle } from '@angular/common';
 import { TransformFavoriteDatePipe } from '../../pipes';
 import { DatabaseService } from '../../services/database.service';
 import { catchError, EMPTY, exhaustMap } from 'rxjs';
+import { SvgIconComponent } from 'angular-svg-icon';
 
 @Component({
   selector: 'app-book',
   standalone: true,
-  imports: [ReduceLetterPipe, TransformDateBookPipe, NgStyle, TransformFavoriteDatePipe, NgClass],
+  imports: [
+    ReduceLetterPipe,
+    TransformDateBookPipe,
+    NgStyle,
+    TransformFavoriteDatePipe,
+    NgClass,
+    SvgIconComponent,
+  ],
   templateUrl: './book.component.html',
   styleUrl: './book.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -47,7 +55,7 @@ export class BookComponent {
 
   deleteSelfBook(): void {
     this.databaseService
-      .deleteContact(this.book!.id)
+      .deleteBookAndFile(this.book!.id, this.book!.webReaderLink, this.book!.thumbnail)
       .pipe(
         exhaustMap(() => {
           this.deleteSelfBookEvent.emit(this.book!.id);
