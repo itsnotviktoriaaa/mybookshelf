@@ -3,8 +3,15 @@
   @if (selfBooks$ | async; as selfBooks) {
     <div class="list-books">
       @for (selfBook of selfBooks; track selfBook) {
-        <app-book [bigInfo]="true" [selfBook]="true" [book]="selfBook"></app-book>
+        <app-book
+          [bigInfo]="true"
+          [selfBook]="true"
+          [book]="selfBook"
+          (deleteSelfBookEvent)="deleteSelfBook($event)"></app-book>
       }
     </div>
+  }
+  @if ((selfBooks$ | async) === null) {
+    <span>You do not have self books</span>
   }
 </section>

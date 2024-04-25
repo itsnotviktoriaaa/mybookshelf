@@ -1,11 +1,27 @@
 import { Injectable } from '@angular/core';
-import { addDoc, collection, collectionData, Firestore } from '@angular/fire/firestore';
-import { catchError, filter, from, Observable, of, switchMap, tap } from 'rxjs';
+import {
+  addDoc,
+  collection,
+  collectionData,
+  deleteDoc,
+  doc,
+  Firestore,
+  getDoc,
+  updateDoc,
+} from '@angular/fire/firestore';
+import { catchError, filter, from, Observable, of, switchMap, tap, throwError } from 'rxjs';
 import { SelfBookInterface, SelfBookUploadInterface } from '../../types/user/self-book.interface';
 import { AuthService } from '../../core';
 import { CollectionReference, DocumentData } from '@firebase/firestore';
-import { getDownloadURL, ref, Storage, uploadBytesResumable } from '@angular/fire/storage';
+import {
+  deleteObject,
+  getDownloadURL,
+  ref,
+  Storage,
+  uploadBytesResumable,
+} from '@angular/fire/storage';
 import { UploadMetadata } from '@angular/fire/storage';
+import { BookItemTransformedInterface } from '../../types/user';
 @Injectable({
   providedIn: 'root',
 })
@@ -47,7 +63,7 @@ export class DatabaseService {
           });
           this.path = user.uid;
           this._collection = collection(this.firestore, `users/${this.path}/books`);
-          return this._collection ? collectionData(this._collection) : of([]);
+          return this._collection ? collectionData(this._collection, { idField: 'id' }) : of([]);
         } else {
           return of([]);
         }
@@ -70,19 +86,69 @@ export class DatabaseService {
     );
   }
 
+  getSelfBook(id: string): Observable<BookItemTransformedInterface | undefined> {
+    return this.authService.user$.pipe(
+      switchMap(user => {
+        if (user && user.uid) {
+          this.path = user.uid;
+          const document = doc(this.firestore, `users/${this.path}/books`, id);
+          return from(getDoc(document)).pipe(
+            switchMap(snapshot => {
+              if (snapshot.exists()) {
+                return of(snapshot.data() as BookItemTransformedInterface);
+              } else {
+                return of(undefined); // Возвращаем Observable с undefined, если документ не существует
+              }
+            })
+          );
+        } else {
+          return of(undefined); // Возвращаем Observable с undefined, если нет пользователя или uid
+        }
+      })
+    );
+  }
+
+  updateSelfBook(id: string, selfBook: SelfBookInterface) {
+    const uid = this.authService.currentUserSig()?.uid;
+    if (uid) {
+      const document = doc(this.firestore, `users/${uid}/books`, id);
+      return from(updateDoc(document, { ...selfBook }));
+    }
+    return of([]);
+  }
+
+  deleteContact(id: string): Observable<void> {
+    const document = doc(this.firestore, `users/${this.path}/books`, id);
+    return from(deleteDoc(document)).pipe(
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
+
   async uploadToStorage(path: string, input: HTMLInputElement, contentType: UploadMetadata) {
     if (!input.files) return null;
     const files: FileList = input.files;
     for (let i = 0; i < files.length; i++) {
       const file = files.item(i);
       if (file) {
-        const imagePath: string = `${path}/${file.name}`;
+        const imagePath: string = `${this.path}/${path}/${file.name}`;
         const storageRef = ref(this.storage, imagePath);
         await uploadBytesResumable(storageRef, file, contentType);
         return await getDownloadURL(storageRef);
       }
     }
     return null;
+  }
+
+  deletePhotoByUrl(url: string): Observable<void> {
+    const storageRef = ref(this.storage, url);
+    return from(deleteObject(storageRef)).pipe(
+      catchError(error => {
+        console.error('Error deleting file:', error);
+        throw error;
+      })
+    );
   }
 
   uploadFilesAndCreateBook(

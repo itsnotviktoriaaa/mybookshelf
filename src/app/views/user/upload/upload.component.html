@@ -101,9 +101,9 @@
     <div class="upload-button">
       <button
         [disabled]="uploadForm.invalid || !pdfFile || !photoFile"
-        (click)="upload()"
+        (click)="edit ? editForm() : upload()"
         class="btn-upload">
-        UPLOAD
+        {{ edit ? 'EDIT' : 'UPLOAD' }}
       </button>
     </div>
   </div>

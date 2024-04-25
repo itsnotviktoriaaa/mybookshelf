@@ -47,6 +47,10 @@
           </button>
         </div>
       </div>
+      @if (selfBook) {
+        <button (click)="editSelfBook()">Edit</button>
+        <button (click)="deleteSelfBook()">Delete</button>
+      }
     }
   </div>
 }

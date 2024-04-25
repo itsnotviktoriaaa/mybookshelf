@@ -85,6 +85,7 @@ export interface BookItemTransformedInterface {
   categories?: Array<string>;
   userInfo?: string;
   averageRating?: number;
+  description?: string;
 }
 
 export interface arrayFromBookItemTransformedInterface {

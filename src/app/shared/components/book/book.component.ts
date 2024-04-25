@@ -1,10 +1,12 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { BookItemTransformedInterface } from '../../../types/user';
 import { Router } from '@angular/router';
 import { ReduceLetterPipe } from '../../pipes';
 import { TransformDateBookPipe } from '../../pipes';
 import { NgClass, NgStyle } from '@angular/common';
 import { TransformFavoriteDatePipe } from '../../pipes';
+import { DatabaseService } from '../../services/database.service';
+import { catchError, EMPTY, exhaustMap } from 'rxjs';
 
 @Component({
   selector: 'app-book',
@@ -18,8 +20,12 @@ export class BookComponent {
   @Input() book: BookItemTransformedInterface | null = null;
   @Input() bigInfo: boolean = false;
   @Input() selfBook: boolean = false;
+  @Output() deleteSelfBookEvent: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private databaseService: DatabaseService
+  ) {}
 
   openDetailBook(sizeBook: 'small-book' | 'big-book'): void {
     if (sizeBook === 'small-book' && !this.bigInfo) {
@@ -28,12 +34,33 @@ export class BookComponent {
       this.router.navigate(['home/book/', this.book?.id]).then(() => {});
     } else if (this.selfBook) {
       console.log(this.book?.webReaderLink);
-      this.readBook();
+      this.readSelfBook();
     }
   }
   openGoogleInfo(): void {
     window.open(this.book?.webReaderLink, '_blank');
   }
 
-  readBook() {}
+  editSelfBook(): void {
+    this.router.navigate(['/home/upload'], { queryParams: { id: this.book?.id } }).then(() => {});
+  }
+
+  deleteSelfBook(): void {
+    this.databaseService
+      .deleteContact(this.book!.id)
+      .pipe(
+        exhaustMap(() => {
+          this.deleteSelfBookEvent.emit(this.book!.id);
+          console.log('here');
+          return EMPTY;
+        }),
+        catchError(() => {
+          //sth went wrong
+          return EMPTY;
+        })
+      )
+      .subscribe();
+  }
+
+  readSelfBook() {}
 }

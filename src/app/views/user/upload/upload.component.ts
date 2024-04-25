@@ -3,10 +3,10 @@ import { DatabaseService } from '../../../shared/services/database.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SelfBookUploadInterface } from '../../../types/user/self-book.interface';
 import { NgStyle } from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NotificationService } from '../../../shared/services';
 import { NotificationStatus } from '../../../types/auth';
-import { catchError, EMPTY, tap } from 'rxjs';
+import { catchError, EMPTY, switchMap, take, tap } from 'rxjs';
 
 @Component({
   selector: 'app-upload',
@@ -22,11 +22,13 @@ export class UploadComponent implements OnInit {
   pdfFile: File | null = null;
   photoFile: File | null = null;
   uploadForm!: FormGroup;
+  edit: boolean = false;
 
   constructor(
     private databaseService: DatabaseService,
     private router: Router,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -34,6 +36,13 @@ export class UploadComponent implements OnInit {
       title: new FormControl('', [Validators.required]),
       author: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
+    });
+
+    this.activatedRoute.queryParams.subscribe((params: Params): void => {
+      if (params['id']) {
+        this.setFormValue(params['id']);
+        this.edit = true;
+      }
     });
   }
 
@@ -124,5 +133,32 @@ export class UploadComponent implements OnInit {
         )
         .subscribe();
     }
+  }
+
+  editForm(): void {
+    //
+  }
+
+  setFormValue(id: string): void {
+    this.databaseService
+      .getSelfBook(id)
+      .pipe(
+        take(1),
+        switchMap(selfBook => {
+          console.log(selfBook);
+          this.uploadForm.patchValue({
+            title: selfBook?.title,
+            author: selfBook?.author,
+            description: selfBook?.description,
+          });
+          // this.pdfFile = selfBook?.webReaderLink;
+          // this.photoFile = selfBook?.thumbnail;
+          return EMPTY;
+        }),
+        catchError(() => {
+          return EMPTY;
+        })
+      )
+      .subscribe();
   }
 }
