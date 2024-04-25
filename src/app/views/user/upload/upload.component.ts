@@ -1,12 +1,16 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { DatabaseService } from '../../../shared/services/database.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SelfBookUploadInterface } from '../../../types/user/self-book.interface';
+import {
+  SelfBookInterface,
+  SelfBookUploadInterface,
+} from '../../../types/user/self-book.interface';
 import { NgStyle } from '@angular/common';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NotificationService } from '../../../shared/services';
 import { NotificationStatus } from '../../../types/auth';
 import { catchError, EMPTY, switchMap, take, tap } from 'rxjs';
+import { UploadMetadata } from '@angular/fire/storage';
 
 @Component({
   selector: 'app-upload',
@@ -14,6 +18,7 @@ import { catchError, EMPTY, switchMap, take, tap } from 'rxjs';
   imports: [ReactiveFormsModule, NgStyle],
   templateUrl: './upload.component.html',
   styleUrl: './upload.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UploadComponent implements OnInit {
   @ViewChild('pdfFileInput', { static: true }) pdfFileInput: ElementRef | null = null;
@@ -23,6 +28,9 @@ export class UploadComponent implements OnInit {
   photoFile: File | null = null;
   uploadForm!: FormGroup;
   edit: boolean = false;
+  id: string | null = null;
+  pdfUrl: string | null = null;
+  photoUrl: string | null = null;
 
   constructor(
     private databaseService: DatabaseService,
@@ -40,6 +48,7 @@ export class UploadComponent implements OnInit {
 
     this.activatedRoute.queryParams.subscribe((params: Params): void => {
       if (params['id']) {
+        this.id = params['id'];
         this.setFormValue(params['id']);
         this.edit = true;
       }
@@ -135,8 +144,100 @@ export class UploadComponent implements OnInit {
     }
   }
 
-  editForm(): void {
-    //
+  editSelfBook(): void {
+    if (this.pdfUrl && this.photoUrl) {
+      const selfBook: SelfBookInterface = {
+        title: this.uploadForm.controls['title'].value,
+        author: [this.uploadForm.controls['author'].value],
+        description: this.uploadForm.controls['description'].value,
+        publishedDate: new Date().toISOString(),
+        webReaderLink: this.pdfUrl,
+        thumbnail: this.photoUrl,
+      };
+
+      if (this.pdfFile && this.pdfUrl) {
+        this.databaseService
+          .deleteFileByUrl(this.pdfUrl)
+          .pipe(
+            tap(() => {
+              console.log('Previous PDF file deleted successfully');
+            }),
+            catchError(error => {
+              console.error('Error deleting previous PDF file:', error);
+              return EMPTY;
+            })
+          )
+          .subscribe();
+      }
+
+      if (this.photoFile && this.photoUrl) {
+        this.databaseService
+          .deleteFileByUrl(this.photoUrl)
+          .pipe(
+            tap(() => {
+              console.log('Previous photo deleted successfully');
+            }),
+            catchError(error => {
+              console.error('Error deleting previous photo:', error);
+              return EMPTY;
+            })
+          )
+          .subscribe();
+      }
+
+      const uploadPdfPromise = this.pdfFile
+        ? this.uploadFile('pdfs', this.pdfFileInput?.nativeElement, 'application/pdf')
+        : Promise.resolve(null);
+
+      const uploadPhotoPromise = this.photoFile
+        ? this.uploadFile(
+            'photos',
+            this.photoFileInput?.nativeElement,
+            (this.photoFile as File).type
+          )
+        : Promise.resolve(null);
+
+      Promise.all([uploadPdfPromise, uploadPhotoPromise])
+        .then(([webReaderLink, thumbnail]) => {
+          if (webReaderLink) {
+            selfBook.webReaderLink = webReaderLink;
+          }
+          if (thumbnail) {
+            selfBook.thumbnail = thumbnail;
+          }
+
+          if (this.id) {
+            this.databaseService
+              .updateSelfBook(this.id, selfBook)
+              .pipe(
+                tap(data => {
+                  console.log(data);
+                  console.log('Self book updated successfully');
+                }),
+                catchError(error => {
+                  console.error('Error updating self book:', error);
+                  return EMPTY;
+                })
+              )
+              .subscribe();
+          }
+        })
+        .catch(error => {
+          console.error('Error uploading files:', error);
+        });
+    }
+  }
+
+  private uploadFile(
+    folder: string,
+    inputElement: HTMLInputElement,
+    contentType: string
+  ): Promise<string | null> {
+    return this.databaseService.uploadToStorage(
+      folder,
+      inputElement,
+      contentType as UploadMetadata
+    );
   }
 
   setFormValue(id: string): void {
@@ -145,14 +246,16 @@ export class UploadComponent implements OnInit {
       .pipe(
         take(1),
         switchMap(selfBook => {
-          console.log(selfBook);
-          this.uploadForm.patchValue({
-            title: selfBook?.title,
-            author: selfBook?.author,
-            description: selfBook?.description,
-          });
-          // this.pdfFile = selfBook?.webReaderLink;
-          // this.photoFile = selfBook?.thumbnail;
+          if (selfBook) {
+            console.log(selfBook);
+            this.uploadForm.patchValue({
+              title: selfBook.title,
+              author: selfBook.author[0],
+              description: selfBook.description,
+            });
+            this.pdfUrl = selfBook.webReaderLink;
+            this.photoUrl = selfBook.thumbnail;
+          }
           return EMPTY;
         }),
         catchError(() => {

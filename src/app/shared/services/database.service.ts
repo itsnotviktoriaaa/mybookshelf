@@ -108,24 +108,24 @@ export class DatabaseService {
               if (snapshot.exists()) {
                 return of(snapshot.data() as BookItemTransformedInterface);
               } else {
-                return of(undefined); // Возвращаем Observable с undefined, если документ не существует
+                return of(undefined);
               }
             })
           );
         } else {
-          return of(undefined); // Возвращаем Observable с undefined, если нет пользователя или uid
+          return of(undefined);
         }
       })
     );
   }
 
-  updateSelfBook(id: string, selfBook: SelfBookInterface) {
+  updateSelfBook(id: string, selfBook: SelfBookInterface): Observable<void> {
     const uid = this.authService.currentUserSig()?.uid;
     if (uid) {
       const document = doc(this.firestore, `users/${uid}/books`, id);
       return from(updateDoc(document, { ...selfBook }));
     }
-    return of([]);
+    return throwError(() => 'dont have uid');
   }
 
   deleteBookAndFile(id: string, urlPdf: string, urlPhoto: string): Observable<void> {

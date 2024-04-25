@@ -99,12 +99,21 @@
       </div>
     </form>
     <div class="upload-button">
-      <button
-        [disabled]="uploadForm.invalid || !pdfFile || !photoFile"
-        (click)="edit ? editForm() : upload()"
-        class="btn-upload">
-        {{ edit ? 'EDIT' : 'UPLOAD' }}
-      </button>
+      @if (!edit) {
+        <button
+          [disabled]="uploadForm.invalid || !pdfFile || !photoFile"
+          (click)="upload()"
+          class="btn-upload">
+          UPLOAD
+        </button>
+      } @else {
+        <button
+          [disabled]="uploadForm.invalid || !uploadForm.dirty"
+          (click)="editSelfBook()"
+          class="btn-upload">
+          EDIT
+        </button>
+      }
     </div>
   </div>
 </section>

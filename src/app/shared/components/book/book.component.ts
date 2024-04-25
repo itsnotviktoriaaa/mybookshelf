@@ -63,7 +63,6 @@ export class BookComponent {
           return EMPTY;
         }),
         catchError(() => {
-          //sth went wrong
           return EMPTY;
         })
       )
