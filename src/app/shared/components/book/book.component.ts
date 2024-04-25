@@ -6,8 +6,10 @@ import { TransformDateBookPipe } from '../../pipes';
 import { NgClass, NgStyle } from '@angular/common';
 import { TransformFavoriteDatePipe } from '../../pipes';
 import { DatabaseService } from '../../services/database.service';
-import { catchError, EMPTY, exhaustMap } from 'rxjs';
+import { catchError, EMPTY, exhaustMap, finalize } from 'rxjs';
 import { SvgIconComponent } from 'angular-svg-icon';
+import { NotificationService } from '../../services';
+import { NotificationStatus } from '../../../types/auth';
 
 @Component({
   selector: 'app-book',
@@ -32,7 +34,8 @@ export class BookComponent {
 
   constructor(
     private router: Router,
-    private databaseService: DatabaseService
+    private databaseService: DatabaseService,
+    private notificationService: NotificationService
   ) {}
 
   openDetailBook(sizeBook: 'small-book' | 'big-book'): void {
@@ -54,16 +57,27 @@ export class BookComponent {
   }
 
   deleteSelfBook(): void {
+    this.notificationService.notifyAboutNotificationLoader(true);
     this.databaseService
       .deleteBookAndFile(this.book!.id, this.book!.webReaderLink, this.book!.thumbnail)
       .pipe(
         exhaustMap(() => {
           this.deleteSelfBookEvent.emit(this.book!.id);
-          console.log('here');
+          this.notificationService.notifyAboutNotification({
+            message: 'Self book deleted successfully',
+            status: NotificationStatus.success,
+          });
           return EMPTY;
         }),
         catchError(() => {
+          this.notificationService.notifyAboutNotification({
+            message: 'Self book deleted with error',
+            status: NotificationStatus.error,
+          });
           return EMPTY;
+        }),
+        finalize(() => {
+          this.notificationService.notifyAboutNotificationLoader(false);
         })
       )
       .subscribe();

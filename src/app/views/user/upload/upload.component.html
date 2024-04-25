@@ -108,7 +108,7 @@
         </button>
       } @else {
         <button
-          [disabled]="uploadForm.invalid || !uploadForm.dirty"
+          [disabled]="uploadForm.invalid && !uploadForm.dirty && !pdfFile && !photoFile"
           (click)="editSelfBook()"
           class="btn-upload">
           EDIT

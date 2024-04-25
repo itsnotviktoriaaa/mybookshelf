@@ -9,7 +9,7 @@ import { NgStyle } from '@angular/common';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NotificationService } from '../../../shared/services';
 import { NotificationStatus } from '../../../types/auth';
-import { catchError, EMPTY, switchMap, take, tap } from 'rxjs';
+import { catchError, EMPTY, finalize, switchMap, take, tap } from 'rxjs';
 import { UploadMetadata } from '@angular/fire/storage';
 
 @Component({
@@ -51,6 +51,18 @@ export class UploadComponent implements OnInit {
         this.id = params['id'];
         this.setFormValue(params['id']);
         this.edit = true;
+      } else {
+        this.uploadForm.reset();
+        this.photoUrl = null;
+        this.pdfUrl = null;
+        this.id = null;
+        this.edit = false;
+        if (this.pdfFileInput && this.pdfFileInput.nativeElement) {
+          this.pdfFileInput.nativeElement.value = '';
+        }
+        if (this.photoFileInput && this.photoFileInput.nativeElement) {
+          this.photoFileInput.nativeElement.value = '';
+        }
       }
     });
   }
@@ -146,6 +158,7 @@ export class UploadComponent implements OnInit {
 
   editSelfBook(): void {
     if (this.pdfUrl && this.photoUrl) {
+      this.notificationService.notifyAboutNotificationLoader(true);
       const selfBook: SelfBookInterface = {
         title: this.uploadForm.controls['title'].value,
         author: [this.uploadForm.controls['author'].value],
@@ -210,19 +223,29 @@ export class UploadComponent implements OnInit {
             this.databaseService
               .updateSelfBook(this.id, selfBook)
               .pipe(
-                tap(data => {
-                  console.log(data);
-                  console.log('Self book updated successfully');
+                tap(() => {
+                  this.notificationService.notifyAboutNotification({
+                    message: 'Self book updated successfully',
+                    status: NotificationStatus.success,
+                  });
                 }),
-                catchError(error => {
-                  console.error('Error updating self book:', error);
+                catchError(() => {
+                  this.notificationService.notifyAboutNotification({
+                    message: 'Error updating self book',
+                    status: NotificationStatus.error,
+                  });
                   return EMPTY;
+                }),
+                finalize(() => {
+                  this.notificationService.notifyAboutNotificationLoader(false);
+                  this.router.navigate(['/home/books']).then((): void => {});
                 })
               )
               .subscribe();
           }
         })
         .catch(error => {
+          this.notificationService.notifyAboutNotificationLoader(false);
           console.error('Error uploading files:', error);
         });
     }
