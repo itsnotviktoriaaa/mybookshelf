@@ -11,7 +11,7 @@
     @if (detailBook$ | async; as detailBook) {
       <div class="common-padding">
         <div class="back-to-result">
-          <svg-icon src="assets/images/icons/arrow-small-left.svg"></svg-icon>
+          <svg-icon [src]="pathToIcons + '/arrow-small-left.svg'"></svg-icon>
           <span>Back to results</span>
         </div>
         <div class="detail-items">
@@ -23,7 +23,7 @@
               <div class="detail-left-actions">
                 @for (action of actions; track $index) {
                   <div class="detail-left-action">
-                    <svg-icon src="assets/images/icons/{{ action.svg }}"></svg-icon>
+                    <svg-icon [src]="pathToIcons + '/' + action.svg"></svg-icon>
                     <span class="detail-action-title">{{ action.title }}</span>
                   </div>
                 }
@@ -53,7 +53,7 @@
                     <div class="detail-central-availability-item">
                       <svg-icon
                         class="detail-central-availability-item-icon"
-                        src="assets/images/icons/done-green.svg"></svg-icon>
+                        [src]="pathToIcons + '/done-green.svg'"></svg-icon>
                       <span class="detail-central-availability-item-description">{{
                         accessInfo
                       }}</span>
@@ -72,7 +72,7 @@
                   <div class="detail-btn-green-headphones-wrapper">
                     <svg-icon
                       class="detail-btn-green-headphones"
-                      src="assets/images/icons/headphones.svg"></svg-icon>
+                      [src]="pathToIcons + '/headphones.svg'"></svg-icon>
                   </div>
                 </button>
               </div>
@@ -85,7 +85,7 @@
             <div class="detail-right-author-wrapper">
               <h4 class="detail-right-author-name">{{ detailBook.authors[0] }}</h4>
               <div class="detail-right-author-image">
-                <img src="assets/images/author.png" alt="{{ detailBook.authors[0] }}" />
+                <img [src]="pathToImages + '/author.png'" alt="{{ detailBook.authors[0] }}" />
               </div>
             </div>
             <div

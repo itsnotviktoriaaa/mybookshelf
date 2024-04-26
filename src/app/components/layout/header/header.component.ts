@@ -20,6 +20,7 @@ import {
 import { HeaderClickInterface, SelectedHeaderModalItemEnum } from '../../../modals/user';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { SearchLiveFacade } from '../../../ngrx/search-live/search-live.facade';
+import { environment } from '../../../../environments/environment.development';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NotificationStatus, UserInfoFromGoogle } from '../../../modals/auth';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -57,6 +58,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   authServiceDestroy$: Subject<void> = new Subject<void>();
   userInfo$: BehaviorSubject<UserInfoFromGoogle | null> =
     new BehaviorSubject<UserInfoFromGoogle | null>(null);
+  pathToIcons = environment.pathToIcons;
 
   constructor(
     private authService: AuthService,

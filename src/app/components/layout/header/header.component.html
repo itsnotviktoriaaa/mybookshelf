@@ -10,7 +10,7 @@
           <span
             [class]="{ 'header-class-all-arrow': true, active: allMiniModal }"
             [ngStyle]="{ display: (isFavoritePage$ | async) ? 'none' : 'block' }">
-            <svg-icon src="assets/images/icons/arrow-in-mini-modal.svg"></svg-icon>
+            <svg-icon [src]="pathToIcons + '/arrow-in-mini-modal.svg'"></svg-icon>
           </span>
         </div>
         @if (allMiniModal) {
@@ -49,11 +49,11 @@
             (click)="searchBooks()"
             class="header-search-find-loop-icon"
             [svgStyle]="{ position: 'relative', 'top.px': 2 }"
-            src="assets/images/icons/header-loop.svg"></svg-icon>
+            [src]="pathToIcons + '/header-loop.svg'"></svg-icon>
         </div>
         <div class="header-search-find-scan">
           <svg-icon
-            src="assets/images/icons/header-scan.svg"
+            [src]="pathToIcons + '/header-scan.svg'"
             [svgStyle]="{ position: 'relative', 'top.px': 1 }"></svg-icon>
         </div>
       </div>
@@ -62,14 +62,14 @@
       <div class="header-lang">
         <div class="header-back header-lang-wrapper">
           <div class="header-lang-item">
-            <svg-icon src="assets/images/icons/header-lang.svg"></svg-icon>
+            <svg-icon [src]="pathToIcons + '/header-lang.svg'"></svg-icon>
           </div>
           <div
             (click)="openOrCloseMiniModal(HeaderClickInterfaceEnum.langMiniModal)"
             class="header-back-info header-lang-info">
             <span class="header-back-text header-lang-info-text">Lang</span>
             <span [class]="{ 'header-lang-info-icon': true, active: langMiniModal }">
-              <svg-icon src="assets/images/icons/arrow-in-mini-modal.svg"></svg-icon>
+              <svg-icon [src]="pathToIcons + '/arrow-in-mini-modal.svg'"></svg-icon>
             </span>
           </div>
         </div>
@@ -100,7 +100,7 @@
                 userInfo?.info?.name
               }}</span>
               <span [class]="{ 'header-account-info-icon': true, active: profileMiniModal }">
-                <svg-icon src="assets/images/icons/arrow-in-mini-modal.svg"></svg-icon>
+                <svg-icon [src]="pathToIcons + '/arrow-in-mini-modal.svg'"></svg-icon>
               </span>
             </div>
           </div>

@@ -16,6 +16,7 @@ import { SvgIconComponent } from 'angular-svg-icon';
 export class PaginationInputComponent implements OnInit, OnChanges {
   isShow = new BehaviorSubject<boolean>(false);
   queryParams: Params = {};
+  mainPathToArrow = 'assets/images/icons/pagination-input';
   inputValue = new FormControl();
   quantityOfPages$ = new BehaviorSubject<number>(1);
   valueFromInput$ = new BehaviorSubject<number>(1);

@@ -20,7 +20,7 @@
         class="pagination-arrow"
         (click)="openPrevPage()"
         [class.disabled]="activeParams.page ? activeParams.page === 1 : true">
-        <svg-icon src="assets/images/icons/arrow-left.svg"></svg-icon>
+        <svg-icon [src]="pathToIcons + '/arrow-left.svg'"></svg-icon>
       </div>
       <div class="pagination-pages">
         @for (page of pages; track $index) {
@@ -40,7 +40,7 @@
         [class.disabled]="activeParams.page ? activeParams.page === pages.length : false">
         <svg-icon
           [svgStyle]="{ 'rotate.deg': 180 }"
-          src="assets/images/icons/arrow-left.svg"></svg-icon>
+          [src]="pathToIcons + '/arrow-left.svg'"></svg-icon>
       </div>
     </div>
   }

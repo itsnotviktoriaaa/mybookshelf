@@ -2,7 +2,12 @@
   <div class="auth signup">
     <div class="container">
       <div class="logo">
-        <img ngSrc="/assets/images/logo.png" alt="MyBookShelf" priority height="93" width="150" />
+        <img
+          [ngSrc]="pathToImages + '/logo.png'"
+          alt="MyBookShelf"
+          priority
+          height="93"
+          width="150" />
       </div>
       <div class="auth-form" [formGroup]="registerForm" appPasswordRepeat appPasswordNotEmail>
         <div class="auth-form-head">
@@ -101,12 +106,12 @@
                   <div class="eye-wrapper">
                     @if (!isShowPassword) {
                       <svg-icon
-                        src="assets/images/icons/eye-close.svg"
+                        [src]="pathToIcons + '/icons/eye-close.svg'"
                         (click)="changeShowingPassword('isShowPassword')"></svg-icon>
                     }
                     @if (isShowPassword) {
                       <svg-icon
-                        src="assets/images/icons/eye-open.svg"
+                        [src]="pathToIcons + '/icons/eye-open.svg'"
                         (click)="changeShowingPassword('isShowPassword')"></svg-icon>
                     }
                   </div>
@@ -156,12 +161,12 @@
                   <div class="eye-wrapper">
                     @if (!isShowConfirmPassword) {
                       <svg-icon
-                        src="assets/images/icons/eye-close.svg"
+                        [src]="pathToIcons + '/eye-close.svg'"
                         (click)="changeShowingPassword('isShowConfirmPassword')"></svg-icon>
                     }
                     @if (isShowConfirmPassword) {
                       <svg-icon
-                        src="assets/images/icons/eye-open.svg"
+                        [src]="pathToIcons + '/eye-open.svg'"
                         (click)="changeShowingPassword('isShowConfirmPassword')"></svg-icon>
                     }
                   </div>
@@ -220,9 +225,9 @@
           </div>
           <div class="verification-done">
             @if (!errorMessage) {
-              <svg-icon src="assets/images/icons/done-circle.svg"></svg-icon>
+              <svg-icon [src]="pathToIcons + '/done-circle.svg'"></svg-icon>
             } @else {
-              <svg-icon src="assets/images/icons/cancel-circle.svg"></svg-icon>
+              <svg-icon [src]="pathToIcons + '/cancel-circle.svg'"></svg-icon>
             }
           </div>
         }

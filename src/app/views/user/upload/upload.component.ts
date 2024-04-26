@@ -13,6 +13,7 @@ import {
 import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SelfBookInterface, SelfBookUploadInterface } from '../../../modals/user';
+import { environment } from '../../../../environments/environment.development';
 import { DatabaseService, NotificationService } from '../../../core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NotificationStatus } from '../../../modals/auth';
@@ -39,6 +40,7 @@ export class UploadComponent implements OnInit {
   id: string | null = null;
   pdfUrl = new BehaviorSubject<string | null>(null);
   photoUrl = new BehaviorSubject<string | null>(null);
+  pathToIcons = environment.pathToIcons;
 
   constructor(
     private databaseService: DatabaseService,

@@ -1,5 +1,6 @@
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService, CodeMessageHandlerUtil, NotificationService } from '../../../core';
+import { environment } from '../../../../environments/environment.development';
 import { NotificationStatus, UserInfoFromGoogle } from '../../../modals/auth';
 import { SubscribeDecorator } from '../../../decorators/subscribe-decorator';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
@@ -21,6 +22,8 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   isShowPassword: boolean = false;
   errorMessage: string | null = null;
+  pathToIcons = environment.pathToIcons;
+  pathToImages = environment.pathToImages;
 
   constructor(
     private authService: AuthService,

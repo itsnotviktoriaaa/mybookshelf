@@ -5,6 +5,7 @@ import {
   SearchInterface,
   SelectedHeaderModalItemEnum,
 } from '../../../modals/user';
+import { environment } from '../../../../environments/environment.development';
 import { FavoritesFacade } from '../../../ngrx/favorites/favorites.facade';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActiveParamUtil, SearchStateService } from '../../../core';
@@ -178,6 +179,7 @@ export class SearchComponent implements OnInit {
     'Sri Lanka',
     'Adventure stories',
   ];
+  pathToIcons = environment.pathToIcons;
 
   searchBooks$: BehaviorSubject<SearchInterface | null> =
     new BehaviorSubject<SearchInterface | null>(null);

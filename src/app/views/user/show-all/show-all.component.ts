@@ -1,4 +1,5 @@
 import { ActiveParamsType, arrayFromBookItemTransformedInterface } from '../../../modals/user';
+import { environment } from '../../../../environments/environment.development';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { HomeFacade } from '../../../ngrx/home/home.facade';
@@ -27,6 +28,7 @@ export class ShowAllComponent implements OnInit {
   miniLoader$: BehaviorSubject<{ miniLoader: boolean }> = new BehaviorSubject<{
     miniLoader: boolean;
   }>({ miniLoader: true });
+  pathToIcons = environment.pathToIcons;
 
   constructor(
     private activatedRoute: ActivatedRoute,

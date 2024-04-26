@@ -43,9 +43,9 @@
     <div class="content-td">
       <div class="content-favorite">
         @if (isFavorite) {
-          <svg-icon (click)="removeFavorite()" src="assets/images/icons/heart-red.svg"></svg-icon>
+          <svg-icon (click)="removeFavorite()" [src]="pathToIcons + '/heart-red.svg'"></svg-icon>
         } @else {
-          <svg-icon (click)="addFavorite()" src="assets/images/icons/heart-white.svg"></svg-icon>
+          <svg-icon (click)="addFavorite()" [src]="pathToIcons + '/heart-white.svg'"></svg-icon>
         }
       </div>
     </div>

@@ -6,6 +6,7 @@ import {
   OnChanges,
 } from '@angular/core';
 import { GoogleApiService, NotificationService, TransformDateBookPipe } from '../../core';
+import { environment } from '../../../environments/environment.development';
 import { SearchDetailInterface } from '../../modals/user';
 import { catchError, EMPTY, finalize, tap } from 'rxjs';
 import { NotificationStatus } from '../../modals/auth';
@@ -26,6 +27,7 @@ export class SearchBookComponent implements OnChanges {
   isFavorite: boolean = false;
   isOperationAddInProgress: boolean = false;
   isOperationRemoveInProgress: boolean = false;
+  pathToIcons = environment.pathToIcons;
 
   constructor(
     private router: Router,

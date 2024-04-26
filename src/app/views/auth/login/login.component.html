@@ -2,7 +2,12 @@
   <div class="auth login">
     <div class="container">
       <div class="logo">
-        <img ngSrc="/assets/images/logo.png" alt="MyBookShelf" priority height="93" width="150" />
+        <img
+          [ngSrc]="pathToImages + '/logo.png'"
+          alt="MyBookShelf"
+          priority
+          height="93"
+          width="150" />
       </div>
       <div class="auth-form" [formGroup]="loginForm">
         <div class="auth-form-head">
@@ -63,12 +68,12 @@
                 <div class="eye-wrapper">
                   @if (!isShowPassword) {
                     <svg-icon
-                      src="assets/images/icons/eye-close.svg"
+                      [src]="pathToIcons + '/eye-close.svg'"
                       (click)="changeShowingPassword()"></svg-icon>
                   }
                   @if (isShowPassword) {
                     <svg-icon
-                      src="assets/images/icons/eye-open.svg"
+                      [src]="pathToIcons + '/eye-open.svg'"
                       (click)="changeShowingPassword()"></svg-icon>
                   }
                 </div>

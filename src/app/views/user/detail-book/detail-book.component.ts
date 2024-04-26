@@ -1,5 +1,6 @@
 import { ActionsInterface, DetailBookSmallInfo, SearchSmallInterface } from '../../../modals/user';
 import { DetailBookFacade } from '../../../ngrx/detail-book/detail-book.facade';
+import { environment } from '../../../../environments/environment.development';
 import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import { MiniModalComponent, StarComponent } from '../../../UI-сomponents';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
@@ -41,6 +42,8 @@ export class DetailBookComponent implements OnInit {
   miniLoader$: BehaviorSubject<{ miniLoader: boolean }> = new BehaviorSubject<{
     miniLoader: boolean;
   }>({ miniLoader: true });
+  pathToIcons = environment.pathToIcons;
+  pathToImages = environment.pathToImages;
 
   constructor(
     private activatedRoute: ActivatedRoute,

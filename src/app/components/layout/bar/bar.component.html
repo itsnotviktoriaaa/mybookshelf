@@ -1,7 +1,12 @@
 <aside class="bar-container">
   <div class="bar-top">
     <div routerLink="/home" class="logo">
-      <img ngSrc="/assets/images/logo-bar.png" alt="MyBookShelf" priority height="75" width="120" />
+      <img
+        [ngSrc]="pathToImages + '/logo-bar.png'"
+        alt="MyBookShelf"
+        priority
+        height="75"
+        width="120" />
     </div>
     <nav class="menu">
       <ul class="menu-ul">
@@ -12,7 +17,7 @@
             routerLinkActive="menu-active"
             [routerLinkActiveOptions]="{ exact: true }">
             <span class="icon">
-              <svg-icon src="assets/images/icons/bar-home.svg"></svg-icon>
+              <svg-icon [src]="pathToIcons + '/bar-home.svg'"></svg-icon>
             </span>
             <span class="text">Home</span>
           </a>
@@ -24,7 +29,7 @@
             routerLinkActive="menu-active"
             [routerLinkActiveOptions]="{ exact: true }">
             <span class="icon">
-              <svg-icon src="assets/images/icons/bar-search.svg"></svg-icon>
+              <svg-icon [src]="pathToIcons + '/bar-search.svg'"></svg-icon>
             </span>
             <span class="text">Search</span>
           </a>
@@ -36,7 +41,7 @@
             routerLinkActive="menu-active"
             [routerLinkActiveOptions]="{ exact: true }">
             <span class="icon">
-              <svg-icon src="assets/images/icons/bar-favorites.svg"></svg-icon>
+              <svg-icon [src]="pathToIcons + '/bar-favorites.svg'"></svg-icon>
             </span>
             <span class="text">Favorites</span>
           </a>
@@ -48,7 +53,7 @@
             routerLinkActive="menu-active"
             [routerLinkActiveOptions]="{ exact: true }">
             <span class="icon">
-              <svg-icon src="assets/images/icons/bar-favorites.svg"></svg-icon>
+              <svg-icon [src]="pathToIcons + '/bar-favorites.svg'"></svg-icon>
             </span>
             <span class="text">My Books</span>
           </a>
@@ -60,7 +65,7 @@
             routerLinkActive="menu-active"
             [routerLinkActiveOptions]="{ exact: true }">
             <span class="icon">
-              <svg-icon src="assets/images/icons/bar-upload.svg"></svg-icon>
+              <svg-icon [src]="pathToIcons + '/bar-upload.svg'"></svg-icon>
             </span>
             <span class="text">Upload</span>
           </a>

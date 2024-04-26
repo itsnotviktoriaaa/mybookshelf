@@ -18,4 +18,6 @@ export const environment = {
   },
   googleLibraryApi: 'https://www.googleapis.com/books/v1/mylibrary/bookshelves/',
   googleVolumeApi: 'https://www.googleapis.com/books/v1/volumes',
+  pathToIcons: 'assets/images/icons',
+  pathToImages: 'assets/images',
 };

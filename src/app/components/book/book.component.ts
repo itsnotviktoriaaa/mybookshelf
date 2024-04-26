@@ -6,6 +6,7 @@ import {
   TransformFavoriteDatePipe,
 } from '../../core';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { environment } from '../../../environments/environment.development';
 import { BookItemTransformedInterface } from '../../modals/user';
 import { catchError, EMPTY, exhaustMap, finalize } from 'rxjs';
 import { NotificationStatus } from '../../modals/auth';
@@ -33,6 +34,7 @@ export class BookComponent {
   @Input() bigInfo: boolean = false;
   @Input() selfBook: boolean = false;
   @Output() deleteSelfBookEvent: EventEmitter<string> = new EventEmitter<string>();
+  pathToIcons = environment.pathToIcons;
 
   constructor(
     private router: Router,

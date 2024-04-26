@@ -8,7 +8,7 @@
           [ngClass]="{
             disabled: (valueFromInput$ | async)!.valueOf() - 10 <= 0
           }"
-          src="assets/images/icons/pagination-input/arrow-big-right-pagination-input.svg"></svg-icon>
+          [src]="mainPathToArrow + '/arrow-big-right-pagination-input.svg'"></svg-icon>
       </span>
       <span>
         <svg-icon
@@ -17,7 +17,7 @@
           [ngClass]="{
             disabled: (valueFromInput$ | async)!.valueOf() <= 1
           }"
-          src="assets/images/icons/pagination-input/arrow-mini-right-pagination-input.svg"></svg-icon>
+          [src]="mainPathToArrow + '/arrow-mini-right-pagination-input.svg'"></svg-icon>
       </span>
       <span class="hard-pagination-input">
         <input
@@ -33,7 +33,7 @@
           [ngClass]="{
             disabled: (quantityOfPages$ | async)!.valueOf() <= (valueFromInput$ | async)!.valueOf()
           }"
-          src="assets/images/icons/pagination-input/arrow-mini-right-pagination-input.svg"></svg-icon>
+          [src]="mainPathToArrow + '/arrow-mini-right-pagination-input.svg'"></svg-icon>
       </span>
       <span>
         <svg-icon
@@ -42,7 +42,7 @@
             disabled:
               (quantityOfPages$ | async)!.valueOf() <= (valueFromInput$ | async)!.valueOf() + 10
           }"
-          src="assets/images/icons/pagination-input/arrow-big-right-pagination-input.svg"></svg-icon>
+          [src]="mainPathToArrow + '/arrow-big-right-pagination-input.svg'"></svg-icon>
       </span>
     </div>
   </div>

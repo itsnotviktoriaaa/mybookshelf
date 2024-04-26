@@ -7,6 +7,7 @@ import {
 } from '../../../core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { catchError, EMPTY, finalize, Observable, of, Subject, tap } from 'rxjs';
+import { environment } from '../../../../environments/environment.development';
 import { SubscribeDecorator } from '../../../decorators/subscribe-decorator';
 import { NotificationStatus, UserSignInterface } from '../../../modals/auth';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
@@ -54,6 +55,8 @@ export class SignupComponent implements OnInit {
   codeWhichWrittenUserWasEqualFromEmail: boolean = false;
 
   @ViewChild('verificationBody') verificationBody: ElementRef | null = null;
+  pathToIcons = environment.pathToIcons;
+  pathToImages = environment.pathToImages;
 
   constructor(
     private authService: AuthService,

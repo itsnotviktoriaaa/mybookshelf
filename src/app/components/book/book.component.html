@@ -21,12 +21,10 @@
       }
       @if (bigInfo && selfBook) {
         <div class="book-actions">
-          <svg-icon
-            (click)="editSelfBook()"
-            [src]="'assets/images/icons/icon-self-edit.svg'"></svg-icon>
+          <svg-icon (click)="editSelfBook()" [src]="pathToIcons + '/icon-self-edit.svg'"></svg-icon>
           <svg-icon
             (click)="deleteSelfBook()"
-            [src]="'assets/images/icons/icon-self-trash.svg'"></svg-icon>
+            [src]="pathToIcons + '/icon-self-trash.svg'"></svg-icon>
         </div>
       }
     </div>

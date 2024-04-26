@@ -1,3 +1,4 @@
+import { environment } from '../../../../environments/environment.development';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { SvgIconComponent } from 'angular-svg-icon';
@@ -11,4 +12,7 @@ import { NgOptimizedImage } from '@angular/common';
   styleUrl: './bar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BarComponent {}
+export class BarComponent {
+  pathToIcons = environment.pathToIcons;
+  pathToImages = environment.pathToImages;
+}
