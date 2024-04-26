@@ -1,5 +1,5 @@
+import { loadSearchLiveBooks, resetSearchLiveBooks } from './search-live.actions';
 import { selectSearchLiveBooks } from './search-live.selector';
-import { loadSearchLiveBooks } from './search-live.actions';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -15,5 +15,9 @@ export class SearchLiveFacade {
   }
   getSearchLiveBooks(): Observable<string[] | null> {
     return this.store.select(selectSearchLiveBooks);
+  }
+
+  resetSearchLiveBooks(): void {
+    this.store.dispatch(resetSearchLiveBooks({ data: null }));
   }
 }

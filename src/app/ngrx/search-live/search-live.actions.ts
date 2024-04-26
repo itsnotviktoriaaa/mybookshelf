@@ -12,3 +12,8 @@ export const loadSearchLiveBooksFailure = createAction(
   '[Search Live] Load Search Live Books Failure',
   props<{ error: null }>()
 );
+
+export const resetSearchLiveBooks = createAction(
+  '[Search Live] Reset Search Live Books',
+  props<{ data: null }>()
+);

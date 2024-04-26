@@ -17,8 +17,8 @@ import {
   NotificationService,
   SearchStateService,
 } from '../../../core';
+import { ChangeDetectionStrategy, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { HeaderClickInterface, SelectedHeaderModalItemEnum } from '../../../modals/user';
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { SearchLiveFacade } from '../../../ngrx/search-live/search-live.facade';
 import { environment } from '../../../../environments/environment.development';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -114,6 +114,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           console.log(value);
           if (!value) {
             this.searchTexts$.next(null);
+            this.resetSearchLiveBooks();
             this.searchTextTransformed = '';
             return false;
           }
@@ -216,6 +217,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   searchBooks(): void {
     this.searchTexts$.next(null);
+    this.resetSearchLiveBooks();
 
     if (this.isFavoritePage$.getValue()) {
       this.router
@@ -263,6 +265,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.searchField.setValue(text, { emitEvent: false });
     this.searchTextTransformed = this.transformSearchString(text);
     this.searchTexts$.next(null);
+    this.resetSearchLiveBooks();
   }
 
   setValuesFromParams(params: Params): void {
@@ -277,6 +280,54 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (params.hasOwnProperty(SelectedHeaderModalItemEnum.Text.toLowerCase()) && params['text']) {
       this.searchField.setValue(this.transformTextFromParams(params['text']), { emitEvent: false });
       this.searchTextTransformed = this.transformTextFromParams(params['text']);
+    }
+  }
+
+  resetSearchLiveBooks(): void {
+    this.searchLiveFacade.resetSearchLiveBooks();
+  }
+
+  @HostListener('document:click', ['$event'])
+  click(event: Event) {
+    if (
+      this.allMiniModal &&
+      !(
+        (event.target as Element).closest('.header-search-modal') ||
+        (event.target as Element).closest('.header-search-all')
+      )
+    ) {
+      this.allMiniModal = false;
+    }
+
+    if (
+      this.langMiniModal &&
+      !(
+        (event.target as Element).closest('.header-lang-modal') ||
+        (event.target as Element).closest('.header-lang-info')
+      )
+    ) {
+      this.langMiniModal = false;
+    }
+
+    if (
+      this.profileMiniModal &&
+      !(
+        (event.target as Element).closest('.header-account-modal') ||
+        (event.target as Element).closest('.header-account-info')
+      )
+    ) {
+      this.profileMiniModal = false;
+    }
+
+    if (
+      this.searchTexts$.value &&
+      !(
+        (event.target as Element).closest('.header-search-offers') ||
+        (event.target as Element).closest('.header-search-input')
+      )
+    ) {
+      this.searchTexts$.next(null);
+      this.resetSearchLiveBooks();
     }
   }
 

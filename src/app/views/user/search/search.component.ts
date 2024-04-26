@@ -7,9 +7,9 @@ import {
   SelectedHeaderModalItemEnum,
 } from '../../../modals/user';
 import { ActiveParamUtil, CategoryModalSearchItems, SearchStateService } from '../../../core';
+import { ChangeDetectionStrategy, Component, HostListener, OnInit } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 import { FavoritesFacade } from '../../../ngrx/favorites/favorites.facade';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SearchFacade } from '../../../ngrx/search/search.facade';
 import { PaginationInputComponent } from '../../../UI-сomponents';
 import { SearchBookComponent } from '../../../components';
@@ -113,10 +113,10 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  // @HostListener('document:click', ['$event'])
-  // click(event: Event) {
-  //   if (this.browseMiniModal && !(event.target as Element).closest('.header-search-info')) {
-  //     this.browseMiniModal = false;
-  //   }
-  // }
+  @HostListener('document:click', ['$event'])
+  click(event: Event) {
+    if (this.browseMiniModal && !(event.target as Element).closest('.header-search-info')) {
+      this.browseMiniModal = false;
+    }
+  }
 }
