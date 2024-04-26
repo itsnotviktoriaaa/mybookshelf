@@ -12,7 +12,9 @@ import { Subject, takeUntil, tap } from 'rxjs';
 export class LoaderComponent implements OnInit, OnDestroy {
   loader: boolean = false;
   getNotificationLoaderDestroy$: Subject<void> = new Subject<void>();
+
   constructor(private notificationService: NotificationService) {}
+
   ngOnInit(): void {
     this.notificationService
       .getNotificationLoader()

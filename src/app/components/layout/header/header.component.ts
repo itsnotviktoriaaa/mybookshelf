@@ -267,18 +267,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   setValuesFromParams(params: Params): void {
     if (params.hasOwnProperty('type')) {
-      console.log(params['type'].slice(0, 1).toUpperCase() + params['type'].slice(1));
-      this.selectedHeaderModalItem.next(
-        params['type'].slice(0, 1).toUpperCase() + params['type'].slice(1)
-      );
-      this.searchStateService.setHeaderModalItem(
-        params['type'].slice(0, 1).toUpperCase() + params['type'].slice(1)
-      );
+      const transformValueToUpperCaseFromParams =
+        params['type'].slice(0, 1).toUpperCase() + params['type'].slice(1);
+
+      this.selectedHeaderModalItem.next(transformValueToUpperCaseFromParams);
+      this.searchStateService.setHeaderModalItem(transformValueToUpperCaseFromParams);
     }
 
     if (params.hasOwnProperty(SelectedHeaderModalItemEnum.Text.toLowerCase()) && params['text']) {
       this.searchField.setValue(this.transformTextFromParams(params['text']), { emitEvent: false });
-      console.log(params['text']);
       this.searchTextTransformed = this.transformTextFromParams(params['text']);
     }
   }
