@@ -4,12 +4,10 @@ import { AsyncPipe, NgClass } from '@angular/common';
 import { BehaviorSubject, Observable, of, tap } from 'rxjs';
 import { ActionsInterface, SearchSmallInterface, DetailBookSmallInfo } from '../../../types/user';
 import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
-import { TransformDateBookPipe } from '../../../shared/pipes';
-import { ReduceLetterPipe } from '../../../shared/pipes';
-import { MiniModalComponent } from '../../../shared/components';
 import { DetailBookFacade } from '../../../ngrx/detail-book/detail-book.facade';
 import { AuthorFacade } from '../../../ngrx/author/author.facade';
-import { StarComponent } from '../../../shared/components/star';
+import { ReduceLetterPipe, TransformDateBookPipe } from '../../../core';
+import { MiniModalComponent, StarComponent } from '../../../UI-сomponents';
 
 @Component({
   selector: 'app-detail-book',
@@ -82,6 +80,6 @@ export class DetailBookComponent implements OnInit {
 
   openOtherBook(authorId: string): void {
     this.miniLoader$.next({ miniLoader: true });
-    this.router.navigate(['/home/book', authorId]);
+    this.router.navigate(['/home/book', authorId]).then((): void => {});
   }
 }

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { DatabaseService } from '../../../shared/services/database.service';
 import { BehaviorSubject, map, take } from 'rxjs';
 import { DocumentData } from '@firebase/firestore';
 import { AsyncPipe } from '@angular/common';
-import { BookComponent } from '../../../shared/components';
 import { BookItemTransformedInterface } from '../../../types/user';
+import { BookComponent } from '../../../components';
+import { DatabaseService } from '../../../core';
 
 @Component({
   selector: 'app-my-books',

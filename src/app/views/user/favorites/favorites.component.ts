@@ -1,13 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { BookComponent } from '../../../shared/components';
 import { BehaviorSubject, Observable, of, tap } from 'rxjs';
 import { ActiveParamsSearchType, arrayFromBookItemTransformedInterface } from '../../../types/user';
 import { AsyncPipe } from '@angular/common';
-import { MiniModalComponent } from '../../../shared/components';
 import { FavoritesFacade } from '../../../ngrx/favorites/favorites.facade';
-import { SearchStateService } from '../../../shared/services/search-state.service';
 import { ActivatedRoute, Params } from '@angular/router';
-import { ActiveParamUtil } from '../../../shared/utils/active-param.util';
+import { BookComponent } from '../../../components';
+import { MiniModalComponent } from '../../../UI-сomponents';
+import { ActiveParamUtil, SearchStateService } from '../../../core';
 
 @Component({
   selector: 'app-favorites',

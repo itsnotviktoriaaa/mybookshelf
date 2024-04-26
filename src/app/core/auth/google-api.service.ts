@@ -12,7 +12,7 @@ import {
 import { UserInfoFromGoogle } from '../../types/auth';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment.development';
-import { ActiveParamUtil } from '../../shared/utils/active-param.util';
+import { ActiveParamUtil } from '../utils';
 
 @Injectable({
   providedIn: 'root',

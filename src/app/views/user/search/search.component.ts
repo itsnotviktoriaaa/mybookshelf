@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SvgIconComponent } from 'angular-svg-icon';
-import { SearchBookComponent } from '../../../shared/components';
 import { BehaviorSubject, filter, tap } from 'rxjs';
 import {
   ActiveParamsSearchType,
@@ -12,9 +11,9 @@ import { SearchFacade } from '../../../ngrx/search/search.facade';
 import { AsyncPipe } from '@angular/common';
 import { FavoritesFacade } from '../../../ngrx/favorites/favorites.facade';
 import { ActivatedRoute, Params } from '@angular/router';
-import { ActiveParamUtil } from '../../../shared/utils/active-param.util';
-import { SearchStateService } from '../../../shared/services/search-state.service';
-import { PaginationInputComponent } from '../../../shared/components/pagination-input/pagination-input.component';
+import { SearchBookComponent } from '../../../components';
+import { PaginationInputComponent } from '../../../UI-сomponents';
+import { ActiveParamUtil, SearchStateService } from '../../../core';
 
 @Component({
   selector: 'app-search',
