@@ -1,6 +1,6 @@
 import { loadSearchBooksFailure, loadSearchBooksSuccess } from './search.actions';
-import { SearchState } from './search.state';
 import { Action, createReducer, on } from '@ngrx/store';
+import { SearchState } from './search.state';
 
 export const initialState: SearchState = {
   search: null,

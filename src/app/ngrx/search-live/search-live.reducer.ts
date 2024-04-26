@@ -1,6 +1,6 @@
 import { loadSearchLiveBooksFailure, loadSearchLiveBooksSuccess } from './search-live.actions';
-import { SearchLiveState } from './search-live.state';
 import { Action, createReducer, on } from '@ngrx/store';
+import { SearchLiveState } from './search-live.state';
 
 export const initialState: SearchLiveState = {
   searchLive: null,

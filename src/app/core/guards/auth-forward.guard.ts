@@ -1,8 +1,8 @@
-import { environment } from '../../../environments/environment.development';
-import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivateFn, Router } from '@angular/router';
-import { OAuthService } from 'angular-oauth2-oidc';
+import { environment } from '../../../environments/environment.development';
 import { catchError, from, of, switchMap } from 'rxjs';
+import { OAuthService } from 'angular-oauth2-oidc';
+import { inject } from '@angular/core';
 
 export const authForwardGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state) => {
   const router: Router = inject(Router);

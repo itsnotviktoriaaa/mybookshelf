@@ -1,13 +1,13 @@
-import { GoogleApiService } from '../../core';
-import { DetailBookInterface, DetailBookSmallInfo } from '../../modals/user';
 import {
   loadDetailBook,
   loadDetailBookFailure,
   loadDetailBookSuccess,
 } from './detail-book.actions';
-import { Injectable } from '@angular/core';
+import { DetailBookInterface, DetailBookSmallInfo } from '../../modals/user';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
+import { GoogleApiService } from '../../core';
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class DetailBookEffects {

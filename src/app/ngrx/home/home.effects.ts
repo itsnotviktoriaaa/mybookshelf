@@ -1,10 +1,3 @@
-import { GoogleApiService } from '../../core';
-import {
-  arrayFromBookItemTransformedInterface,
-  BookInterface,
-  BookItemInterface,
-  BookItemTransformedInterface,
-} from '../../modals/user';
 import {
   loadReadingNowBooks,
   loadReadingNowBooksFailure,
@@ -13,12 +6,19 @@ import {
   loadRecommendedBooksFailure,
   loadRecommendedBooksSuccess,
 } from './home.actions';
+import {
+  arrayFromBookItemTransformedInterface,
+  BookInterface,
+  BookItemInterface,
+  BookItemTransformedInterface,
+} from '../../modals/user';
 import { selectReadingNowBooks, selectRecommendedBooks } from './home.selectors';
-import { Injectable } from '@angular/core';
 import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
-import { TypedAction } from '@ngrx/store/src/models';
 import { catchError, filter, map, of, switchMap, tap } from 'rxjs';
+import { TypedAction } from '@ngrx/store/src/models';
+import { GoogleApiService } from '../../core';
+import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class BookEffects {

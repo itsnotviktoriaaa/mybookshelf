@@ -1,18 +1,4 @@
 import {
-  AuthService,
-  GoogleApiService,
-  NotificationService,
-  SearchStateService,
-} from '../../../core';
-import { NotificationStatus, UserInfoFromGoogle } from '../../../modals/auth';
-import { HeaderClickInterface, SelectedHeaderModalItemEnum } from '../../../modals/user';
-import { SearchLiveFacade } from '../../../ngrx/search-live/search-live.facade';
-import { AsyncPipe, NgStyle } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { SvgIconComponent } from 'angular-svg-icon';
-import {
   BehaviorSubject,
   catchError,
   debounceTime,
@@ -25,6 +11,20 @@ import {
   takeUntil,
   tap,
 } from 'rxjs';
+import {
+  AuthService,
+  GoogleApiService,
+  NotificationService,
+  SearchStateService,
+} from '../../../core';
+import { HeaderClickInterface, SelectedHeaderModalItemEnum } from '../../../modals/user';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { SearchLiveFacade } from '../../../ngrx/search-live/search-live.facade';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NotificationStatus, UserInfoFromGoogle } from '../../../modals/auth';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { AsyncPipe, NgStyle } from '@angular/common';
+import { SvgIconComponent } from 'angular-svg-icon';
 
 @Component({
   selector: 'app-header',

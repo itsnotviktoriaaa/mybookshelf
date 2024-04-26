@@ -1,6 +1,6 @@
-import { arrayFromBookItemTransformedInterface } from '../../modals/user';
-import { loadReadingNowBooks, loadRecommendedBooks } from './home.actions';
 import { selectReadingNowBooks, selectRecommendedBooks } from './home.selectors';
+import { loadReadingNowBooks, loadRecommendedBooks } from './home.actions';
+import { arrayFromBookItemTransformedInterface } from '../../modals/user';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';

@@ -1,11 +1,4 @@
 import {
-  BookItemTransformedInterface,
-  SelfBookInterface,
-  SelfBookUploadInterface,
-} from '../../modals/user';
-import { AuthService } from '../auth';
-import { Injectable } from '@angular/core';
-import {
   addDoc,
   collection,
   collectionData,
@@ -15,15 +8,6 @@ import {
   getDoc,
   updateDoc,
 } from '@angular/fire/firestore';
-import {
-  deleteObject,
-  getDownloadURL,
-  ref,
-  Storage,
-  uploadBytesResumable,
-} from '@angular/fire/storage';
-import { UploadMetadata } from '@angular/fire/storage';
-import { CollectionReference, DocumentData } from '@firebase/firestore';
 import {
   catchError,
   filter,
@@ -36,6 +20,22 @@ import {
   tap,
   throwError,
 } from 'rxjs';
+import {
+  deleteObject,
+  getDownloadURL,
+  ref,
+  Storage,
+  uploadBytesResumable,
+} from '@angular/fire/storage';
+import {
+  BookItemTransformedInterface,
+  SelfBookInterface,
+  SelfBookUploadInterface,
+} from '../../modals/user';
+import { CollectionReference, DocumentData } from '@firebase/firestore';
+import { UploadMetadata } from '@angular/fire/storage';
+import { Injectable } from '@angular/core';
+import { AuthService } from '../auth';
 @Injectable({
   providedIn: 'root',
 })
@@ -183,7 +183,8 @@ export class DatabaseService {
       }
 
       const file = input.files[0];
-      const imagePath: string = `${this.path}/${path}/${file.name}`;
+      const randomId = Math.random().toString(36).substring(2);
+      const imagePath: string = `${this.path}/${path}/${randomId}_${file.name}`;
       const storageRef = ref(this.storage, imagePath);
 
       uploadBytesResumable(storageRef, file, contentType)

@@ -1,13 +1,13 @@
-import { MiniModalComponent, StarComponent } from '../../../UI-сomponents';
-import { ReduceLetterPipe, TransformDateBookPipe } from '../../../core';
 import { ActionsInterface, DetailBookSmallInfo, SearchSmallInterface } from '../../../modals/user';
-import { AuthorFacade } from '../../../ngrx/author/author.facade';
 import { DetailBookFacade } from '../../../ngrx/detail-book/detail-book.facade';
-import { AsyncPipe, NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
-import { SvgIconComponent } from 'angular-svg-icon';
+import { MiniModalComponent, StarComponent } from '../../../UI-сomponents';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ReduceLetterPipe, TransformDateBookPipe } from '../../../core';
+import { AuthorFacade } from '../../../ngrx/author/author.facade';
 import { BehaviorSubject, Observable, of, tap } from 'rxjs';
+import { AsyncPipe, NgClass } from '@angular/common';
+import { SvgIconComponent } from 'angular-svg-icon';
 
 @Component({
   selector: 'app-detail-book',

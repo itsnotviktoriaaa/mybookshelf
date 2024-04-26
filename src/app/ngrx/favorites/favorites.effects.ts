@@ -1,4 +1,3 @@
-import { GoogleApiService } from '../../core';
 import {
   arrayFromBookItemTransformedInterface,
   BookInterface,
@@ -10,9 +9,10 @@ import {
   loadFavoritesBooksFailure,
   loadFavoritesBooksSuccess,
 } from './favorites.actions';
-import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
+import { GoogleApiService } from '../../core';
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class FavoritesEffects {

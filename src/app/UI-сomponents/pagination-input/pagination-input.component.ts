@@ -1,9 +1,9 @@
-import { AsyncPipe, NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
+import { BehaviorSubject, debounceTime, distinctUntilChanged, filter, map } from 'rxjs';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { SvgIconComponent } from 'angular-svg-icon';
-import { BehaviorSubject, debounceTime, distinctUntilChanged, filter, map } from 'rxjs';
 
 @Component({
   selector: 'app-pagination-input',

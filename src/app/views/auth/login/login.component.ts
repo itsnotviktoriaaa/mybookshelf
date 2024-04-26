@@ -1,13 +1,13 @@
-import { AuthService, CodeMessageHandlerUtil, NotificationService } from '../../../core';
-import { GoogleApiService } from '../../../core';
-import { SubscribeDecorator } from '../../../decorators/subscribe-decorator';
-import { NotificationStatus, UserInfoFromGoogle } from '../../../modals/auth';
-import { NgOptimizedImage, NgStyle } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService, CodeMessageHandlerUtil, NotificationService } from '../../../core';
+import { NotificationStatus, UserInfoFromGoogle } from '../../../modals/auth';
+import { SubscribeDecorator } from '../../../decorators/subscribe-decorator';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { NgOptimizedImage, NgStyle } from '@angular/common';
+import { catchError, EMPTY, Observable, tap } from 'rxjs';
 import { Router, RouterLink } from '@angular/router';
 import { SvgIconComponent } from 'angular-svg-icon';
-import { catchError, EMPTY, Observable, tap } from 'rxjs';
+import { GoogleApiService } from '../../../core';
 
 @Component({
   selector: 'app-login',
