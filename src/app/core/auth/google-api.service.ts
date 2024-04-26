@@ -9,7 +9,6 @@ import {
   DetailBookInterface,
   ActiveParamsSearchType,
 } from '../../types/user';
-import { oAuthConfig } from '../../config';
 import { UserInfoFromGoogle } from '../../types/auth';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment.development';
@@ -30,7 +29,7 @@ export class GoogleApiService {
 
   initiateAuthentication(): void {
     console.log('here');
-    this.oAuthService.configure(oAuthConfig);
+    this.oAuthService.configure(environment.oAuthConfig);
     this.oAuthService.loadDiscoveryDocument().then(() => {
       this.oAuthService.tryLoginImplicitFlow().then(() => {
         if (!this.oAuthService.hasValidAccessToken()) {
