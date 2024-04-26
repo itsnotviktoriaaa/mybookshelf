@@ -10,95 +10,35 @@
     </div>
     <nav class="menu">
       <ul class="menu-ul">
-        <li class="menu-item">
-          <a
-            class="menu-item-a"
-            routerLink="/home"
-            routerLinkActive="menu-active"
-            [routerLinkActiveOptions]="{ exact: true }">
-            <span class="icon">
-              <svg-icon [src]="pathToIcons + '/bar-home.svg'"></svg-icon>
-            </span>
-            <span class="text">Home</span>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a
-            class="menu-item-a"
-            routerLink="/home/search"
-            routerLinkActive="menu-active"
-            [routerLinkActiveOptions]="{ exact: true }">
-            <span class="icon">
-              <svg-icon [src]="pathToIcons + '/bar-search.svg'"></svg-icon>
-            </span>
-            <span class="text">Search</span>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a
-            class="menu-item-a"
-            routerLink="/home/favorites"
-            routerLinkActive="menu-active"
-            [routerLinkActiveOptions]="{ exact: true }">
-            <span class="icon">
-              <svg-icon [src]="pathToIcons + '/bar-favorites.svg'"></svg-icon>
-            </span>
-            <span class="text">Favorites</span>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a
-            class="menu-item-a"
-            routerLink="/home/books"
-            routerLinkActive="menu-active"
-            [routerLinkActiveOptions]="{ exact: true }">
-            <span class="icon">
-              <svg-icon [src]="pathToIcons + '/bar-favorites.svg'"></svg-icon>
-            </span>
-            <span class="text">My Books</span>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a
-            class="menu-item-a"
-            routerLink="/home/upload"
-            routerLinkActive="menu-active"
-            [routerLinkActiveOptions]="{ exact: true }">
-            <span class="icon">
-              <svg-icon [src]="pathToIcons + '/bar-upload.svg'"></svg-icon>
-            </span>
-            <span class="text">Upload</span>
-          </a>
-        </li>
+        @for (menuItem of menuItems; track menuItem) {
+          <li class="menu-item">
+            <a
+              class="menu-item-a"
+              [routerLink]="menuItem.routerLink"
+              routerLinkActive="menu-active"
+              [routerLinkActiveOptions]="{ exact: true }">
+              <span class="icon">
+                <svg-icon [src]="pathToIcons + menuItem.icon"></svg-icon>
+              </span>
+              <span class="text">{{ menuItem.text }}</span>
+            </a>
+          </li>
+        }
       </ul>
     </nav>
   </div>
   <div class="bar-bottom">
     <ul>
-      <li>
-        <a
-          routerLink="/home/about"
-          routerLinkActive="menu-active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          >About</a
-        >
-      </li>
-      <li>
-        <a
-          routerLink="/home/support"
-          routerLinkActive="menu-active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          >Support</a
-        >
-      </li>
-      <li>
-        <a
-          routerLink="/home/terms"
-          routerLinkActive="menu-active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          >Terms & Condition</a
-        >
-      </li>
+      @for (menuBelowBarItem of menuBelowBarItems; track menuBelowBarItem) {
+        <li>
+          <a
+            [routerLink]="menuBelowBarItem.routerLink"
+            routerLinkActive="menu-active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >{{ menuBelowBarItem.text }}</a
+          >
+        </li>
+      }
     </ul>
   </div>
 </aside>
