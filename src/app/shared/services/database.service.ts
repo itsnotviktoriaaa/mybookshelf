@@ -167,19 +167,34 @@ export class DatabaseService {
     );
   }
 
-  async uploadToStorage(path: string, input: HTMLInputElement, contentType: UploadMetadata) {
-    if (!input.files) return null;
-    const files: FileList = input.files;
-    for (let i = 0; i < files.length; i++) {
-      const file = files.item(i);
-      if (file) {
-        const imagePath: string = `${this.path}/${path}/${file.name}`;
-        const storageRef = ref(this.storage, imagePath);
-        await uploadBytesResumable(storageRef, file, contentType);
-        return await getDownloadURL(storageRef);
+  uploadToStorage(
+    path: string,
+    input: HTMLInputElement,
+    contentType: UploadMetadata
+  ): Observable<string | null> {
+    return new Observable<string | null>(observer => {
+      if (!input.files || input.files.length === 0) {
+        observer.next(null);
+        observer.complete();
+        return;
       }
-    }
-    return null;
+
+      const file = input.files[0];
+      const imagePath: string = `${this.path}/${path}/${file.name}`;
+      const storageRef = ref(this.storage, imagePath);
+
+      uploadBytesResumable(storageRef, file, contentType)
+        .then(() => getDownloadURL(storageRef))
+        .then(url => {
+          if (typeof url === 'string') {
+            observer.next(url);
+          }
+          observer.complete();
+        })
+        .catch(error => {
+          observer.error(error);
+        });
+    });
   }
 
   uploadFilesAndCreateBook(
@@ -191,28 +206,26 @@ export class DatabaseService {
     photoContentType: string,
     selfBook: SelfBookUploadInterface
   ): Observable<void> {
-    return new Observable(observer => {
-      Promise.all([
-        this.uploadToStorage(pdfPath, pdfInput, pdfContentType as UploadMetadata),
-        this.uploadToStorage(photoPath, photoInput, photoContentType as UploadMetadata),
-      ])
-        .then(([webReaderLink, thumbnail]): void => {
+    return forkJoin([
+      this.uploadToStorage(pdfPath, pdfInput, pdfContentType as UploadMetadata),
+      this.uploadToStorage(photoPath, photoInput, photoContentType as UploadMetadata),
+    ]).pipe(
+      switchMap(([webReaderLink, thumbnail]) => {
+        if (webReaderLink && thumbnail) {
           const selfBookAfterUploadedFiles: SelfBookUploadInterface | SelfBookInterface = selfBook;
-          if (webReaderLink && thumbnail) {
-            (selfBookAfterUploadedFiles as SelfBookInterface).webReaderLink = webReaderLink;
-            (selfBookAfterUploadedFiles as SelfBookInterface).thumbnail = thumbnail;
-            this.createSelfBook(selfBookAfterUploadedFiles as SelfBookInterface).subscribe({
-              next: () => observer.next(),
-              error: error => observer.error(error),
-              complete: () => observer.complete(),
-            });
-          } else {
-            observer.error(new Error('Failed to upload files'));
-          }
-        })
-        .catch(error => {
-          observer.error(error);
-        });
-    });
+          (selfBookAfterUploadedFiles as SelfBookInterface).webReaderLink = webReaderLink;
+          (selfBookAfterUploadedFiles as SelfBookInterface).thumbnail = thumbnail;
+          return this.createSelfBook(selfBookAfterUploadedFiles as SelfBookInterface).pipe(
+            catchError(error => throwError(() => error)),
+            switchMap(() => of(undefined))
+          );
+        } else {
+          return throwError(() => new Error('Failed to upload files'));
+        }
+      }),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
   }
 }

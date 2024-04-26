@@ -9,7 +9,18 @@ import { AsyncPipe, NgStyle } from '@angular/common';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NotificationService } from '../../../shared/services';
 import { NotificationStatus } from '../../../types/auth';
-import { BehaviorSubject, catchError, EMPTY, finalize, switchMap, take, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  catchError,
+  EMPTY,
+  finalize,
+  forkJoin,
+  Observable,
+  of,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs';
 import { UploadMetadata } from '@angular/fire/storage';
 import { SvgIconComponent } from 'angular-svg-icon';
 
@@ -137,7 +148,6 @@ export class UploadComponent implements OnInit {
               this.photoFileInput.nativeElement.value = '';
             }
             this.notificationService.notifyAboutNotificationLoader(false);
-            console.log('Book created:');
             this.notificationService.notifyAboutNotification({
               message: 'Book created',
               status: NotificationStatus.success,
@@ -169,50 +179,42 @@ export class UploadComponent implements OnInit {
         thumbnail: this.photoUrl.value,
       };
 
-      if (this.pdfFile && this.pdfUrl.value) {
-        this.databaseService
-          .deleteFileByUrl(this.pdfUrl.value)
-          .pipe(
-            tap(() => {
-              console.log('Previous PDF file deleted successfully');
-            }),
-            catchError(error => {
-              console.error('Error deleting previous PDF file:', error);
-              return EMPTY;
-            })
-          )
-          .subscribe();
-      }
+      const deletePreviousPdf$ =
+        this.pdfFile && this.pdfUrl.value
+          ? this.databaseService.deleteFileByUrl(this.pdfUrl.value).pipe(
+              tap(() => console.log('Previous PDF file deleted successfully')),
+              catchError(error => {
+                console.error('Error deleting previous PDF file:', error);
+                return EMPTY;
+              })
+            )
+          : of(null);
 
-      if (this.photoFile && this.photoUrl.value) {
-        this.databaseService
-          .deleteFileByUrl(this.photoUrl.value)
-          .pipe(
-            tap(() => {
-              console.log('Previous photo deleted successfully');
-            }),
-            catchError(error => {
-              console.error('Error deleting previous photo:', error);
-              return EMPTY;
-            })
-          )
-          .subscribe();
-      }
+      const deletePreviousPhoto$ =
+        this.photoFile && this.photoUrl.value
+          ? this.databaseService.deleteFileByUrl(this.photoUrl.value).pipe(
+              tap(() => console.log('Previous photo deleted successfully')),
+              catchError(error => {
+                console.error('Error deleting previous photo:', error);
+                return EMPTY;
+              })
+            )
+          : of(null);
 
-      const uploadPdfPromise = this.pdfFile
+      const uploadPdf$ = this.pdfFile
         ? this.uploadFile('pdfs', this.pdfFileInput?.nativeElement, 'application/pdf')
-        : Promise.resolve(null);
+        : of(null);
 
-      const uploadPhotoPromise = this.photoFile
+      const uploadPhoto$ = this.photoFile
         ? this.uploadFile(
             'photos',
             this.photoFileInput?.nativeElement,
             (this.photoFile as File).type
           )
-        : Promise.resolve(null);
+        : of(null);
 
-      Promise.all([uploadPdfPromise, uploadPhotoPromise])
-        .then(([webReaderLink, thumbnail]) => {
+      forkJoin([deletePreviousPdf$, deletePreviousPhoto$, uploadPdf$, uploadPhoto$]).subscribe({
+        next: ([, , webReaderLink, thumbnail]) => {
           if (webReaderLink) {
             selfBook.webReaderLink = webReaderLink;
           }
@@ -244,11 +246,12 @@ export class UploadComponent implements OnInit {
               )
               .subscribe();
           }
-        })
-        .catch(error => {
+        },
+        error: error => {
           this.notificationService.notifyAboutNotificationLoader(false);
           console.error('Error uploading files:', error);
-        });
+        },
+      });
     }
   }
 
@@ -256,7 +259,7 @@ export class UploadComponent implements OnInit {
     folder: string,
     inputElement: HTMLInputElement,
     contentType: string
-  ): Promise<string | null> {
+  ): Observable<string | null> {
     return this.databaseService.uploadToStorage(
       folder,
       inputElement,
