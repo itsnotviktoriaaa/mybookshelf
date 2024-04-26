@@ -74,6 +74,18 @@
         }
       </div>
       <div class="upload-item-wrapper">
+        @if ((pdfUrl | async) && !pdfFile) {
+          <div class="upload-image-wrapper">
+            <div class="upload-image">
+              <svg-icon
+                [svgStyle]="{ width: '60px', height: '60px' }"
+                [src]="'assets/images/icons/icon-pdf.svg'"></svg-icon>
+            </div>
+            <span class="upload-image-text"
+              >If you want to change your pdf, you can add it below. If not, do not touch it</span
+            >
+          </div>
+        }
         <div class="upload-item">
           <label class="upload-label" for="pdfFile">File</label>
           <input
@@ -86,6 +98,14 @@
         </div>
       </div>
       <div class="upload-item-wrapper">
+        @if ((photoUrl | async) && !photoFile) {
+          <div class="upload-image-wrapper">
+            <div class="upload-image" style="background-image: url({{ photoUrl | async }})"></div>
+            <span class="upload-image-text"
+              >If you want to change your image, you can add it below. If not, do not touch it</span
+            >
+          </div>
+        }
         <div class="upload-item">
           <label class="upload-label" for="photoFile">Image</label>
           <input

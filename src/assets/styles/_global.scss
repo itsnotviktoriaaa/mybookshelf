@@ -279,3 +279,22 @@ li {
 .content-info-edition {
   font-size: 0.6em;
 }
+
+.upload-image-wrapper {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+  margin: 15px 0;
+}
+
+.upload-image {
+  width: 60px;
+  height: 60px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.upload-image-text {
+  font-size: 12px;
+}

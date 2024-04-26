@@ -5,17 +5,18 @@ import {
   SelfBookInterface,
   SelfBookUploadInterface,
 } from '../../../types/user/self-book.interface';
-import { NgStyle } from '@angular/common';
+import { AsyncPipe, NgStyle } from '@angular/common';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NotificationService } from '../../../shared/services';
 import { NotificationStatus } from '../../../types/auth';
-import { catchError, EMPTY, finalize, switchMap, take, tap } from 'rxjs';
+import { BehaviorSubject, catchError, EMPTY, finalize, switchMap, take, tap } from 'rxjs';
 import { UploadMetadata } from '@angular/fire/storage';
+import { SvgIconComponent } from 'angular-svg-icon';
 
 @Component({
   selector: 'app-upload',
   standalone: true,
-  imports: [ReactiveFormsModule, NgStyle],
+  imports: [ReactiveFormsModule, NgStyle, AsyncPipe, SvgIconComponent],
   templateUrl: './upload.component.html',
   styleUrl: './upload.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,8 +30,8 @@ export class UploadComponent implements OnInit {
   uploadForm!: FormGroup;
   edit: boolean = false;
   id: string | null = null;
-  pdfUrl: string | null = null;
-  photoUrl: string | null = null;
+  pdfUrl = new BehaviorSubject<string | null>(null);
+  photoUrl = new BehaviorSubject<string | null>(null);
 
   constructor(
     private databaseService: DatabaseService,
@@ -53,8 +54,8 @@ export class UploadComponent implements OnInit {
         this.edit = true;
       } else {
         this.uploadForm.reset();
-        this.photoUrl = null;
-        this.pdfUrl = null;
+        this.photoUrl.next(null);
+        this.pdfUrl.next(null);
         this.id = null;
         this.edit = false;
         if (this.pdfFileInput && this.pdfFileInput.nativeElement) {
@@ -157,20 +158,20 @@ export class UploadComponent implements OnInit {
   }
 
   editSelfBook(): void {
-    if (this.pdfUrl && this.photoUrl) {
+    if (this.pdfUrl.value && this.photoUrl.value) {
       this.notificationService.notifyAboutNotificationLoader(true);
       const selfBook: SelfBookInterface = {
         title: this.uploadForm.controls['title'].value,
         author: [this.uploadForm.controls['author'].value],
         description: this.uploadForm.controls['description'].value,
         publishedDate: new Date().toISOString(),
-        webReaderLink: this.pdfUrl,
-        thumbnail: this.photoUrl,
+        webReaderLink: this.pdfUrl.value,
+        thumbnail: this.photoUrl.value,
       };
 
-      if (this.pdfFile && this.pdfUrl) {
+      if (this.pdfFile && this.pdfUrl.value) {
         this.databaseService
-          .deleteFileByUrl(this.pdfUrl)
+          .deleteFileByUrl(this.pdfUrl.value)
           .pipe(
             tap(() => {
               console.log('Previous PDF file deleted successfully');
@@ -183,9 +184,9 @@ export class UploadComponent implements OnInit {
           .subscribe();
       }
 
-      if (this.photoFile && this.photoUrl) {
+      if (this.photoFile && this.photoUrl.value) {
         this.databaseService
-          .deleteFileByUrl(this.photoUrl)
+          .deleteFileByUrl(this.photoUrl.value)
           .pipe(
             tap(() => {
               console.log('Previous photo deleted successfully');
@@ -276,8 +277,8 @@ export class UploadComponent implements OnInit {
               author: selfBook.author[0],
               description: selfBook.description,
             });
-            this.pdfUrl = selfBook.webReaderLink;
-            this.photoUrl = selfBook.thumbnail;
+            this.pdfUrl.next(selfBook.webReaderLink);
+            this.photoUrl.next(selfBook.thumbnail);
           }
           return EMPTY;
         }),

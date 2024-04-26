@@ -249,7 +249,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   setValuesFromParams(params: Params): void {
-    console.log(params);
     if (params.hasOwnProperty('type')) {
       console.log(params['type'].slice(0, 1).toUpperCase() + params['type'].slice(1));
       this.selectedHeaderModalItem.next(
