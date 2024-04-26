@@ -1,8 +1,8 @@
 import { LayoutComponent } from './components';
-import { SignupComponent } from './views';
 import { authForwardGuard } from './core';
-import { Routes } from '@angular/router';
+import { SignupComponent } from './views';
 import { LoginComponent } from './views';
+import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {

@@ -1,6 +1,6 @@
-import { selectDetailBook } from './detail-book.selector';
 import { DetailBookSmallInfo } from '../../modals/user';
 import { loadDetailBook } from './detail-book.actions';
+import { selectDetailBook } from './detail-book.selector';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';

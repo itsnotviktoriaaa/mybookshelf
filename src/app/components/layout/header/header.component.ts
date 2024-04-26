@@ -1,4 +1,18 @@
 import {
+  AuthService,
+  GoogleApiService,
+  NotificationService,
+  SearchStateService,
+} from '../../../core';
+import { NotificationStatus, UserInfoFromGoogle } from '../../../modals/auth';
+import { HeaderClickInterface, SelectedHeaderModalItemEnum } from '../../../modals/user';
+import { SearchLiveFacade } from '../../../ngrx/search-live/search-live.facade';
+import { AsyncPipe, NgStyle } from '@angular/common';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { SvgIconComponent } from 'angular-svg-icon';
+import {
   BehaviorSubject,
   catchError,
   debounceTime,
@@ -11,20 +25,6 @@ import {
   takeUntil,
   tap,
 } from 'rxjs';
-import {
-  AuthService,
-  GoogleApiService,
-  NotificationService,
-  SearchStateService,
-} from '../../../core';
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { SearchLiveFacade } from '../../../ngrx/search-live/search-live.facade';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NotificationStatus, UserInfoFromGoogle } from '../../../modals/auth';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { HeaderClickInterface } from '../../../modals/user';
-import { AsyncPipe, NgStyle } from '@angular/common';
-import { SvgIconComponent } from 'angular-svg-icon';
 
 @Component({
   selector: 'app-header',
@@ -41,8 +41,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
   selectedHeaderModalItem = new BehaviorSubject<string | null>(null);
   isFavoritePage$ = new BehaviorSubject<boolean>(false);
   paramsFromUrl: Params = {};
-  headerModalLangItems: string[] = ['Eng', 'Rus'];
-  headerModalItems: string[] = ['All', 'Title', 'Author', 'Text', 'Subject'];
+  headerModalLangItems = ['Eng', 'Rus'];
+  headerModalItems: SelectedHeaderModalItemEnum[] = [
+    SelectedHeaderModalItemEnum.All,
+    SelectedHeaderModalItemEnum.Title,
+    SelectedHeaderModalItemEnum.Author,
+    SelectedHeaderModalItemEnum.Text,
+    SelectedHeaderModalItemEnum.Subject,
+  ];
   headerModalAccountItems: string[] = ['Profile', 'Favourite', 'My Books', 'Logout'];
   protected readonly HeaderClickInterfaceEnum = HeaderClickInterface;
   searchField: FormControl = new FormControl();
@@ -69,14 +75,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.selectedHeaderModalItem.next('All');
+    this.selectedHeaderModalItem.next(SelectedHeaderModalItemEnum.All);
 
     this.searchStateService
       .getSearchCategory()
       .pipe(
         tap((category: string): void => {
           if (category.toLowerCase() !== 'browse') {
-            this.selectedHeaderModalItem.next('Subject');
+            this.selectedHeaderModalItem.next(SelectedHeaderModalItemEnum.Subject);
           }
         })
       )
@@ -93,7 +99,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         tap((param: boolean): void => {
           this.isFavoritePage$.next(param);
           if (!this.paramsFromUrl['type']) {
-            this.selectedHeaderModalItem.next('All');
+            this.selectedHeaderModalItem.next(SelectedHeaderModalItemEnum.All);
           }
         })
       )
@@ -119,7 +125,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       )
       .subscribe((value: string): void => {
         if (value && value.length > 4 && !this.isFavoritePage$.getValue()) {
-          if (this.selectedHeaderModalItem.getValue()!.toLowerCase() !== 'subject') {
+          if (
+            this.selectedHeaderModalItem.getValue()!.toLowerCase() !==
+            SelectedHeaderModalItemEnum.Subject.toLowerCase()
+          ) {
             this.searchLiveFacade.loadSearchLiveBooks(
               value,
               this.selectedHeaderModalItem.getValue()!.toLowerCase()
@@ -227,7 +236,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
           if (!window.location.href.includes('search')) {
             categoryNew = 'computers';
           }
-          if (this.selectedHeaderModalItem.getValue()?.toLowerCase() !== 'subject') {
+          if (
+            this.selectedHeaderModalItem.getValue()?.toLowerCase() !==
+            SelectedHeaderModalItemEnum.Subject.toLowerCase()
+          ) {
             categoryNew = 'browse';
           }
 
@@ -262,7 +274,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       );
     }
 
-    if (params.hasOwnProperty('text') && params['text']) {
+    if (params.hasOwnProperty(SelectedHeaderModalItemEnum.Text.toLowerCase()) && params['text']) {
       this.searchField.setValue(this.transformTextFromParams(params['text']), { emitEvent: false });
       console.log(params['text']);
       this.searchTextTransformed = this.transformTextFromParams(params['text']);

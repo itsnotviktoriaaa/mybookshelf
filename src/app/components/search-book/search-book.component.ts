@@ -1,3 +1,6 @@
+import { GoogleApiService, NotificationService, TransformDateBookPipe } from '../../core';
+import { NotificationStatus } from '../../modals/auth';
+import { SearchDetailInterface } from '../../modals/user';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -5,12 +8,9 @@ import {
   Input,
   OnChanges,
 } from '@angular/core';
-import { GoogleApiService, NotificationService, TransformDateBookPipe } from '../../core';
-import { SearchDetailInterface } from '../../modals/user';
-import { catchError, EMPTY, finalize, tap } from 'rxjs';
-import { NotificationStatus } from '../../modals/auth';
-import { SvgIconComponent } from 'angular-svg-icon';
 import { Router } from '@angular/router';
+import { SvgIconComponent } from 'angular-svg-icon';
+import { catchError, EMPTY, finalize, tap } from 'rxjs';
 
 @Component({
   selector: 'app-search-book',

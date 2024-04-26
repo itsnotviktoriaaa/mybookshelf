@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NotificationService } from '../../core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil, tap } from 'rxjs';
 
 @Component({

@@ -5,13 +5,13 @@ import {
   TransformDateBookPipe,
   TransformFavoriteDatePipe,
 } from '../../core';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { BookItemTransformedInterface } from '../../modals/user';
-import { catchError, EMPTY, exhaustMap, finalize } from 'rxjs';
 import { NotificationStatus } from '../../modals/auth';
-import { SvgIconComponent } from 'angular-svg-icon';
+import { BookItemTransformedInterface } from '../../modals/user';
 import { NgClass, NgStyle } from '@angular/common';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { SvgIconComponent } from 'angular-svg-icon';
+import { catchError, EMPTY, exhaustMap, finalize } from 'rxjs';
 
 @Component({
   selector: 'app-book',

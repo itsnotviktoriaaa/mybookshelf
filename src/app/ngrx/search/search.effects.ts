@@ -1,10 +1,10 @@
-import { loadSearchBooks, loadSearchBooksFailure, loadSearchBooksSuccess } from './search.actions';
-import { SearchDetailInterface, SearchInfoDetail, SearchInterface } from '../../modals/user';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, of, switchMap } from 'rxjs';
-import { TypedAction } from '@ngrx/store/src/models';
 import { GoogleApiService } from '../../core';
+import { SearchDetailInterface, SearchInfoDetail, SearchInterface } from '../../modals/user';
+import { loadSearchBooks, loadSearchBooksFailure, loadSearchBooksSuccess } from './search.actions';
 import { Injectable } from '@angular/core';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { TypedAction } from '@ngrx/store/src/models';
+import { catchError, map, of, switchMap } from 'rxjs';
 
 @Injectable()
 export class SearchEffects {

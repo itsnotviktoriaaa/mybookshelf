@@ -1,12 +1,12 @@
+import { MiniModalComponent } from '../../../UI-сomponents';
+import { BookComponent } from '../../../components';
 import { ActiveParamsType, arrayFromBookItemTransformedInterface } from '../../../modals/user';
+import { HomeFacade } from '../../../ngrx/home/home.facade';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { HomeFacade } from '../../../ngrx/home/home.facade';
-import { MiniModalComponent } from '../../../UI-сomponents';
-import { BehaviorSubject, Observable, of, tap } from 'rxjs';
-import { AsyncPipe, NgClass } from '@angular/common';
-import { BookComponent } from '../../../components';
 import { SvgIconComponent } from 'angular-svg-icon';
+import { BehaviorSubject, Observable, of, tap } from 'rxjs';
 
 @Component({
   selector: 'app-show-all',

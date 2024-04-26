@@ -1,14 +1,19 @@
+import { GoogleApiService } from '../../core';
+import {
+  SearchDetailInterface,
+  SearchInfoDetail,
+  SearchInterface,
+  SelectedHeaderModalItemEnum,
+} from '../../modals/user';
 import {
   loadSearchLiveBooks,
   loadSearchLiveBooksFailure,
   loadSearchLiveBooksSuccess,
 } from './search-live.actions';
-import { SearchDetailInterface, SearchInfoDetail, SearchInterface } from '../../modals/user';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, of, switchMap } from 'rxjs';
-import { TypedAction } from '@ngrx/store/src/models';
-import { GoogleApiService } from '../../core';
 import { Injectable } from '@angular/core';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { TypedAction } from '@ngrx/store/src/models';
+import { catchError, map, of, switchMap } from 'rxjs';
 
 @Injectable()
 export class SearchLiveEffects {
@@ -44,16 +49,16 @@ export class SearchLiveEffects {
                 const typeFromInput: string = action.typeFromInput.toLowerCase();
 
                 if (
-                  typeFromInput === 'title' ||
-                  typeFromInput === 'text' ||
-                  typeFromInput == 'all'
+                  typeFromInput === SelectedHeaderModalItemEnum.Title.toLowerCase() ||
+                  typeFromInput === SelectedHeaderModalItemEnum.Text.toLowerCase() ||
+                  typeFromInput == SelectedHeaderModalItemEnum.All.toLowerCase()
                 ) {
                   if (item.title) {
                     return item.title;
                   }
                 }
 
-                if (typeFromInput === 'author') {
+                if (typeFromInput === SelectedHeaderModalItemEnum.Author.toLowerCase()) {
                   if (item.authors && item.authors.length > 0) {
                     return item.authors[0];
                   }

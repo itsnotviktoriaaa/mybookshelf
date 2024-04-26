@@ -1,4 +1,8 @@
-import { ActiveParamsSearchType, NamesOfKeys } from '../../modals/user';
+import {
+  ActiveParamsSearchType,
+  NamesOfKeys,
+  SelectedHeaderModalItemEnum,
+} from '../../modals/user';
 import { Params } from '@angular/router';
 
 export class ActiveParamUtil {
@@ -40,7 +44,7 @@ export class ActiveParamUtil {
       }
     }
 
-    if (params.hasOwnProperty('text')) {
+    if (params.hasOwnProperty(SelectedHeaderModalItemEnum.Text.toLowerCase())) {
       textFromInput = params['text'];
     }
 
@@ -109,7 +113,7 @@ export class ActiveParamUtil {
       startIndex: 0,
     };
 
-    if (params.hasOwnProperty('text')) {
+    if (params.hasOwnProperty(SelectedHeaderModalItemEnum.Text.toLowerCase())) {
       activeParams.q = params['text'];
     }
 

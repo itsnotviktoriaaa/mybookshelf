@@ -1,6 +1,6 @@
 import { SearchSmallInterface } from '../../modals/user';
-import { selectAuthor } from './author.selector';
 import { loadAuthor } from './author.actions';
+import { selectAuthor } from './author.selector';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';

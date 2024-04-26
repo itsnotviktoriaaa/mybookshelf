@@ -1,6 +1,6 @@
 import { loadDetailBookFailure, loadDetailBookSuccess } from './detail-book.actions';
-import { Action, createReducer, on } from '@ngrx/store';
 import { DetailBookState } from './detail-book.state';
+import { Action, createReducer, on } from '@ngrx/store';
 
 export const initialState: DetailBookState = {
   detailBook: null,

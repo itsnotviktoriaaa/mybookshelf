@@ -1,12 +1,15 @@
-import { BehaviorSubject, Observable } from 'rxjs';
+import { SelectedHeaderModalItemEnum } from '../../modals/user';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SearchStateService {
   private searchCategory$: BehaviorSubject<string> = new BehaviorSubject<string>('Browse');
-  private searchType$: BehaviorSubject<string> = new BehaviorSubject<string>('All');
+  private searchType$: BehaviorSubject<string> = new BehaviorSubject<string>(
+    SelectedHeaderModalItemEnum.All
+  );
   private isFavoritePage$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   constructor() {}
 

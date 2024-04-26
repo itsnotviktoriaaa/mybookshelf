@@ -1,18 +1,18 @@
+import { environment } from '../../../environments/environment.development';
+import { UserInfoFromGoogle } from '../../modals/auth';
 import {
   ActiveParamsSearchType,
   BookInterface,
   DetailBookInterface,
   SearchInfoDetail,
 } from '../../modals/user';
-import { environment } from '../../../environments/environment.development';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { UserInfoFromGoogle } from '../../modals/auth';
-import { OAuthService } from 'angular-oauth2-oidc';
-import { AuthService } from './auth.service';
-import { Injectable } from '@angular/core';
 import { ActiveParamUtil } from '../utils';
+import { AuthService } from './auth.service';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { OAuthService } from 'angular-oauth2-oidc';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

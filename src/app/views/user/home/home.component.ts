@@ -1,15 +1,15 @@
-import { SubscribeDecorator } from '../../../decorators/subscribe-decorator';
-import { arrayFromBookItemTransformedInterface } from '../../../modals/user';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { HomeFacade } from '../../../ngrx/home/home.facade';
 import { MiniModalComponent } from '../../../UI-сomponents';
-import { UserInfoFromGoogle } from '../../../modals/auth';
 import { GoogleHomeComponent } from '../../../components';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { BookComponent } from '../../../components';
 import { GoogleApiService } from '../../../core';
-import { RouterLink } from '@angular/router';
+import { SubscribeDecorator } from '../../../decorators/subscribe-decorator';
+import { UserInfoFromGoogle } from '../../../modals/auth';
+import { arrayFromBookItemTransformedInterface } from '../../../modals/user';
+import { HomeFacade } from '../../../ngrx/home/home.facade';
 import { AsyncPipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-home',
