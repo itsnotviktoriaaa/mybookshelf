@@ -16,8 +16,6 @@ import {
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AsyncPipe, NgStyle } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HeaderClickInterface } from '../../../types/user';
-import { NotificationStatus, UserInfoFromGoogle } from '../../../types/auth';
 import {
   AuthService,
   GoogleApiService,
@@ -25,6 +23,8 @@ import {
   SearchStateService,
 } from '../../../core';
 import { SearchLiveFacade } from '../../../ngrx/search-live/search-live.facade';
+import { HeaderClickInterface } from '../../../modals/user';
+import { NotificationStatus, UserInfoFromGoogle } from '../../../modals/auth';
 
 @Component({
   selector: 'app-header',

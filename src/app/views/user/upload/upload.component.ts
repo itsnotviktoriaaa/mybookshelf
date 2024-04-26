@@ -1,12 +1,7 @@
 import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import {
-  SelfBookInterface,
-  SelfBookUploadInterface,
-} from '../../../types/user/self-book.interface';
 import { AsyncPipe, NgStyle } from '@angular/common';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { NotificationStatus } from '../../../types/auth';
 import {
   BehaviorSubject,
   catchError,
@@ -22,6 +17,8 @@ import {
 import { UploadMetadata } from '@angular/fire/storage';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { DatabaseService, NotificationService } from '../../../core';
+import { NotificationStatus } from '../../../modals/auth';
+import { SelfBookInterface, SelfBookUploadInterface } from '../../../modals/user';
 
 @Component({
   selector: 'app-upload',

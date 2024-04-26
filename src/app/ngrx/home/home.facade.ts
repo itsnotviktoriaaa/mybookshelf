@@ -1,9 +1,9 @@
 import { Store } from '@ngrx/store';
 import { loadReadingNowBooks, loadRecommendedBooks } from './home.actions';
 import { Observable } from 'rxjs';
-import { arrayFromBookItemTransformedInterface } from '../../types/user';
 import { selectReadingNowBooks, selectRecommendedBooks } from './home.selectors';
 import { Injectable } from '@angular/core';
+import { arrayFromBookItemTransformedInterface } from '../../modals/user';
 
 @Injectable({
   providedIn: 'root',

@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { DetailBookSmallInfo } from '../../types/user';
+import { DetailBookSmallInfo } from '../../modals/user';
 
 export const loadDetailBook = createAction(
   '[Detail Book] Load Detail Book',

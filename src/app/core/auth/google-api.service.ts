@@ -3,16 +3,16 @@ import { OAuthService } from 'angular-oauth2-oidc';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { AuthService } from './auth.service';
-import {
-  SearchInfoDetail,
-  BookInterface,
-  DetailBookInterface,
-  ActiveParamsSearchType,
-} from '../../types/user';
-import { UserInfoFromGoogle } from '../../types/auth';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment.development';
 import { ActiveParamUtil } from '../utils';
+import { UserInfoFromGoogle } from '../../modals/auth';
+import {
+  ActiveParamsSearchType,
+  BookInterface,
+  DetailBookInterface,
+  SearchInfoDetail,
+} from '../../modals/user';
 
 @Injectable({
   providedIn: 'root',

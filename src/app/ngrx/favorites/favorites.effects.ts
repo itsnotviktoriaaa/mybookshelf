@@ -12,7 +12,7 @@ import {
   BookInterface,
   BookItemInterface,
   BookItemTransformedInterface,
-} from '../../types/user';
+} from '../../modals/user';
 
 @Injectable()
 export class FavoritesEffects {

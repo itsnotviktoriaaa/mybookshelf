@@ -13,9 +13,9 @@ import {
 } from '../../../core';
 import emailJs, { EmailJSResponseStatus } from '@emailjs/browser';
 import { catchError, EMPTY, finalize, Observable, of, Subject, tap } from 'rxjs';
-import { NotificationStatus, UserSignInterface } from '../../../types/auth';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { SubscribeDecorator } from '../../../decorators/subscribe-decorator';
+import { NotificationStatus, UserSignInterface } from '../../../modals/auth';
 
 @Component({
   selector: 'app-signup',

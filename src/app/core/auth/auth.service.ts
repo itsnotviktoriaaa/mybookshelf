@@ -9,7 +9,7 @@ import {
   user,
 } from '@angular/fire/auth';
 import { from, Observable } from 'rxjs';
-import { UserInterface } from '../../types/auth';
+import { UserInterface } from '../../modals/auth';
 type User = import('firebase/auth').User;
 
 @Injectable({

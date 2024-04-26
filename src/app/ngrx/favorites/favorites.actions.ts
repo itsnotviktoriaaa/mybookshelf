@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { ActiveParamsSearchType, arrayFromBookItemTransformedInterface } from '../../types/user';
+import { ActiveParamsSearchType, arrayFromBookItemTransformedInterface } from '../../modals/user';
 
 export const loadFavoritesBooks = createAction(
   '[Favorites] Load Favorites Books',

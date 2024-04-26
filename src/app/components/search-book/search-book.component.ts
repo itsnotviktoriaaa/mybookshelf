@@ -9,8 +9,8 @@ import { SvgIconComponent } from 'angular-svg-icon';
 import { Router } from '@angular/router';
 import { catchError, EMPTY, finalize, tap } from 'rxjs';
 import { GoogleApiService, NotificationService, TransformDateBookPipe } from '../../core';
-import { SearchDetailInterface } from '../../types/user';
-import { NotificationStatus } from '../../types/auth';
+import { SearchDetailInterface } from '../../modals/user';
+import { NotificationStatus } from '../../modals/auth';
 
 @Component({
   selector: 'app-search-book',

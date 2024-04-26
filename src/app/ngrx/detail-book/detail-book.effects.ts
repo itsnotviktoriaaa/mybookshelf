@@ -7,7 +7,7 @@ import {
   loadDetailBookFailure,
   loadDetailBookSuccess,
 } from './detail-book.actions';
-import { DetailBookInterface, DetailBookSmallInfo } from '../../types/user';
+import { DetailBookInterface, DetailBookSmallInfo } from '../../modals/user';
 
 @Injectable()
 export class DetailBookEffects {

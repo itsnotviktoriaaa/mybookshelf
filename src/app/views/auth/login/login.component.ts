@@ -3,12 +3,11 @@ import { NgOptimizedImage, NgStyle } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService, CodeMessageHandlerUtil, NotificationService } from '../../../core';
-import { NotificationStatus } from '../../../types/auth';
 import { catchError, EMPTY, Observable, tap } from 'rxjs';
 import { SvgIconComponent } from 'angular-svg-icon';
-import { UserInfoFromGoogle } from '../../../types/auth';
 import { GoogleApiService } from '../../../core';
 import { SubscribeDecorator } from '../../../decorators/subscribe-decorator';
+import { NotificationStatus, UserInfoFromGoogle } from '../../../modals/auth';
 
 @Component({
   selector: 'app-login',

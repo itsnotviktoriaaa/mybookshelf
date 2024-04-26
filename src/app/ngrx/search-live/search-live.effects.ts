@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { GoogleApiService } from '../../core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
-import { SearchDetailInterface, SearchInfoDetail, SearchInterface } from '../../types/user';
 import { TypedAction } from '@ngrx/store/src/models';
 import {
   loadSearchLiveBooks,
   loadSearchLiveBooksFailure,
   loadSearchLiveBooksSuccess,
 } from './search-live.actions';
+import { SearchDetailInterface, SearchInfoDetail, SearchInterface } from '../../modals/user';
 
 @Injectable()
 export class SearchLiveEffects {

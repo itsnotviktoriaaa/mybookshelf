@@ -1,13 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { BehaviorSubject, Observable, of, tap } from 'rxjs';
-import { arrayFromBookItemTransformedInterface } from '../../../types/user';
 import { AsyncPipe, NgClass } from '@angular/common';
-import { ActiveParamsType } from '../../../types/user';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { HomeFacade } from '../../../ngrx/home/home.facade';
 import { MiniModalComponent } from '../../../UI-сomponents';
 import { BookComponent } from '../../../components';
+import { ActiveParamsType, arrayFromBookItemTransformedInterface } from '../../../modals/user';
 
 @Component({
   selector: 'app-show-all',

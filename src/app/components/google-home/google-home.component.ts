@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { BookComponent } from '../book/book.component';
 import { MiniModalComponent } from '../../UI-сomponents';
-import { arrayFromBookItemTransformedInterface } from '../../types/user';
+import { arrayFromBookItemTransformedInterface } from '../../modals/user';
 
 @Component({
   selector: 'app-google-home',

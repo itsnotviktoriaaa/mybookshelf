@@ -1,3 +1,5 @@
+import { NotificationStatus } from './notification.enum';
+
 export interface UserInterface {
   email: string;
   username: string;
@@ -6,12 +8,6 @@ export interface UserInterface {
 
 export interface UserSignInterface extends UserInterface {
   password: string;
-}
-
-export enum NotificationStatus {
-  error,
-  success,
-  info,
 }
 
 export type NotificationType = {

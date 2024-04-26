@@ -1,9 +1,9 @@
 import { Store } from '@ngrx/store';
-import { ActiveParamsSearchType, SearchInterface } from '../../types/user';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { loadSearchBooks } from './search.actions';
 import { selectSearchBooks } from './search.selector';
+import { ActiveParamsSearchType, SearchInterface } from '../../modals/user';
 
 @Injectable({
   providedIn: 'root',

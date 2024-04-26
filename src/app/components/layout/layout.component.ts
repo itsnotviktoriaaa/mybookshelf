@@ -4,7 +4,7 @@ import { BarComponent } from './bar/bar.component';
 import { RouterOutlet } from '@angular/router';
 import { tap } from 'rxjs';
 import { GoogleApiService } from '../../core';
-import { UserInfoFromGoogle } from '../../types/auth';
+import { UserInfoFromGoogle } from '../../modals/auth';
 
 @Component({
   selector: 'app-layout',

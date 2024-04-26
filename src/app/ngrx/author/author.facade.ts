@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { loadAuthor } from './author.actions';
 import { Observable } from 'rxjs';
-import { SearchSmallInterface } from '../../types/user';
 import { selectAuthor } from './author.selector';
+import { SearchSmallInterface } from '../../modals/user';
 
 @Injectable({
   providedIn: 'root',

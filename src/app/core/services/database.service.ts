@@ -21,7 +21,6 @@ import {
   tap,
   throwError,
 } from 'rxjs';
-import { SelfBookInterface, SelfBookUploadInterface } from '../../types/user/self-book.interface';
 import { AuthService } from '../auth';
 import { CollectionReference, DocumentData } from '@firebase/firestore';
 import {
@@ -32,7 +31,11 @@ import {
   uploadBytesResumable,
 } from '@angular/fire/storage';
 import { UploadMetadata } from '@angular/fire/storage';
-import { BookItemTransformedInterface } from '../../types/user';
+import {
+  BookItemTransformedInterface,
+  SelfBookInterface,
+  SelfBookUploadInterface,
+} from '../../modals/user';
 @Injectable({
   providedIn: 'root',
 })

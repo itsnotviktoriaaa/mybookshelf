@@ -10,8 +10,8 @@ import {
   TransformDateBookPipe,
   TransformFavoriteDatePipe,
 } from '../../core';
-import { BookItemTransformedInterface } from '../../types/user';
-import { NotificationStatus } from '../../types/auth';
+import { BookItemTransformedInterface } from '../../modals/user';
+import { NotificationStatus } from '../../modals/auth';
 
 @Component({
   selector: 'app-book',

@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { arrayFromBookItemTransformedInterface } from '../../types/user';
+import { arrayFromBookItemTransformedInterface } from '../../modals/user';
 
 //Actions for getting books recommended
 export const loadRecommendedBooks = createAction(

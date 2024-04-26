@@ -1,4 +1,4 @@
-import { DetailBookSmallInfo } from '../../types/user';
+import { DetailBookSmallInfo } from '../../modals/user';
 
 export interface DetailBookState {
   detailBook: DetailBookSmallInfo | null;
