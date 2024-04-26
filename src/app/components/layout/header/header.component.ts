@@ -13,6 +13,7 @@ import {
 } from 'rxjs';
 import {
   AuthService,
+  CategoryModalSearchItems,
   GoogleApiService,
   NotificationService,
   SearchStateService,
@@ -71,7 +72,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.googleApi.userProfileSubject.subscribe((info: UserInfoFromGoogle | null) => {
+    this.googleApi.userProfileSubject.subscribe((info: UserInfoFromGoogle | null): void => {
       if (info) {
         this.userInfo$.next(info);
       }
@@ -79,6 +80,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     this.selectedHeaderModalItem.next(SelectedHeaderModalItemEnum.All);
 
+    this.getSearchCategory();
+
+    this.subscribeOnQueryParams();
+
+    this.isFavoritePage();
+
+    this.valueChangesInSearchField();
+  }
+
+  getSearchCategory(): void {
     this.searchStateService
       .getSearchCategory()
       .pipe(
@@ -89,12 +100,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe();
+  }
 
+  subscribeOnQueryParams(): void {
     this.activatedRoute.queryParams.subscribe((params: Params): void => {
       this.setValuesFromParams(params);
       this.paramsFromUrl = params;
     });
+  }
 
+  isFavoritePage(): void {
     this.searchStateService
       .getFavoritePage()
       .pipe(
@@ -106,12 +121,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe();
+  }
 
+  valueChangesInSearchField(): void {
     this.searchField.valueChanges
       .pipe(
         filter(value => {
           value = value.trim();
-          console.log(value);
           if (!value) {
             this.searchTexts$.next(null);
             this.resetSearchLiveBooks();
@@ -238,7 +254,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           let categoryNew: string = category;
           console.log(categoryNew);
           if (!window.location.href.includes('search')) {
-            categoryNew = 'computers';
+            categoryNew = CategoryModalSearchItems[1];
           }
           if (
             this.selectedHeaderModalItem.getValue()?.toLowerCase() !==

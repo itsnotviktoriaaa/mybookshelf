@@ -5,8 +5,8 @@ export class Constants {
 
 export const CategoryModalSearchItems: string[] = [
   'Browse',
-  'Action theory',
   'Adventure stories',
+  'Action theory',
   'Almanacs',
   'Architecture',
   'Art',
