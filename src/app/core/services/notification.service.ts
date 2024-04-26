@@ -1,6 +1,6 @@
+import { NotificationType } from '../../modals/auth';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { NotificationType } from '../../modals/auth';
 
 @Injectable({
   providedIn: 'root',

@@ -1,5 +1,3 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { SvgIconComponent } from 'angular-svg-icon';
 import {
   BehaviorSubject,
   catchError,
@@ -13,18 +11,20 @@ import {
   takeUntil,
   tap,
 } from 'rxjs';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { AsyncPipe, NgStyle } from '@angular/common';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   AuthService,
   GoogleApiService,
   NotificationService,
   SearchStateService,
 } from '../../../core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { SearchLiveFacade } from '../../../ngrx/search-live/search-live.facade';
-import { HeaderClickInterface } from '../../../modals/user';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NotificationStatus, UserInfoFromGoogle } from '../../../modals/auth';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { HeaderClickInterface } from '../../../modals/user';
+import { AsyncPipe, NgStyle } from '@angular/common';
+import { SvgIconComponent } from 'angular-svg-icon';
 
 @Component({
   selector: 'app-header',

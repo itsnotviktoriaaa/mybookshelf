@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
+import { UserInfoFromGoogle } from '../../modals/auth';
 import { BarComponent } from './bar/bar.component';
 import { RouterOutlet } from '@angular/router';
-import { tap } from 'rxjs';
 import { GoogleApiService } from '../../core';
-import { UserInfoFromGoogle } from '../../modals/auth';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-layout',

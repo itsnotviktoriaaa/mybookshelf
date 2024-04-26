@@ -1,19 +1,19 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { SvgIconComponent } from 'angular-svg-icon';
-import { BehaviorSubject, filter, tap } from 'rxjs';
-import { SearchFacade } from '../../../ngrx/search/search.facade';
-import { AsyncPipe } from '@angular/common';
-import { FavoritesFacade } from '../../../ngrx/favorites/favorites.facade';
-import { ActivatedRoute, Params } from '@angular/router';
-import { SearchBookComponent } from '../../../components';
-import { PaginationInputComponent } from '../../../UI-сomponents';
-import { ActiveParamUtil, SearchStateService } from '../../../core';
 import {
   ActiveParamsSearchType,
   arrayFromBookItemTransformedInterface,
   BookItemTransformedInterface,
   SearchInterface,
 } from '../../../modals/user';
+import { FavoritesFacade } from '../../../ngrx/favorites/favorites.facade';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ActiveParamUtil, SearchStateService } from '../../../core';
+import { SearchFacade } from '../../../ngrx/search/search.facade';
+import { PaginationInputComponent } from '../../../UI-сomponents';
+import { SearchBookComponent } from '../../../components';
+import { ActivatedRoute, Params } from '@angular/router';
+import { SvgIconComponent } from 'angular-svg-icon';
+import { BehaviorSubject, filter, tap } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-search',

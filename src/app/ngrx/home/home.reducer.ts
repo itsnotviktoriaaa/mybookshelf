@@ -1,4 +1,3 @@
-import { createReducer, on, Action } from '@ngrx/store';
 import {
   loadRecommendedBooksSuccess,
   loadRecommendedBooksFailure,
@@ -6,6 +5,7 @@ import {
   loadReadingNowBooksFailure,
   loadRecommendedBooks,
 } from './home.actions';
+import { createReducer, on, Action } from '@ngrx/store';
 import { HomeNowState, HomeState } from './home.state';
 
 export const initialState: HomeState = {

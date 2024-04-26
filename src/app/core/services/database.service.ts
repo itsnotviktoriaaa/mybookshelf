@@ -1,4 +1,3 @@
-import { Injectable } from '@angular/core';
 import {
   addDoc,
   collection,
@@ -21,8 +20,6 @@ import {
   tap,
   throwError,
 } from 'rxjs';
-import { AuthService } from '../auth';
-import { CollectionReference, DocumentData } from '@firebase/firestore';
 import {
   deleteObject,
   getDownloadURL,
@@ -30,12 +27,15 @@ import {
   Storage,
   uploadBytesResumable,
 } from '@angular/fire/storage';
-import { UploadMetadata } from '@angular/fire/storage';
 import {
   BookItemTransformedInterface,
   SelfBookInterface,
   SelfBookUploadInterface,
 } from '../../modals/user';
+import { CollectionReference, DocumentData } from '@firebase/firestore';
+import { UploadMetadata } from '@angular/fire/storage';
+import { Injectable } from '@angular/core';
+import { AuthService } from '../auth';
 @Injectable({
   providedIn: 'root',
 })

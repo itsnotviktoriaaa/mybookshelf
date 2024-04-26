@@ -1,13 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { SvgIconComponent } from 'angular-svg-icon';
-import { AsyncPipe, NgClass } from '@angular/common';
-import { BehaviorSubject, Observable, of, tap } from 'rxjs';
-import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
-import { DetailBookFacade } from '../../../ngrx/detail-book/detail-book.facade';
-import { AuthorFacade } from '../../../ngrx/author/author.facade';
-import { ReduceLetterPipe, TransformDateBookPipe } from '../../../core';
-import { MiniModalComponent, StarComponent } from '../../../UI-сomponents';
 import { ActionsInterface, DetailBookSmallInfo, SearchSmallInterface } from '../../../modals/user';
+import { DetailBookFacade } from '../../../ngrx/detail-book/detail-book.facade';
+import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
+import { MiniModalComponent, StarComponent } from '../../../UI-сomponents';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ReduceLetterPipe, TransformDateBookPipe } from '../../../core';
+import { AuthorFacade } from '../../../ngrx/author/author.facade';
+import { BehaviorSubject, Observable, of, tap } from 'rxjs';
+import { AsyncPipe, NgClass } from '@angular/common';
+import { SvgIconComponent } from 'angular-svg-icon';
 
 @Component({
   selector: 'app-detail-book',

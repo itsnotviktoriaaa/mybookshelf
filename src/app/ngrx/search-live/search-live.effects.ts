@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core';
-import { GoogleApiService } from '../../core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, of, switchMap } from 'rxjs';
-import { TypedAction } from '@ngrx/store/src/models';
 import {
   loadSearchLiveBooks,
   loadSearchLiveBooksFailure,
   loadSearchLiveBooksSuccess,
 } from './search-live.actions';
 import { SearchDetailInterface, SearchInfoDetail, SearchInterface } from '../../modals/user';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { catchError, map, of, switchMap } from 'rxjs';
+import { TypedAction } from '@ngrx/store/src/models';
+import { GoogleApiService } from '../../core';
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class SearchLiveEffects {

@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NgClass, NgStyle } from '@angular/common';
-import { finalize, Subject, takeUntil, tap } from 'rxjs';
-import { NotificationService } from '../../core';
 import { NotificationStatus, NotificationType } from '../../modals/auth';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { finalize, Subject, takeUntil, tap } from 'rxjs';
+import { NgClass, NgStyle } from '@angular/common';
+import { NotificationService } from '../../core';
 
 @Component({
   selector: 'app-notification',

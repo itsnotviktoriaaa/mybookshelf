@@ -1,5 +1,3 @@
-import { Injectable } from '@angular/core';
-import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import {
   loadReadingNowBooks,
   loadReadingNowBooksFailure,
@@ -8,17 +6,19 @@ import {
   loadRecommendedBooksFailure,
   loadRecommendedBooksSuccess,
 } from './home.actions';
-import { catchError, filter, map, of, switchMap, tap } from 'rxjs';
-import { GoogleApiService } from '../../core';
-import { TypedAction } from '@ngrx/store/src/models';
-import { selectReadingNowBooks, selectRecommendedBooks } from './home.selectors';
-import { Store } from '@ngrx/store';
 import {
   arrayFromBookItemTransformedInterface,
   BookInterface,
   BookItemInterface,
   BookItemTransformedInterface,
 } from '../../modals/user';
+import { selectReadingNowBooks, selectRecommendedBooks } from './home.selectors';
+import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
+import { catchError, filter, map, of, switchMap, tap } from 'rxjs';
+import { TypedAction } from '@ngrx/store/src/models';
+import { GoogleApiService } from '../../core';
+import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class BookEffects {

@@ -1,9 +1,3 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { NgClass, NgOptimizedImage, NgStyle } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { AuthModule } from '@angular/fire/auth';
 import {
   AuthService,
   Constants,
@@ -11,11 +5,17 @@ import {
   PasswordNotEmailDirective,
   PasswordRepeatDirective,
 } from '../../../core';
-import emailJs, { EmailJSResponseStatus } from '@emailjs/browser';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { catchError, EMPTY, finalize, Observable, of, Subject, tap } from 'rxjs';
-import { SvgIconComponent } from 'angular-svg-icon';
 import { SubscribeDecorator } from '../../../decorators/subscribe-decorator';
 import { NotificationStatus, UserSignInterface } from '../../../modals/auth';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { NgClass, NgOptimizedImage, NgStyle } from '@angular/common';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import emailJs, { EmailJSResponseStatus } from '@emailjs/browser';
+import { Router, RouterLink } from '@angular/router';
+import { SvgIconComponent } from 'angular-svg-icon';
+import { AuthModule } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-signup',

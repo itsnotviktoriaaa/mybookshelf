@@ -1,10 +1,10 @@
+import { BookItemTransformedInterface } from '../../../modals/user';
+import { BookComponent } from '../../../components';
+import { DocumentData } from '@firebase/firestore';
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, map, take } from 'rxjs';
-import { DocumentData } from '@firebase/firestore';
-import { AsyncPipe } from '@angular/common';
-import { BookComponent } from '../../../components';
 import { DatabaseService } from '../../../core';
-import { BookItemTransformedInterface } from '../../../modals/user';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-my-books',

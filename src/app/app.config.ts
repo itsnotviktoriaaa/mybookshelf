@@ -1,34 +1,34 @@
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import {
   InMemoryScrollingFeature,
   InMemoryScrollingOptions,
   provideRouter,
   withInMemoryScrolling,
 } from '@angular/router';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 
-import { routes } from './app.routes';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { getAuth, provideAuth } from '@angular/fire/auth';
+import { DetailBookEffects } from './ngrx/detail-book/detail-book.effects';
+import { SearchLiveEffects } from './ngrx/search-live/search-live.effects';
+import { searchLiveReducer } from './ngrx/search-live/search-live.reducer';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { getStorage, provideStorage } from '@angular/fire/storage';
-import { provideHttpClient } from '@angular/common/http';
-import { environment } from '../environments/environment.development';
-import { provideAngularSvgIcon } from 'angular-svg-icon';
-import { provideOAuthClient } from 'angular-oauth2-oidc';
-import { provideStore } from '@ngrx/store';
-import { provideEffects } from '@ngrx/effects';
+import { detailReducer } from './ngrx/detail-book/detail-book.reducer';
 import { homeNowReducer, homeReducer } from './ngrx/home/home.reducer';
-import { BookEffects } from './ngrx/home/home.effects';
+import { environment } from '../environments/environment.development';
 import { favoritesReducer } from './ngrx/favorites/favorites.reducer';
 import { FavoritesEffects } from './ngrx/favorites/favorites.effects';
-import { DetailBookEffects } from './ngrx/detail-book/detail-book.effects';
-import { detailReducer } from './ngrx/detail-book/detail-book.reducer';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getStorage, provideStorage } from '@angular/fire/storage';
 import { AuthorEffects } from './ngrx/author/author.effects';
 import { authorReducer } from './ngrx/author/author.reducer';
 import { searchReducer } from './ngrx/search/search.reducer';
 import { SearchEffects } from './ngrx/search/search.effects';
-import { SearchLiveEffects } from './ngrx/search-live/search-live.effects';
-import { searchLiveReducer } from './ngrx/search-live/search-live.reducer';
+import { getAuth, provideAuth } from '@angular/fire/auth';
+import { provideHttpClient } from '@angular/common/http';
+import { provideOAuthClient } from 'angular-oauth2-oidc';
+import { provideAngularSvgIcon } from 'angular-svg-icon';
+import { BookEffects } from './ngrx/home/home.effects';
+import { provideEffects } from '@ngrx/effects';
+import { provideStore } from '@ngrx/store';
+import { routes } from './app.routes';
 
 const scrollConfig: InMemoryScrollingOptions = {
   scrollPositionRestoration: 'enabled',

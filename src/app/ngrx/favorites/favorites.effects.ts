@@ -1,18 +1,18 @@
-import { Injectable } from '@angular/core';
-import { GoogleApiService } from '../../core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import {
-  loadFavoritesBooks,
-  loadFavoritesBooksFailure,
-  loadFavoritesBooksSuccess,
-} from './favorites.actions';
-import { catchError, map, of, switchMap } from 'rxjs';
 import {
   arrayFromBookItemTransformedInterface,
   BookInterface,
   BookItemInterface,
   BookItemTransformedInterface,
 } from '../../modals/user';
+import {
+  loadFavoritesBooks,
+  loadFavoritesBooksFailure,
+  loadFavoritesBooksSuccess,
+} from './favorites.actions';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { catchError, map, of, switchMap } from 'rxjs';
+import { GoogleApiService } from '../../core';
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class FavoritesEffects {

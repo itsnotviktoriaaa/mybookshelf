@@ -1,7 +1,3 @@
-import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AsyncPipe, NgStyle } from '@angular/common';
-import { ActivatedRoute, Params, Router } from '@angular/router';
 import {
   BehaviorSubject,
   catchError,
@@ -14,11 +10,15 @@ import {
   take,
   tap,
 } from 'rxjs';
-import { UploadMetadata } from '@angular/fire/storage';
-import { SvgIconComponent } from 'angular-svg-icon';
-import { DatabaseService, NotificationService } from '../../../core';
-import { NotificationStatus } from '../../../modals/auth';
+import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SelfBookInterface, SelfBookUploadInterface } from '../../../modals/user';
+import { DatabaseService, NotificationService } from '../../../core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { NotificationStatus } from '../../../modals/auth';
+import { UploadMetadata } from '@angular/fire/storage';
+import { AsyncPipe, NgStyle } from '@angular/common';
+import { SvgIconComponent } from 'angular-svg-icon';
 
 @Component({
   selector: 'app-upload',

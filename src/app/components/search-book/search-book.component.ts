@@ -5,12 +5,12 @@ import {
   Input,
   OnChanges,
 } from '@angular/core';
-import { SvgIconComponent } from 'angular-svg-icon';
-import { Router } from '@angular/router';
-import { catchError, EMPTY, finalize, tap } from 'rxjs';
 import { GoogleApiService, NotificationService, TransformDateBookPipe } from '../../core';
 import { SearchDetailInterface } from '../../modals/user';
+import { catchError, EMPTY, finalize, tap } from 'rxjs';
 import { NotificationStatus } from '../../modals/auth';
+import { SvgIconComponent } from 'angular-svg-icon';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-book',

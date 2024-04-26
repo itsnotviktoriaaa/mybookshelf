@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { NgOptimizedImage } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { SvgIconComponent } from 'angular-svg-icon';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-bar',

@@ -1,5 +1,5 @@
-import { Params } from '@angular/router';
 import { ActiveParamsSearchType, NamesOfKeys } from '../../modals/user';
+import { Params } from '@angular/router';
 
 export class ActiveParamUtil {
   static processParam(params: Params, text?: string): ActiveParamsSearchType {
