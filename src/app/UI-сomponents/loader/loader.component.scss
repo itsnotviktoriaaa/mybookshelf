@@ -1,18 +1,11 @@
 @import '../../../assets/styles/color';
+@import '../../../assets/styles/mixins';
 
 .loader-wrapper {
-  width: 100%;
-  height: 100%;
-  display: flex;
+  @include background-wrapper-for-ui-component;
+
   flex-direction: column;
   row-gap: 15px;
-  align-items: center;
-  justify-content: center;
-  background-color: rgb(17 17 17 / 79%);
-  z-index: 9999999;
-  position: fixed;
-  top: 0;
-  left: 0;
 
   .loader-message {
     font-size: 15px;

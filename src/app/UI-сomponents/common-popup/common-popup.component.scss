@@ -1,0 +1,54 @@
+@import '../../../assets/styles/color';
+@import '../../../assets/styles/mixins';
+
+.common-popup-wrapper {
+  @include background-wrapper-for-ui-component;
+
+  .common-popup {
+    padding: 30px;
+    background: var(--white-color);
+    border-radius: 15px;
+
+    .common-popup-message {
+      display: inline-block;
+      margin-bottom: 30px;
+      font-size: 15px;
+      color: var(--dark-gray-title-color);
+    }
+
+    .common-popup-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+
+      .popup-button {
+        border-radius: 15px;
+        outline: none;
+        border: 0;
+        padding: 10px;
+        width: 100px;
+        box-sizing: border-box;
+        font-weight: 600;
+        color: var(--white-color);
+      }
+
+      .popup-button-yes {
+        background: #c50000;
+
+        &:hover {
+          background: darkred;
+        }
+      }
+
+      .popup-button-no {
+        background: var(--green-bottom-color);
+
+        &:hover {
+          background: var(--green-bottom-color-hover);
+        }
+      }
+    }
+  }
+}

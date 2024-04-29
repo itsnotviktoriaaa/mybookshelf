@@ -23,7 +23,7 @@
         <div class="book-actions">
           <svg-icon (click)="editSelfBook()" [src]="pathToIcons + '/icon-self-edit.svg'"></svg-icon>
           <svg-icon
-            (click)="deleteSelfBook()"
+            (click)="openDeletePopup()"
             [src]="pathToIcons + '/icon-self-trash.svg'"></svg-icon>
         </div>
       }
@@ -58,3 +58,5 @@
     }
   </div>
 }
+
+<app-common-popup [isOpenDeletePopup]="isOpenDeletePopup"></app-common-popup>

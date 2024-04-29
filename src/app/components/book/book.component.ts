@@ -5,10 +5,19 @@ import {
   TransformDateBookPipe,
   TransformFavoriteDatePipe,
 } from '../../core';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { CommonPopupComponent } from '../../UI-сomponents/common-popup/common-popup.component';
+import { CommonPopupService } from '../../core/services/common-popup.service';
 import { environment } from '../../../environments/environment.development';
+import { catchError, EMPTY, exhaustMap, finalize, tap } from 'rxjs';
 import { BookItemTransformedInterface } from '../../modals/user';
-import { catchError, EMPTY, exhaustMap, finalize } from 'rxjs';
 import { NotificationStatus } from '../../modals/auth';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { NgClass, NgStyle } from '@angular/common';
@@ -24,23 +33,40 @@ import { Router } from '@angular/router';
     TransformFavoriteDatePipe,
     NgClass,
     SvgIconComponent,
+    CommonPopupComponent,
   ],
   templateUrl: './book.component.html',
   styleUrl: './book.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [CommonPopupService],
 })
-export class BookComponent {
+export class BookComponent implements OnInit {
   @Input() book: BookItemTransformedInterface | null = null;
   @Input() bigInfo: boolean = false;
   @Input() selfBook: boolean = false;
   @Output() deleteSelfBookEvent: EventEmitter<string> = new EventEmitter<string>();
   pathToIcons = environment.pathToIcons;
+  isOpenDeletePopup = { isOpen: false };
 
   constructor(
     private router: Router,
     private databaseService: DatabaseService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private commonPopupService: CommonPopupService
   ) {}
+
+  ngOnInit(): void {
+    this.commonPopupService
+      .getDeleteOwnBookOrNot()
+      .pipe(
+        tap((param: boolean): void => {
+          if (param) {
+            this.deleteSelfBook();
+          }
+        })
+      )
+      .subscribe();
+  }
 
   openDetailBook(sizeBook: 'small-book' | 'big-book'): void {
     if (sizeBook === 'small-book' && !this.bigInfo) {
@@ -58,6 +84,10 @@ export class BookComponent {
 
   editSelfBook(): void {
     this.router.navigate(['/home/upload'], { queryParams: { id: this.book?.id } }).then(() => {});
+  }
+
+  openDeletePopup(): void {
+    this.isOpenDeletePopup = { isOpen: true };
   }
 
   deleteSelfBook(): void {

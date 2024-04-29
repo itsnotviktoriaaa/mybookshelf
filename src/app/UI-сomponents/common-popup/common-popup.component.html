@@ -1,0 +1,11 @@
+@if (isOpenDeletePopup.isOpen) {
+  <div class="common-popup-wrapper">
+    <div class="common-popup">
+      <span class="common-popup-message">Are you sure that you want to delete this own book?</span>
+      <div class="common-popup-buttons">
+        <button (click)="delete()" class="popup-button popup-button-yes">Yes</button>
+        <button (click)="notDelete()" class="popup-button popup-button-no">No</button>
+      </div>
+    </div>
+  </div>
+}
