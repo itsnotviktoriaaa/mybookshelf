@@ -100,7 +100,7 @@ export class DatabaseService {
     );
   }
 
-  getSelfBook(id: string): Observable<BookItemTransformedInterface | undefined> {
+  getSelfBook(id: string): Observable<BookItemTransformedInterface | null> {
     return this.authService.user$.pipe(
       switchMap(user => {
         if (user && user.uid) {
@@ -111,12 +111,12 @@ export class DatabaseService {
               if (snapshot.exists()) {
                 return of(snapshot.data() as BookItemTransformedInterface);
               } else {
-                return of(undefined);
+                return of(null);
               }
             })
           );
         } else {
-          return of(undefined);
+          return of(null);
         }
       })
     );
@@ -141,9 +141,10 @@ export class DatabaseService {
       deleteFilePdf: deleteFilePdf$,
       deleteFilePhoto: deleteFilePhoto$,
     }).pipe(
-      map(() => {
+      tap(() => {
         console.log('Book and files deleted successfully');
       }),
+      map(() => undefined),
       catchError(error => {
         console.error('Error deleting book or file:', error);
         return throwError(() => error);

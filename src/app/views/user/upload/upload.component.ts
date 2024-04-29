@@ -2,11 +2,11 @@ import {
   BehaviorSubject,
   catchError,
   EMPTY,
+  filter,
   finalize,
   forkJoin,
   Observable,
   of,
-  switchMap,
   take,
   tap,
 } from 'rxjs';
@@ -270,18 +270,15 @@ export class UploadComponent implements OnInit {
       .getSelfBook(id)
       .pipe(
         take(1),
-        switchMap(selfBook => {
-          if (selfBook) {
-            console.log(selfBook);
-            this.uploadForm.patchValue({
-              title: selfBook.title,
-              author: selfBook.author[0],
-              description: selfBook.description,
-            });
-            this.pdfUrl.next(selfBook.webReaderLink);
-            this.photoUrl.next(selfBook.thumbnail);
-          }
-          return EMPTY;
+        filter(selfBook => Boolean(selfBook)),
+        tap(selfBook => {
+          this.uploadForm.patchValue({
+            title: selfBook!.title,
+            author: selfBook!.author[0],
+            description: selfBook!.description,
+          });
+          this.pdfUrl.next(selfBook!.webReaderLink);
+          this.photoUrl.next(selfBook!.thumbnail);
         }),
         catchError(() => {
           return EMPTY;
