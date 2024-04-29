@@ -17,9 +17,6 @@
       [googleArrayFromHome]="recommendedBooks"
       [miniLoader]="miniLoader$.getValue()"></app-google-home>
   }
-  @if (miniLoaderReading$ | async; as miniLoaderReading) {
-    <app-mini-modal [miniLoaderReading]="miniLoaderReading"></app-mini-modal>
-  }
   @if (readingNowBooks$ | async; as readingNowBooks) {
     <div class="home-common-wrapper">
       <h3 class="home-common">Recent Readings</h3>
@@ -29,8 +26,6 @@
         >
       }
     </div>
-    <app-google-home
-      [googleArrayFromHome]="readingNowBooks"
-      [miniLoader]="miniLoaderReading$.getValue()"></app-google-home>
+    <app-google-home [googleArrayFromHome]="readingNowBooks"></app-google-home>
   }
 </section>

@@ -26,13 +26,7 @@ export class HomeComponent implements OnInit {
   readingNowBooks$: BehaviorSubject<arrayFromBookItemTransformedInterface | null> =
     new BehaviorSubject<arrayFromBookItemTransformedInterface | null>(null);
 
-  miniLoader$: BehaviorSubject<{ miniLoader: boolean }> = new BehaviorSubject<{
-    miniLoader: boolean;
-  }>({ miniLoader: true });
-
-  miniLoaderReading$: BehaviorSubject<{ miniLoader: boolean }> = new BehaviorSubject<{
-    miniLoader: boolean;
-  }>({ miniLoader: true });
+  miniLoader$ = new BehaviorSubject<{ miniLoader: boolean }>({ miniLoader: true });
 
   constructor(
     private googleApi: GoogleApiService,
@@ -67,7 +61,6 @@ export class HomeComponent implements OnInit {
     return this.homeFacade.getReadingNowBooks().pipe(
       tap((books: arrayFromBookItemTransformedInterface | null) => {
         this.readingNowBooks$.next(books);
-        this.miniLoaderReading$.next({ miniLoader: false });
       })
     );
   }
