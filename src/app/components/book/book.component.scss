@@ -85,12 +85,11 @@
     .book-right-bottom {
       @include flex-column;
 
-      row-gap: 15px;
-
       .btn-orange,
       .btn-green {
         width: 125px;
         height: 40px;
+        margin-bottom: 5px;
       }
     }
   }

@@ -13,3 +13,15 @@ export const loadFavoritesBooksFailure = createAction(
   '[Favorites] Load Favorites Books Failure',
   props<{ error: null }>()
 );
+export const removeFromFavoritesBooks = createAction(
+  '[Favorites] Remove Favorites Book',
+  props<{ bookId: string }>()
+);
+export const removeFromFavoritesBooksSuccess = createAction(
+  '[Favorites] Remove Favorites Book',
+  props<{ bookId: string }>()
+);
+export const removeFromFavoritesBooksFailure = createAction(
+  '[Favorites] Remove Favorites Book',
+  props<{ error: null }>()
+);

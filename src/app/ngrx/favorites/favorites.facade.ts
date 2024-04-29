@@ -1,6 +1,6 @@
 import { ActiveParamsSearchType, arrayFromBookItemTransformedInterface } from '../../modals/user';
+import { loadFavoritesBooks, removeFromFavoritesBooks } from './favorites.actions';
 import { selectFavoritesBooks } from './favorites.selector';
-import { loadFavoritesBooks } from './favorites.actions';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -16,5 +16,9 @@ export class FavoritesFacade {
   }
   getFavoritesBooks(): Observable<arrayFromBookItemTransformedInterface | null> {
     return this.store.select(selectFavoritesBooks);
+  }
+
+  loadRemoveFavoritesBooks(bookId: string): void {
+    this.store.dispatch(removeFromFavoritesBooks({ bookId }));
   }
 }

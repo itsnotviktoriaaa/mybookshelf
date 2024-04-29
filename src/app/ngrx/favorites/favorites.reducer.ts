@@ -1,4 +1,8 @@
-import { loadFavoritesBooksFailure, loadFavoritesBooksSuccess } from './favorites.actions';
+import {
+  loadFavoritesBooksFailure,
+  loadFavoritesBooksSuccess,
+  removeFromFavoritesBooksSuccess,
+} from './favorites.actions';
 import { Action, createReducer, on } from '@ngrx/store';
 import { FavoritesState } from './favorites.state';
 
@@ -15,7 +19,26 @@ const _favoritesState = createReducer(
   on(loadFavoritesBooksFailure, state => ({
     ...state,
     favoritesBooks: null,
-  }))
+  })),
+  on(removeFromFavoritesBooksSuccess, (state, { bookId }) => {
+    console.log('lkjhgfghjkjhgfghjkjgfghj');
+
+    if (!state.favoritesBooks) {
+      return state;
+    }
+
+    const filteredItems = state.favoritesBooks.items.filter(
+      favoritesBook => favoritesBook.id !== bookId
+    );
+    const totalItems = filteredItems.length;
+    return {
+      ...state,
+      favoritesBooks: {
+        items: filteredItems,
+        totalItems: totalItems,
+      },
+    };
+  })
 );
 
 export function favoritesReducer(state: FavoritesState | undefined, action: Action) {

@@ -1,24 +1,28 @@
 import {
+  loadFavoritesBooks,
+  loadFavoritesBooksFailure,
+  loadFavoritesBooksSuccess,
+  removeFromFavoritesBooks,
+  removeFromFavoritesBooksFailure,
+  removeFromFavoritesBooksSuccess,
+} from './favorites.actions';
+import {
   arrayFromBookItemTransformedInterface,
   BookInterface,
   BookItemInterface,
   BookItemTransformedInterface,
 } from '../../modals/user';
-import {
-  loadFavoritesBooks,
-  loadFavoritesBooksFailure,
-  loadFavoritesBooksSuccess,
-} from './favorites.actions';
+import { catchError, exhaustMap, finalize, map, of, switchMap, tap } from 'rxjs';
+import { GoogleApiService, NotificationService } from '../../core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, of, switchMap } from 'rxjs';
-import { GoogleApiService } from '../../core';
 import { Injectable } from '@angular/core';
 
 @Injectable()
 export class FavoritesEffects {
   constructor(
     private googleApi: GoogleApiService,
-    private actions$: Actions
+    private actions$: Actions,
+    private notificationService: NotificationService
   ) {}
 
   loadFavoritesBooks$ = createEffect(() => {
@@ -60,4 +64,24 @@ export class FavoritesEffects {
   filterUniqueBooks(books: BookItemTransformedInterface[]): BookItemTransformedInterface[] {
     return books.filter((book, index, self) => index === self.findIndex(b => b.id === book.id));
   }
+
+  removeFromFavorites$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(removeFromFavoritesBooks),
+      tap(() => {
+        this.notificationService.notifyAboutNotificationLoader(true);
+      }),
+      exhaustMap(action => {
+        return this.googleApi.removeFavoriteBook(action.bookId).pipe(
+          map(() => removeFromFavoritesBooksSuccess({ bookId: action.bookId })),
+          catchError(error => {
+            return of(removeFromFavoritesBooksFailure({ error }));
+          }),
+          finalize(() => {
+            this.notificationService.notifyAboutNotificationLoader(false);
+          })
+        );
+      })
+    );
+  });
 }

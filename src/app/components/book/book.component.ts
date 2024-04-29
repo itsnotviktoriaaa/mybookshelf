@@ -16,6 +16,7 @@ import {
 import { CommonPopupComponent } from '../../UI-сomponents/common-popup/common-popup.component';
 import { CommonPopupService } from '../../core/services/common-popup.service';
 import { environment } from '../../../environments/environment.development';
+import { FavoritesFacade } from '../../ngrx/favorites/favorites.facade';
 import { catchError, EMPTY, exhaustMap, finalize, tap } from 'rxjs';
 import { BookItemTransformedInterface } from '../../modals/user';
 import { NotificationStatus } from '../../modals/auth';
@@ -47,12 +48,15 @@ export class BookComponent implements OnInit {
   @Output() deleteSelfBookEvent: EventEmitter<string> = new EventEmitter<string>();
   pathToIcons = environment.pathToIcons;
   isOpenDeletePopup = { isOpen: false };
+  textForPopup = { text: 'Are you sure that you want to delete?' };
+  page: 'own' | 'favorite' = 'own';
 
   constructor(
     private router: Router,
     private databaseService: DatabaseService,
     private notificationService: NotificationService,
-    private commonPopupService: CommonPopupService
+    private commonPopupService: CommonPopupService,
+    private favoriteFacade: FavoritesFacade
   ) {}
 
   ngOnInit(): void {
@@ -62,6 +66,18 @@ export class BookComponent implements OnInit {
         tap((param: boolean): void => {
           if (param) {
             this.deleteSelfBook();
+          }
+        })
+      )
+      .subscribe();
+
+    this.commonPopupService
+      .getDeleteFavoriteBookOrNot()
+      .pipe(
+        tap((param: boolean): void => {
+          if (param) {
+            console.log(7777777777777);
+            this.deleteFavoriteBook();
           }
         })
       )
@@ -86,7 +102,9 @@ export class BookComponent implements OnInit {
     this.router.navigate(['/home/upload'], { queryParams: { id: this.book?.id } }).then(() => {});
   }
 
-  openDeletePopup(): void {
+  openDeletePopupForOwnBook(): void {
+    this.textForPopup = { text: 'Are you sure that you want to delete this own book?' };
+    this.page = 'own';
     this.isOpenDeletePopup = { isOpen: true };
   }
 
@@ -115,6 +133,42 @@ export class BookComponent implements OnInit {
         })
       )
       .subscribe();
+  }
+
+  openPopupForDeletionFromFavorite(): void {
+    this.page = 'favorite';
+    this.textForPopup = { text: 'Are you sure that you want to delete from favorite?' };
+    this.isOpenDeletePopup = { isOpen: true };
+  }
+
+  deleteFavoriteBook(): void {
+    if (this.book?.id && this.book.id) {
+      // this.notificationService.notifyAboutNotificationLoader(true);
+      console.log(999999999);
+      this.favoriteFacade.loadRemoveFavoritesBooks(this.book.id);
+
+      // this.googleApiService
+      //   .removeFavoriteBook(this.book.id)
+      //   .pipe(
+      //     tap((): void => {
+      //       this.notificationService.notifyAboutNotification({
+      //         message: 'Success removed',
+      //         status: NotificationStatus.success,
+      //       });
+      //     }),
+      //     catchError(() => {
+      //       this.notificationService.notifyAboutNotification({
+      //         message: 'Sth went wrong',
+      //         status: NotificationStatus.error,
+      //       });
+      //       return EMPTY;
+      //     }),
+      //     finalize((): void => {
+      //       this.notificationService.notifyAboutNotificationLoader(false);
+      //     })
+      //   )
+      //   .subscribe();
+    }
   }
 
   readSelfBook() {}

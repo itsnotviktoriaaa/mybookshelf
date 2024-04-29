@@ -23,7 +23,7 @@
         <div class="book-actions">
           <svg-icon (click)="editSelfBook()" [src]="pathToIcons + '/icon-self-edit.svg'"></svg-icon>
           <svg-icon
-            (click)="openDeletePopup()"
+            (click)="openDeletePopupForOwnBook()"
             [src]="pathToIcons + '/icon-self-trash.svg'"></svg-icon>
         </div>
       }
@@ -53,10 +53,19 @@
           <button (click)="openDetailBook('big-book')" class="btn-orange button-orange-transparent">
             Read
           </button>
+          @if (!selfBook) {
+            <svg-icon
+              [style]="{ cursor: 'pointer' }"
+              (click)="openPopupForDeletionFromFavorite()"
+              [src]="pathToIcons + '/icon-self-trash.svg'"></svg-icon>
+          }
         </div>
       </div>
     }
   </div>
 }
 
-<app-common-popup [isOpenDeletePopup]="isOpenDeletePopup"></app-common-popup>
+<app-common-popup
+  [isOpenDeletePopup]="isOpenDeletePopup"
+  [textForPopup]="textForPopup"
+  [page]="page"></app-common-popup>

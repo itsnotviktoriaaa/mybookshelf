@@ -11,16 +11,28 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 })
 export class CommonPopupComponent {
   @Input() isOpenDeletePopup = { isOpen: false };
+  @Input() textForPopup = { text: 'Are you sure that you want to delete?' };
+  @Input() page: 'own' | 'favorite' = 'own';
 
   constructor(private commonPopupService: CommonPopupService) {}
 
   delete(): void {
     this.isOpenDeletePopup = { isOpen: false };
-    this.commonPopupService.setIsDeleteOwnBookOrNot(true);
+
+    if (this.page === 'own') {
+      this.commonPopupService.setIsDeleteOwnBookOrNot(true);
+    } else if (this.page === 'favorite') {
+      this.commonPopupService.setIsDeleteFavoriteBookOrNot(true);
+    }
   }
 
   notDelete(): void {
     this.isOpenDeletePopup = { isOpen: false };
-    this.commonPopupService.setIsDeleteOwnBookOrNot(false);
+
+    if (this.page === 'own') {
+      this.commonPopupService.setIsDeleteOwnBookOrNot(false);
+    } else if (this.page === 'favorite') {
+      this.commonPopupService.setIsDeleteFavoriteBookOrNot(false);
+    }
   }
 }
