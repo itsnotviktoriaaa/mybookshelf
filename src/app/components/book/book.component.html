@@ -21,7 +21,9 @@
       }
       @if (bigInfo && selfBook) {
         <div class="book-actions">
-          <svg-icon (click)="editSelfBook()" [src]="pathToIcons + '/icon-self-edit.svg'"></svg-icon>
+          <svg-icon
+            (click)="editSelfBook(book)"
+            [src]="pathToIcons + '/icon-self-edit.svg'"></svg-icon>
           <svg-icon
             (click)="openDeletePopupForOwnBook()"
             [src]="pathToIcons + '/icon-self-trash.svg'"></svg-icon>
@@ -48,14 +50,16 @@
         </div>
         <div class="book-right-bottom">
           @if (!selfBook) {
-            <button (click)="openGoogleInfo()" class="btn-green button-green-full">E-BOOK</button>
+            <button (click)="openGoogleInfo(book)" class="btn-green button-green-full">
+              E-BOOK
+            </button>
           }
           <button (click)="openDetailBook('big-book')" class="btn-orange button-orange-transparent">
             Read
           </button>
           @if (!selfBook) {
             <svg-icon
-              [style]="{ cursor: 'pointer' }"
+              [style]="{ cursor: 'pointer', width: '12px', height: '12px' }"
               (click)="openPopupForDeletionFromFavorite()"
               [src]="pathToIcons + '/icon-self-trash.svg'"></svg-icon>
           }

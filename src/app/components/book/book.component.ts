@@ -76,7 +76,6 @@ export class BookComponent implements OnInit {
       .pipe(
         tap((param: boolean): void => {
           if (param) {
-            console.log(7777777777777);
             this.deleteFavoriteBook();
           }
         })
@@ -89,17 +88,17 @@ export class BookComponent implements OnInit {
       this.router.navigate(['home/book/', this.book?.id]).then(() => {});
     } else if (sizeBook === 'big-book' && !this.selfBook) {
       this.router.navigate(['home/book/', this.book?.id]).then(() => {});
-    } else if (this.selfBook) {
+    } else if (sizeBook === 'big-book' && this.selfBook) {
       console.log(this.book?.webReaderLink);
       this.readSelfBook();
     }
   }
-  openGoogleInfo(): void {
-    window.open(this.book?.webReaderLink, '_blank');
+  openGoogleInfo(book: BookItemTransformedInterface): void {
+    window.open(book.webReaderLink, '_blank');
   }
 
-  editSelfBook(): void {
-    this.router.navigate(['/home/upload'], { queryParams: { id: this.book?.id } }).then(() => {});
+  editSelfBook(book: BookItemTransformedInterface): void {
+    this.router.navigate(['/home/upload'], { queryParams: { id: book.id } }).then(() => {});
   }
 
   openDeletePopupForOwnBook(): void {
@@ -109,30 +108,32 @@ export class BookComponent implements OnInit {
   }
 
   deleteSelfBook(): void {
-    this.notificationService.notifyAboutNotificationLoader(true);
-    this.databaseService
-      .deleteBookAndFile(this.book!.id, this.book!.webReaderLink, this.book!.thumbnail)
-      .pipe(
-        exhaustMap(() => {
-          this.deleteSelfBookEvent.emit(this.book!.id);
-          this.notificationService.notifyAboutNotification({
-            message: 'Self book deleted successfully',
-            status: NotificationStatus.success,
-          });
-          return EMPTY;
-        }),
-        catchError(() => {
-          this.notificationService.notifyAboutNotification({
-            message: 'Self book deleted with error',
-            status: NotificationStatus.error,
-          });
-          return EMPTY;
-        }),
-        finalize(() => {
-          this.notificationService.notifyAboutNotificationLoader(false);
-        })
-      )
-      .subscribe();
+    if (this.book) {
+      this.notificationService.notifyAboutNotificationLoader(true);
+      this.databaseService
+        .deleteBookAndFile(this.book.id, this.book.webReaderLink, this.book.thumbnail)
+        .pipe(
+          exhaustMap(() => {
+            this.deleteSelfBookEvent.emit(this.book!.id);
+            this.notificationService.notifyAboutNotification({
+              message: 'Self book deleted successfully',
+              status: NotificationStatus.success,
+            });
+            return EMPTY;
+          }),
+          catchError(() => {
+            this.notificationService.notifyAboutNotification({
+              message: 'Self book deleted with error',
+              status: NotificationStatus.error,
+            });
+            return EMPTY;
+          }),
+          finalize(() => {
+            this.notificationService.notifyAboutNotificationLoader(false);
+          })
+        )
+        .subscribe();
+    }
   }
 
   openPopupForDeletionFromFavorite(): void {
@@ -142,34 +143,10 @@ export class BookComponent implements OnInit {
   }
 
   deleteFavoriteBook(): void {
-    if (this.book?.id && this.book.id) {
-      // this.notificationService.notifyAboutNotificationLoader(true);
-      console.log(999999999);
+    if (this.book && this.book.id) {
       this.favoriteFacade.loadRemoveFavoritesBooks(this.book.id);
-
-      // this.googleApiService
-      //   .removeFavoriteBook(this.book.id)
-      //   .pipe(
-      //     tap((): void => {
-      //       this.notificationService.notifyAboutNotification({
-      //         message: 'Success removed',
-      //         status: NotificationStatus.success,
-      //       });
-      //     }),
-      //     catchError(() => {
-      //       this.notificationService.notifyAboutNotification({
-      //         message: 'Sth went wrong',
-      //         status: NotificationStatus.error,
-      //       });
-      //       return EMPTY;
-      //     }),
-      //     finalize((): void => {
-      //       this.notificationService.notifyAboutNotificationLoader(false);
-      //     })
-      //   )
-      //   .subscribe();
     }
   }
 
-  readSelfBook() {}
+  readSelfBook(): void {}
 }
