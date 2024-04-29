@@ -9,6 +9,7 @@ import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { DetailBookEffects } from './ngrx/detail-book/detail-book.effects';
 import { SearchLiveEffects } from './ngrx/search-live/search-live.effects';
 import { searchLiveReducer } from './ngrx/search-live/search-live.reducer';
+import { userReducer } from './ngrx/auth-firebase/auth-firebase.reducer';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { detailReducer } from './ngrx/detail-book/detail-book.reducer';
 import { homeNowReducer, homeReducer } from './ngrx/home/home.reducer';
@@ -56,6 +57,7 @@ export const appConfig: ApplicationConfig = {
       author: authorReducer,
       search: searchReducer,
       searchLive: searchLiveReducer,
+      user: userReducer,
     }),
     provideEffects([
       BookEffects,

@@ -1,6 +1,10 @@
+import { AuthFirebaseFacade } from './ngrx/auth-firebase/auth-firebase.facade';
 import { LoaderComponent, NotificationComponent } from './UI-сomponents';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Component } from '@angular/core';
+import { AuthService } from './core';
+import { filter, take } from 'rxjs';
+type User = import('firebase/auth').User;
 
 @Component({
   selector: 'app-root',
@@ -9,28 +13,22 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
-  // subscription1: Subscription | null = null;
-  // constructor(private authService: AuthService) {}
-  // ngOnInit(): void {
-  //   this.subscription1 = this.authService.user$.subscribe(user => {
-  //     if (user) {
-  //       this.authService.currentUserSig.set({
-  //         email: user.email!,
-  //         username: user.displayName!,
-  //         uid: user.uid,
-  //       });
-  //     } else {
-  //       this.authService.currentUserSig.set(null);
-  //     }
-  //
-  //     console.log(this.authService.currentUserSig());
-  //   });
-  //
-  //   //для отображения имени пользователя потом использовать вот это в html
-  //   // {{authService.currentUserSig()?.username}}
-  // }
-  // ngOnDestroy(): void {
-  //   this.subscription1?.unsubscribe();
-  // }
+export class AppComponent implements OnInit {
+  constructor(
+    private authService: AuthService,
+    private authFirebaseFacade: AuthFirebaseFacade
+  ) {}
+  ngOnInit(): void {
+    this.authService.user$
+      .pipe(
+        filter(user => Boolean(user)),
+        take(1)
+      )
+      .subscribe((user: User | null) => {
+        if (user) {
+          const simpleUser: string = user.uid;
+          this.authFirebaseFacade.setUser(simpleUser);
+        }
+      });
+  }
 }

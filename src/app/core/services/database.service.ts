@@ -36,6 +36,7 @@ import { CollectionReference, DocumentData } from '@firebase/firestore';
 import { UploadMetadata } from '@angular/fire/storage';
 import { Injectable } from '@angular/core';
 import { AuthService } from '../auth';
+import { AuthFirebaseFacade } from '../../ngrx/auth-firebase/auth-firebase.facade';
 @Injectable({
   providedIn: 'root',
 })
@@ -46,20 +47,15 @@ export class DatabaseService {
   constructor(
     private firestore: Firestore,
     private authService: AuthService,
-    private storage: Storage
+    private storage: Storage,
+    private authFirebaseFacade: AuthFirebaseFacade
   ) {
-    this.authService.user$
+    this.authFirebaseFacade
+      .getCurrentUser()
       .pipe(
-        filter(user => {
-          return user !== null;
-        }),
+        filter(user => Boolean(user)),
         tap(user => {
-          this.authService.currentUserSig.set({
-            email: user!.email!,
-            username: user!.displayName!,
-            uid: user!.uid,
-          });
-          this.path = user!.uid;
+          this.path = user;
           this._collection = collection(this.firestore, `users/${this.path}/books`);
         })
       )
