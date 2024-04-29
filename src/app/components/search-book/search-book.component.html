@@ -42,7 +42,7 @@
     </div>
     <div class="content-td">
       <div class="content-favorite">
-        @if (isFavorite) {
+        @if (isFavorite$ | async) {
           <svg-icon (click)="removeFavorite()" [src]="pathToIcons + '/heart-red.svg'"></svg-icon>
         } @else {
           <svg-icon (click)="addFavorite()" [src]="pathToIcons + '/heart-white.svg'"></svg-icon>

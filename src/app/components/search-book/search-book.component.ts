@@ -1,22 +1,17 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnChanges,
-} from '@angular/core';
 import { GoogleApiService, NotificationService, TransformDateBookPipe } from '../../core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
+import { BehaviorSubject, catchError, EMPTY, finalize, tap } from 'rxjs';
 import { SearchDetailInterface } from '../../modals/user';
-import { catchError, EMPTY, finalize, tap } from 'rxjs';
 import { NotificationStatus } from '../../modals/auth';
 import { SvgIconComponent } from 'angular-svg-icon';
+import { AsyncPipe } from '@angular/common';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-book',
   standalone: true,
-  imports: [SvgIconComponent, TransformDateBookPipe],
+  imports: [SvgIconComponent, TransformDateBookPipe, AsyncPipe],
   templateUrl: './search-book.component.html',
   styleUrl: './search-book.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,7 +19,7 @@ import { Router } from '@angular/router';
 export class SearchBookComponent implements OnChanges {
   @Input() searchBook: SearchDetailInterface | null = null;
   @Input() idOfFavorites: string[] = [];
-  isFavorite: boolean = false;
+  isFavorite$ = new BehaviorSubject<boolean>(false);
   isOperationAddInProgress: boolean = false;
   isOperationRemoveInProgress: boolean = false;
   pathToIcons = environment.pathToIcons;
@@ -32,7 +27,6 @@ export class SearchBookComponent implements OnChanges {
   constructor(
     private router: Router,
     private googleApiService: GoogleApiService,
-    private cdr: ChangeDetectorRef,
     private notificationService: NotificationService
   ) {}
 
@@ -43,7 +37,7 @@ export class SearchBookComponent implements OnChanges {
       this.idOfFavorites &&
       this.idOfFavorites.length > 0
     ) {
-      this.isFavorite = this.idOfFavorites.includes(this.searchBook.id);
+      this.isFavorite$.next(this.idOfFavorites.includes(this.searchBook.id));
     }
   }
 
@@ -65,8 +59,7 @@ export class SearchBookComponent implements OnChanges {
         .setFavoriteBook(this.searchBook.id)
         .pipe(
           tap((): void => {
-            this.isFavorite = true;
-            this.cdr.detectChanges();
+            this.isFavorite$.next(true);
             this.notificationService.notifyAboutNotification({
               message: 'Success added',
               status: NotificationStatus.success,
@@ -99,8 +92,7 @@ export class SearchBookComponent implements OnChanges {
         .removeFavoriteBook(this.searchBook.id)
         .pipe(
           tap((): void => {
-            this.isFavorite = false;
-            this.cdr.detectChanges();
+            this.isFavorite$.next(false);
             this.notificationService.notifyAboutNotification({
               message: 'Success removed',
               status: NotificationStatus.success,
