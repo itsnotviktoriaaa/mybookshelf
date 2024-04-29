@@ -47,21 +47,32 @@ export class SearchBookComponent implements OnChanges {
     }
   }
 
-  addFavorite(): void {
-    if (this.isOperationAddInProgress) {
+  toggleFavorite(isAdding: boolean): void {
+    if (
+      (isAdding && this.isOperationAddInProgress) ||
+      (!isAdding && this.isOperationRemoveInProgress)
+    ) {
       return;
     }
 
     if (this.searchBook?.id && this.searchBook.id) {
-      this.isOperationAddInProgress = true;
+      if (isAdding) {
+        this.isOperationAddInProgress = true;
+      } else {
+        this.isOperationRemoveInProgress = true;
+      }
 
-      this.googleApiService
-        .setFavoriteBook(this.searchBook.id)
+      const operationObservable = isAdding
+        ? this.googleApiService.setFavoriteBook(this.searchBook.id)
+        : this.googleApiService.removeFavoriteBook(this.searchBook.id);
+
+      operationObservable
         .pipe(
-          tap((): void => {
-            this.isFavorite$.next(true);
+          tap(() => {
+            this.isFavorite$.next(isAdding);
+            const message = isAdding ? 'Success added' : 'Success removed';
             this.notificationService.notifyAboutNotification({
-              message: 'Success added',
+              message,
               status: NotificationStatus.success,
             });
           }),
@@ -72,44 +83,20 @@ export class SearchBookComponent implements OnChanges {
             });
             return EMPTY;
           }),
-          finalize((): void => {
+          finalize(() => {
             this.isOperationAddInProgress = false;
+            this.isOperationRemoveInProgress = false;
           })
         )
         .subscribe();
     }
   }
 
+  addFavorite(): void {
+    this.toggleFavorite(true);
+  }
+
   removeFavorite(): void {
-    if (this.isOperationRemoveInProgress) {
-      return;
-    }
-
-    if (this.searchBook?.id && this.searchBook.id) {
-      this.isOperationRemoveInProgress = true;
-
-      this.googleApiService
-        .removeFavoriteBook(this.searchBook.id)
-        .pipe(
-          tap((): void => {
-            this.isFavorite$.next(false);
-            this.notificationService.notifyAboutNotification({
-              message: 'Success removed',
-              status: NotificationStatus.success,
-            });
-          }),
-          catchError(() => {
-            this.notificationService.notifyAboutNotification({
-              message: 'Sth went wrong',
-              status: NotificationStatus.error,
-            });
-            return EMPTY;
-          }),
-          finalize((): void => {
-            this.isOperationRemoveInProgress = false;
-          })
-        )
-        .subscribe();
-    }
+    this.toggleFavorite(false);
   }
 }
