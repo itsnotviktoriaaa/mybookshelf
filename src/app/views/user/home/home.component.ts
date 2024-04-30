@@ -1,6 +1,7 @@
 import { SubscribeDecorator } from '../../../decorators/subscribe-decorator';
 import { arrayFromBookItemTransformedInterface } from '../../../modals/user';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { RouterFacadeService } from '../../../ngrx/router/router.facade';
 import { HomeFacade } from '../../../ngrx/home/home.facade';
 import { MiniModalComponent } from '../../../UI-сomponents';
 import { UserInfoFromGoogle } from '../../../modals/auth';
@@ -30,7 +31,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private googleApi: GoogleApiService,
-    private homeFacade: HomeFacade
+    private homeFacade: HomeFacade,
+    private routerFacadeService: RouterFacadeService
   ) {}
 
   ngOnInit(): void {
@@ -42,6 +44,10 @@ export class HomeComponent implements OnInit {
         this.homeFacade.loadReadingNowBooks(0);
         this.getReadingNowBooksObservable().subscribe();
       }
+    });
+
+    this.routerFacadeService.getUrl$.subscribe(data => {
+      console.log(data);
     });
   }
 
