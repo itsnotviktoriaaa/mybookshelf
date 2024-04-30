@@ -1,4 +1,4 @@
-import { ActiveParamsType, arrayFromBookItemTransformedInterface } from '../../../modals/user';
+import { IActiveParams, IBookItemTransformedWithTotal } from '../../../modals/user';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 import { DestroyDirective } from '../../../core/directives/destroy.directive';
@@ -24,9 +24,9 @@ export class ShowAllComponent implements OnInit {
   pages: number[] = [];
   startIndex: number = 0;
   maxLengthWhichGetFromBookApi: number = 40;
-  activeParams: ActiveParamsType = { show: 'recommended' };
+  activeParams: IActiveParams = { show: 'recommended' };
 
-  showBooks$: Observable<arrayFromBookItemTransformedInterface | null> = of(null);
+  showBooks$: Observable<IBookItemTransformedWithTotal | null> = of(null);
 
   miniLoader$ = new BehaviorSubject<{ miniLoader: boolean }>({ miniLoader: true });
   pathToIcons = environment.pathToIcons;
@@ -65,7 +65,7 @@ export class ShowAllComponent implements OnInit {
     if (this.activeParams.show === 'recommended') {
       this.homeFacade.loadRecommendedBooks(this.startIndex);
       this.showBooks$ = this.homeFacade.getRecommendedBooks().pipe(
-        tap((showBooks: arrayFromBookItemTransformedInterface | null) => {
+        tap((showBooks: IBookItemTransformedWithTotal | null) => {
           console.log(showBooks);
           this.miniLoader$.next({ miniLoader: false });
           console.log(this.miniLoader$.getValue());
@@ -75,7 +75,7 @@ export class ShowAllComponent implements OnInit {
     } else if (this.activeParams.show === 'reading') {
       this.homeFacade.loadReadingNowBooks(this.startIndex);
       this.showBooks$ = this.homeFacade.getReadingNowBooks().pipe(
-        tap((showBooks: arrayFromBookItemTransformedInterface | null) => {
+        tap((showBooks: IBookItemTransformedWithTotal | null) => {
           this.miniLoader$.next({ miniLoader: false });
           this.definedQuantityOfPages(showBooks);
         })
@@ -83,7 +83,7 @@ export class ShowAllComponent implements OnInit {
     }
   }
 
-  definedQuantityOfPages(showBooks: arrayFromBookItemTransformedInterface | null): void {
+  definedQuantityOfPages(showBooks: IBookItemTransformedWithTotal | null): void {
     this.pages = [];
     if (showBooks) {
       if (showBooks && showBooks.totalItems <= 40) {

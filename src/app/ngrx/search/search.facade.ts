@@ -1,4 +1,4 @@
-import { ActiveParamsSearchType, SearchInterface } from '../../modals/user';
+import { IActiveParamsSearch, ISearch } from '../../modals/user';
 import { selectSearchBooks } from './search.selector';
 import { loadSearchBooks } from './search.actions';
 import { Injectable } from '@angular/core';
@@ -11,10 +11,10 @@ import { Observable } from 'rxjs';
 export class SearchFacade {
   constructor(private store: Store) {}
 
-  loadSearchBooks(params: ActiveParamsSearchType): void {
+  loadSearchBooks(params: IActiveParamsSearch): void {
     this.store.dispatch(loadSearchBooks({ params }));
   }
-  getSearchBooks(): Observable<SearchInterface | null> {
+  getSearchBooks(): Observable<ISearch | null> {
     return this.store.select(selectSearchBooks);
   }
 }

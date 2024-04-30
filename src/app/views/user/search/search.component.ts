@@ -1,9 +1,9 @@
 import {
-  ActiveParamsSearchType,
-  arrayFromBookItemTransformedInterface,
-  BookItemTransformedInterface,
+  IActiveParamsSearch,
+  IBookItemTransformedWithTotal,
+  IBookItemTransformed,
   SearchEnum,
-  SearchInterface,
+  ISearch,
   SelectedHeaderModalItemEnum,
 } from '../../../modals/user';
 import { ChangeDetectionStrategy, Component, HostListener, inject, OnInit } from '@angular/core';
@@ -34,7 +34,7 @@ export class SearchComponent implements OnInit {
   headerModalSearchText = new BehaviorSubject<string | null>(null);
   headerModalSearchItems = CategoryModalSearchItems;
   pathToIcons = environment.pathToIcons;
-  searchBooks$ = new BehaviorSubject<SearchInterface | null>(null);
+  searchBooks$ = new BehaviorSubject<ISearch | null>(null);
   idOfFavorites: string[] = [];
   private readonly destroy$ = inject(DestroyDirective).destroy$;
 
@@ -66,25 +66,25 @@ export class SearchComponent implements OnInit {
       .subscribe((params: Params): void => {
         this.setValuesFromParams(params);
 
-        const newParams: ActiveParamsSearchType = ActiveParamUtil.processParam(params);
+        const newParams: IActiveParamsSearch = ActiveParamUtil.processParam(params);
 
         this.searchFacade.loadSearchBooks(newParams);
         this.searchFacade.getSearchBooks().subscribe(data => {
           this.searchBooks$.next(data);
         });
 
-        const newParamsForFavorite: ActiveParamsSearchType =
+        const newParamsForFavorite: IActiveParamsSearch =
           ActiveParamUtil.processParamsForFavoritePage(params);
 
         this.favoriteFacade.loadFavoritesBooks(newParamsForFavorite);
         this.favoriteFacade
           .getFavoritesBooks()
           .pipe(
-            filter((data: arrayFromBookItemTransformedInterface | null) => !!data),
-            tap((books: arrayFromBookItemTransformedInterface | null): void => {
+            filter((data: IBookItemTransformedWithTotal | null) => !!data),
+            tap((books: IBookItemTransformedWithTotal | null): void => {
               const newArrayWithIdOfFavorites: string[] = [];
               if (books && books.items && books.items.length > 0) {
-                books.items.forEach((item: BookItemTransformedInterface): void => {
+                books.items.forEach((item: IBookItemTransformed): void => {
                   newArrayWithIdOfFavorites.push(item.id);
                 });
                 this.idOfFavorites = newArrayWithIdOfFavorites;

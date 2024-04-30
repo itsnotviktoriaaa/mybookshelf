@@ -1,9 +1,9 @@
-export interface ActiveParamsType {
+export interface IActiveParams {
   page?: number;
   show: 'recommended' | 'reading';
 }
 
-export type ActiveParamsSearchType = {
+export type IActiveParamsSearch = {
   q: string;
   maxResults: number;
   startIndex: number;

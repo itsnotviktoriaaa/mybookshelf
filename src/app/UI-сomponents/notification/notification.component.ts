@@ -1,4 +1,4 @@
-import { NotificationStatus, NotificationType } from '../../modals/auth';
+import { NotificationStatusEnum, NotificationType } from '../../modals/auth';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { finalize, Subject, takeUntil, tap } from 'rxjs';
 import { NgClass, NgStyle } from '@angular/common';
@@ -14,9 +14,12 @@ import { NotificationService } from '../../core';
 export class NotificationComponent implements OnInit, OnDestroy {
   message: string | null = null;
   timeout: number = 0;
-  protected readonly NotificationStatusEnum = NotificationStatus;
+  protected readonly NotificationStatusEnum = NotificationStatusEnum;
   notificationServiceDestroy$: Subject<void> = new Subject<void>();
-  status!: NotificationStatus.error | NotificationStatus.success | NotificationStatus.info;
+  status!:
+    | NotificationStatusEnum.error
+    | NotificationStatusEnum.success
+    | NotificationStatusEnum.info;
 
   constructor(private notificationService: NotificationService) {}
 

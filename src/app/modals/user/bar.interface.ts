@@ -1,8 +1,8 @@
-export interface MenuBelowBarInterface {
+export interface IMenuBelowBar {
   routerLink: string;
   text: string;
 }
 
-export interface MenuItemInterface extends MenuBelowBarInterface {
+export interface IMenuItem extends IMenuBelowBar {
   icon: string;
 }

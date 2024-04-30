@@ -1,6 +1,6 @@
 import { selectReadingNowBooks, selectRecommendedBooks } from './home.selectors';
 import { loadReadingNowBooks, loadRecommendedBooks } from './home.actions';
-import { arrayFromBookItemTransformedInterface } from '../../modals/user';
+import { IBookItemTransformedWithTotal } from '../../modals/user';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -19,11 +19,11 @@ export class HomeFacade {
     this.store.dispatch(loadReadingNowBooks({ startIndex }));
   }
 
-  getRecommendedBooks(): Observable<arrayFromBookItemTransformedInterface | null> {
+  getRecommendedBooks(): Observable<IBookItemTransformedWithTotal | null> {
     return this.store.select(selectRecommendedBooks);
   }
 
-  getReadingNowBooks(): Observable<arrayFromBookItemTransformedInterface | null> {
+  getReadingNowBooks(): Observable<IBookItemTransformedWithTotal | null> {
     return this.store.select(selectReadingNowBooks);
   }
 }

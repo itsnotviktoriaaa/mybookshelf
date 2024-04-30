@@ -1,4 +1,4 @@
-import { SearchSmallInterface } from '../../modals/user';
+import { ISearchSmall } from '../../modals/user';
 import { selectAuthor } from './author.selector';
 import { loadAuthor } from './author.actions';
 import { Injectable } from '@angular/core';
@@ -15,7 +15,7 @@ export class AuthorFacade {
     this.store.dispatch(loadAuthor({ author }));
   }
 
-  getDetailBook(): Observable<SearchSmallInterface | null> {
+  getDetailBook(): Observable<ISearchSmall | null> {
     return this.store.select(selectAuthor);
   }
 }

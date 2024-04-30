@@ -1,4 +1,4 @@
-import { arrayFromBookItemTransformedInterface } from '../../modals/user';
+import { IBookItemTransformedWithTotal } from '../../modals/user';
 import { createAction, props } from '@ngrx/store';
 
 //Actions for getting books recommended
@@ -8,7 +8,7 @@ export const loadRecommendedBooks = createAction(
 );
 export const loadRecommendedBooksSuccess = createAction(
   '[Book] Load Recommended Books Success',
-  props<{ data: arrayFromBookItemTransformedInterface }>()
+  props<{ data: IBookItemTransformedWithTotal }>()
 );
 export const loadRecommendedBooksFailure = createAction(
   '[Book] Load Recommended Books Failure',
@@ -22,7 +22,7 @@ export const loadReadingNowBooks = createAction(
 );
 export const loadReadingNowBooksSuccess = createAction(
   '[Book] Load Reading Now Books Success',
-  props<{ data: arrayFromBookItemTransformedInterface }>()
+  props<{ data: IBookItemTransformedWithTotal }>()
 );
 export const loadReadingNowBooksFailure = createAction(
   '[Book] Load Reading Now Books Failure',

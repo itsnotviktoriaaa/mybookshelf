@@ -1,13 +1,13 @@
 import {
-  ActiveParamsSearchType,
-  NamesOfKeys,
+  IActiveParamsSearch,
+  NamesOfKeysEnum,
   SelectedHeaderModalItemEnum,
 } from '../../modals/user';
 import { Params } from '@angular/router';
 
 export class ActiveParamUtil {
-  static processParam(params: Params, text?: string): ActiveParamsSearchType {
-    const activeParams: ActiveParamsSearchType = {
+  static processParam(params: Params, text?: string): IActiveParamsSearch {
+    const activeParams: IActiveParamsSearch = {
       q: '',
       maxResults: 40,
       startIndex: 0,
@@ -24,23 +24,23 @@ export class ActiveParamUtil {
       const type: string = params['type'];
 
       switch (type) {
-        case NamesOfKeys.all:
+        case NamesOfKeysEnum.all:
           typeForRequest = '';
           break;
-        case NamesOfKeys.inauthor:
-          typeForRequest = `+in${NamesOfKeys.inauthor}:`;
+        case NamesOfKeysEnum.inauthor:
+          typeForRequest = `+in${NamesOfKeysEnum.inauthor}:`;
           break;
-        case NamesOfKeys.intitle:
-          typeForRequest = `+in${NamesOfKeys.intitle}:`;
+        case NamesOfKeysEnum.intitle:
+          typeForRequest = `+in${NamesOfKeysEnum.intitle}:`;
           break;
-        case NamesOfKeys.intext:
-          typeForRequest = `+in${NamesOfKeys.intext}:`;
+        case NamesOfKeysEnum.intext:
+          typeForRequest = `+in${NamesOfKeysEnum.intext}:`;
           break;
-        case NamesOfKeys.subject:
-          typeForRequest = `+${NamesOfKeys.subject}:`;
+        case NamesOfKeysEnum.subject:
+          typeForRequest = `+${NamesOfKeysEnum.subject}:`;
           break;
         default:
-          typeForRequest = `+in${NamesOfKeys.intitle}:`;
+          typeForRequest = `+in${NamesOfKeysEnum.intitle}:`;
       }
     }
 
@@ -64,9 +64,9 @@ export class ActiveParamUtil {
       activeParams.q += typeForRequest + category;
     }
 
-    if (textFromInput && typeForRequest === `+${NamesOfKeys.subject}:`) {
+    if (textFromInput && typeForRequest === `+${NamesOfKeysEnum.subject}:`) {
       activeParams.q = textFromInput + typeForRequest + category;
-    } else if (!textFromInput && typeForRequest === `+${NamesOfKeys.subject}:`) {
+    } else if (!textFromInput && typeForRequest === `+${NamesOfKeysEnum.subject}:`) {
       activeParams.q = typeForRequest + category;
     } else if (textFromInput) {
       activeParams.q = typeForRequest + textFromInput;
@@ -84,30 +84,30 @@ export class ActiveParamUtil {
     let typeForRequest: string = '';
 
     switch (typeFromInput.toLowerCase()) {
-      case NamesOfKeys.all:
+      case NamesOfKeysEnum.all:
         typeForRequest = '';
         break;
-      case NamesOfKeys.inauthor:
-        typeForRequest = `+in${NamesOfKeys.inauthor}:`;
+      case NamesOfKeysEnum.inauthor:
+        typeForRequest = `+in${NamesOfKeysEnum.inauthor}:`;
         break;
-      case NamesOfKeys.intitle:
-        typeForRequest = `+in${NamesOfKeys.intitle}:`;
+      case NamesOfKeysEnum.intitle:
+        typeForRequest = `+in${NamesOfKeysEnum.intitle}:`;
         break;
-      case NamesOfKeys.intext:
-        typeForRequest = `+in${NamesOfKeys.intext}:`;
+      case NamesOfKeysEnum.intext:
+        typeForRequest = `+in${NamesOfKeysEnum.intext}:`;
         break;
-      case NamesOfKeys.subject:
-        typeForRequest = `+${NamesOfKeys.subject}:`;
+      case NamesOfKeysEnum.subject:
+        typeForRequest = `+${NamesOfKeysEnum.subject}:`;
         break;
       default:
-        typeForRequest = `+in${NamesOfKeys.intitle}:`;
+        typeForRequest = `+in${NamesOfKeysEnum.intitle}:`;
     }
 
     return typeForRequest;
   }
 
-  static processParamsForFavoritePage(params: Params): ActiveParamsSearchType {
-    const activeParams: ActiveParamsSearchType = {
+  static processParamsForFavoritePage(params: Params): IActiveParamsSearch {
+    const activeParams: IActiveParamsSearch = {
       q: '',
       maxResults: 40,
       startIndex: 0,

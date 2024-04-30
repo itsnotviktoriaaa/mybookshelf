@@ -1,4 +1,4 @@
-export enum NamesOfKeys {
+export enum NamesOfKeysEnum {
   all = 'all',
   intitle = 'title',
   inauthor = 'author',

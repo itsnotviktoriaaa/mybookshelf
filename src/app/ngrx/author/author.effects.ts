@@ -1,5 +1,5 @@
 import { loadAuthor, loadAuthorFailure, loadAuthorSuccess } from './author.actions';
-import { SearchInfoDetail, SearchSmallInterface } from '../../modals/user';
+import { ISearchInfoDetail, ISearchSmall } from '../../modals/user';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { TypedAction } from '@ngrx/store/src/models';
@@ -18,7 +18,7 @@ export class AuthorEffects {
       ofType(loadAuthor),
       switchMap(action => {
         return this.googleApi.getAuthorDetail(action.author).pipe(
-          map((data: SearchInfoDetail): { data: SearchSmallInterface } & TypedAction<string> => {
+          map((data: ISearchInfoDetail): { data: ISearchSmall } & TypedAction<string> => {
             const transformedDataItems: { thumbnail: string; id: string; title: string }[] =
               data.items.map(item => {
                 return {

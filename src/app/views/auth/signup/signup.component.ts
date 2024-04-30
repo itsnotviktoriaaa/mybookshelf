@@ -9,7 +9,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { catchError, EMPTY, finalize, Observable, of, Subject, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment.development';
 import { SubscribeDecorator } from '../../../decorators/subscribe-decorator';
-import { NotificationStatus, UserSignInterface } from '../../../modals/auth';
+import { NotificationStatusEnum, IUserSign } from '../../../modals/auth';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgClass, NgOptimizedImage, NgStyle } from '@angular/common';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
@@ -44,7 +44,7 @@ export class SignupComponent implements OnInit {
   isShowConfirmPassword: boolean = false;
 
   errorMessage: string | null = null;
-  infoFromUser: UserSignInterface | null = null;
+  infoFromUser: IUserSign | null = null;
 
   verification: boolean = false;
   verification$: Subject<boolean> = new Subject<boolean>();
@@ -108,14 +108,14 @@ export class SignupComponent implements OnInit {
         } else {
           this.notificationService.notifyAboutNotification({
             message: 'Your email address has been used before',
-            status: NotificationStatus.error,
+            status: NotificationStatusEnum.error,
           });
         }
       }),
       catchError(err => {
         this.notificationService.notifyAboutNotification({
           message: 'Something went wrong. Please, try again',
-          status: NotificationStatus.error,
+          status: NotificationStatusEnum.error,
         });
         console.log(err);
         return EMPTY;
@@ -201,7 +201,7 @@ export class SignupComponent implements OnInit {
     } else {
       this.notificationService.notifyAboutNotification({
         message: 'Incorrect code, try entering the code again',
-        status: NotificationStatus.error,
+        status: NotificationStatusEnum.error,
       });
     }
   }
@@ -242,7 +242,7 @@ export class SignupComponent implements OnInit {
         console.log('Success. Status: ' + response.text + ' ' + response.status);
         this.notificationService.notifyAboutNotification({
           message: 'Code was sent on your email. Please, check and enter values',
-          status: NotificationStatus.success,
+          status: NotificationStatusEnum.success,
         });
 
         if (!this.verification) {
@@ -254,7 +254,7 @@ export class SignupComponent implements OnInit {
         this.notificationService.notifyAboutNotificationLoader(false);
         this.notificationService.notifyAboutNotification({
           message: 'Something went wrong. Please, try again',
-          status: NotificationStatus.error,
+          status: NotificationStatusEnum.error,
         });
         console.log('sth went wrong. Error ' + error.text + ' ' + error.status);
         return EMPTY;
@@ -285,7 +285,7 @@ export class SignupComponent implements OnInit {
           this.codeWhichWrittenUserWasEqualFromEmail = true;
           this.notificationService.notifyAboutNotification({
             message: 'You have successfully registered',
-            status: NotificationStatus.success,
+            status: NotificationStatusEnum.success,
           });
         }),
         catchError(err => {
@@ -296,7 +296,7 @@ export class SignupComponent implements OnInit {
           this.codeWhichWrittenUserWasEqualFromEmail = true;
           this.notificationService.notifyAboutNotification({
             message: `Something went wrong:( Please, try again`,
-            status: NotificationStatus.error,
+            status: NotificationStatusEnum.error,
           });
           return EMPTY;
         })

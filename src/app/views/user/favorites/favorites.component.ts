@@ -1,8 +1,5 @@
-import {
-  ActiveParamsSearchType,
-  arrayFromBookItemTransformedInterface,
-} from '../../../modals/user';
 import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { IActiveParamsSearch, IBookItemTransformedWithTotal } from '../../../modals/user';
 import { DestroyDirective } from '../../../core/directives/destroy.directive';
 import { FavoritesFacade } from '../../../ngrx/favorites/favorites.facade';
 import { RouterFacadeService } from '../../../ngrx/router/router.facade';
@@ -23,7 +20,7 @@ import { Params } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FavoritesComponent implements OnInit, OnDestroy {
-  favoritesBooks$: Observable<arrayFromBookItemTransformedInterface | null> = of(null);
+  favoritesBooks$: Observable<IBookItemTransformedWithTotal | null> = of(null);
 
   miniLoader$ = new BehaviorSubject<{ miniLoader: boolean }>({ miniLoader: true });
 
@@ -44,12 +41,12 @@ export class FavoritesComponent implements OnInit, OnDestroy {
         console.log(params);
         this.miniLoader$.next({ miniLoader: true });
 
-        const newParamsForFavorite: ActiveParamsSearchType =
+        const newParamsForFavorite: IActiveParamsSearch =
           ActiveParamUtil.processParamsForFavoritePage(params);
 
         this.favoriteFacade.loadFavoritesBooks(newParamsForFavorite);
         this.favoritesBooks$ = this.favoriteFacade.getFavoritesBooks().pipe(
-          tap((books: arrayFromBookItemTransformedInterface | null): void => {
+          tap((books: IBookItemTransformedWithTotal | null): void => {
             console.log(books);
             this.miniLoader$.next({ miniLoader: false });
           })

@@ -1,4 +1,4 @@
-export interface SelfBookInterface {
+export interface ISelfBook {
   title: string;
   author: string[];
   description: string;
@@ -6,7 +6,7 @@ export interface SelfBookInterface {
   webReaderLink: string;
   thumbnail: string;
 }
-export interface SelfBookUploadInterface {
+export interface ISelfBookUpload {
   title: string;
   author: string[];
   description: string;

@@ -1,4 +1,4 @@
-import { BookItemTransformedInterface } from '../../../modals/user';
+import { IBookItemTransformed } from '../../../modals/user';
 import { BookComponent } from '../../../components';
 import { DocumentData } from '@firebase/firestore';
 import { Component, OnInit } from '@angular/core';
@@ -14,7 +14,7 @@ import { BehaviorSubject, map } from 'rxjs';
   styleUrl: './my-books.component.scss',
 })
 export class MyBooksComponent implements OnInit {
-  private selfBooksSubject = new BehaviorSubject<BookItemTransformedInterface[] | null>(null);
+  private selfBooksSubject = new BehaviorSubject<IBookItemTransformed[] | null>(null);
   selfBooks$ = this.selfBooksSubject.asObservable();
 
   constructor(private databaseService: DatabaseService) {}
@@ -32,7 +32,7 @@ export class MyBooksComponent implements OnInit {
             webReaderLink: item['webReaderLink'],
             thumbnail: item['thumbnail'],
             publishedDate: item['publishedDate'],
-          })) as BookItemTransformedInterface[];
+          })) as IBookItemTransformed[];
         })
       )
       .subscribe(selfBooks => {

@@ -7,10 +7,10 @@ import {
   removeFromFavoritesBooksSuccess,
 } from './favorites.actions';
 import {
-  arrayFromBookItemTransformedInterface,
-  BookInterface,
-  BookItemInterface,
-  BookItemTransformedInterface,
+  IBookItemTransformedWithTotal,
+  IBook,
+  IBookItem,
+  IBookItemTransformed,
 } from '../../modals/user';
 import { catchError, exhaustMap, finalize, map, of, switchMap, tap } from 'rxjs';
 import { GoogleApiService, NotificationService } from '../../core';
@@ -30,27 +30,24 @@ export class FavoritesEffects {
       ofType(loadFavoritesBooks),
       switchMap(action => {
         return this.googleApi.getFavorites(action.params).pipe(
-          map((data: BookInterface): { data: arrayFromBookItemTransformedInterface } => {
-            const transformedItems: BookItemTransformedInterface[] = data.items.map(
-              (item: BookItemInterface) => {
-                return {
-                  id: item.id,
-                  thumbnail: item.volumeInfo.imageLinks.thumbnail,
-                  title: item.volumeInfo.title,
-                  author: item.volumeInfo.authors,
-                  publishedDate: item.volumeInfo.publishedDate,
-                  webReaderLink: item.accessInfo.webReaderLink,
-                  pageCount: item.volumeInfo.pageCount,
-                  selfLink: item.selfLink,
-                  categories: item.volumeInfo.categories,
-                  userInfo: item.userInfo?.updated,
-                  averageRating: item.volumeInfo.averageRating,
-                };
-              }
-            );
+          map((data: IBook): { data: IBookItemTransformedWithTotal } => {
+            const transformedItems: IBookItemTransformed[] = data.items.map((item: IBookItem) => {
+              return {
+                id: item.id,
+                thumbnail: item.volumeInfo.imageLinks.thumbnail,
+                title: item.volumeInfo.title,
+                author: item.volumeInfo.authors,
+                publishedDate: item.volumeInfo.publishedDate,
+                webReaderLink: item.accessInfo.webReaderLink,
+                pageCount: item.volumeInfo.pageCount,
+                selfLink: item.selfLink,
+                categories: item.volumeInfo.categories,
+                userInfo: item.userInfo?.updated,
+                averageRating: item.volumeInfo.averageRating,
+              };
+            });
 
-            const uniqueItems: BookItemTransformedInterface[] =
-              this.filterUniqueBooks(transformedItems);
+            const uniqueItems: IBookItemTransformed[] = this.filterUniqueBooks(transformedItems);
             return loadFavoritesBooksSuccess({
               data: { items: uniqueItems, totalItems: data.totalItems },
             });
@@ -61,7 +58,7 @@ export class FavoritesEffects {
     );
   });
 
-  filterUniqueBooks(books: BookItemTransformedInterface[]): BookItemTransformedInterface[] {
+  filterUniqueBooks(books: IBookItemTransformed[]): IBookItemTransformed[] {
     return books.filter((book, index, self) => index === self.findIndex(b => b.id === book.id));
   }
 

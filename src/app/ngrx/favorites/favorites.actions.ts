@@ -1,13 +1,13 @@
-import { ActiveParamsSearchType, arrayFromBookItemTransformedInterface } from '../../modals/user';
+import { IActiveParamsSearch, IBookItemTransformedWithTotal } from '../../modals/user';
 import { createAction, props } from '@ngrx/store';
 
 export const loadFavoritesBooks = createAction(
   '[Favorites] Load Favorites Books',
-  props<{ params: ActiveParamsSearchType }>()
+  props<{ params: IActiveParamsSearch }>()
 );
 export const loadFavoritesBooksSuccess = createAction(
   '[Favorites] Load Favorites Books Success',
-  props<{ data: arrayFromBookItemTransformedInterface }>()
+  props<{ data: IBookItemTransformedWithTotal }>()
 );
 export const loadFavoritesBooksFailure = createAction(
   '[Favorites] Load Favorites Books Failure',

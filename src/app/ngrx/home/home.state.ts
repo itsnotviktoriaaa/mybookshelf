@@ -1,9 +1,9 @@
-import { arrayFromBookItemTransformedInterface } from '../../modals/user';
+import { IBookItemTransformedWithTotal } from '../../modals/user';
 
 export interface HomeState {
-  recommendedBooks: arrayFromBookItemTransformedInterface | null;
+  recommendedBooks: IBookItemTransformedWithTotal | null;
   loading: boolean;
 }
 export interface HomeNowState {
-  readingNowBooks: arrayFromBookItemTransformedInterface | null;
+  readingNowBooks: IBookItemTransformedWithTotal | null;
 }

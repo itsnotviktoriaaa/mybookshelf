@@ -1,5 +1,5 @@
-import { arrayFromBookItemTransformedInterface } from '../../modals/user';
+import { IBookItemTransformedWithTotal } from '../../modals/user';
 
 export interface FavoritesState {
-  favoritesBooks: arrayFromBookItemTransformedInterface | null;
+  favoritesBooks: IBookItemTransformedWithTotal | null;
 }

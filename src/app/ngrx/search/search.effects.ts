@@ -1,5 +1,5 @@
 import { loadSearchBooks, loadSearchBooksFailure, loadSearchBooksSuccess } from './search.actions';
-import { SearchDetailInterface, SearchInfoDetail, SearchInterface } from '../../modals/user';
+import { ISearchDetail, ISearchInfoDetail, ISearch } from '../../modals/user';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { TypedAction } from '@ngrx/store/src/models';
@@ -18,9 +18,9 @@ export class SearchEffects {
       ofType(loadSearchBooks),
       switchMap(action => {
         return this.googleApi.getSearchBooksDefault(action.params).pipe(
-          map((data: SearchInfoDetail): { data: SearchInterface } & TypedAction<string> => {
+          map((data: ISearchInfoDetail): { data: ISearch } & TypedAction<string> => {
             console.log(data);
-            const transformedDataItems: SearchDetailInterface[] = data.items.map(item => {
+            const transformedDataItems: ISearchDetail[] = data.items.map(item => {
               return {
                 id: item.id,
                 thumbnail: item.volumeInfo?.imageLinks?.thumbnail,

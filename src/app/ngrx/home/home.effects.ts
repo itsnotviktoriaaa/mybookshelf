@@ -7,10 +7,10 @@ import {
   loadRecommendedBooksSuccess,
 } from './home.actions';
 import {
-  arrayFromBookItemTransformedInterface,
-  BookInterface,
-  BookItemInterface,
-  BookItemTransformedInterface,
+  IBookItemTransformedWithTotal,
+  IBook,
+  IBookItem,
+  IBookItemTransformed,
 } from '../../modals/user';
 import { selectReadingNowBooks, selectRecommendedBooks } from './home.selectors';
 import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
@@ -46,12 +46,12 @@ export class BookEffects {
           }),
           map(
             (
-              data: BookInterface
+              data: IBook
             ): {
-              data: arrayFromBookItemTransformedInterface;
+              data: IBookItemTransformedWithTotal;
             } & TypedAction<'[Book] Load Recommended Books Success'> => {
-              const transformedItems: BookItemTransformedInterface[] = data.items.map(
-                (item: BookItemInterface): BookItemTransformedInterface => {
+              const transformedItems: IBookItemTransformed[] = data.items.map(
+                (item: IBookItem): IBookItemTransformed => {
                   return {
                     id: item.id,
                     thumbnail: item.volumeInfo.imageLinks.thumbnail,
@@ -86,12 +86,12 @@ export class BookEffects {
         this.googleApi.getReadingNow(action.startIndex).pipe(
           map(
             (
-              data: BookInterface
+              data: IBook
             ): {
-              data: arrayFromBookItemTransformedInterface;
+              data: IBookItemTransformedWithTotal;
             } & TypedAction<'[Book] Load Reading Now Books Success'> => {
-              const transformedItems: BookItemTransformedInterface[] = data.items.map(
-                (item: BookItemInterface): BookItemTransformedInterface => {
+              const transformedItems: IBookItemTransformed[] = data.items.map(
+                (item: IBookItem): IBookItemTransformed => {
                   return {
                     id: item.id,
                     thumbnail: item.volumeInfo.imageLinks.thumbnail,

@@ -1,22 +1,22 @@
-export interface BookInterface {
-  items: Array<BookItemInterface>;
+export interface IBook {
+  items: Array<IBookItem>;
   kind: string;
   totalItems: number;
 }
 
-export interface BookItemInterface {
-  accessInfo: BookItemAccessInfoInterface;
+export interface IBookItem {
+  accessInfo: IBookItemAccessInfo;
   etag: string;
   id: string;
   kind: string;
-  layerInfo: BookItemLayerInfoInterface;
-  saleInfo: BookItemSaleInfoInterface;
+  layerInfo: IBookItemLayerInfo;
+  saleInfo: IBookItemSaleInfo;
   selfLink: string;
   userInfo?: { updated: string };
-  volumeInfo: BookItemVolumeInfoInterface;
+  volumeInfo: IBookItemVolumeInfo;
 }
 
-export interface BookItemAccessInfoInterface {
+export interface IBookItemAccessInfo {
   accessViewStatus: string;
   country: string;
   embeddable: boolean;
@@ -29,14 +29,14 @@ export interface BookItemAccessInfoInterface {
   webReaderLink: string;
 }
 
-export interface BookItemLayerInfoInterface {
+export interface IBookItemLayerInfo {
   layers: Array<{
     layerId: string;
     volumeAnnotationsVersion: string;
   }>;
 }
 
-export interface BookItemSaleInfoInterface {
+export interface IBookItemSaleInfo {
   buyLink?: string;
   country: string;
   isEbook: boolean;
@@ -50,7 +50,7 @@ export interface BookItemSaleInfoInterface {
   saleability: string;
 }
 
-export interface BookItemVolumeInfoInterface {
+export interface IBookItemVolumeInfo {
   allowAnonLogging: boolean;
   authors: Array<string>;
   averageRating?: number;
@@ -73,7 +73,7 @@ export interface BookItemVolumeInfoInterface {
   title: string;
 }
 
-export interface BookItemTransformedInterface {
+export interface IBookItemTransformed {
   id: string;
   thumbnail: string;
   title: string;
@@ -88,12 +88,12 @@ export interface BookItemTransformedInterface {
   description?: string;
 }
 
-export interface arrayFromBookItemTransformedInterface {
-  items: BookItemTransformedInterface[];
+export interface IBookItemTransformedWithTotal {
+  items: IBookItemTransformed[];
   totalItems: number;
 }
 
-export interface DetailBookInterface {
+export interface IDetailBook {
   kind: string;
   id: string;
   etag: string;
@@ -171,7 +171,7 @@ export interface DetailBookInterface {
   };
 }
 
-export interface DetailBookSmallInfo {
+export interface IDetailBookSmallInfo {
   id: string;
   title: string;
   authors: Array<string>;
@@ -184,7 +184,7 @@ export interface DetailBookSmallInfo {
   webReaderLink: string;
 }
 
-export interface SearchInfoDetail {
+export interface ISearchInfoDetail {
   kind: string;
   totalItems: number;
   items: Array<{
@@ -263,16 +263,16 @@ export interface SearchInfoDetail {
   }>;
 }
 
-export interface SearchSmallInterface {
+export interface ISearchSmall {
   totalItems: number;
   items: Array<{ id: string; thumbnail: string; title: string }>;
 }
 
-export interface SearchInterface {
+export interface ISearch {
   totalItems: number;
-  items: SearchDetailInterface[];
+  items: ISearchDetail[];
 }
-export interface SearchDetailInterface {
+export interface ISearchDetail {
   id?: string;
   title?: string;
   authors?: Array<string>;
@@ -283,7 +283,7 @@ export interface SearchDetailInterface {
   pageCount?: number;
 }
 
-export interface ActionsInterface {
+export interface IActions {
   svg: string;
   title: string;
 }

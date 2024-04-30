@@ -1,11 +1,11 @@
-import { SelfBookUploadInterface } from './self-book.interface';
+import { ISelfBookUpload } from './self-book.interface';
 
-export interface UploadFilesAndCreateBookDatabaseInterface {
+export interface IUploadFilesAndCreateBookDatabase {
   pdfPath: string;
   pdfInput: HTMLInputElement;
   pdfContentType: string;
   photoPath: string;
   photoInput: HTMLInputElement;
   photoContentType: string;
-  selfBook: SelfBookUploadInterface;
+  selfBook: ISelfBookUpload;
 }

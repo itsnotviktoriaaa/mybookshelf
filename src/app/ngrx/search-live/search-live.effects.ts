@@ -1,14 +1,14 @@
 import {
-  SearchDetailInterface,
-  SearchInfoDetail,
-  SearchInterface,
-  SelectedHeaderModalItemEnum,
-} from '../../modals/user';
-import {
   loadSearchLiveBooks,
   loadSearchLiveBooksFailure,
   loadSearchLiveBooksSuccess,
 } from './search-live.actions';
+import {
+  ISearchDetail,
+  ISearchInfoDetail,
+  ISearch,
+  SelectedHeaderModalItemEnum,
+} from '../../modals/user';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { TypedAction } from '@ngrx/store/src/models';
@@ -27,8 +27,8 @@ export class SearchLiveEffects {
       ofType(loadSearchLiveBooks),
       switchMap(action => {
         return this.googleApi.getSearchBooksLive(action.textFromInput, action.typeFromInput).pipe(
-          map((data: SearchInfoDetail): SearchInterface => {
-            const transformedDataItems: SearchDetailInterface[] = data.items.map(item => {
+          map((data: ISearchInfoDetail): ISearch => {
+            const transformedDataItems: ISearchDetail[] = data.items.map(item => {
               return {
                 id: item.id,
                 thumbnail: item.volumeInfo?.imageLinks?.thumbnail,
@@ -43,9 +43,9 @@ export class SearchLiveEffects {
 
             return { totalItems: data.totalItems, items: transformedDataItems };
           }),
-          map((data: SearchInterface | null) => {
+          map((data: ISearch | null) => {
             if (data && data.items) {
-              return data.items.map((item: SearchDetailInterface): string => {
+              return data.items.map((item: ISearchDetail): string => {
                 const typeFromInput: string = action.typeFromInput.toLowerCase();
 
                 if (

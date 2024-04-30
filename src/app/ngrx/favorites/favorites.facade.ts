@@ -1,4 +1,4 @@
-import { ActiveParamsSearchType, arrayFromBookItemTransformedInterface } from '../../modals/user';
+import { IActiveParamsSearch, IBookItemTransformedWithTotal } from '../../modals/user';
 import { loadFavoritesBooks, removeFromFavoritesBooks } from './favorites.actions';
 import { selectFavoritesBooks } from './favorites.selector';
 import { Injectable } from '@angular/core';
@@ -11,10 +11,10 @@ import { Observable } from 'rxjs';
 export class FavoritesFacade {
   constructor(private store: Store) {}
 
-  loadFavoritesBooks(params: ActiveParamsSearchType): void {
+  loadFavoritesBooks(params: IActiveParamsSearch): void {
     this.store.dispatch(loadFavoritesBooks({ params }));
   }
-  getFavoritesBooks(): Observable<arrayFromBookItemTransformedInterface | null> {
+  getFavoritesBooks(): Observable<IBookItemTransformedWithTotal | null> {
     return this.store.select(selectFavoritesBooks);
   }
 

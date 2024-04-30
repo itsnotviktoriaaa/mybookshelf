@@ -1,4 +1,4 @@
-export enum HeaderClickInterface {
+export enum HeaderClickEnum {
   allMiniModal,
   langMiniModal,
   profileMiniModal,

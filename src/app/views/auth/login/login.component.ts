@@ -1,7 +1,7 @@
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService, CodeMessageHandlerUtil, NotificationService } from '../../../core';
+import { NotificationStatusEnum, IUserInfoFromGoogle } from '../../../modals/auth';
 import { environment } from '../../../../environments/environment.development';
-import { NotificationStatus, UserInfoFromGoogle } from '../../../modals/auth';
 import { SubscribeDecorator } from '../../../decorators/subscribe-decorator';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { NgOptimizedImage, NgStyle } from '@angular/common';
@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
     });
 
     //первый подход, когда использовался firebase
-    this.googleApi.userProfileSubject.subscribe((info: UserInfoFromGoogle | null) => {
+    this.googleApi.userProfileSubject.subscribe((info: IUserInfoFromGoogle | null) => {
       if (info) {
         this.router.navigate(['/home']).then(() => {});
       }
@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
         this.notificationService.notifyAboutNotificationLoader(false);
         this.notificationService.notifyAboutNotification({
           message: 'Welcome in MyBookShelf',
-          status: NotificationStatus.success,
+          status: NotificationStatusEnum.success,
         });
         this.router.navigate(['/home']).then(() => {});
         console.log('----- Login ------');
@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit {
         this.notificationService.notifyAboutNotificationLoader(false);
         this.notificationService.notifyAboutNotification({
           message: `${this.errorMessage}`,
-          status: NotificationStatus.error,
+          status: NotificationStatusEnum.error,
         });
         return EMPTY;
       })

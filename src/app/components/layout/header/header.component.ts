@@ -27,12 +27,12 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { HeaderClickInterface, SelectedHeaderModalItemEnum } from '../../../modals/user';
+import { HeaderClickEnum, SelectedHeaderModalItemEnum } from '../../../modals/user';
+import { NotificationStatusEnum, IUserInfoFromGoogle } from '../../../modals/auth';
 import { SearchLiveFacade } from '../../../ngrx/search-live/search-live.facade';
 import { environment } from '../../../../environments/environment.development';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DestroyDirective } from '../../../core/directives/destroy.directive';
-import { NotificationStatus, UserInfoFromGoogle } from '../../../modals/auth';
 import { RouterFacadeService } from '../../../ngrx/router/router.facade';
 import { AsyncPipe, NgStyle } from '@angular/common';
 import { SvgIconComponent } from 'angular-svg-icon';
@@ -63,12 +63,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     SelectedHeaderModalItemEnum.Subject,
   ];
   headerModalAccountItems: string[] = ['Profile', 'Favourite', 'My Books', 'Logout'];
-  protected readonly HeaderClickInterfaceEnum = HeaderClickInterface;
+  protected readonly HeaderClickInterfaceEnum = HeaderClickEnum;
   searchField: FormControl = new FormControl();
   searchTextTransformed: string = '';
   searchTexts$: BehaviorSubject<string[] | null> = new BehaviorSubject<string[] | null>(null);
   authServiceDestroy$: Subject<void> = new Subject<void>();
-  userInfo$ = new BehaviorSubject<UserInfoFromGoogle | null>(null);
+  userInfo$ = new BehaviorSubject<IUserInfoFromGoogle | null>(null);
   pathToIcons = environment.pathToIcons;
   existUrl: string | null = null;
   private readonly destroy$ = inject(DestroyDirective).destroy$;
@@ -84,7 +84,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.googleApi.userProfileSubject.subscribe((info: UserInfoFromGoogle | null): void => {
+    this.googleApi.userProfileSubject.subscribe((info: IUserInfoFromGoogle | null): void => {
       if (info) {
         this.userInfo$.next(info);
       }
@@ -205,20 +205,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   openOrCloseMiniModal(
     nameOfMiniModal:
-      | HeaderClickInterface.allMiniModal
-      | HeaderClickInterface.langMiniModal
-      | HeaderClickInterface.profileMiniModal
+      | HeaderClickEnum.allMiniModal
+      | HeaderClickEnum.langMiniModal
+      | HeaderClickEnum.profileMiniModal
   ): void {
-    if (nameOfMiniModal === HeaderClickInterface.allMiniModal) {
+    if (nameOfMiniModal === HeaderClickEnum.allMiniModal) {
       if (this.existUrl?.includes('favorites')) {
         return;
       }
       this.allMiniModal = !this.allMiniModal;
     }
-    if (nameOfMiniModal === HeaderClickInterface.langMiniModal) {
+    if (nameOfMiniModal === HeaderClickEnum.langMiniModal) {
       this.langMiniModal = !this.langMiniModal;
     }
-    if (nameOfMiniModal === HeaderClickInterface.profileMiniModal) {
+    if (nameOfMiniModal === HeaderClickEnum.profileMiniModal) {
       this.profileMiniModal = !this.profileMiniModal;
     }
   }
@@ -230,14 +230,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
         tap(() => {
           this.notificationService.notifyAboutNotification({
             message: 'Success logout',
-            status: NotificationStatus.success,
+            status: NotificationStatusEnum.success,
           });
           this.router.navigate(['/']).then(() => {});
         }),
         catchError(() => {
           this.notificationService.notifyAboutNotification({
             message: 'Success logout',
-            status: NotificationStatus.success,
+            status: NotificationStatusEnum.success,
           });
           this.router.navigate(['/']).then(() => {});
           return EMPTY;

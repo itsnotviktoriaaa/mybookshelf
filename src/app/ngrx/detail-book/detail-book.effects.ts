@@ -3,7 +3,7 @@ import {
   loadDetailBookFailure,
   loadDetailBookSuccess,
 } from './detail-book.actions';
-import { DetailBookInterface, DetailBookSmallInfo } from '../../modals/user';
+import { IDetailBook, IDetailBookSmallInfo } from '../../modals/user';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { GoogleApiService } from '../../core';
@@ -21,8 +21,8 @@ export class DetailBookEffects {
       ofType(loadDetailBook),
       switchMap(action => {
         return this.googleApi.getDetailBook(action.idOfBook).pipe(
-          map((data: DetailBookInterface) => {
-            const transformedData: DetailBookSmallInfo = {
+          map((data: IDetailBook) => {
+            const transformedData: IDetailBookSmallInfo = {
               id: data.id,
               title: data.volumeInfo.title,
               authors: data.volumeInfo.authors,

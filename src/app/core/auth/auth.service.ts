@@ -8,7 +8,7 @@ import {
   user,
 } from '@angular/fire/auth';
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
-import { UserInterface } from '../../modals/auth';
+import { IUser } from '../../modals/auth';
 import { from, Observable } from 'rxjs';
 type User = import('firebase/auth').User;
 
@@ -22,9 +22,9 @@ export class AuthService {
   user$: Observable<User | null> = user(this.firebaseAuth);
 
   //чтобы не использовать user$, так как там очень много данных и методов, поэтому создаю свой собственный текущий пользовательский сигнал
-  currentUserSig: WritableSignal<UserInterface | null | undefined> = signal<
-    UserInterface | null | undefined
-  >(undefined);
+  currentUserSig: WritableSignal<IUser | null | undefined> = signal<IUser | null | undefined>(
+    undefined
+  );
 
   register(email: string, username: string, password: string): Observable<void> {
     const promise: Promise<void> = createUserWithEmailAndPassword(

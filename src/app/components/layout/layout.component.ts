@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
-import { UserInfoFromGoogle } from '../../modals/auth';
+import { IUserInfoFromGoogle } from '../../modals/auth';
 import { BarComponent } from './bar/bar.component';
 import { RouterOutlet } from '@angular/router';
 import { GoogleApiService } from '../../core';
@@ -45,7 +45,7 @@ export class LayoutComponent {
   constructor(private googleApi: GoogleApiService) {
     this.googleApi.userProfileSubject
       .pipe(
-        tap((user: UserInfoFromGoogle | null) => {
+        tap((user: IUserInfoFromGoogle | null) => {
           if (!user) {
             console.log('wowowowow');
             this.googleApi.initiateAuthentication();

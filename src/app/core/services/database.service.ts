@@ -1,10 +1,4 @@
 import {
-  BookItemTransformedInterface,
-  SelfBookInterface,
-  SelfBookUploadInterface,
-  UploadFilesAndCreateBookDatabaseInterface,
-} from '../../modals/user';
-import {
   addDoc,
   collection,
   collectionData,
@@ -14,6 +8,12 @@ import {
   getDoc,
   updateDoc,
 } from '@angular/fire/firestore';
+import {
+  IBookItemTransformed,
+  ISelfBook,
+  ISelfBookUpload,
+  IUploadFilesAndCreateBookDatabase,
+} from '../../modals/user';
 import {
   deleteObject,
   getDownloadURL,
@@ -53,7 +53,7 @@ export class DatabaseService {
     );
   }
 
-  createSelfBook(selfBook: SelfBookInterface): Observable<unknown> {
+  createSelfBook(selfBook: ISelfBook): Observable<unknown> {
     return this.authFirebaseFacade.getCurrentUser().pipe(
       switchMap((user: string | null) => {
         if (user) {
@@ -73,7 +73,7 @@ export class DatabaseService {
     );
   }
 
-  getSelfBook(id: string): Observable<BookItemTransformedInterface | null> {
+  getSelfBook(id: string): Observable<IBookItemTransformed | null> {
     return this.authFirebaseFacade.getCurrentUser().pipe(
       switchMap((user: string | null) => {
         if (user) {
@@ -82,7 +82,7 @@ export class DatabaseService {
           return from(getDoc(document)).pipe(
             switchMap(snapshot => {
               if (snapshot.exists()) {
-                return of(snapshot.data() as BookItemTransformedInterface);
+                return of(snapshot.data() as IBookItemTransformed);
               } else {
                 return of(null);
               }
@@ -95,7 +95,7 @@ export class DatabaseService {
     );
   }
 
-  updateSelfBook(id: string, selfBook: SelfBookInterface): Observable<void> {
+  updateSelfBook(id: string, selfBook: ISelfBook): Observable<void> {
     return this.authFirebaseFacade.getCurrentUser().pipe(
       switchMap((user: string | null) => {
         if (user) {
@@ -180,7 +180,7 @@ export class DatabaseService {
   }
 
   uploadFilesAndCreateBook(
-    data: UploadFilesAndCreateBookDatabaseInterface
+    data: IUploadFilesAndCreateBookDatabase
   ): Observable<NonNullable<unknown>> {
     const { pdfPath, pdfInput, pdfContentType, photoPath, photoInput, photoContentType, selfBook } =
       data;
@@ -194,11 +194,10 @@ export class DatabaseService {
           ]).pipe(
             switchMap(([webReaderLink, thumbnail]) => {
               if (webReaderLink && thumbnail) {
-                const selfBookAfterUploadedFiles: SelfBookUploadInterface | SelfBookInterface =
-                  selfBook;
-                (selfBookAfterUploadedFiles as SelfBookInterface).webReaderLink = webReaderLink;
-                (selfBookAfterUploadedFiles as SelfBookInterface).thumbnail = thumbnail;
-                return this.createSelfBook(selfBookAfterUploadedFiles as SelfBookInterface).pipe(
+                const selfBookAfterUploadedFiles: ISelfBookUpload | ISelfBook = selfBook;
+                (selfBookAfterUploadedFiles as ISelfBook).webReaderLink = webReaderLink;
+                (selfBookAfterUploadedFiles as ISelfBook).thumbnail = thumbnail;
+                return this.createSelfBook(selfBookAfterUploadedFiles as ISelfBook).pipe(
                   catchError(() => {
                     return throwError(() => 'Sth went wrong');
                   }),

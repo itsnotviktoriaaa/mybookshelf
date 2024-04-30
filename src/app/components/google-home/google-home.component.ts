@@ -1,5 +1,5 @@
-import { arrayFromBookItemTransformedInterface } from '../../modals/user';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { IBookItemTransformedWithTotal } from '../../modals/user';
 import { MiniModalComponent } from '../../UI-сomponents';
 import { BookComponent } from '../book/book.component';
 import { AsyncPipe } from '@angular/common';
@@ -13,6 +13,6 @@ import { AsyncPipe } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GoogleHomeComponent {
-  @Input() googleArrayFromHome: arrayFromBookItemTransformedInterface | null = null;
+  @Input() googleArrayFromHome: IBookItemTransformedWithTotal | null = null;
   @Input() miniLoader: { miniLoader: boolean } = { miniLoader: false };
 }

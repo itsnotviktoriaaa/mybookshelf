@@ -2,9 +2,9 @@ import { GoogleApiService, NotificationService, TransformDateBookPipe } from '..
 import { ChangeDetectionStrategy, Component, Input, OnChanges } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { BehaviorSubject, catchError, EMPTY, finalize, tap } from 'rxjs';
-import { SearchDetailInterface } from '../../modals/user';
-import { NotificationStatus } from '../../modals/auth';
+import { NotificationStatusEnum } from '../../modals/auth';
 import { SvgIconComponent } from 'angular-svg-icon';
+import { ISearchDetail } from '../../modals/user';
 import { AsyncPipe } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchBookComponent implements OnChanges {
-  @Input() searchBook: SearchDetailInterface | null = null;
+  @Input() searchBook: ISearchDetail | null = null;
   @Input() idOfFavorites: string[] = [];
   isFavorite$ = new BehaviorSubject<boolean>(false);
   isOperationAddInProgress: boolean = false;
@@ -73,13 +73,13 @@ export class SearchBookComponent implements OnChanges {
             const message = isAdding ? 'Success added' : 'Success removed';
             this.notificationService.notifyAboutNotification({
               message,
-              status: NotificationStatus.success,
+              status: NotificationStatusEnum.success,
             });
           }),
           catchError(() => {
             this.notificationService.notifyAboutNotification({
               message: 'Sth went wrong',
-              status: NotificationStatus.error,
+              status: NotificationStatusEnum.error,
             });
             return EMPTY;
           }),

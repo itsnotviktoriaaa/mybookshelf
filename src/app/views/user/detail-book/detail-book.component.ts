@@ -1,4 +1,4 @@
-import { ActionsInterface, DetailBookSmallInfo, SearchSmallInterface } from '../../../modals/user';
+import { IActions, IDetailBookSmallInfo, ISearchSmall } from '../../../modals/user';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { DetailBookFacade } from '../../../ngrx/detail-book/detail-book.facade';
 import { environment } from '../../../../environments/environment.development';
@@ -33,14 +33,14 @@ import { SvgIconComponent } from 'angular-svg-icon';
 export class DetailBookComponent implements OnInit {
   rating: number = 0;
 
-  actions: ActionsInterface[] = [
+  actions: IActions[] = [
     { svg: 'review-icon.svg', title: 'Review' },
     { svg: 'notes-icon.svg', title: 'Notes' },
     { svg: 'share-icon.svg', title: 'Share' },
   ];
 
-  author$: Observable<SearchSmallInterface | null> = of(null);
-  detailBook$: Observable<DetailBookSmallInfo | null> = of(null);
+  author$: Observable<ISearchSmall | null> = of(null);
+  detailBook$: Observable<IDetailBookSmallInfo | null> = of(null);
 
   miniLoader$ = new BehaviorSubject<{ miniLoader: boolean }>({ miniLoader: true });
   pathToIcons = environment.pathToIcons;
@@ -63,7 +63,7 @@ export class DetailBookComponent implements OnInit {
         console.log(idOfBook);
         this.detailBookFacade.loadDetailBook(idOfBook);
         this.detailBook$ = this.detailBookFacade.getDetailBook().pipe(
-          tap((data: DetailBookSmallInfo | null) => {
+          tap((data: IDetailBookSmallInfo | null) => {
             this.miniLoader$.next({ miniLoader: false });
             if (data) {
               this.authorFacade.loadAuthor(this.search(data));
@@ -77,7 +77,7 @@ export class DetailBookComponent implements OnInit {
       });
   }
 
-  search(data: DetailBookSmallInfo): string {
+  search(data: IDetailBookSmallInfo): string {
     return data.authors[0].split(' ').join('+').toLowerCase();
   }
 

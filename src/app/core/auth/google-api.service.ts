@@ -1,13 +1,8 @@
-import {
-  ActiveParamsSearchType,
-  BookInterface,
-  DetailBookInterface,
-  SearchInfoDetail,
-} from '../../modals/user';
+import { IActiveParamsSearch, IBook, IDetailBook, ISearchInfoDetail } from '../../modals/user';
 import { environment } from '../../../environments/environment.development';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { IUserInfoFromGoogle } from '../../modals/auth';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { UserInfoFromGoogle } from '../../modals/auth';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { AuthService } from './auth.service';
 import { Injectable } from '@angular/core';
@@ -18,7 +13,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class GoogleApiService {
-  userProfileSubject = new BehaviorSubject<UserInfoFromGoogle | null>(null);
+  userProfileSubject = new BehaviorSubject<IUserInfoFromGoogle | null>(null);
   constructor(
     private readonly oAuthService: OAuthService,
     private http: HttpClient,
@@ -38,7 +33,7 @@ export class GoogleApiService {
             this.oAuthService.setupAutomaticSilentRefresh();
             // console.log(this.oAuthService.getAccessToken());
             // console.log(JSON.stringify(userProfile));
-            this.userProfileSubject.next(userProfile as UserInfoFromGoogle);
+            this.userProfileSubject.next(userProfile as IUserInfoFromGoogle);
             this.authService
               .checkEmailWasUsed(this.userProfileSubject.getValue()!.info.email)
               .pipe(
@@ -53,7 +48,7 @@ export class GoogleApiService {
                     this.authService.register(
                       this.userProfileSubject.getValue()!.info.email,
                       this.userProfileSubject.getValue()!.info.name,
-                      (userProfile as UserInfoFromGoogle).info.sub
+                      (userProfile as IUserInfoFromGoogle).info.sub
                     );
                   }
                 })
@@ -65,52 +60,52 @@ export class GoogleApiService {
     });
   }
 
-  getReadingNow(startIndex: number): Observable<BookInterface> {
-    return this.http.get<BookInterface>(`${environment.googleLibraryApi}3/volumes`, {
+  getReadingNow(startIndex: number): Observable<IBook> {
+    return this.http.get<IBook>(`${environment.googleLibraryApi}3/volumes`, {
       params: this.authParams(startIndex),
       headers: this.authHeader(),
     });
   }
 
-  getFavorites(params: ActiveParamsSearchType): Observable<BookInterface> {
+  getFavorites(params: IActiveParamsSearch): Observable<IBook> {
     let queryString: string = `maxResults=${params.maxResults}&startIndex=${params.startIndex}`;
 
     if (params.q) {
       queryString = `q=${params.q}&` + queryString;
     }
 
-    return this.http.get<BookInterface>(`${environment.googleLibraryApi}0/volumes?${queryString}`, {
+    return this.http.get<IBook>(`${environment.googleLibraryApi}0/volumes?${queryString}`, {
       headers: this.authHeader(),
     });
   }
 
-  getRecommended(startIndex: number): Observable<BookInterface> {
-    return this.http.get<BookInterface>(`${environment.googleLibraryApi}8/volumes`, {
+  getRecommended(startIndex: number): Observable<IBook> {
+    return this.http.get<IBook>(`${environment.googleLibraryApi}8/volumes`, {
       params: this.authParams(startIndex),
       headers: this.authHeader(),
     });
   }
 
-  getDetailBook(idOfBook: string): Observable<DetailBookInterface> {
-    return this.http.get<DetailBookInterface>(`${environment.googleVolumeApi}/${idOfBook}`, {
+  getDetailBook(idOfBook: string): Observable<IDetailBook> {
+    return this.http.get<IDetailBook>(`${environment.googleVolumeApi}/${idOfBook}`, {
       headers: this.authHeader(),
     });
   }
-  getAuthorDetail(author: string): Observable<SearchInfoDetail> {
-    return this.http.get<SearchInfoDetail>(
+  getAuthorDetail(author: string): Observable<ISearchInfoDetail> {
+    return this.http.get<ISearchInfoDetail>(
       `${environment.googleVolumeApi}?q=inauthor:${author}&maxResults=2`
     );
   }
-  getSearchBooksDefault(params: ActiveParamsSearchType): Observable<SearchInfoDetail> {
+  getSearchBooksDefault(params: IActiveParamsSearch): Observable<ISearchInfoDetail> {
     const queryString: string = `q=${params.q}&maxResults=${params.maxResults}&startIndex=${params.startIndex}`;
 
-    return this.http.get<SearchInfoDetail>(`${environment.googleVolumeApi}?${queryString}`);
+    return this.http.get<ISearchInfoDetail>(`${environment.googleVolumeApi}?${queryString}`);
   }
 
-  getSearchBooksLive(textFromInput: string, typeFromInput: string): Observable<SearchInfoDetail> {
+  getSearchBooksLive(textFromInput: string, typeFromInput: string): Observable<ISearchInfoDetail> {
     const typeTransformed: string = ActiveParamUtil.processTypeForLive(typeFromInput);
     const queryString: string = `q=${typeTransformed}${textFromInput}`;
-    return this.http.get<SearchInfoDetail>(`${environment.googleVolumeApi}?${queryString}`);
+    return this.http.get<ISearchInfoDetail>(`${environment.googleVolumeApi}?${queryString}`);
   }
 
   setFavoriteBook(id: string): Observable<NonNullable<unknown>> {

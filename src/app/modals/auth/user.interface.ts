@@ -1,21 +1,24 @@
-import { NotificationStatus } from './notification.enum';
+import { NotificationStatusEnum } from './notification.enum';
 
-export interface UserInterface {
+export interface IUser {
   email: string;
   username: string;
   uid?: string;
 }
 
-export interface UserSignInterface extends UserInterface {
+export interface IUserSign extends IUser {
   password: string;
 }
 
 export type NotificationType = {
   message: string;
-  status: NotificationStatus.error | NotificationStatus.success | NotificationStatus.info;
+  status:
+    | NotificationStatusEnum.error
+    | NotificationStatusEnum.success
+    | NotificationStatusEnum.info;
 };
 
-export interface UserInfoFromGoogle {
+export interface IUserInfoFromGoogle {
   info: {
     sub: string;
     email: string;

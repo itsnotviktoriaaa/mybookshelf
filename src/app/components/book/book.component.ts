@@ -18,8 +18,8 @@ import { CommonPopupService } from '../../core/services/common-popup.service';
 import { environment } from '../../../environments/environment.development';
 import { FavoritesFacade } from '../../ngrx/favorites/favorites.facade';
 import { catchError, EMPTY, exhaustMap, finalize, tap } from 'rxjs';
-import { BookItemTransformedInterface } from '../../modals/user';
-import { NotificationStatus } from '../../modals/auth';
+import { NotificationStatusEnum } from '../../modals/auth';
+import { IBookItemTransformed } from '../../modals/user';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { NgClass, NgStyle } from '@angular/common';
 import { Router } from '@angular/router';
@@ -42,7 +42,7 @@ import { Router } from '@angular/router';
   providers: [CommonPopupService],
 })
 export class BookComponent implements OnInit {
-  @Input() book: BookItemTransformedInterface | null = null;
+  @Input() book: IBookItemTransformed | null = null;
   @Input() bigInfo: boolean = false;
   @Input() selfBook: boolean = false;
   @Output() deleteSelfBookEvent: EventEmitter<string> = new EventEmitter<string>();
@@ -93,11 +93,11 @@ export class BookComponent implements OnInit {
       this.readSelfBook();
     }
   }
-  openGoogleInfo(book: BookItemTransformedInterface): void {
+  openGoogleInfo(book: IBookItemTransformed): void {
     window.open(book.webReaderLink, '_blank');
   }
 
-  editSelfBook(book: BookItemTransformedInterface): void {
+  editSelfBook(book: IBookItemTransformed): void {
     this.router.navigate(['/home/upload'], { queryParams: { id: book.id } }).then(() => {});
   }
 
@@ -117,14 +117,14 @@ export class BookComponent implements OnInit {
             this.deleteSelfBookEvent.emit(this.book!.id);
             this.notificationService.notifyAboutNotification({
               message: 'Self book deleted successfully',
-              status: NotificationStatus.success,
+              status: NotificationStatusEnum.success,
             });
             return EMPTY;
           }),
           catchError(() => {
             this.notificationService.notifyAboutNotification({
               message: 'Self book deleted with error',
-              status: NotificationStatus.error,
+              status: NotificationStatusEnum.error,
             });
             return EMPTY;
           }),

@@ -18,12 +18,12 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SelfBookInterface, SelfBookUploadInterface } from '../../../modals/user';
 import { environment } from '../../../../environments/environment.development';
 import { DestroyDirective } from '../../../core/directives/destroy.directive';
 import { RouterFacadeService } from '../../../ngrx/router/router.facade';
 import { DatabaseService, NotificationService } from '../../../core';
-import { NotificationStatus } from '../../../modals/auth';
+import { ISelfBook, ISelfBookUpload } from '../../../modals/user';
+import { NotificationStatusEnum } from '../../../modals/auth';
 import { UploadMetadata } from '@angular/fire/storage';
 import { AsyncPipe, NgStyle } from '@angular/common';
 import { SvgIconComponent } from 'angular-svg-icon';
@@ -99,7 +99,7 @@ export class UploadComponent implements OnInit {
       this.pdfFile = null;
       this.notificationService.notifyAboutNotification({
         message: 'It is not pdf format. Retry upload your pdf file',
-        status: NotificationStatus.error,
+        status: NotificationStatusEnum.error,
       });
     }
   }
@@ -117,7 +117,7 @@ export class UploadComponent implements OnInit {
       this.photoFile = null;
       this.notificationService.notifyAboutNotification({
         message: 'It is not png, jpeg or jpg. Retry upload your image',
-        status: NotificationStatus.error,
+        status: NotificationStatusEnum.error,
       });
     }
   }
@@ -131,7 +131,7 @@ export class UploadComponent implements OnInit {
       this.uploadForm.valid
     ) {
       this.notificationService.notifyAboutNotificationLoader(true);
-      const selfBook: SelfBookUploadInterface = {
+      const selfBook: ISelfBookUpload = {
         title: this.uploadForm.controls['title'].value,
         author: [this.uploadForm.controls['author'].value],
         description: this.uploadForm.controls['description'].value,
@@ -160,7 +160,7 @@ export class UploadComponent implements OnInit {
             this.notificationService.notifyAboutNotificationLoader(false);
             this.notificationService.notifyAboutNotification({
               message: 'Book created',
-              status: NotificationStatus.success,
+              status: NotificationStatusEnum.success,
             });
             this.router.navigate(['/home/books']).then((): void => {});
           }),
@@ -168,7 +168,7 @@ export class UploadComponent implements OnInit {
             this.notificationService.notifyAboutNotificationLoader(false);
             this.notificationService.notifyAboutNotification({
               message: 'Error creating book',
-              status: NotificationStatus.error,
+              status: NotificationStatusEnum.error,
             });
             return EMPTY;
           })
@@ -180,7 +180,7 @@ export class UploadComponent implements OnInit {
   editSelfBook(): void {
     if (this.pdfUrl.value && this.photoUrl.value) {
       this.notificationService.notifyAboutNotificationLoader(true);
-      const selfBook: SelfBookInterface = {
+      const selfBook: ISelfBook = {
         title: this.uploadForm.controls['title'].value,
         author: [this.uploadForm.controls['author'].value],
         description: this.uploadForm.controls['description'].value,
@@ -240,14 +240,14 @@ export class UploadComponent implements OnInit {
                   this.notificationService.notifyAboutNotificationLoader(false);
                   this.notificationService.notifyAboutNotification({
                     message: 'Self book updated successfully',
-                    status: NotificationStatus.success,
+                    status: NotificationStatusEnum.success,
                   });
                   this.router.navigate(['/home/books']).then((): void => {});
                 }),
                 catchError(() => {
                   this.notificationService.notifyAboutNotification({
                     message: 'Error updating self book',
-                    status: NotificationStatus.error,
+                    status: NotificationStatusEnum.error,
                   });
                   return EMPTY;
                 })

@@ -1,5 +1,5 @@
-import { SearchInterface } from '../../modals/user';
+import { ISearch } from '../../modals/user';
 
 export interface SearchState {
-  search: SearchInterface | null;
+  search: ISearch | null;
 }

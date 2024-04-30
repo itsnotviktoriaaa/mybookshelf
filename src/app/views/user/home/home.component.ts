@@ -1,10 +1,10 @@
 import { DestroyDirective } from '../../../core/directives/destroy.directive';
 import { SubscribeDecorator } from '../../../decorators/subscribe-decorator';
-import { arrayFromBookItemTransformedInterface } from '../../../modals/user';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { IBookItemTransformedWithTotal } from '../../../modals/user';
 import { HomeFacade } from '../../../ngrx/home/home.facade';
 import { MiniModalComponent } from '../../../UI-сomponents';
-import { UserInfoFromGoogle } from '../../../modals/auth';
+import { IUserInfoFromGoogle } from '../../../modals/auth';
 import { GoogleHomeComponent } from '../../../components';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { BookComponent } from '../../../components';
@@ -22,9 +22,9 @@ import { AsyncPipe } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent implements OnInit {
-  recommendedBooks$ = new BehaviorSubject<arrayFromBookItemTransformedInterface | null>(null);
+  recommendedBooks$ = new BehaviorSubject<IBookItemTransformedWithTotal | null>(null);
 
-  readingNowBooks$ = new BehaviorSubject<arrayFromBookItemTransformedInterface | null>(null);
+  readingNowBooks$ = new BehaviorSubject<IBookItemTransformedWithTotal | null>(null);
 
   miniLoader$ = new BehaviorSubject<{ miniLoader: boolean }>({ miniLoader: true });
 
@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.googleApi.userProfileSubject.subscribe((user: UserInfoFromGoogle | null) => {
+    this.googleApi.userProfileSubject.subscribe((user: IUserInfoFromGoogle | null) => {
       if (user) {
         this.homeFacade.loadRecommendedBooks(0);
         this.getRecommendedBooksObservable().subscribe();
@@ -48,9 +48,9 @@ export class HomeComponent implements OnInit {
   }
 
   @SubscribeDecorator()
-  getRecommendedBooksObservable(): Observable<arrayFromBookItemTransformedInterface | null> {
+  getRecommendedBooksObservable(): Observable<IBookItemTransformedWithTotal | null> {
     return this.homeFacade.getRecommendedBooks().pipe(
-      tap((book: arrayFromBookItemTransformedInterface | null) => {
+      tap((book: IBookItemTransformedWithTotal | null) => {
         console.log(book);
         this.recommendedBooks$.next(book);
         this.miniLoader$.next({ miniLoader: false });
@@ -59,9 +59,9 @@ export class HomeComponent implements OnInit {
   }
 
   @SubscribeDecorator()
-  getReadingNowBooksObservable(): Observable<arrayFromBookItemTransformedInterface | null> {
+  getReadingNowBooksObservable(): Observable<IBookItemTransformedWithTotal | null> {
     return this.homeFacade.getReadingNowBooks().pipe(
-      tap((books: arrayFromBookItemTransformedInterface | null) => {
+      tap((books: IBookItemTransformedWithTotal | null) => {
         this.readingNowBooks$.next(books);
       })
     );

@@ -1,4 +1,4 @@
-import { DetailBookSmallInfo } from '../../modals/user';
+import { IDetailBookSmallInfo } from '../../modals/user';
 import { createAction, props } from '@ngrx/store';
 
 export const loadDetailBook = createAction(
@@ -7,7 +7,7 @@ export const loadDetailBook = createAction(
 );
 export const loadDetailBookSuccess = createAction(
   '[Detail Book] Load Detail Books Success',
-  props<{ data: DetailBookSmallInfo }>()
+  props<{ data: IDetailBookSmallInfo }>()
 );
 export const loadDetailBookFailure = createAction(
   '[Detail Book] Load Detail Books Failure',
