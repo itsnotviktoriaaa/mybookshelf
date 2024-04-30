@@ -1,5 +1,3 @@
-import { provideStoreDevtools } from '@ngrx/store-devtools';
-
 export const environment = {
   production: false,
   firebaseConfig: {
@@ -22,5 +20,4 @@ export const environment = {
   googleVolumeApi: 'https://www.googleapis.com/books/v1/volumes',
   pathToIcons: 'assets/images/icons',
   pathToImages: 'assets/images',
-  providers: [provideStoreDevtools({ maxAge: 25 })],
 };

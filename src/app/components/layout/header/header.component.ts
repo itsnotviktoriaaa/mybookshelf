@@ -5,8 +5,9 @@ import {
   distinctUntilChanged,
   EMPTY,
   filter,
-  map,
+  of,
   Subject,
+  switchMap,
   take,
   takeUntil,
   tap,
@@ -167,32 +168,30 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.searchTextTransformed = this.transformSearchString(value);
           return true;
         }),
-        map(value => value.trim()),
         debounceTime(500),
-        distinctUntilChanged()
-      )
-      .subscribe((value: string): void => {
-        if (value && value.length > 4 && !this.isFavoritePage$.getValue()) {
+        distinctUntilChanged(),
+        switchMap((value: string) => {
           if (
+            value &&
+            value.length > 4 &&
+            !this.isFavoritePage$.getValue() &&
             this.selectedHeaderModalItem.getValue()!.toLowerCase() !==
-            SelectedHeaderModalItemEnum.Subject.toLowerCase()
+              SelectedHeaderModalItemEnum.Subject.toLowerCase()
           ) {
             this.searchLiveFacade.loadSearchLiveBooks(
               value,
               this.selectedHeaderModalItem.getValue()!.toLowerCase()
             );
 
-            this.searchLiveFacade
-              .getSearchLiveBooks()
-              .pipe(
-                tap((data: string[] | null): void => {
-                  console.log(data);
-                  this.searchTexts$.next(data);
-                })
-              )
-              .subscribe();
+            return this.searchLiveFacade.getSearchLiveBooks();
+          } else {
+            return of(null);
           }
-        }
+        })
+      )
+      .subscribe((data: string[] | null): void => {
+        console.log(data);
+        this.searchTexts$.next(data);
       });
   }
 

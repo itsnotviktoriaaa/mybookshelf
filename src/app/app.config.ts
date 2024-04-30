@@ -24,14 +24,14 @@ import { AuthorEffects } from './ngrx/author/author.effects';
 import { authorReducer } from './ngrx/author/author.reducer';
 import { SearchEffects } from './ngrx/search/search.effects';
 import { searchReducer } from './ngrx/search/search.reducer';
-import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { provideHttpClient } from '@angular/common/http';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { provideAngularSvgIcon } from 'angular-svg-icon';
 import { BookEffects } from './ngrx/home/home.effects';
-import { provideEffects } from '@ngrx/effects';
-import { provideStore } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 import { routes } from './app.routes';
 
 const scrollConfig: InMemoryScrollingOptions = {
@@ -49,35 +49,38 @@ export const appConfig: ApplicationConfig = {
       provideAuth(() => getAuth()),
       provideFirestore(() => getFirestore()),
       provideStorage(() => getStorage()),
+      StoreModule.forRoot({
+        router: routerReducer,
+      }),
+      StoreDevtoolsModule.instrument({
+        maxAge: 25, // Retains last 25 states
+        logOnly: !isDevMode(), // Restrict extension to log-only mode
+        autoPause: true, // Pauses recording actions and state changes when the extension window is not open
+        trace: false, //  If set to true, will include stack trace for every dispatched action, so you can see it in trace tab jumping directly to that part of code
+        traceLimit: 75, // maximum stack trace frames to be stored (in case trace option was provided as true)
+      }),
+      StoreModule.forRoot({
+        home: homeReducer,
+        homeNow: homeNowReducer,
+        favorites: favoritesReducer,
+        detailBook: detailReducer,
+        author: authorReducer,
+        search: searchReducer,
+        searchLive: searchLiveReducer,
+        user: userReducer,
+        router: routerReducer,
+      }),
+      EffectsModule.forRoot([
+        BookEffects,
+        FavoritesEffects,
+        DetailBookEffects,
+        AuthorEffects,
+        SearchEffects,
+        SearchLiveEffects,
+      ]),
     ]),
     provideRouterStore({ serializer: CustomRouterStateSerializer }),
-    provideStoreDevtools({
-      maxAge: 25, // Retains last 25 states
-      logOnly: !isDevMode(), // Restrict extension to log-only mode
-      autoPause: true, // Pauses recording actions and state changes when the extension window is not open
-      trace: false, //  If set to true, will include stack trace for every dispatched action, so you can see it in trace tab jumping directly to that part of code
-      traceLimit: 75, // maximum stack trace frames to be stored (in case trace option was provided as true)
-    }),
     provideAngularSvgIcon(),
     provideOAuthClient(),
-    provideStore({
-      home: homeReducer,
-      homeNow: homeNowReducer,
-      favorites: favoritesReducer,
-      detailBook: detailReducer,
-      author: authorReducer,
-      search: searchReducer,
-      searchLive: searchLiveReducer,
-      user: userReducer,
-      router: routerReducer,
-    }),
-    provideEffects([
-      BookEffects,
-      FavoritesEffects,
-      DetailBookEffects,
-      AuthorEffects,
-      SearchEffects,
-      SearchLiveEffects,
-    ]),
   ],
 };
