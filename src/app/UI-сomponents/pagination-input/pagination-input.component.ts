@@ -1,9 +1,18 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
-import { BehaviorSubject, debounceTime, distinctUntilChanged, filter, map } from 'rxjs';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  Input,
+  OnChanges,
+  OnInit,
+} from '@angular/core';
+import { BehaviorSubject, debounceTime, distinctUntilChanged, filter, map, takeUntil } from 'rxjs';
+import { DestroyDirective } from '../../core/directives/destroy.directive';
+import { RouterFacadeService } from '../../ngrx/router/router.facade';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { SvgIconComponent } from 'angular-svg-icon';
+import { Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-pagination-input',
@@ -11,6 +20,7 @@ import { SvgIconComponent } from 'angular-svg-icon';
   imports: [SvgIconComponent, NgClass, AsyncPipe, ReactiveFormsModule],
   templateUrl: './pagination-input.component.html',
   styleUrl: './pagination-input.component.scss',
+  hostDirectives: [DestroyDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaginationInputComponent implements OnInit, OnChanges {
@@ -20,22 +30,25 @@ export class PaginationInputComponent implements OnInit, OnChanges {
   inputValue = new FormControl();
   quantityOfPages$ = new BehaviorSubject<number>(1);
   valueFromInput$ = new BehaviorSubject<number>(1);
+  private readonly destroy$ = inject(DestroyDirective).destroy$;
+
   @Input() quantityOfBooks: number | null | undefined = null;
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private routerFacadeService: RouterFacadeService
   ) {}
   ngOnInit(): void {
     this.inputValue.setValue(1, { emitEvent: false });
 
-    this.activatedRoute.queryParams.subscribe((params: Params): void => {
-      console.log(params);
-      this.queryParams = params;
-      if (this.queryParams['page']) {
-        this.inputValue.setValue(this.queryParams['page']);
-        this.valueFromInput$.next(+this.queryParams['page']);
-      }
-    });
+    this.routerFacadeService.getQueryParams$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((params: Params): void => {
+        this.queryParams = params;
+        if (this.queryParams['page']) {
+          this.inputValue.setValue(this.queryParams['page']);
+          this.valueFromInput$.next(+this.queryParams['page']);
+        }
+      });
 
     this.inputValue.valueChanges
       .pipe(

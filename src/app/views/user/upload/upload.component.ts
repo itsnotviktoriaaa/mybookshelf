@@ -1,14 +1,33 @@
-import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { BehaviorSubject, catchError, EMPTY, filter, forkJoin, Observable, of, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  catchError,
+  EMPTY,
+  filter,
+  forkJoin,
+  Observable,
+  of,
+  takeUntil,
+  tap,
+} from 'rxjs';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SelfBookInterface, SelfBookUploadInterface } from '../../../modals/user';
 import { environment } from '../../../../environments/environment.development';
+import { DestroyDirective } from '../../../core/directives/destroy.directive';
+import { RouterFacadeService } from '../../../ngrx/router/router.facade';
 import { DatabaseService, NotificationService } from '../../../core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NotificationStatus } from '../../../modals/auth';
 import { UploadMetadata } from '@angular/fire/storage';
 import { AsyncPipe, NgStyle } from '@angular/common';
 import { SvgIconComponent } from 'angular-svg-icon';
+import { Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-upload',
@@ -16,6 +35,7 @@ import { SvgIconComponent } from 'angular-svg-icon';
   imports: [ReactiveFormsModule, NgStyle, AsyncPipe, SvgIconComponent],
   templateUrl: './upload.component.html',
   styleUrl: './upload.component.scss',
+  hostDirectives: [DestroyDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UploadComponent implements OnInit {
@@ -30,12 +50,13 @@ export class UploadComponent implements OnInit {
   pdfUrl = new BehaviorSubject<string | null>(null);
   photoUrl = new BehaviorSubject<string | null>(null);
   pathToIcons = environment.pathToIcons;
+  private readonly destroy$ = inject(DestroyDirective).destroy$;
 
   constructor(
     private databaseService: DatabaseService,
     private router: Router,
     private notificationService: NotificationService,
-    private activatedRoute: ActivatedRoute
+    private routerFacadeService: RouterFacadeService
   ) {}
 
   ngOnInit(): void {
@@ -45,25 +66,27 @@ export class UploadComponent implements OnInit {
       description: new FormControl('', [Validators.required]),
     });
 
-    this.activatedRoute.queryParams.subscribe((params: Params): void => {
-      if (params['id']) {
-        this.id = params['id'];
-        this.setFormValue(params['id']);
-        this.edit = true;
-      } else {
-        this.uploadForm.reset();
-        this.photoUrl.next(null);
-        this.pdfUrl.next(null);
-        this.id = null;
-        this.edit = false;
-        if (this.pdfFileInput && this.pdfFileInput.nativeElement) {
-          this.pdfFileInput.nativeElement.value = '';
+    this.routerFacadeService.getQueryParams$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((params: Params): void => {
+        if (params['id']) {
+          this.id = params['id'];
+          this.setFormValue(params['id']);
+          this.edit = true;
+        } else {
+          this.uploadForm.reset();
+          this.photoUrl.next(null);
+          this.pdfUrl.next(null);
+          this.id = null;
+          this.edit = false;
+          if (this.pdfFileInput && this.pdfFileInput.nativeElement) {
+            this.pdfFileInput.nativeElement.value = '';
+          }
+          if (this.photoFileInput && this.photoFileInput.nativeElement) {
+            this.photoFileInput.nativeElement.value = '';
+          }
         }
-        if (this.photoFileInput && this.photoFileInput.nativeElement) {
-          this.photoFileInput.nativeElement.value = '';
-        }
-      }
-    });
+      });
   }
 
   onPdfFileSelected(event: Event): void {

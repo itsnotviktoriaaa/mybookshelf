@@ -1,12 +1,14 @@
 import { ActionsInterface, DetailBookSmallInfo, SearchSmallInterface } from '../../../modals/user';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { DetailBookFacade } from '../../../ngrx/detail-book/detail-book.facade';
 import { environment } from '../../../../environments/environment.development';
-import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
+import { DestroyDirective } from '../../../core/directives/destroy.directive';
 import { MiniModalComponent, StarComponent } from '../../../UI-сomponents';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { RouterFacadeService } from '../../../ngrx/router/router.facade';
 import { ReduceLetterPipe, TransformDateBookPipe } from '../../../core';
+import { BehaviorSubject, Observable, of, takeUntil, tap } from 'rxjs';
 import { AuthorFacade } from '../../../ngrx/author/author.facade';
-import { BehaviorSubject, Observable, of, tap } from 'rxjs';
+import { Params, Router, RouterLink } from '@angular/router';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { SvgIconComponent } from 'angular-svg-icon';
 
@@ -25,6 +27,7 @@ import { SvgIconComponent } from 'angular-svg-icon';
   ],
   templateUrl: './detail-book.component.html',
   styleUrl: './detail-book.component.scss',
+  hostDirectives: [DestroyDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DetailBookComponent implements OnInit {
@@ -39,38 +42,39 @@ export class DetailBookComponent implements OnInit {
   author$: Observable<SearchSmallInterface | null> = of(null);
   detailBook$: Observable<DetailBookSmallInfo | null> = of(null);
 
-  miniLoader$: BehaviorSubject<{ miniLoader: boolean }> = new BehaviorSubject<{
-    miniLoader: boolean;
-  }>({ miniLoader: true });
+  miniLoader$ = new BehaviorSubject<{ miniLoader: boolean }>({ miniLoader: true });
   pathToIcons = environment.pathToIcons;
   pathToImages = environment.pathToImages;
+  private readonly destroy$ = inject(DestroyDirective).destroy$;
 
   constructor(
-    private activatedRoute: ActivatedRoute,
     private router: Router,
     private detailBookFacade: DetailBookFacade,
-    private authorFacade: AuthorFacade
+    private authorFacade: AuthorFacade,
+    private routerFacadeService: RouterFacadeService
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe((params: Params) => {
-      this.miniLoader$.next({ miniLoader: true });
-      const idOfBook = params['id'];
-      console.log(idOfBook);
-      this.detailBookFacade.loadDetailBook(idOfBook);
-      this.detailBook$ = this.detailBookFacade.getDetailBook().pipe(
-        tap((data: DetailBookSmallInfo | null) => {
-          this.miniLoader$.next({ miniLoader: false });
-          if (data) {
-            this.authorFacade.loadAuthor(this.search(data));
-            this.author$ = this.authorFacade.getDetailBook();
-            if (data.averageRating) {
-              this.rating = Math.round(data.averageRating);
+    this.routerFacadeService.getParams$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((params: Params): void => {
+        this.miniLoader$.next({ miniLoader: true });
+        const idOfBook = params['id'];
+        console.log(idOfBook);
+        this.detailBookFacade.loadDetailBook(idOfBook);
+        this.detailBook$ = this.detailBookFacade.getDetailBook().pipe(
+          tap((data: DetailBookSmallInfo | null) => {
+            this.miniLoader$.next({ miniLoader: false });
+            if (data) {
+              this.authorFacade.loadAuthor(this.search(data));
+              this.author$ = this.authorFacade.getDetailBook();
+              if (data.averageRating) {
+                this.rating = Math.round(data.averageRating);
+              }
             }
-          }
-        })
-      );
-    });
+          })
+        );
+      });
   }
 
   search(data: DetailBookSmallInfo): string {

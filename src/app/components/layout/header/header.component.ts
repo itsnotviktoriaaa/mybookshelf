@@ -18,15 +18,24 @@ import {
   NotificationService,
   SearchStateService,
 } from '../../../core';
-import { ChangeDetectionStrategy, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  HostListener,
+  inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { HeaderClickInterface, SelectedHeaderModalItemEnum } from '../../../modals/user';
 import { SearchLiveFacade } from '../../../ngrx/search-live/search-live.facade';
 import { environment } from '../../../../environments/environment.development';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DestroyDirective } from '../../../core/directives/destroy.directive';
 import { NotificationStatus, UserInfoFromGoogle } from '../../../modals/auth';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { RouterFacadeService } from '../../../ngrx/router/router.facade';
 import { AsyncPipe, NgStyle } from '@angular/common';
 import { SvgIconComponent } from 'angular-svg-icon';
+import { Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -34,6 +43,7 @@ import { SvgIconComponent } from 'angular-svg-icon';
   imports: [SvgIconComponent, AsyncPipe, ReactiveFormsModule, FormsModule, NgStyle],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
+  hostDirectives: [DestroyDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit, OnDestroy {
@@ -57,9 +67,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   searchTextTransformed: string = '';
   searchTexts$: BehaviorSubject<string[] | null> = new BehaviorSubject<string[] | null>(null);
   authServiceDestroy$: Subject<void> = new Subject<void>();
-  userInfo$: BehaviorSubject<UserInfoFromGoogle | null> =
-    new BehaviorSubject<UserInfoFromGoogle | null>(null);
+  userInfo$ = new BehaviorSubject<UserInfoFromGoogle | null>(null);
   pathToIcons = environment.pathToIcons;
+  existUrl: string | null = null;
+  private readonly destroy$ = inject(DestroyDirective).destroy$;
 
   constructor(
     private authService: AuthService,
@@ -68,7 +79,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private googleApi: GoogleApiService,
     private searchLiveFacade: SearchLiveFacade,
     private searchStateService: SearchStateService,
-    private activatedRoute: ActivatedRoute
+    private routerFacadeService: RouterFacadeService
   ) {}
 
   ngOnInit(): void {
@@ -83,6 +94,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.getSearchCategory();
 
     this.subscribeOnQueryParams();
+
+    this.subscribeOnGetUrl();
 
     this.isFavoritePage();
 
@@ -103,10 +116,26 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   subscribeOnQueryParams(): void {
-    this.activatedRoute.queryParams.subscribe((params: Params): void => {
-      this.setValuesFromParams(params);
-      this.paramsFromUrl = params;
-    });
+    this.routerFacadeService.getQueryParams$
+      .pipe(
+        tap((params: Params): void => {
+          this.setValuesFromParams(params);
+          this.paramsFromUrl = params;
+        }),
+        takeUntil(this.destroy$)
+      )
+      .subscribe();
+  }
+
+  subscribeOnGetUrl(): void {
+    this.routerFacadeService.getUrl$
+      .pipe(
+        tap((url: string): void => {
+          this.existUrl = url;
+        }),
+        takeUntil(this.destroy$)
+      )
+      .subscribe();
   }
 
   isFavoritePage(): void {
@@ -182,7 +211,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       | HeaderClickInterface.profileMiniModal
   ): void {
     if (nameOfMiniModal === HeaderClickInterface.allMiniModal) {
-      if (window.location.href.includes('favorites')) {
+      if (this.existUrl?.includes('favorites')) {
         return;
       }
       this.allMiniModal = !this.allMiniModal;
@@ -252,8 +281,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         take(1),
         tap((category: string): void => {
           let categoryNew: string = category;
-          console.log(categoryNew);
-          if (!window.location.href.includes('search')) {
+          if (!this.existUrl?.includes('search')) {
             categoryNew = CategoryModalSearchItems[1];
           }
           if (

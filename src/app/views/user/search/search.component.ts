@@ -6,17 +6,19 @@ import {
   SearchInterface,
   SelectedHeaderModalItemEnum,
 } from '../../../modals/user';
+import { ChangeDetectionStrategy, Component, HostListener, inject, OnInit } from '@angular/core';
 import { ActiveParamUtil, CategoryModalSearchItems, SearchStateService } from '../../../core';
-import { ChangeDetectionStrategy, Component, HostListener, OnInit } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
+import { DestroyDirective } from '../../../core/directives/destroy.directive';
 import { FavoritesFacade } from '../../../ngrx/favorites/favorites.facade';
+import { RouterFacadeService } from '../../../ngrx/router/router.facade';
 import { SearchFacade } from '../../../ngrx/search/search.facade';
 import { PaginationInputComponent } from '../../../UI-сomponents';
+import { BehaviorSubject, filter, takeUntil, tap } from 'rxjs';
 import { SearchBookComponent } from '../../../components';
-import { ActivatedRoute, Params } from '@angular/router';
 import { SvgIconComponent } from 'angular-svg-icon';
-import { BehaviorSubject, filter, tap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { Params } from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -24,6 +26,7 @@ import { AsyncPipe } from '@angular/common';
   imports: [SvgIconComponent, SearchBookComponent, AsyncPipe, PaginationInputComponent],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss',
+  hostDirectives: [DestroyDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchComponent implements OnInit {
@@ -31,16 +34,15 @@ export class SearchComponent implements OnInit {
   headerModalSearchText = new BehaviorSubject<string | null>(null);
   headerModalSearchItems = CategoryModalSearchItems;
   pathToIcons = environment.pathToIcons;
-
-  searchBooks$: BehaviorSubject<SearchInterface | null> =
-    new BehaviorSubject<SearchInterface | null>(null);
+  searchBooks$ = new BehaviorSubject<SearchInterface | null>(null);
   idOfFavorites: string[] = [];
+  private readonly destroy$ = inject(DestroyDirective).destroy$;
 
   constructor(
     private searchFacade: SearchFacade,
     private favoriteFacade: FavoritesFacade,
-    private activatedRoute: ActivatedRoute,
-    private searchStateService: SearchStateService
+    private searchStateService: SearchStateService,
+    private routerFacadeService: RouterFacadeService
   ) {}
 
   ngOnInit(): void {
@@ -59,38 +61,38 @@ export class SearchComponent implements OnInit {
       )
       .subscribe();
 
-    this.activatedRoute.queryParams.subscribe((params: Params): void => {
-      console.log(params);
+    this.routerFacadeService.getQueryParams$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((params: Params): void => {
+        this.setValuesFromParams(params);
 
-      this.setValuesFromParams(params);
+        const newParams: ActiveParamsSearchType = ActiveParamUtil.processParam(params);
 
-      const newParams: ActiveParamsSearchType = ActiveParamUtil.processParam(params);
+        this.searchFacade.loadSearchBooks(newParams);
+        this.searchFacade.getSearchBooks().subscribe(data => {
+          this.searchBooks$.next(data);
+        });
 
-      this.searchFacade.loadSearchBooks(newParams);
-      this.searchFacade.getSearchBooks().subscribe(data => {
-        this.searchBooks$.next(data);
+        const newParamsForFavorite: ActiveParamsSearchType =
+          ActiveParamUtil.processParamsForFavoritePage(params);
+
+        this.favoriteFacade.loadFavoritesBooks(newParamsForFavorite);
+        this.favoriteFacade
+          .getFavoritesBooks()
+          .pipe(
+            filter((data: arrayFromBookItemTransformedInterface | null) => !!data),
+            tap((books: arrayFromBookItemTransformedInterface | null): void => {
+              const newArrayWithIdOfFavorites: string[] = [];
+              if (books && books.items && books.items.length > 0) {
+                books.items.forEach((item: BookItemTransformedInterface): void => {
+                  newArrayWithIdOfFavorites.push(item.id);
+                });
+                this.idOfFavorites = newArrayWithIdOfFavorites;
+              }
+            })
+          )
+          .subscribe();
       });
-
-      const newParamsForFavorite: ActiveParamsSearchType =
-        ActiveParamUtil.processParamsForFavoritePage(params);
-
-      this.favoriteFacade.loadFavoritesBooks(newParamsForFavorite);
-      this.favoriteFacade
-        .getFavoritesBooks()
-        .pipe(
-          filter((data: arrayFromBookItemTransformedInterface | null) => !!data),
-          tap((books: arrayFromBookItemTransformedInterface | null): void => {
-            const newArrayWithIdOfFavorites: string[] = [];
-            if (books && books.items && books.items.length > 0) {
-              books.items.forEach((item: BookItemTransformedInterface): void => {
-                newArrayWithIdOfFavorites.push(item.id);
-              });
-              this.idOfFavorites = newArrayWithIdOfFavorites;
-            }
-          })
-        )
-        .subscribe();
-    });
   }
 
   openOrCloseMiniModal(): void {

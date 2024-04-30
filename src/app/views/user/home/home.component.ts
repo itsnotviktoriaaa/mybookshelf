@@ -1,7 +1,7 @@
+import { DestroyDirective } from '../../../core/directives/destroy.directive';
 import { SubscribeDecorator } from '../../../decorators/subscribe-decorator';
 import { arrayFromBookItemTransformedInterface } from '../../../modals/user';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { RouterFacadeService } from '../../../ngrx/router/router.facade';
 import { HomeFacade } from '../../../ngrx/home/home.facade';
 import { MiniModalComponent } from '../../../UI-сomponents';
 import { UserInfoFromGoogle } from '../../../modals/auth';
@@ -18,21 +18,21 @@ import { AsyncPipe } from '@angular/common';
   imports: [BookComponent, AsyncPipe, RouterLink, MiniModalComponent, GoogleHomeComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
+  hostDirectives: [DestroyDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent implements OnInit {
-  recommendedBooks$: BehaviorSubject<arrayFromBookItemTransformedInterface | null> =
-    new BehaviorSubject<arrayFromBookItemTransformedInterface | null>(null);
+  recommendedBooks$ = new BehaviorSubject<arrayFromBookItemTransformedInterface | null>(null);
 
-  readingNowBooks$: BehaviorSubject<arrayFromBookItemTransformedInterface | null> =
-    new BehaviorSubject<arrayFromBookItemTransformedInterface | null>(null);
+  readingNowBooks$ = new BehaviorSubject<arrayFromBookItemTransformedInterface | null>(null);
 
   miniLoader$ = new BehaviorSubject<{ miniLoader: boolean }>({ miniLoader: true });
 
+  // private readonly destroy$ = inject(DestroyDirective).destroy$;
+
   constructor(
     private googleApi: GoogleApiService,
-    private homeFacade: HomeFacade,
-    private routerFacadeService: RouterFacadeService
+    private homeFacade: HomeFacade
   ) {}
 
   ngOnInit(): void {
@@ -44,10 +44,6 @@ export class HomeComponent implements OnInit {
         this.homeFacade.loadReadingNowBooks(0);
         this.getReadingNowBooksObservable().subscribe();
       }
-    });
-
-    this.routerFacadeService.getUrl$.subscribe(data => {
-      console.log(data);
     });
   }
 

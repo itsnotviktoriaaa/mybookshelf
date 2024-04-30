@@ -1,13 +1,15 @@
 import { ActiveParamsType, arrayFromBookItemTransformedInterface } from '../../../modals/user';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { DestroyDirective } from '../../../core/directives/destroy.directive';
+import { RouterFacadeService } from '../../../ngrx/router/router.facade';
+import { BehaviorSubject, Observable, of, takeUntil, tap } from 'rxjs';
 import { HomeFacade } from '../../../ngrx/home/home.facade';
 import { MiniModalComponent } from '../../../UI-сomponents';
-import { BehaviorSubject, Observable, of, tap } from 'rxjs';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { BookComponent } from '../../../components';
 import { SvgIconComponent } from 'angular-svg-icon';
+import { Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-show-all',
@@ -15,6 +17,7 @@ import { SvgIconComponent } from 'angular-svg-icon';
   imports: [BookComponent, AsyncPipe, NgClass, SvgIconComponent, MiniModalComponent],
   templateUrl: './show-all.component.html',
   styleUrl: './show-all.component.scss',
+  hostDirectives: [DestroyDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShowAllComponent implements OnInit {
@@ -25,35 +28,36 @@ export class ShowAllComponent implements OnInit {
 
   showBooks$: Observable<arrayFromBookItemTransformedInterface | null> = of(null);
 
-  miniLoader$: BehaviorSubject<{ miniLoader: boolean }> = new BehaviorSubject<{
-    miniLoader: boolean;
-  }>({ miniLoader: true });
+  miniLoader$ = new BehaviorSubject<{ miniLoader: boolean }>({ miniLoader: true });
   pathToIcons = environment.pathToIcons;
+  private readonly destroy$ = inject(DestroyDirective).destroy$;
 
   constructor(
-    private activatedRoute: ActivatedRoute,
     private router: Router,
-    private homeFacade: HomeFacade
+    private homeFacade: HomeFacade,
+    private routerFacadeService: RouterFacadeService
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.queryParams.subscribe((params: Params) => {
-      const queryParams = params['show'];
-      this.activeParams.show =
-        queryParams === 'recommended'
-          ? 'recommended'
-          : queryParams === 'reading'
-            ? 'reading'
-            : 'recommended';
-      if (Object.prototype.hasOwnProperty.call(params, 'page')) {
-        this.activeParams.page = +params['page'];
-        console.log(this.activeParams);
-        this.definedStartIndex(+params['page']);
-      } else {
-        this.activeParams.page = 1;
-      }
-      this.loadBooks();
-    });
+    this.routerFacadeService.getQueryParams$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((params: Params): void => {
+        const queryParams = params['show'];
+        this.activeParams.show =
+          queryParams === 'recommended'
+            ? 'recommended'
+            : queryParams === 'reading'
+              ? 'reading'
+              : 'recommended';
+        if (Object.prototype.hasOwnProperty.call(params, 'page')) {
+          this.activeParams.page = +params['page'];
+          console.log(this.activeParams);
+          this.definedStartIndex(+params['page']);
+        } else {
+          this.activeParams.page = 1;
+        }
+        this.loadBooks();
+      });
   }
 
   loadBooks(): void {
