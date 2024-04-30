@@ -1,16 +1,5 @@
-import {
-  BehaviorSubject,
-  catchError,
-  EMPTY,
-  filter,
-  finalize,
-  forkJoin,
-  Observable,
-  of,
-  take,
-  tap,
-} from 'rxjs';
 import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { BehaviorSubject, catchError, EMPTY, filter, forkJoin, Observable, of, tap } from 'rxjs';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SelfBookInterface, SelfBookUploadInterface } from '../../../modals/user';
 import { environment } from '../../../../environments/environment.development';
@@ -127,15 +116,15 @@ export class UploadComponent implements OnInit {
       };
 
       this.databaseService
-        .uploadFilesAndCreateBook(
-          'pdfs',
-          this.pdfFileInput.nativeElement,
-          'application/pdf',
-          'photos',
-          this.photoFileInput.nativeElement,
-          (this.photoFile as File).type,
-          selfBook
-        )
+        .uploadFilesAndCreateBook({
+          pdfPath: 'pdfs',
+          pdfInput: this.pdfFileInput.nativeElement,
+          pdfContentType: 'application/pdf',
+          photoPath: 'photos',
+          photoInput: this.photoFileInput.nativeElement,
+          photoContentType: (this.photoFile as File).type,
+          selfBook: selfBook,
+        })
         .pipe(
           tap((): void => {
             this.uploadForm.reset();
@@ -225,10 +214,12 @@ export class UploadComponent implements OnInit {
               .updateSelfBook(this.id, selfBook)
               .pipe(
                 tap(() => {
+                  this.notificationService.notifyAboutNotificationLoader(false);
                   this.notificationService.notifyAboutNotification({
                     message: 'Self book updated successfully',
                     status: NotificationStatus.success,
                   });
+                  this.router.navigate(['/home/books']).then((): void => {});
                 }),
                 catchError(() => {
                   this.notificationService.notifyAboutNotification({
@@ -236,10 +227,6 @@ export class UploadComponent implements OnInit {
                     status: NotificationStatus.error,
                   });
                   return EMPTY;
-                }),
-                finalize(() => {
-                  this.notificationService.notifyAboutNotificationLoader(false);
-                  this.router.navigate(['/home/books']).then((): void => {});
                 })
               )
               .subscribe();
@@ -269,7 +256,6 @@ export class UploadComponent implements OnInit {
     this.databaseService
       .getSelfBook(id)
       .pipe(
-        take(1),
         filter(selfBook => Boolean(selfBook)),
         tap(selfBook => {
           this.uploadForm.patchValue({

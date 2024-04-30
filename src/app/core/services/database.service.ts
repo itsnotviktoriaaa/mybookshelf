@@ -1,4 +1,10 @@
 import {
+  BookItemTransformedInterface,
+  SelfBookInterface,
+  SelfBookUploadInterface,
+  UploadFilesAndCreateBookDatabaseInterface,
+} from '../../modals/user';
+import {
   addDoc,
   collection,
   collectionData,
@@ -9,34 +15,17 @@ import {
   updateDoc,
 } from '@angular/fire/firestore';
 import {
-  catchError,
-  filter,
-  forkJoin,
-  from,
-  map,
-  Observable,
-  of,
-  switchMap,
-  tap,
-  throwError,
-} from 'rxjs';
-import {
   deleteObject,
   getDownloadURL,
   ref,
   Storage,
   uploadBytesResumable,
 } from '@angular/fire/storage';
-import {
-  BookItemTransformedInterface,
-  SelfBookInterface,
-  SelfBookUploadInterface,
-} from '../../modals/user';
+import { catchError, forkJoin, from, map, Observable, of, switchMap, tap, throwError } from 'rxjs';
+import { AuthFirebaseFacade } from '../../ngrx/auth-firebase/auth-firebase.facade';
 import { CollectionReference, DocumentData } from '@firebase/firestore';
 import { UploadMetadata } from '@angular/fire/storage';
 import { Injectable } from '@angular/core';
-import { AuthService } from '../auth';
-import { AuthFirebaseFacade } from '../../ngrx/auth-firebase/auth-firebase.facade';
 @Injectable({
   providedIn: 'root',
 })
@@ -46,32 +35,15 @@ export class DatabaseService {
 
   constructor(
     private firestore: Firestore,
-    private authService: AuthService,
     private storage: Storage,
     private authFirebaseFacade: AuthFirebaseFacade
-  ) {
-    this.authFirebaseFacade
-      .getCurrentUser()
-      .pipe(
-        filter(user => Boolean(user)),
-        tap(user => {
-          this.path = user;
-          this._collection = collection(this.firestore, `users/${this.path}/books`);
-        })
-      )
-      .subscribe();
-  }
+  ) {}
 
   getSelfBooks(): Observable<DocumentData[]> {
-    return this.authService.user$.pipe(
-      switchMap(user => {
-        if (user && user.uid) {
-          this.authService.currentUserSig.set({
-            email: user.email!,
-            username: user.displayName!,
-            uid: user.uid,
-          });
-          this.path = user.uid;
+    return this.authFirebaseFacade.getCurrentUser().pipe(
+      switchMap((user: string | null) => {
+        if (user) {
+          this.path = user;
           this._collection = collection(this.firestore, `users/${this.path}/books`);
           return this._collection ? collectionData(this._collection, { idField: 'id' }) : of([]);
         } else {
@@ -82,25 +54,30 @@ export class DatabaseService {
   }
 
   createSelfBook(selfBook: SelfBookInterface): Observable<unknown> {
-    if (!this._collection) {
-      return new Observable<void>(observer => {
-        observer.error(new Error('Oops... Your book collection has not been loaded'));
-      });
-    }
-    return from(addDoc(this._collection, selfBook)).pipe(
-      catchError(() => {
-        return new Observable<void>(observer => {
-          observer.error(new Error('Failed to create book'));
-        });
+    return this.authFirebaseFacade.getCurrentUser().pipe(
+      switchMap((user: string | null) => {
+        if (user) {
+          this.path = user;
+          this._collection = collection(this.firestore, `users/${this.path}/books`);
+          return from(addDoc(this._collection, selfBook)).pipe(
+            catchError(() => {
+              return new Observable<void>(observer => {
+                observer.error(new Error('Failed to create book'));
+              });
+            })
+          );
+        } else {
+          return throwError(() => 'Failed to create book');
+        }
       })
     );
   }
 
   getSelfBook(id: string): Observable<BookItemTransformedInterface | null> {
-    return this.authService.user$.pipe(
-      switchMap(user => {
-        if (user && user.uid) {
-          this.path = user.uid;
+    return this.authFirebaseFacade.getCurrentUser().pipe(
+      switchMap((user: string | null) => {
+        if (user) {
+          this.path = user;
           const document = doc(this.firestore, `users/${this.path}/books`, id);
           return from(getDoc(document)).pipe(
             switchMap(snapshot => {
@@ -119,12 +96,16 @@ export class DatabaseService {
   }
 
   updateSelfBook(id: string, selfBook: SelfBookInterface): Observable<void> {
-    const uid = this.authService.currentUserSig()?.uid;
-    if (uid) {
-      const document = doc(this.firestore, `users/${uid}/books`, id);
-      return from(updateDoc(document, { ...selfBook }));
-    }
-    return throwError(() => 'dont have uid');
+    return this.authFirebaseFacade.getCurrentUser().pipe(
+      switchMap((user: string | null) => {
+        if (user) {
+          this.path = user;
+          const document = doc(this.firestore, `users/${this.path}/books`, id);
+          return from(updateDoc(document, { ...selfBook }));
+        }
+        return throwError(() => 'Sth went wrong');
+      })
+    );
   }
 
   deleteBookAndFile(id: string, urlPdf: string, urlPhoto: string): Observable<void> {
@@ -199,33 +180,41 @@ export class DatabaseService {
   }
 
   uploadFilesAndCreateBook(
-    pdfPath: string,
-    pdfInput: HTMLInputElement,
-    pdfContentType: string,
-    photoPath: string,
-    photoInput: HTMLInputElement,
-    photoContentType: string,
-    selfBook: SelfBookUploadInterface
-  ): Observable<void> {
-    return forkJoin([
-      this.uploadToStorage(pdfPath, pdfInput, pdfContentType as UploadMetadata),
-      this.uploadToStorage(photoPath, photoInput, photoContentType as UploadMetadata),
-    ]).pipe(
-      switchMap(([webReaderLink, thumbnail]) => {
-        if (webReaderLink && thumbnail) {
-          const selfBookAfterUploadedFiles: SelfBookUploadInterface | SelfBookInterface = selfBook;
-          (selfBookAfterUploadedFiles as SelfBookInterface).webReaderLink = webReaderLink;
-          (selfBookAfterUploadedFiles as SelfBookInterface).thumbnail = thumbnail;
-          return this.createSelfBook(selfBookAfterUploadedFiles as SelfBookInterface).pipe(
-            catchError(error => throwError(() => error)),
-            switchMap(() => of(undefined))
+    data: UploadFilesAndCreateBookDatabaseInterface
+  ): Observable<NonNullable<unknown>> {
+    const { pdfPath, pdfInput, pdfContentType, photoPath, photoInput, photoContentType, selfBook } =
+      data;
+    return this.authFirebaseFacade.getCurrentUser().pipe(
+      switchMap((user: string | null) => {
+        if (user) {
+          this.path = user;
+          return forkJoin([
+            this.uploadToStorage(pdfPath, pdfInput, pdfContentType as UploadMetadata),
+            this.uploadToStorage(photoPath, photoInput, photoContentType as UploadMetadata),
+          ]).pipe(
+            switchMap(([webReaderLink, thumbnail]) => {
+              if (webReaderLink && thumbnail) {
+                const selfBookAfterUploadedFiles: SelfBookUploadInterface | SelfBookInterface =
+                  selfBook;
+                (selfBookAfterUploadedFiles as SelfBookInterface).webReaderLink = webReaderLink;
+                (selfBookAfterUploadedFiles as SelfBookInterface).thumbnail = thumbnail;
+                return this.createSelfBook(selfBookAfterUploadedFiles as SelfBookInterface).pipe(
+                  catchError(() => {
+                    return throwError(() => 'Sth went wrong');
+                  }),
+                  switchMap(() => of([]))
+                );
+              } else {
+                return throwError(() => new Error('Failed to upload files'));
+              }
+            }),
+            catchError(error => {
+              return throwError(() => error);
+            })
           );
         } else {
-          return throwError(() => new Error('Failed to upload files'));
+          return of([]);
         }
-      }),
-      catchError(error => {
-        return throwError(() => error);
       })
     );
   }

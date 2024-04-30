@@ -18,8 +18,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class GoogleApiService {
-  userProfileSubject: BehaviorSubject<UserInfoFromGoogle | null> =
-    new BehaviorSubject<UserInfoFromGoogle | null>(null);
+  userProfileSubject = new BehaviorSubject<UserInfoFromGoogle | null>(null);
   constructor(
     private readonly oAuthService: OAuthService,
     private http: HttpClient,

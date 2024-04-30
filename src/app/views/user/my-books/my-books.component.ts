@@ -2,9 +2,9 @@ import { BookItemTransformedInterface } from '../../../modals/user';
 import { BookComponent } from '../../../components';
 import { DocumentData } from '@firebase/firestore';
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, map, take } from 'rxjs';
 import { DatabaseService } from '../../../core';
 import { AsyncPipe } from '@angular/common';
+import { BehaviorSubject, map } from 'rxjs';
 
 @Component({
   selector: 'app-my-books',
@@ -23,7 +23,6 @@ export class MyBooksComponent implements OnInit {
     this.databaseService
       .getSelfBooks()
       .pipe(
-        take(1),
         map((data: DocumentData[]) => {
           return data.map((item: DocumentData) => ({
             id: item['id'],
