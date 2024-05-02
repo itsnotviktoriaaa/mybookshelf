@@ -15,6 +15,10 @@ export class ExamplePdfViewerComponent {
    *  to use the "find" api, to extract text and images from a PDF file,
    *  to print programmatically, and to show or hide layers by a method call.
    */
+
+  examplePdfUrl =
+    'https://firebasestorage.googleapis.com/v0/b/mybookshelff-c1a0f.appspot.com/o/EXCj50C0ruWGrJumrcfbjknFxik2%2Fpdfs%2F2rrspocd0fo_RETRO%2019.04.2024.pdf?alt=media&token=b529b2b2-5d77-4779-a4c8-122e34cda9b5';
+
   constructor(private pdfService: NgxExtendedPdfViewerService) {
     /* More likely than not you don't need to tweak the pdfDefaultOptions.
        They are a collecton of less frequently used options.
