@@ -1,0 +1,71 @@
+@import '../../../../assets/styles/_color.scss';
+
+.pdf-viewer {
+  height: calc(100vh - 221px);
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  .pdf-viewer-header {
+    padding: 23px 18px;
+    background-color: var(--gray-label-color);
+    display: flex;
+    justify-content: space-between;
+
+    .pdf-viewer-header-info {
+      display: flex;
+      align-items: center;
+      column-gap: 47px;
+
+      .pdf-viewer-header-info-back {
+        display: flex;
+        align-items: center;
+        column-gap: 9px;
+        cursor: pointer;
+        color: var(--white-color);
+
+        svg-icon {
+          position: relative;
+          top: 2px;
+        }
+      }
+
+      .pdf-viewer-header-info-about {
+        display: flex;
+        align-items: center;
+        column-gap: 16px;
+
+        .pdf-viewer-header-info-about-image {
+          width: 48px;
+          height: 48px;
+          background-position: center;
+          background-size: cover;
+          background-repeat: no-repeat;
+        }
+
+        .pdf-viewer-header-info-about-text {
+          display: flex;
+          flex-direction: column;
+          row-gap: 3px;
+          max-width: 450px;
+          color: var(--white-color);
+
+          .pdf-title {
+            font-size: 12px;
+            font-weight: 500;
+          }
+
+          .pdf-author {
+            font-size: 10px;
+            font-weight: 300;
+          }
+        }
+      }
+    }
+
+    .pdf-viewer-header-addition {
+      display: flex;
+      column-gap: 22px;
+    }
+  }
+}

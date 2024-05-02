@@ -107,6 +107,32 @@ li {
   }
 }
 
+.pdf-addition-btn {
+  padding: 8px 15px;
+  box-sizing: border-box;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  column-gap: 4px;
+  background-color: transparent;
+  font-size: 10px;
+  color: var(--white-color);
+
+  &:hover {
+    border: 1px solid var(--orange-button-color);
+    color: var(--orange-button-color);
+
+    svg-icon svg {
+      fill: var(--orange-button-color);
+    }
+
+    svg-icon svg path {
+      stroke: var(--orange-button-color);
+    }
+  }
+}
+
 .error-message {
   color: red;
   font-size: 14px;

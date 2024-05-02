@@ -1,0 +1,6 @@
+@import 'color';
+
+/* eslint-disable-next-line selector-id-pattern */
+ngx-extended-pdf-viewer #toolbarContainer {
+  background-color: var(--gray-label-color) !important;
+}

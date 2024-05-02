@@ -25,6 +25,7 @@ export const authForwardGuard: CanActivateFn = (route: ActivatedRouteSnapshot, s
       })
     );
   } else if (state.url.includes('/home')) {
+    console.log(state.url);
     return from(oAuthService.loadDiscoveryDocument()).pipe(
       switchMap(() => oAuthService.tryLoginImplicitFlow()),
       switchMap(() => {

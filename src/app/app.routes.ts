@@ -65,12 +65,10 @@ export const routes: Routes = [
           import('./views/user/search/search.component').then(m => m.SearchComponent),
       },
       {
-        path: 'example',
+        path: 'reader/:id',
         title: 'MyBookShelf',
         loadComponent: () =>
-          import('./example-pdf-viewer/example-pdf-viewer.component').then(
-            m => m.ExamplePdfViewerComponent
-          ),
+          import('./views/user/pdf-viewer/pdf-viewer.component').then(m => m.PdfViewerComponent),
       },
     ],
   },

@@ -1,0 +1,43 @@
+@if (book$ | async; as book) {
+  <section class="pdf-viewer">
+    <div class="pdf-viewer-header">
+      <div class="pdf-viewer-header-info">
+        <div class="pdf-viewer-header-info-back" (click)="backToMyBooks()">
+          <svg-icon [src]="'assets/images/icons/pdf-icon-back.svg'"></svg-icon>
+          <span class="pdf-viewer-header-back-text">Back</span>
+        </div>
+        <div class="pdf-viewer-header-info-about">
+          <div
+            class="pdf-viewer-header-info-about-image"
+            style="background-image: url({{ book.thumbnail }})">
+            &nbsp;
+          </div>
+          <div class="pdf-viewer-header-info-about-text">
+            <span class="pdf-title">{{ book.title }}</span>
+            <span class="pdf-author">{{ book.author[0] }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="pdf-viewer-header-addition">
+        <div class="pdf-viewer-header-addition-favorite"></div>
+        <div class="pdf-viewer-header-addition-full">
+          <button class="pdf-addition-btn">Full Screen</button>
+        </div>
+        <div class="pdf-viewer-header-addition-view">
+          <button class="pdf-addition-btn">
+            <span>View</span>
+            <svg-icon [src]="'assets/images/icons/pdf-view-polygon.svg'"></svg-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <ngx-extended-pdf-viewer
+      [src]="book.webReaderLink"
+      [zoom]="'auto'"
+      [showPresentationModeButton]="true"
+      [textLayer]="true"
+      [backgroundColor]="'#4D4D4D'"
+      [showHandToolButton]="true">
+    </ngx-extended-pdf-viewer>
+  </section>
+}

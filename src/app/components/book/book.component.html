@@ -1,7 +1,7 @@
 @if (book) {
   <div class="book-back" [ngClass]="{ 'big-book': bigInfo, 'small-book': !bigInfo }">
     <div
-      (click)="openDetailBook('small-book')"
+      (click)="openDetailBook('small-book', book)"
       class="book-left"
       [ngStyle]="{ cursor: bigInfo ? 'default' : 'pointer' }">
       <div class="book-image" style="background-image: url({{ book.thumbnail }})">&nbsp;</div>
@@ -54,7 +54,9 @@
               E-BOOK
             </button>
           }
-          <button (click)="openDetailBook('big-book')" class="btn-orange button-orange-transparent">
+          <button
+            (click)="openDetailBook('big-book', book)"
+            class="btn-orange button-orange-transparent">
             Read
           </button>
           @if (!selfBook) {

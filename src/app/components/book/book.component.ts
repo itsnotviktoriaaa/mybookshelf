@@ -83,14 +83,13 @@ export class BookComponent implements OnInit {
       .subscribe();
   }
 
-  openDetailBook(sizeBook: 'small-book' | 'big-book'): void {
+  openDetailBook(sizeBook: 'small-book' | 'big-book', book: IBookItemTransformed): void {
     if (sizeBook === 'small-book' && !this.bigInfo) {
-      this.router.navigate(['home/book/', this.book?.id]).then(() => {});
+      this.router.navigate(['home/book/', book.id]).then((): void => {});
     } else if (sizeBook === 'big-book' && !this.selfBook) {
-      this.router.navigate(['home/book/', this.book?.id]).then(() => {});
+      this.router.navigate(['home/book/', book.id]).then((): void => {});
     } else if (sizeBook === 'big-book' && this.selfBook) {
-      console.log(this.book?.webReaderLink);
-      this.readSelfBook();
+      this.router.navigate(['/home/reader/' + book?.id]).then((): void => {});
     }
   }
   openGoogleInfo(book: IBookItemTransformed): void {
@@ -147,6 +146,4 @@ export class BookComponent implements OnInit {
       this.favoriteFacade.loadRemoveFavoritesBooks(this.book.id);
     }
   }
-
-  readSelfBook(): void {}
 }
