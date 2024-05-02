@@ -64,6 +64,14 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./views/user/search/search.component').then(m => m.SearchComponent),
       },
+      {
+        path: 'example',
+        title: 'MyBookShelf',
+        loadComponent: () =>
+          import('./example-pdf-viewer/example-pdf-viewer.component').then(
+            m => m.ExamplePdfViewerComponent
+          ),
+      },
     ],
   },
   { path: '**', redirectTo: '/' },

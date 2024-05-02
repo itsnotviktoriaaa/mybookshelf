@@ -16,6 +16,7 @@ import { BehaviorSubject, map } from 'rxjs';
 export class MyBooksComponent implements OnInit {
   private selfBooksSubject = new BehaviorSubject<IBookItemTransformed[] | null>(null);
   selfBooks$ = this.selfBooksSubject.asObservable();
+  // examplePdfUrl = 'https://firebasestorage.googleapis.com/v0/b/mybookshelff-c1a0f.appspot.com/o/EXCj50C0ruWGrJumrcfbjknFxik2%2Fpdfs%2F2rrspocd0fo_RETRO%2019.04.2024.pdf?alt=media&token=b529b2b2-5d77-4779-a4c8-122e34cda9b5';
 
   constructor(private databaseService: DatabaseService) {}
 
