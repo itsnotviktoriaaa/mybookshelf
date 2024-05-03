@@ -24,8 +24,18 @@ export class PdfViewerComponent {
    *  to print programmatically, and to show or hide layers by a method call.
    */
   book$: Observable<IBookItemTransformed | null> = of(null);
-  examplePdfUrl =
-    'https://firebasestorage.googleapis.com/v0/b/mybookshelff-c1a0f.appspot.com/o/EXCj50C0ruWGrJumrcfbjknFxik2%2Fpdfs%2F2rrspocd0fo_RETRO%2019.04.2024.pdf?alt=media&token=b529b2b2-5d77-4779-a4c8-122e34cda9b5';
+
+  listOfViewsAboutSpread = [
+    { title: 'No Spreads', id: 'secondarySpreadNone' },
+    { title: 'Odd Spreads', id: 'secondarySpreadOdd' },
+    { title: 'Even Spreads', id: 'secondarySpreadEven' },
+  ];
+
+  listOfViewsAboutScrolling = [
+    { title: 'Vertical Scrolling', id: 'secondaryScrollVertical' },
+    { title: 'Horizontal Scrolling', id: 'secondaryScrollHorizontal' },
+    { title: 'Wrapped Scrolling', id: 'secondaryScrollWrapped' },
+  ];
 
   constructor(
     private pdfService: NgxExtendedPdfViewerService,
@@ -68,5 +78,32 @@ export class PdfViewerComponent {
 
   backToMyBooks(): void {
     this.router.navigate(['/home/books']).then((): void => {});
+  }
+
+  customOpeningFullScreen(): void {
+    const presentationButton: HTMLElement | null = document.getElementById('presentationMode');
+    if (presentationButton) {
+      presentationButton.click();
+    }
+  }
+
+  chooseView(event: Event, listOfView: 'spread' | 'scrolling'): void {
+    const target: HTMLSelectElement = event.target as HTMLSelectElement;
+    const selectedIndex = target.selectedIndex;
+    const selectedOptionValue = target.options[selectedIndex].value;
+    let listOfViewChanged = this.listOfViewsAboutSpread;
+
+    if (listOfView === 'spread') {
+      listOfViewChanged = this.listOfViewsAboutSpread;
+    } else if (listOfView === 'scrolling') {
+      listOfViewChanged = this.listOfViewsAboutScrolling;
+    }
+
+    const selectedOptionId = listOfViewChanged.find(view => view.title === selectedOptionValue);
+
+    if (selectedOptionId && selectedOptionId.id) {
+      const elementWhichNeedId: HTMLElement | null = document.getElementById(selectedOptionId.id);
+      elementWhichNeedId?.click();
+    }
   }
 }

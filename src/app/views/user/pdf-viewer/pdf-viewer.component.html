@@ -21,13 +21,27 @@
       <div class="pdf-viewer-header-addition">
         <div class="pdf-viewer-header-addition-favorite"></div>
         <div class="pdf-viewer-header-addition-full">
-          <button class="pdf-addition-btn">Full Screen</button>
+          <button class="pdf-addition-btn" (click)="customOpeningFullScreen()">Full Screen</button>
         </div>
         <div class="pdf-viewer-header-addition-view">
-          <button class="pdf-addition-btn">
-            <span>View</span>
-            <svg-icon [src]="'assets/images/icons/pdf-view-polygon.svg'"></svg-icon>
-          </button>
+          <select
+            id="optionsSpread"
+            (change)="chooseView($event, 'spread')"
+            [class]="{ 'pdf-addition-btn': true }">
+            @for (option of listOfViewsAboutSpread; track option) {
+              <option [value]="option.title">{{ option.title }}</option>
+            }
+          </select>
+        </div>
+        <div class="pdf-viewer-header-addition-view">
+          <select
+            id="optionsScrolling"
+            (change)="chooseView($event, 'scrolling')"
+            [class]="{ 'pdf-addition-btn': true }">
+            @for (option of listOfViewsAboutScrolling; track option) {
+              <option [value]="option.title">{{ option.title }}</option>
+            }
+          </select>
         </div>
       </div>
     </div>
