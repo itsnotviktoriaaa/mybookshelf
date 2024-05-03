@@ -3,7 +3,7 @@
     <div class="pdf-viewer-header">
       <div class="pdf-viewer-header-info">
         <div class="pdf-viewer-header-info-back" (click)="backToMyBooks()">
-          <svg-icon [src]="'assets/images/icons/pdf-icon-back.svg'"></svg-icon>
+          <svg-icon [src]="pathToIcons + '/pdf-icon-back.svg'"></svg-icon>
           <span class="pdf-viewer-header-back-text">Back</span>
         </div>
         <div class="pdf-viewer-header-info-about">
@@ -45,6 +45,28 @@
         </div>
       </div>
     </div>
+    <div class="pdf-viewer-background">
+      <pdf-zoom-in></pdf-zoom-in>
+    </div>
+    <div class="pdf-viewer-background">
+      <pdf-zoom-out></pdf-zoom-out>
+    </div>
+    <div class="pdf-viewer-background pdf-viewer-number">
+      <svg-icon
+        [src]="pathToIcons + '/pdf-arrow.svg'"
+        (click)="primaryPrevious()"
+        [svgStyle]="{ position: 'relative', 'top.px': 2 }"
+        class="pdf-viewer-arrow"></svg-icon>
+      <pdf-page-number></pdf-page-number>
+      <svg-icon
+        (click)="nextPrimary()"
+        [svgStyle]="{ transform: 'rotate(180deg)', position: 'relative', 'top.px': 2 }"
+        class="pdf-viewer-arrow"
+        [src]="pathToIcons + '/pdf-arrow.svg'"></svg-icon>
+    </div>
+    <!--    <div>-->
+    <!--      <pdf-zoom-dropdown></pdf-zoom-dropdown>-->
+    <!--    </div>-->
     <ngx-extended-pdf-viewer
       [src]="book.webReaderLink"
       [zoom]="'auto'"
@@ -54,5 +76,8 @@
       [showHandToolButton]="true"
       [language]="'en'">
     </ngx-extended-pdf-viewer>
+    <div class="pdf-edit" (click)="edit()">
+      <svg-icon [src]="pathToIcons + '/pdf-edit.svg'"></svg-icon>
+    </div>
   </section>
 }

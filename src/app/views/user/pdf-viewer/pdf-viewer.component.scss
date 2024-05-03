@@ -5,6 +5,7 @@
   overflow-y: scroll;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  position: relative;
 
   .pdf-viewer-header {
     padding: 23px 18px;
@@ -68,5 +69,34 @@
       display: flex;
       column-gap: 22px;
     }
+  }
+
+  .pdf-viewer-background {
+    background-color: var(--gray-label-color);
+  }
+
+  .pdf-viewer-number {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    justify-content: center;
+
+    .pdf-viewer-arrow {
+      cursor: pointer;
+    }
+  }
+
+  .pdf-edit {
+    cursor: pointer;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--white-color);
+    border-radius: 50%;
+    position: absolute;
+    bottom: 65px;
+    right: 70px;
   }
 }

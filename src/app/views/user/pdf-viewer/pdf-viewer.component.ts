@@ -1,4 +1,5 @@
 import { NgxExtendedPdfViewerModule, NgxExtendedPdfViewerService } from 'ngx-extended-pdf-viewer';
+import { environment } from '../../../../environments/environment.development';
 import { RouterFacadeService } from '../../../ngrx/router/router.facade';
 import { catchError, EMPTY, filter, Observable, of, tap } from 'rxjs';
 import { DatabaseService, NotificationService } from '../../../core';
@@ -36,6 +37,8 @@ export class PdfViewerComponent {
     { title: 'Horizontal Scrolling', id: 'secondaryScrollHorizontal' },
     { title: 'Wrapped Scrolling', id: 'secondaryScrollWrapped' },
   ];
+
+  pathToIcons = environment.pathToIcons;
 
   constructor(
     private pdfService: NgxExtendedPdfViewerService,
@@ -104,6 +107,27 @@ export class PdfViewerComponent {
     if (selectedOptionId && selectedOptionId.id) {
       const elementWhichNeedId: HTMLElement | null = document.getElementById(selectedOptionId.id);
       elementWhichNeedId?.click();
+    }
+  }
+
+  edit(): void {
+    const editButton: HTMLElement | null = document.getElementById('primaryEditorInk');
+    if (editButton) {
+      editButton.click();
+    }
+  }
+
+  nextPrimary(): void {
+    const primaryNext: HTMLElement | null = document.getElementById('primaryNext');
+    if (primaryNext) {
+      primaryNext.click();
+    }
+  }
+
+  primaryPrevious(): void {
+    const primaryPrevious: HTMLElement | null = document.getElementById('primaryPrevious');
+    if (primaryPrevious) {
+      primaryPrevious.click();
     }
   }
 }
