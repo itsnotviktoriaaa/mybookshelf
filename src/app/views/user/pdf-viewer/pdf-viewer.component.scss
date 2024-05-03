@@ -13,6 +13,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
 
     .pdf-viewer-header-info {
       display: flex;
@@ -80,10 +81,18 @@
     align-items: center;
     column-gap: 10px;
     justify-content: center;
+    padding-top: 10px;
 
     .pdf-viewer-arrow {
       cursor: pointer;
     }
+  }
+
+  .pdf-viewer-zoom {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    justify-content: center;
   }
 
   .pdf-edit {
