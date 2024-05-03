@@ -78,6 +78,12 @@
         class="pdf-viewer-arrow"
         [src]="pathToIcons + '/pdf-arrow.svg'"></svg-icon>
     </div>
+    <div class="pdf-viewer-background pdf-download">
+      <svg-icon
+        (click)="download()"
+        [svgStyle]="{ cursor: 'pointer' }"
+        [src]="pathToIcons + '/pdf-arrow-down.svg'"></svg-icon>
+    </div>
     <ngx-extended-pdf-viewer
       [src]="book.webReaderLink"
       [zoom]="'auto'"

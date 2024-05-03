@@ -81,7 +81,7 @@
     align-items: center;
     column-gap: 10px;
     justify-content: center;
-    padding-top: 10px;
+    padding: 10px 0;
 
     .pdf-viewer-arrow {
       cursor: pointer;
@@ -92,6 +92,12 @@
     display: flex;
     align-items: center;
     column-gap: 10px;
+    justify-content: center;
+  }
+
+  .pdf-download {
+    display: flex;
+    align-items: center;
     justify-content: center;
   }
 

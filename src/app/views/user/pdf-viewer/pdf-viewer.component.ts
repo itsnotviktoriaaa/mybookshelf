@@ -130,4 +130,11 @@ export class PdfViewerComponent {
       primaryPrevious.click();
     }
   }
+
+  download(): void {
+    const download: HTMLElement | null = document.getElementById('download');
+    if (download) {
+      download.click();
+    }
+  }
 }
