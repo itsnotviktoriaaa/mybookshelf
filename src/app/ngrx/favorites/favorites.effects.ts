@@ -15,8 +15,8 @@ import {
 import { catchError, exhaustMap, finalize, map, of, switchMap, tap } from 'rxjs';
 import { GoogleApiService, NotificationService } from '../../core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Injectable } from '@angular/core';
 import { TypedAction } from '@ngrx/store/src/models';
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class FavoritesEffects {
