@@ -41,3 +41,15 @@
     }
   }
 }
+
+@media screen and (width <= 850px) {
+  .home {
+    font-size: 0.7em;
+  }
+}
+
+@media screen and (width <= 425px) {
+  .home {
+    font-size: 0.6em;
+  }
+}

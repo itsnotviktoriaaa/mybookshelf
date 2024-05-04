@@ -74,10 +74,11 @@
             color: var(--primary-dark-gray-color);
             font-family: Inter, sans-serif;
             font-weight: 400;
+            font-size: 1.03em;
 
             &::placeholder {
               font-weight: 500;
-              font-size: 16px;
+              font-size: 1.03em;
               color: var(--primary-gray-color);
               font-family: Inter, sans-serif;
             }
@@ -97,7 +98,7 @@
       .btn-upload {
         margin-top: 27px;
         font-weight: 600;
-        font-size: 20px;
+        font-size: 1em;
         color: var(--white-color);
         background: var(--secondary-orange-color);
         border-radius: 5px;
@@ -114,6 +115,16 @@
           cursor: not-allowed;
         }
       }
+    }
+  }
+}
+
+@media screen and (width <= 850px) {
+  .upload-wrapper {
+    font-size: 0.8em;
+
+    .upload {
+      padding: 1em;
     }
   }
 }

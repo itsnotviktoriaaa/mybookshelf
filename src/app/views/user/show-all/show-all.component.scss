@@ -9,6 +9,17 @@
   .show-books {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px 20px;
+    gap: 20px 10px;
+  }
+}
+
+@media screen and (width <= 425px) {
+  .show {
+    padding-right: 20px;
+    margin-top: 15px;
+
+    .show-books {
+      justify-content: center;
+    }
   }
 }

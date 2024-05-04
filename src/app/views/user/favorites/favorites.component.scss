@@ -4,3 +4,9 @@
 .favorites {
   @include common-calc-height;
 }
+
+@media screen and (width <= 850px) {
+  .favorites {
+    font-size: 0.7em;
+  }
+}

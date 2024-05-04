@@ -23,7 +23,6 @@
       .detail-item-common {
         display: flex;
         align-items: flex-start;
-        flex-wrap: wrap;
         justify-content: space-between;
         row-gap: 15px;
 
@@ -192,7 +191,7 @@
 
         .detail-right-title {
           font-weight: 600;
-          font-size: 20px;
+          font-size: 1.3em;
           color: var(--primary-dark-gray-color);
           margin-bottom: 10px;
 
@@ -209,7 +208,7 @@
 
           .detail-right-author-name {
             font-weight: 400;
-            font-size: 20px;
+            font-size: 1.3em;
             color: var(--primary-dark-gray-color);
           }
 
@@ -233,7 +232,7 @@
         .detail-right-other {
           .detail-right-other-text {
             font-weight: 700;
-            font-size: 15px;
+            font-size: 1.2em;
             color: var(--primary-dark-gray-color);
             margin-bottom: 14px;
           }
@@ -259,6 +258,127 @@
                 @include book-hover;
               }
             }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (width <= 1440px) {
+  .detail {
+    .common-padding {
+      .detail-items {
+        .detail-right {
+          max-width: 100%;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (width <= 1245px) {
+  .detail {
+    .common-padding {
+      .back-to-result {
+        align-items: center;
+
+        svg-icon {
+          position: relative;
+          top: 2px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (width <= 1244px) {
+  .detail {
+    font-size: 0.7em;
+
+    .common-padding {
+      padding: 10px 20px 0;
+    }
+  }
+}
+
+@media screen and (width <= 1024px) {
+  .detail {
+    font-size: 0.7em;
+
+    .common-padding {
+      .detail-items {
+        .detail-item-common {
+          .detail-left {
+            margin-right: 20px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (width <= 650px) {
+  .detail {
+    font-size: 0.7em;
+
+    .common-padding {
+      .detail-items {
+        .detail-item-common {
+          .detail-left {
+            padding: 15px;
+
+            .detail-left-image {
+              width: 90px;
+            }
+          }
+
+          .detail-center-info {
+            margin-bottom: 6px;
+          }
+
+          .detail-central-availability {
+            margin-bottom: 15px;
+          }
+
+          .detail-central-buttons {
+            .detail-btn {
+              font-size: 1em;
+              padding: 12px;
+              width: unset;
+              height: unset;
+            }
+
+            .detail-btn-green {
+              .detail-btn-green-headphones-wrapper svg-icon svg {
+                width: 10px;
+                height: 10px;
+              }
+            }
+          }
+        }
+
+        .detail-right {
+          padding: 15px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (width <= 580px) {
+  .detail {
+    .common-padding {
+      .detail-items {
+        .detail-item-common {
+          flex-wrap: wrap;
+
+          .detail-left {
+            order: 2;
+          }
+
+          .detail-center {
+            order: 1;
           }
         }
       }

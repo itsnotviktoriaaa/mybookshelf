@@ -40,9 +40,38 @@
   }
 }
 
+@media screen and (width <= 1244px) {
+  .search {
+    padding: 10px 20px 0;
+  }
+}
+
+@media screen and (width <= 850px) {
+  .search {
+    font-size: 12px;
+
+    .search-header {
+      font-size: 0.8em;
+      column-gap: 10px;
+    }
+  }
+}
+
 @media screen and (width <= 835px) {
   .search {
     height: calc(100vh - 120px);
+
+    .header-search {
+      margin-bottom: 45px;
+    }
+  }
+}
+
+@media screen and (width <= 560px) {
+  .search {
+    .search-header {
+      display: none;
+    }
   }
 }
 

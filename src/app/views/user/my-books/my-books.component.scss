@@ -3,3 +3,9 @@
 .my-books {
   @include common-calc-height;
 }
+
+@media screen and (width <= 850px) {
+  .my-books {
+    font-size: 0.7em;
+  }
+}

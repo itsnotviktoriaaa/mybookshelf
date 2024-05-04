@@ -18,7 +18,7 @@
     .content-info-wrapper {
       display: flex;
       flex-wrap: wrap;
-      gap: 4px 47px;
+      gap: 15px 47px;
       align-items: center;
 
       .content-image {
@@ -57,5 +57,19 @@
         }
       }
     }
+  }
+}
+
+@media screen and (width <= 850px) {
+  .content-row {
+    column-gap: 10px;
+  }
+}
+
+@media screen and (width <= 560px) {
+  .content-row {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto auto auto auto;
+    row-gap: 10px;
   }
 }

@@ -209,6 +209,12 @@ li {
   padding: 0 45px;
 }
 
+@media screen and (width <= 1244px) {
+  .common-padding {
+    padding: 0 20px;
+  }
+}
+
 .header-back {
   background: var(--white-color);
   box-shadow: 0 0 4px rgb(0 0 0 / 25%);

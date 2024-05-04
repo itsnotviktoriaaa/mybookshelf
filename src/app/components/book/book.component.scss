@@ -25,17 +25,17 @@
     }
 
     .book-name {
-      font-size: 12px;
+      font-size: 1em;
       margin-bottom: 5px;
     }
 
     .book-author {
       margin-bottom: 5px;
-      font-size: 10px;
+      font-size: 0.9em;
     }
 
     .book-review {
-      font-size: 10px;
+      font-size: 0.9em;
 
       .book-review-all {
         color: var(--primary-gray-color);
@@ -76,7 +76,7 @@
         }
 
         .book-right-top-description {
-          font-size: 10px;
+          font-size: 0.9em;
           color: var(--gray-text-color);
         }
       }
@@ -96,5 +96,18 @@
 
   &:hover {
     @include book-hover;
+  }
+}
+
+@media screen and (width <= 400px) {
+  .book-back {
+    &.big-book {
+      .book-left {
+        .book-image {
+          width: 76px;
+          height: 106px;
+        }
+      }
+    }
   }
 }

@@ -48,3 +48,14 @@
     }
   }
 }
+
+@media screen and (width <= 425px) {
+  .pagination {
+    .pagination-pages {
+      a.pagination-page {
+        width: 2em;
+        height: 2em;
+      }
+    }
+  }
+}
