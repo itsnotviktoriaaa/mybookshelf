@@ -147,6 +147,10 @@
           }
 
           .header-account-info {
+            .header-account-info-text {
+              max-width: 124px;
+            }
+
             .header-account-info-icon {
               .header-account-info-icon-svg {
                 position: relative;
@@ -211,5 +215,53 @@
 @media screen and (width <= 835px) {
   .header {
     padding: 20px;
+  }
+}
+
+@media screen and (width <= 769px) {
+  .header {
+    .header-items {
+      column-gap: 6px;
+
+      .header-search {
+        max-width: 100%;
+
+        .header-search-all-wrapper {
+          padding: 0 5px;
+        }
+
+        .header-search-input-wrapper {
+          .header-search-input {
+            padding: 7px;
+          }
+        }
+
+        .header-search-find {
+          padding: 0 9px 0 3px;
+        }
+      }
+
+      .header-item {
+        .header-lang {
+          .header-lang-wrapper {
+            .header-lang-info {
+              .header-lang-info-text {
+                display: none;
+              }
+            }
+          }
+        }
+
+        .header-account {
+          .header-account-wrapper {
+            .header-account-info {
+              .header-account-info-text {
+                display: none;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
