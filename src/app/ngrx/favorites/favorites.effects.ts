@@ -16,6 +16,7 @@ import { catchError, exhaustMap, finalize, map, of, switchMap, tap } from 'rxjs'
 import { GoogleApiService, NotificationService } from '../../core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
+import { TypedAction } from '@ngrx/store/src/models';
 
 @Injectable()
 export class FavoritesEffects {
@@ -30,7 +31,7 @@ export class FavoritesEffects {
       ofType(loadFavoritesBooks),
       switchMap(action => {
         return this.googleApi.getFavorites(action.params).pipe(
-          map((data: IBook): { data: IBookItemTransformedWithTotal } => {
+          map((data: IBook): { data: IBookItemTransformedWithTotal } & TypedAction<string> => {
             const transformedItems: IBookItemTransformed[] = data.items.map((item: IBookItem) => {
               return {
                 id: item.id,
