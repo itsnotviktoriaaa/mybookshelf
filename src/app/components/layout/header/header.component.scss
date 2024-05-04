@@ -265,3 +265,50 @@
     }
   }
 }
+
+@media screen and (width <= 496px) {
+  .header {
+    padding: 20px 20px 10px;
+
+    .header-items {
+      flex-direction: column;
+      align-items: flex-start;
+      row-gap: 7px;
+
+      .header-burger {
+        order: 1;
+      }
+
+      .header-search {
+        order: 3;
+      }
+
+      .header-item {
+        order: 2;
+
+        .header-lang {
+          .header-lang-wrapper {
+            height: 35px;
+            padding: 0 15px;
+
+            .header-lang-item svg-icon svg {
+              width: 18px;
+              height: 18px;
+            }
+          }
+        }
+
+        .header-account {
+          .header-account-wrapper {
+            height: 35px;
+
+            .header-account-image {
+              width: 23px;
+              height: 23px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

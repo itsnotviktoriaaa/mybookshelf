@@ -45,3 +45,9 @@
     height: calc(100vh - 120px);
   }
 }
+
+@media screen and (width <= 496px) {
+  .search {
+    height: calc(100vh - 179px);
+  }
+}

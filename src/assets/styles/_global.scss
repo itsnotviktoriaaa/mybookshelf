@@ -193,6 +193,12 @@ li {
   }
 }
 
+@media screen and (width <= 496px) {
+  .header-modal {
+    top: 41px;
+  }
+}
+
 .common-nothing {
   font-size: 16px;
   color: var(--primary-dark-gray-color);

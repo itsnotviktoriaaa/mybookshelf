@@ -72,4 +72,8 @@
   @media screen and (width <= 835px) {
     height: calc(100vh - 110px);
   }
+
+  @media screen and (width <= 496px) {
+    height: calc(100vh - 169px);
+  }
 }
