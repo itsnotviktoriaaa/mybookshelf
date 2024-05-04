@@ -162,3 +162,72 @@
     }
   }
 }
+
+@media screen and (width <= 583px) {
+  .auth {
+    .container {
+      margin: 0 20px;
+      width: unset;
+      padding: 30px;
+      min-height: unset;
+    }
+  }
+}
+
+@media screen and (width <= 503px) {
+  .auth {
+    .container {
+      .auth-form {
+        .auth-form-head {
+          .auth-form-head-greeting {
+            font-size: 15px;
+          }
+
+          .auth-form-head-description {
+            font-size: 11px;
+          }
+        }
+
+        .auth-form-inputs {
+          .auth-form-input {
+            label {
+              font-size: 13px;
+            }
+
+            .auth-form-input-wrapper {
+              .auth-form-input-wrapper-extra {
+                .input {
+                  width: 100%;
+                  padding: 10px;
+                  font-size: 13px;
+
+                  &::placeholder {
+                    font-size: 13px;
+                  }
+                }
+
+                &:last-child {
+                  .input {
+                    padding: 10px 48px 10px 10px;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        .auth-button {
+          font-size: 13px;
+        }
+
+        .auth-form-moving {
+          font-size: 13px;
+        }
+
+        .auth-google {
+          font-size: 13px;
+        }
+      }
+    }
+  }
+}

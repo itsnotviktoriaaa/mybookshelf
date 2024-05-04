@@ -30,3 +30,18 @@
     }
   }
 }
+
+@media screen and (width <= 503px) {
+  .login-wrapper {
+    .login {
+      .container {
+        .auth-form {
+          .auth-form-inputs,
+          .auth-button {
+            margin-bottom: 40px;
+          }
+        }
+      }
+    }
+  }
+}

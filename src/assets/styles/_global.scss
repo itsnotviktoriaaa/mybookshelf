@@ -140,6 +140,12 @@ li {
   margin-top: 4px;
 }
 
+@media screen and (width <= 508px) {
+  .error-message {
+    font-size: 11px;
+  }
+}
+
 .header-modal {
   position: absolute;
   top: 60px;
