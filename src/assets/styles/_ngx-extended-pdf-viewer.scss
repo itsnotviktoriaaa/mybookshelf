@@ -15,7 +15,7 @@ ngx-extended-pdf-viewer #viewerContainer:not(.pdfPresentationMode) {
 
 /* eslint-disable-next-line selector-id-pattern */
 ngx-extended-pdf-viewer #editorInkParamsToolbar {
-  bottom: 266px;
+  bottom: 308px;
   top: unset;
 }
 
@@ -39,4 +39,10 @@ pdf-toolbar {
   outline: none;
   padding: 3px;
   margin-right: 7px;
+}
+
+@media screen and (width <= 497px) {
+  ngx-extended-pdf-viewer #editorInkParamsToolbar {
+    bottom: 202px;
+  }
 }
