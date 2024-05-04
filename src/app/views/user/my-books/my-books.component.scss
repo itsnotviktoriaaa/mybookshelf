@@ -1,6 +1,5 @@
+@import '../../../../assets/styles/mixins';
+
 .my-books {
-  height: calc(100vh - 221px);
-  overflow-y: scroll;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  @include common-calc-height;
 }

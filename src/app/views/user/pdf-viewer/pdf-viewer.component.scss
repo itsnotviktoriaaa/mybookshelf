@@ -1,10 +1,9 @@
+@import '../../../../assets/styles/mixins';
 @import '../../../../assets/styles/_color.scss';
 
 .pdf-viewer {
-  height: calc(100vh - 221px);
-  overflow-y: scroll;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  @include common-calc-height;
+
   position: relative;
 
   .pdf-viewer-header {

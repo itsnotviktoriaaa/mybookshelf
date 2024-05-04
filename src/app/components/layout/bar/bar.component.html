@@ -1,7 +1,7 @@
 <aside class="bar-container" id="bar">
   <div class="bar-top">
     <div class="bar-top-close" id="close" #close>&#10006;</div>
-    <div routerLink="/home" class="logo">
+    <div (click)="moveToPage('/home')" class="logo">
       <img [src]="pathToImages + '/logo-bar.png'" alt="MyBookShelf" />
     </div>
     <nav class="menu">
@@ -29,7 +29,6 @@
         <li>
           <a
             (click)="moveToPage(menuBelowBarItem.routerLink)"
-            [routerLink]="menuBelowBarItem.routerLink"
             routerLinkActive="menu-active"
             [routerLinkActiveOptions]="{ exact: true }"
             >{{ menuBelowBarItem.text }}</a

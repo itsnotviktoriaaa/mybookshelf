@@ -1,8 +1,6 @@
+@import '../../../../assets/styles/mixins';
 @import '../../../../assets/styles/color';
 
 .favorites {
-  height: calc(100vh - 221px);
-  overflow-y: scroll;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  @include common-calc-height;
 }

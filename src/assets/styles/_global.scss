@@ -281,6 +281,12 @@ li {
   }
 }
 
+@media screen and (width <= 955px) {
+  .header-search-offer {
+    font-size: 10px;
+  }
+}
+
 .list-books {
   display: flex;
   gap: 2em;

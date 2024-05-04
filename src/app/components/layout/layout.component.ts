@@ -38,6 +38,16 @@ import { tap } from 'rxjs';
           overflow-y: hidden;
         }
       }
+
+      @media screen and (max-width: 835px) {
+        .layout-wrapper {
+          padding: 10px;
+
+          .layout {
+            height: calc(100vh - 20px);
+          }
+        }
+      }
     `,
   ],
 })

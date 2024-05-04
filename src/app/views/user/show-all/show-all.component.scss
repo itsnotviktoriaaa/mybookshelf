@@ -1,11 +1,10 @@
 @import '../../../../assets/styles/pagination';
+@import '../../../../assets/styles/mixins';
 
 .show {
   padding-right: 45px;
-  height: calc(100vh - 221px);
-  overflow-y: scroll;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+
+  @include common-calc-height;
 
   .show-books {
     display: flex;

@@ -62,3 +62,14 @@
   top: 0;
   left: 0;
 }
+
+@mixin common-calc-height {
+  height: calc(100vh - 221px);
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  @media screen and (width <= 835px) {
+    height: calc(100vh - 110px);
+  }
+}

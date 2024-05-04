@@ -6,14 +6,14 @@ import {
   ViewChild,
 } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { IMenuBelowBar, IMenuItem } from '../../../modals/user';
+import { Router, RouterLinkActive } from '@angular/router';
 import { SvgIconComponent } from 'angular-svg-icon';
 
 @Component({
   selector: 'app-bar',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, SvgIconComponent],
+  imports: [RouterLinkActive, SvgIconComponent],
   templateUrl: './bar.component.html',
   styleUrl: './bar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
