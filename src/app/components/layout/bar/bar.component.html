@@ -1,5 +1,6 @@
-<aside class="bar-container">
+<aside class="bar-container" id="bar">
   <div class="bar-top">
+    <div class="bar-top-close" id="close" #close>&#10006;</div>
     <div routerLink="/home" class="logo">
       <img [src]="pathToImages + '/logo-bar.png'" alt="MyBookShelf" />
     </div>
@@ -8,8 +9,8 @@
         @for (menuItem of menuItems; track menuItem) {
           <li class="menu-item">
             <a
+              (click)="moveToPage(menuItem.routerLink)"
               class="menu-item-a"
-              [routerLink]="menuItem.routerLink"
               routerLinkActive="menu-active"
               [routerLinkActiveOptions]="{ exact: true }">
               <span class="icon">
@@ -27,6 +28,7 @@
       @for (menuBelowBarItem of menuBelowBarItems; track menuBelowBarItem) {
         <li>
           <a
+            (click)="moveToPage(menuBelowBarItem.routerLink)"
             [routerLink]="menuBelowBarItem.routerLink"
             routerLinkActive="menu-active"
             [routerLinkActiveOptions]="{ exact: true }"

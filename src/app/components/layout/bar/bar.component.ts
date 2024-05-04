@@ -1,7 +1,13 @@
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { IMenuBelowBar, IMenuItem } from '../../../modals/user';
-import { RouterLink, RouterLinkActive } from '@angular/router';
 import { SvgIconComponent } from 'angular-svg-icon';
 
 @Component({
@@ -12,9 +18,12 @@ import { SvgIconComponent } from 'angular-svg-icon';
   styleUrl: './bar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BarComponent {
+export class BarComponent implements AfterViewInit {
   pathToIcons = environment.pathToIcons;
   pathToImages = environment.pathToImages;
+  @ViewChild('close') close: ElementRef | null = null;
+
+  constructor(private router: Router) {}
 
   menuItems: IMenuItem[] = [
     { routerLink: '/home', icon: '/bar-home.svg', text: 'Home' },
@@ -29,4 +38,23 @@ export class BarComponent {
     { routerLink: '/home/support', text: 'Support' },
     { routerLink: '/home/terms', text: 'Terms & Condition' },
   ];
+
+  ngAfterViewInit(): void {
+    if (this.close && this.close.nativeElement) {
+      this.close.nativeElement.addEventListener('click', (): void => {
+        const bar: HTMLElement | null = document.getElementById('bar');
+        if (bar) {
+          bar.classList.remove('bar-adaptive');
+        }
+      });
+    }
+  }
+
+  moveToPage(routerLink: string): void {
+    this.router.navigate([routerLink]).then((): void => {});
+    const bar: HTMLElement | null = document.getElementById('bar');
+    if (bar) {
+      bar.classList.remove('bar-adaptive');
+    }
+  }
 }

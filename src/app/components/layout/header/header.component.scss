@@ -14,6 +14,11 @@
   .header-items {
     @include flex-center-space-between;
 
+    .header-burger {
+      cursor: pointer;
+      display: none;
+    }
+
     .header-search {
       background: var(--white-color);
       box-shadow: 0 0 4px rgb(0 0 0 / 25%);
@@ -194,5 +199,11 @@
 @media screen and (width <= 955px) {
   .header {
     border-radius: 10px 10px 0 0;
+
+    .header-items {
+      .header-burger {
+        display: block;
+      }
+    }
   }
 }

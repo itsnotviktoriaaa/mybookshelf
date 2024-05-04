@@ -13,20 +13,23 @@ import {
   tap,
 } from 'rxjs';
 import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  HostListener,
+  inject,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import {
   AuthService,
   CategoryModalSearchItems,
   GoogleApiService,
   NotificationService,
   SearchStateService,
 } from '../../../core';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  HostListener,
-  inject,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
 import { HeaderClickEnum, SelectedHeaderModalItemEnum } from '../../../modals/user';
 import { NotificationStatusEnum, IUserInfoFromGoogle } from '../../../modals/auth';
 import { SearchLiveFacade } from '../../../ngrx/search-live/search-live.facade';
@@ -47,7 +50,7 @@ import { Params, Router } from '@angular/router';
   hostDirectives: [DestroyDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   allMiniModal: boolean = false;
   langMiniModal: boolean = false;
   profileMiniModal: boolean = false;
@@ -72,6 +75,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   pathToIcons = environment.pathToIcons;
   existUrl: string | null = null;
   private readonly destroy$ = inject(DestroyDirective).destroy$;
+  @ViewChild('burger') burger: ElementRef | null = null;
 
   constructor(
     private authService: AuthService,
@@ -101,6 +105,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.isFavoritePage();
 
     this.valueChangesInSearchField();
+  }
+
+  ngAfterViewInit(): void {
+    if (this.burger && this.burger.nativeElement) {
+      this.burger.nativeElement.addEventListener('click', (): void => {
+        const bar: HTMLElement | null = document.getElementById('bar');
+        if (bar) {
+          bar.classList.add('bar-adaptive');
+        }
+      });
+    }
   }
 
   getSearchCategory(): void {
