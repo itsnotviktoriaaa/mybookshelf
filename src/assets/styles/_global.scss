@@ -179,6 +179,20 @@ li {
   }
 }
 
+@media screen and (width <= 1417px) {
+  .header-modal {
+    .header-modal-items {
+      row-gap: 16px;
+
+      .header-modal-item {
+        a {
+          font-size: 13px;
+        }
+      }
+    }
+  }
+}
+
 .common-nothing {
   font-size: 16px;
   color: var(--primary-dark-gray-color);
@@ -218,6 +232,12 @@ li {
   font-weight: 400;
   font-size: 20px;
   color: var(--primary-dark-gray-color);
+}
+
+@media screen and (width <= 1417px) {
+  .header-back-text {
+    font-size: 13px;
+  }
 }
 
 .header {
@@ -270,6 +290,12 @@ li {
 
 .user-common-padding {
   padding-left: 44px;
+}
+
+@media screen and (width <= 1244px) {
+  .user-common-padding {
+    padding-left: 20px;
+  }
 }
 
 .status-success {

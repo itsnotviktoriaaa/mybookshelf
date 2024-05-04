@@ -3,6 +3,10 @@
 @mixin primary-gray-20 {
   color: var(--primary-dark-gray-color);
   font-size: 20px;
+
+  @media screen and (width <= 1417px) {
+    font-size: 15px;
+  }
 }
 
 @mixin flex-center-space-between {

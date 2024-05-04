@@ -108,7 +108,7 @@
         .header-lang-wrapper {
           @include flex-center-space-between;
 
-          width: 173px;
+          padding: 0 20px;
           height: 50px;
           justify-content: center;
           column-gap: 19px;
@@ -152,5 +152,47 @@
         }
       }
     }
+  }
+}
+
+@media screen and (width <= 1417px) {
+  .header {
+    .header-items {
+      .header-item {
+        column-gap: 10px;
+      }
+
+      .header-search {
+        .header-search-input-wrapper {
+          .header-search-input {
+            &::placeholder {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (width <= 1244px) {
+  .header {
+    padding: 38px 20px 25px;
+  }
+}
+
+@media screen and (width <= 1053px) {
+  .header {
+    .header-items {
+      .header-search {
+        max-width: 40%;
+      }
+    }
+  }
+}
+
+@media screen and (width <= 955px) {
+  .header {
+    border-radius: 10px 10px 0 0;
   }
 }

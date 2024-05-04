@@ -17,6 +17,11 @@
     .logo {
       margin-bottom: 6em;
       cursor: pointer;
+      max-width: 120px;
+
+      img {
+        width: 100%;
+      }
     }
 
     .menu {
@@ -87,5 +92,96 @@
         }
       }
     }
+  }
+}
+
+@media screen and (width <= 1537px) {
+  .bar-container {
+    .bar-top {
+      .logo {
+        margin-bottom: 3em;
+      }
+    }
+  }
+}
+
+@media screen and (width <= 1440px) {
+  .bar-container {
+    padding: 2em;
+    min-width: unset;
+
+    .bar-top {
+      .logo {
+        max-width: 95px;
+        margin-bottom: 2.2em;
+      }
+
+      .menu {
+        .menu-ul {
+          row-gap: 0.5em;
+
+          .menu-item {
+            .menu-item-a {
+              font-size: 1em;
+
+              .icon {
+                position: relative;
+                top: 6px;
+
+                svg-icon {
+                  svg {
+                    width: 13px !important;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .bar-bottom {
+      ul {
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+@media screen and (width <= 1225px) {
+  .bar-container {
+    .bar-top {
+      .logo {
+        max-width: 64px;
+      }
+    }
+  }
+}
+
+@media screen and (width <= 1100px) {
+  .bar-container {
+    padding: 1.3em;
+
+    .bar-top {
+      .logo {
+        margin-bottom: 1em;
+      }
+
+      .menu {
+        .menu-ul {
+          .menu-item {
+            .menu-item-a {
+              font-size: 0.8em;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (width <= 955px) {
+  .bar-container {
+    display: none;
   }
 }
