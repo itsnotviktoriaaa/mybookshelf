@@ -4,7 +4,7 @@
       <div class="pdf-viewer-header-info">
         <div class="pdf-viewer-header-info-back" (click)="backToMyBooks()">
           <svg-icon [src]="pathToIcons + '/pdf-icon-back.svg'"></svg-icon>
-          <span class="pdf-viewer-header-back-text">Back</span>
+          <span class="pdf-viewer-header-back-text">{{ 'back' | translate }}</span>
         </div>
         <div class="pdf-viewer-header-info-about">
           <div
@@ -21,7 +21,9 @@
       <div class="pdf-viewer-header-addition">
         <div class="pdf-viewer-header-addition-favorite"></div>
         <div class="pdf-viewer-header-addition-full">
-          <button class="pdf-addition-btn" (click)="customOpeningFullScreen()">Full Screen</button>
+          <button class="pdf-addition-btn" (click)="customOpeningFullScreen()">
+            {{ 'fullScreen' | translate }}
+          </button>
         </div>
         <div class="pdf-viewer-header-addition-view">
           <select

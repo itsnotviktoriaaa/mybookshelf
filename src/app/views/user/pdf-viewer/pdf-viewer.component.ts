@@ -1,9 +1,10 @@
 import { NgxExtendedPdfViewerModule, NgxExtendedPdfViewerService } from 'ngx-extended-pdf-viewer';
+import { LangChangeEvent, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { environment } from '../../../../environments/environment.development';
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { RouterFacadeService } from '../../../ngrx/router/router.facade';
 import { catchError, EMPTY, filter, Observable, of, tap } from 'rxjs';
 import { DatabaseService, NotificationService } from '../../../core';
-import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { NotificationStatusEnum } from '../../../modals/auth';
 import { IBookItemTransformed } from '../../../modals/user';
 import { SvgIconComponent } from 'angular-svg-icon';
@@ -11,19 +12,15 @@ import { Params, Router } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-example-pdf-viewer',
+  selector: 'app-pdf-viewer',
   templateUrl: './pdf-viewer.component.html',
   styleUrls: ['./pdf-viewer.component.scss'],
   standalone: true,
-  imports: [NgxExtendedPdfViewerModule, SvgIconComponent, AsyncPipe],
+  imports: [NgxExtendedPdfViewerModule, SvgIconComponent, AsyncPipe, TranslateModule],
   providers: [NgxExtendedPdfViewerService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PdfViewerComponent {
-  /** In most cases, you don't need the NgxExtendedPdfViewerService. It allows you
-   *  to use the "find" api, to extract text and images from a PDF file,
-   *  to print programmatically, and to show or hide layers by a method call.
-   */
+export class PdfViewerComponent implements OnInit {
   book$: Observable<IBookItemTransformed | null> = of(null);
 
   listOfViewsAboutSpread = [
@@ -45,21 +42,74 @@ export class PdfViewerComponent {
     private routerFacadeService: RouterFacadeService,
     private databaseService: DatabaseService,
     private router: Router,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private translateService: TranslateService
   ) {
-    /* More likely than not you don't need to tweak the pdfDefaultOptions.
-       They are a collecton of less frequently used options.
-       To illustrate how they're used, here are two example settings: */
-    // pdfDefaultOptions.doubleTapZoomFactor = '150%'; // The default value is '200%'
-    // pdfDefaultOptions.maxCanvasPixels = 4096 * 4096 * 5; // The default value is 4096 * 4096 pixels,
-    // but most devices support much higher resolutions.
-    // Increasing this setting allows your users to use higher zoom factors,
-    // trading image quality for performance.
-
     this.routerFacadeService.getParams$
       .pipe(
         tap((params: Params): void => {
           this.getInfoAboutBook(params['id']);
+        })
+      )
+      .subscribe();
+
+    const browserLang: string | undefined = this.translateService.getBrowserLang();
+    if (browserLang === 'ru') {
+      this.listOfViewsAboutSpread = [
+        { title: 'Без', id: 'secondarySpreadNone' },
+        { title: 'Чётные', id: 'secondarySpreadOdd' },
+        { title: 'Нечётные', id: 'secondarySpreadEven' },
+      ];
+
+      this.listOfViewsAboutScrolling = [
+        { title: 'Вертикально', id: 'secondaryScrollVertical' },
+        { title: 'Горизонтально', id: 'secondaryScrollHorizontal' },
+        { title: 'Обтекание', id: 'secondaryScrollWrapped' },
+      ];
+    } else if (browserLang === 'en') {
+      this.listOfViewsAboutSpread = [
+        { title: 'No Spreads', id: 'secondarySpreadNone' },
+        { title: 'Odd Spreads', id: 'secondarySpreadOdd' },
+        { title: 'Even Spreads', id: 'secondarySpreadEven' },
+      ];
+
+      this.listOfViewsAboutScrolling = [
+        { title: 'Vertical Scrolling', id: 'secondaryScrollVertical' },
+        { title: 'Horizontal Scrolling', id: 'secondaryScrollHorizontal' },
+        { title: 'Wrapped Scrolling', id: 'secondaryScrollWrapped' },
+      ];
+    }
+  }
+
+  ngOnInit(): void {
+    this.translateService.onLangChange
+      .pipe(
+        tap((lang: LangChangeEvent): void => {
+          if (lang.lang === 'en') {
+            this.listOfViewsAboutSpread = [
+              { title: 'No Spreads', id: 'secondarySpreadNone' },
+              { title: 'Odd Spreads', id: 'secondarySpreadOdd' },
+              { title: 'Even Spreads', id: 'secondarySpreadEven' },
+            ];
+
+            this.listOfViewsAboutScrolling = [
+              { title: 'Vertical Scrolling', id: 'secondaryScrollVertical' },
+              { title: 'Horizontal Scrolling', id: 'secondaryScrollHorizontal' },
+              { title: 'Wrapped Scrolling', id: 'secondaryScrollWrapped' },
+            ];
+          } else if (lang.lang === 'ru') {
+            this.listOfViewsAboutSpread = [
+              { title: 'Без', id: 'secondarySpreadNone' },
+              { title: 'Чётные', id: 'secondarySpreadOdd' },
+              { title: 'Нечётные', id: 'secondarySpreadEven' },
+            ];
+
+            this.listOfViewsAboutScrolling = [
+              { title: 'Вертикально', id: 'secondaryScrollVertical' },
+              { title: 'Горизонтально', id: 'secondaryScrollHorizontal' },
+              { title: 'Обтекание', id: 'secondaryScrollWrapped' },
+            ];
+          }
         })
       )
       .subscribe();
