@@ -82,6 +82,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   userInfo$ = new BehaviorSubject<IUserInfoFromGoogle | null>(null);
   pathToIcons = environment.pathToIcons;
   existUrl: string | null = null;
+  lang = new BehaviorSubject('Eng');
   private readonly destroy$ = inject(DestroyDirective).destroy$;
   @ViewChild('burger') burger: ElementRef | null = null;
 
@@ -94,7 +95,18 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     private searchStateService: SearchStateService,
     private routerFacadeService: RouterFacadeService,
     private translateService: TranslateService
-  ) {}
+  ) {
+    const browserLang: string | undefined = this.translateService.getBrowserLang();
+    if (browserLang === 'ru') {
+      this.lang.next('Русс');
+      this.headerModalLangItems = ['Англ', 'Русс'];
+      this.headerModalAccountItems = ['Профиль', 'Избранное', 'Мои книги', 'Выйти'];
+    } else if (browserLang === 'en') {
+      this.lang.next('Eng');
+      this.headerModalLangItems = ['Eng', 'Rus'];
+      this.headerModalAccountItems = ['Profile', 'Favourite', 'My Books', 'Logout'];
+    }
+  }
 
   ngOnInit(): void {
     this.googleApi.userProfileSubject.subscribe((info: IUserInfoFromGoogle | null): void => {
@@ -130,10 +142,16 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   public selectLanguage(lang: string): void {
     if (lang === 'Eng' || lang === 'Англ') {
       this.translateService.use('en');
+      this.lang.next('Eng');
+      this.headerModalLangItems = ['Eng', 'Rus'];
+      this.headerModalAccountItems = ['Profile', 'Favourite', 'My Books', 'Logout'];
     }
 
     if (lang === 'Rus' || lang === 'Русс') {
-      this.translateService.use('ru-RU');
+      this.translateService.use('ru');
+      this.lang.next('Русс');
+      this.headerModalLangItems = ['Англ', 'Русс'];
+      this.headerModalAccountItems = ['Профиль', 'Избранное', 'Мои книги', 'Выйти'];
     }
   }
 

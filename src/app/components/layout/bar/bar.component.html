@@ -6,7 +6,7 @@
     </div>
     <nav class="menu">
       <ul class="menu-ul">
-        @for (menuItem of menuItems; track menuItem) {
+        @for (menuItem of menuItems$ | async; track menuItem) {
           <li class="menu-item">
             <a
               (click)="moveToPage(menuItem.routerLink)"

@@ -68,7 +68,7 @@
           <div
             (click)="openOrCloseMiniModal(HeaderClickInterfaceEnum.langMiniModal)"
             class="header-back-info header-lang-info">
-            <span class="header-back-text header-lang-info-text">Eng</span>
+            <span class="header-back-text header-lang-info-text">{{ lang | async }}</span>
             <span [class]="{ 'header-lang-info-icon': true, active: langMiniModal }">
               <svg-icon [src]="pathToIcons + '/arrow-in-mini-modal.svg'"></svg-icon>
             </span>
