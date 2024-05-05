@@ -10,6 +10,7 @@ import { BehaviorSubject, debounceTime, distinctUntilChanged, filter, map, takeU
 import { DestroyDirective } from '../../core/directives/destroy.directive';
 import { RouterFacadeService } from '../../ngrx/router/router.facade';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { Params, Router } from '@angular/router';
@@ -17,7 +18,7 @@ import { Params, Router } from '@angular/router';
 @Component({
   selector: 'app-pagination-input',
   standalone: true,
-  imports: [SvgIconComponent, NgClass, AsyncPipe, ReactiveFormsModule],
+  imports: [SvgIconComponent, NgClass, AsyncPipe, ReactiveFormsModule, TranslateModule],
   templateUrl: './pagination-input.component.html',
   styleUrl: './pagination-input.component.scss',
   hostDirectives: [DestroyDirective],

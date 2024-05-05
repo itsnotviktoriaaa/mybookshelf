@@ -16,6 +16,7 @@ import { SearchFacade } from '../../../ngrx/search/search.facade';
 import { PaginationInputComponent } from '../../../UI-сomponents';
 import { BehaviorSubject, filter, takeUntil, tap } from 'rxjs';
 import { SearchBookComponent } from '../../../components';
+import { TranslateModule } from '@ngx-translate/core';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { AsyncPipe } from '@angular/common';
 import { Params } from '@angular/router';
@@ -23,7 +24,13 @@ import { Params } from '@angular/router';
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [SvgIconComponent, SearchBookComponent, AsyncPipe, PaginationInputComponent],
+  imports: [
+    SvgIconComponent,
+    SearchBookComponent,
+    AsyncPipe,
+    PaginationInputComponent,
+    TranslateModule,
+  ],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss',
   hostDirectives: [DestroyDirective],

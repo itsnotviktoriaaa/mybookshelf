@@ -12,21 +12,21 @@
       <div class="auth-form" [formGroup]="registerForm" appPasswordRepeat appPasswordNotEmail>
         <div class="auth-form-head">
           @if (verification) {
-            <span class="auth-form-head-greeting">Verification</span>
-            <span class="auth-form-head-description">Check your E-mail for OTP</span>
+            <span class="auth-form-head-greeting">{{ 'verification' | translate }}</span>
+            <span class="auth-form-head-description">{{ 'checkYourEmailForOTP' | translate }}</span>
           } @else if (!verification && !codeWhichWrittenUserWasEqualFromEmail) {
-            <span class="auth-form-head-greeting">Registration</span>
-            <span class="auth-form-head-description">For Both Staff & Students</span>
+            <span class="auth-form-head-greeting">{{ 'registration' | translate }}</span>
+            <span class="auth-form-head-description">{{ 'forBothStaffStudents' | translate }}</span>
           } @else if (codeWhichWrittenUserWasEqualFromEmail) {
-            <span class="auth-form-head-greeting">Verification</span>
-            <span class="auth-form-head-description">Thank you</span>
+            <span class="auth-form-head-greeting">{{ 'verification' | translate }}</span>
+            <span class="auth-form-head-description">{{ 'thankYou' | translate }}</span>
           }
         </div>
 
         @if (!verification && !codeWhichWrittenUserWasEqualFromEmail) {
           <div class="auth-form-inputs">
             <div class="auth-form-input">
-              <label for="name">Name</label>
+              <label for="name">{{ 'name' | translate }}</label>
               <div class="auth-form-input-wrapper">
                 <div class="auth-form-input-wrapper-extra">
                   <input
@@ -40,7 +40,7 @@
                           : ''
                     }"
                     id="name"
-                    placeholder="Write your name"
+                    placeholder="{{ 'namePlaceholder' | translate }}"
                     type="text"
                     formControlName="username" />
                 </div>
@@ -48,7 +48,7 @@
                   registerForm.get('username')?.invalid &&
                   (registerForm.get('username')?.dirty || registerForm.get('username')?.touched)
                 ) {
-                  <div class="error-message">Name is required.</div>
+                  <div class="error-message">{{ 'nameIsRequired' | translate }}</div>
                 }
               </div>
             </div>
@@ -66,7 +66,7 @@
                           ? 'red'
                           : ''
                     }"
-                    placeholder="Write your email"
+                    placeholder="{{ 'emailPlaceholder' | translate }}"
                     type="text"
                     formControlName="email" />
                 </div>
@@ -75,17 +75,17 @@
                   (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)
                 ) {
                   @if (registerForm.get('email')?.errors?.['required']) {
-                    <div class="error-message">Email is required.</div>
+                    <div class="error-message">{{ 'emailIsRequired' | translate }}</div>
                   }
 
                   @if (registerForm.get('email')?.errors?.['email']) {
-                    <div class="error-message">Email is incorrect.</div>
+                    <div class="error-message">{{ 'emailIsIncorrect' | translate }}</div>
                   }
                 }
               </div>
             </div>
             <div class="auth-form-input">
-              <label for="password">Password</label>
+              <label for="password">{{ 'password' | translate }}</label>
               <div class="auth-form-input-wrapper">
                 <div class="auth-form-input-wrapper-extra">
                   <input
@@ -99,19 +99,19 @@
                           ? 'red'
                           : ''
                     }"
-                    placeholder="Write your password"
+                    placeholder="{{ 'passwordPlaceholder' | translate }}"
                     [type]="isShowPassword ? 'text' : 'password'"
                     formControlName="password" />
 
                   <div class="eye-wrapper">
                     @if (!isShowPassword) {
                       <svg-icon
-                        [src]="pathToIcons + '/icons/eye-close.svg'"
+                        [src]="pathToIcons + '/eye-close.svg'"
                         (click)="changeShowingPassword('isShowPassword')"></svg-icon>
                     }
                     @if (isShowPassword) {
                       <svg-icon
-                        [src]="pathToIcons + '/icons/eye-open.svg'"
+                        [src]="pathToIcons + '/eye-open.svg'"
                         (click)="changeShowingPassword('isShowPassword')"></svg-icon>
                     }
                   </div>
@@ -121,13 +121,12 @@
                   (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)
                 ) {
                   @if (registerForm.get('password')?.errors?.['required']) {
-                    <div class="error-message">Password is required.</div>
+                    <div class="error-message">{{ 'passwordIsRequired' | translate }}</div>
                   }
 
                   @if (registerForm.get('password')?.errors?.['pattern']) {
                     <div class="error-message">
-                      Password is not strong. The password must be at least 8 characters long and
-                      contain at least one number, one lowercase letter and one uppercase letter.
+                      {{ 'passwordPattern' | translate }}
                     </div>
                   }
 
@@ -135,13 +134,13 @@
                     registerForm.get('email')?.value &&
                     registerForm.get('password')?.errors?.['passwordAsEmail']
                   ) {
-                    <div class="error-message">Password must not be an email.</div>
+                    <div class="error-message">{{ 'passwordNotEmail' | translate }}</div>
                   }
                 }
               </div>
             </div>
             <div class="auth-form-input">
-              <label for="confirm-password">Confirm Password</label>
+              <label for="confirm-password">{{ 'confirmPassword' | translate }}</label>
               <div class="auth-form-input-wrapper">
                 <div class="auth-form-input-wrapper-extra">
                   <input
@@ -155,7 +154,7 @@
                           ? 'red'
                           : ''
                     }"
-                    placeholder="Write your password again"
+                    placeholder="{{ 'confirmPasswordPlaceholder' | translate }}"
                     [type]="isShowConfirmPassword ? 'text' : 'password'"
                     formControlName="confirmPassword" />
                   <div class="eye-wrapper">
@@ -177,10 +176,10 @@
                     registerForm.get('confirmPassword')?.touched)
                 ) {
                   @if (registerForm.get('confirmPassword')?.errors?.['required']) {
-                    <div class="error-message">Confirm Password is required.</div>
+                    <div class="error-message">{{ 'confirmPasswordIsRequired' | translate }}</div>
                   }
                   @if (registerForm.get('confirmPassword')?.errors?.['passwordRepeat']) {
-                    <div class="error-message">Confirm Password doesn't match</div>
+                    <div class="error-message">{{ 'confirmPasswordDoesntMatch' | translate }}</div>
                   }
                 }
               </div>
@@ -188,7 +187,7 @@
           </div>
         } @else if (verification) {
           <div class="verification">
-            <div class="verification-head">Enter your OTP Here</div>
+            <div class="verification-head">{{ 'enterYourOTPHere' | translate }}</div>
             <div class="verification-body" #verificationBody>
               <input
                 class="verification-number"
@@ -220,7 +219,9 @@
         } @else if (codeWhichWrittenUserWasEqualFromEmail) {
           <div class="verification" [style.margin-top]="'19px'">
             <div class="verification-head" [style.text-align]="'center'">
-              {{ errorMessage ? 'You are not Verified' : 'You are Verified' }}
+              {{
+                errorMessage ? ('youAreNotVerified' | translate) : ('youAreVerified' | translate)
+              }}
             </div>
           </div>
           <div class="verification-done">
@@ -241,26 +242,32 @@
               cursor: registerForm.invalid && !fillAllInputs ? 'not-allowed' : 'pointer'
             }"
             [ngClass]="{ 'auth-button': true, 'verification-button': verification }">
-            {{ verification ? 'Verify' : 'Register' }}
+            {{ verification ? ('verify' | translate) : ('register' | translate) }}
           </button>
         } @else {
           <button (click)="afterVerify()" class="auth-button">
-            {{ errorMessage ? 'Back to register' : 'Login' }}
+            {{ errorMessage ? ('backToRegister' | translate) : ('login' | translate) }}
           </button>
         }
 
         @if (!verification && !codeWhichWrittenUserWasEqualFromEmail) {
           <span class="auth-form-moving"
-            >Already a User?
-            <span class="auth-form-moving-route" routerLink="/">Login now</span></span
+            >{{ 'alreadyAUser' | translate }}
+            <span class="auth-form-moving-route" routerLink="/">{{
+              'loginNow' | translate
+            }}</span></span
           >
         } @else if (verification) {
           <div class="verification-moving-wrapper">
             <div class="auth-form-moving">
-              Not yet received?
-              <span class="auth-form-moving-route" (click)="sendCodeToEmail()">Resend?</span>
+              {{ 'notYetReceived' | translate }}
+              <span class="auth-form-moving-route" (click)="sendCodeToEmail()">{{
+                'resend' | translate
+              }}</span>
             </div>
-            <span (click)="backToRegister()" class="verification-moving-back">Back</span>
+            <span (click)="backToRegister()" class="verification-moving-back">{{
+              'back' | translate
+            }}</span>
           </div>
         }
       </div>

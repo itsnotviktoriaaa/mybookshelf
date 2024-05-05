@@ -20,6 +20,7 @@ import { FavoritesFacade } from '../../ngrx/favorites/favorites.facade';
 import { catchError, EMPTY, exhaustMap, finalize, tap } from 'rxjs';
 import { NotificationStatusEnum } from '../../modals/auth';
 import { IBookItemTransformed } from '../../modals/user';
+import { TranslateModule } from '@ngx-translate/core';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { NgClass, NgStyle } from '@angular/common';
 import { Router } from '@angular/router';
@@ -35,6 +36,7 @@ import { Router } from '@angular/router';
     NgClass,
     SvgIconComponent,
     CommonPopupComponent,
+    TranslateModule,
   ],
   templateUrl: './book.component.html',
   styleUrl: './book.component.scss',

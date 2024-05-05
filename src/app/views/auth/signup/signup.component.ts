@@ -14,6 +14,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgClass, NgOptimizedImage, NgStyle } from '@angular/common';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import emailJs, { EmailJSResponseStatus } from '@emailjs/browser';
+import { TranslateModule } from '@ngx-translate/core';
 import { Router, RouterLink } from '@angular/router';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { AuthModule } from '@angular/fire/auth';
@@ -34,6 +35,7 @@ import { AuthModule } from '@angular/fire/auth';
     AuthModule,
     NgClass,
     SvgIconComponent,
+    TranslateModule,
   ],
 })
 export class SignupComponent implements OnInit {

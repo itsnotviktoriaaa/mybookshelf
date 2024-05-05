@@ -1,5 +1,5 @@
 <section class="favorites common-padding">
-  <h2 class="common-title">Your Favourite</h2>
+  <h2 class="common-title">{{ 'favouriteTitle' | translate }}</h2>
   @if (miniLoader$ | async; as miniLoader) {
     <app-mini-modal [miniLoader]="miniLoader"></app-mini-modal>
   }
@@ -13,6 +13,6 @@
     }
   }
   @if ((favoritesBooks$ | async) === null && (miniLoader$ | async)?.miniLoader === false) {
-    <h3 class="common-nothing">You don't have books on favorite page</h3>
+    <h3 class="common-nothing">{{ 'dontHaveFavouriteBook' | translate }}</h3>
   }
 </section>

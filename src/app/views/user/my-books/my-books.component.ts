@@ -1,4 +1,5 @@
 import { IBookItemTransformed } from '../../../modals/user';
+import { TranslateModule } from '@ngx-translate/core';
 import { BookComponent } from '../../../components';
 import { DocumentData } from '@firebase/firestore';
 import { Component, OnInit } from '@angular/core';
@@ -9,7 +10,7 @@ import { BehaviorSubject, map } from 'rxjs';
 @Component({
   selector: 'app-my-books',
   standalone: true,
-  imports: [AsyncPipe, BookComponent],
+  imports: [AsyncPipe, BookComponent, TranslateModule],
   templateUrl: './my-books.component.html',
   styleUrl: './my-books.component.scss',
 })

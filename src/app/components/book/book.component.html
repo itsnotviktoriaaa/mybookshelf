@@ -17,7 +17,9 @@
           >{{ book.averageRating }}<span class="book-review-all">/5</span></span
         >
       } @else {
-        <span class="book-review">{{ book.pageCount ? book.pageCount : '—' }} pages</span>
+        <span class="book-review"
+          >{{ book.pageCount ? book.pageCount : '—' }} {{ 'pagesInput' | translate }}</span
+        >
       }
       @if (bigInfo && selfBook) {
         <div class="book-actions">
@@ -34,15 +36,16 @@
       <div class="book-right">
         <div class="book-right-top">
           <div class="book-right-top-wrapper">
-            <span class="book-right-top-title">Borrowed on</span>
+            <span class="book-right-top-title">{{ 'borrowedOn' | translate }}</span>
             @if (book.userInfo || selfBook) {
               <span class="book-right-top-description">{{
-                (book.userInfo ? book.userInfo : book.publishedDate) | transformFavoriteDate
+                (book.userInfo ? book.userInfo : book.publishedDate)
+                  | transformFavoriteDate: ('langForPipe' | translate)
               }}</span>
             }
           </div>
           <div class="book-right-top-wrapper">
-            <span class="book-right-top-title">Categories</span>
+            <span class="book-right-top-title">{{ 'categories' | translate }}</span>
             <span class="book-right-top-description">{{
               book.categories ? book.categories[0] : '—'
             }}</span>
@@ -57,7 +60,7 @@
           <button
             (click)="openDetailBook('big-book', book)"
             class="btn-orange button-orange-transparent">
-            Read
+            {{ 'read' | translate }}
           </button>
           @if (!selfBook) {
             <svg-icon

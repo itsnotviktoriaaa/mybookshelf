@@ -6,6 +6,7 @@ import { RouterFacadeService } from '../../../ngrx/router/router.facade';
 import { BehaviorSubject, Observable, of, takeUntil, tap } from 'rxjs';
 import { HomeFacade } from '../../../ngrx/home/home.facade';
 import { MiniModalComponent } from '../../../UI-сomponents';
+import { TranslateModule } from '@ngx-translate/core';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { BookComponent } from '../../../components';
 import { SvgIconComponent } from 'angular-svg-icon';
@@ -14,7 +15,14 @@ import { Params, Router } from '@angular/router';
 @Component({
   selector: 'app-show-all',
   standalone: true,
-  imports: [BookComponent, AsyncPipe, NgClass, SvgIconComponent, MiniModalComponent],
+  imports: [
+    BookComponent,
+    AsyncPipe,
+    NgClass,
+    SvgIconComponent,
+    MiniModalComponent,
+    TranslateModule,
+  ],
   templateUrl: './show-all.component.html',
   styleUrl: './show-all.component.scss',
   hostDirectives: [DestroyDirective],

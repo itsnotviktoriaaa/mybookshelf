@@ -25,6 +25,7 @@ import { DatabaseService, NotificationService } from '../../../core';
 import { ISelfBook, ISelfBookUpload } from '../../../modals/user';
 import { NotificationStatusEnum } from '../../../modals/auth';
 import { UploadMetadata } from '@angular/fire/storage';
+import { TranslateModule } from '@ngx-translate/core';
 import { AsyncPipe, NgStyle } from '@angular/common';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { Params, Router } from '@angular/router';
@@ -32,7 +33,7 @@ import { Params, Router } from '@angular/router';
 @Component({
   selector: 'app-upload',
   standalone: true,
-  imports: [ReactiveFormsModule, NgStyle, AsyncPipe, SvgIconComponent],
+  imports: [ReactiveFormsModule, NgStyle, AsyncPipe, SvgIconComponent, TranslateModule],
   templateUrl: './upload.component.html',
   styleUrl: './upload.component.scss',
   hostDirectives: [DestroyDirective],

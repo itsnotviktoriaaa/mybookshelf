@@ -6,6 +6,7 @@ import { RouterFacadeService } from '../../../ngrx/router/router.facade';
 import { BehaviorSubject, Observable, of, takeUntil, tap } from 'rxjs';
 import { ActiveParamUtil, SearchStateService } from '../../../core';
 import { MiniModalComponent } from '../../../UI-сomponents';
+import { TranslateModule } from '@ngx-translate/core';
 import { BookComponent } from '../../../components';
 import { AsyncPipe } from '@angular/common';
 import { Params } from '@angular/router';
@@ -13,7 +14,7 @@ import { Params } from '@angular/router';
 @Component({
   selector: 'app-favorites',
   standalone: true,
-  imports: [BookComponent, AsyncPipe, MiniModalComponent],
+  imports: [BookComponent, AsyncPipe, MiniModalComponent, TranslateModule],
   templateUrl: './favorites.component.html',
   styleUrl: './favorites.component.scss',
   hostDirectives: [DestroyDirective],

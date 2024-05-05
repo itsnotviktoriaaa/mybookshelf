@@ -9,6 +9,7 @@ import { ReduceLetterPipe, TransformDateBookPipe } from '../../../core';
 import { BehaviorSubject, Observable, of, takeUntil, tap } from 'rxjs';
 import { AuthorFacade } from '../../../ngrx/author/author.facade';
 import { Params, Router, RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { SvgIconComponent } from 'angular-svg-icon';
 
@@ -24,6 +25,7 @@ import { SvgIconComponent } from 'angular-svg-icon';
     RouterLink,
     MiniModalComponent,
     StarComponent,
+    TranslateModule,
   ],
   templateUrl: './detail-book.component.html',
   styleUrl: './detail-book.component.scss',

@@ -12,7 +12,7 @@
     }
   }
   @if ((showBooks$ | async) === null && (miniLoader$ | async)?.miniLoader === false) {
-    <div class="show-nothing">You don't have books</div>
+    <div class="show-nothing">{{ 'dontHaveBook' | translate }}</div>
   }
   @if (pages.length > 1) {
     <div class="pagination">

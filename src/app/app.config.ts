@@ -14,19 +14,21 @@ import { userReducer } from './ngrx/auth-firebase/auth-firebase.reducer';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { detailReducer } from './ngrx/detail-book/detail-book.reducer';
 import { homeNowReducer, homeReducer } from './ngrx/home/home.reducer';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { provideRouterStore, routerReducer } from '@ngrx/router-store';
 import { environment } from '../environments/environment.development';
 import { FavoritesEffects } from './ngrx/favorites/favorites.effects';
 import { favoritesReducer } from './ngrx/favorites/favorites.reducer';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { getStorage, provideStorage } from '@angular/fire/storage';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AuthorEffects } from './ngrx/author/author.effects';
 import { authorReducer } from './ngrx/author/author.reducer';
 import { SearchEffects } from './ngrx/search/search.effects';
 import { searchReducer } from './ngrx/search/search.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { getAuth, provideAuth } from '@angular/fire/auth';
-import { provideHttpClient } from '@angular/common/http';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { provideAngularSvgIcon } from 'angular-svg-icon';
 import { BookEffects } from './ngrx/home/home.effects';
@@ -78,9 +80,20 @@ export const appConfig: ApplicationConfig = {
         SearchEffects,
         SearchLiveEffects,
       ]),
+      TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient],
+        },
+      }),
     ]),
     provideRouterStore({ serializer: CustomRouterStateSerializer }),
     provideAngularSvgIcon(),
     provideOAuthClient(),
   ],
 };
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}

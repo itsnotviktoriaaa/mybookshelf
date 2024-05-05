@@ -6,10 +6,10 @@ import { Pipe, PipeTransform } from '@angular/core';
   pure: true,
 })
 export class TransformFavoriteDatePipe implements PipeTransform {
-  transform(value: string): string {
+  transform(value: string, lang: string): string {
     const fullDate: Date = new Date(value);
     const date: number = fullDate.getDate();
-    const month: string = fullDate.toLocaleDateString('en-US', { month: 'short' });
+    const month: string = fullDate.toLocaleDateString(lang, { month: 'short' });
     const year: number = fullDate.getFullYear();
     const hours: number = fullDate.getHours();
     const minutes: number = fullDate.getMinutes();

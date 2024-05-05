@@ -37,6 +37,7 @@ import { environment } from '../../../../environments/environment.development';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DestroyDirective } from '../../../core/directives/destroy.directive';
 import { RouterFacadeService } from '../../../ngrx/router/router.facade';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AsyncPipe, NgStyle } from '@angular/common';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { Params, Router } from '@angular/router';
@@ -44,7 +45,14 @@ import { Params, Router } from '@angular/router';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [SvgIconComponent, AsyncPipe, ReactiveFormsModule, FormsModule, NgStyle],
+  imports: [
+    SvgIconComponent,
+    AsyncPipe,
+    ReactiveFormsModule,
+    FormsModule,
+    NgStyle,
+    TranslateModule,
+  ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
   hostDirectives: [DestroyDirective],
@@ -84,7 +92,8 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     private googleApi: GoogleApiService,
     private searchLiveFacade: SearchLiveFacade,
     private searchStateService: SearchStateService,
-    private routerFacadeService: RouterFacadeService
+    private routerFacadeService: RouterFacadeService,
+    private translateService: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -115,6 +124,16 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
           bar.classList.add('bar-adaptive');
         }
       });
+    }
+  }
+
+  public selectLanguage(lang: string): void {
+    if (lang === 'Eng' || lang === 'Англ') {
+      this.translateService.use('en');
+    }
+
+    if (lang === 'Rus' || lang === 'Русс') {
+      this.translateService.use('ru-RU');
     }
   }
 

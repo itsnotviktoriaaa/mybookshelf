@@ -7,6 +7,7 @@ import { MiniModalComponent } from '../../../UI-сomponents';
 import { IUserInfoFromGoogle } from '../../../modals/auth';
 import { GoogleHomeComponent } from '../../../components';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
 import { BookComponent } from '../../../components';
 import { GoogleApiService } from '../../../core';
 import { RouterLink } from '@angular/router';
@@ -15,7 +16,14 @@ import { AsyncPipe } from '@angular/common';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [BookComponent, AsyncPipe, RouterLink, MiniModalComponent, GoogleHomeComponent],
+  imports: [
+    BookComponent,
+    AsyncPipe,
+    RouterLink,
+    MiniModalComponent,
+    GoogleHomeComponent,
+    TranslateModule,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   hostDirectives: [DestroyDirective],

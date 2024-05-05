@@ -6,6 +6,7 @@ import { SubscribeDecorator } from '../../../decorators/subscribe-decorator';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { NgOptimizedImage, NgStyle } from '@angular/common';
 import { catchError, EMPTY, Observable, tap } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
 import { Router, RouterLink } from '@angular/router';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { GoogleApiService } from '../../../core';
@@ -15,7 +16,14 @@ import { GoogleApiService } from '../../../core';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   standalone: true,
-  imports: [NgOptimizedImage, RouterLink, NgStyle, ReactiveFormsModule, SvgIconComponent],
+  imports: [
+    NgOptimizedImage,
+    RouterLink,
+    NgStyle,
+    ReactiveFormsModule,
+    SvgIconComponent,
+    TranslateModule,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit {

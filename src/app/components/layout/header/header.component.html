@@ -33,7 +33,7 @@
           [formControl]="searchField"
           class="header-search-input"
           type="text"
-          placeholder="Search" />
+          placeholder="{{ 'searchPlaceholder' | translate }}" />
         @if (searchTexts$ | async; as searchTexts) {
           <div class="header-search-offers">
             @for (searchText of searchTexts; track searchText) {
@@ -68,7 +68,7 @@
           <div
             (click)="openOrCloseMiniModal(HeaderClickInterfaceEnum.langMiniModal)"
             class="header-back-info header-lang-info">
-            <span class="header-back-text header-lang-info-text">Lang</span>
+            <span class="header-back-text header-lang-info-text">Eng</span>
             <span [class]="{ 'header-lang-info-icon': true, active: langMiniModal }">
               <svg-icon [src]="pathToIcons + '/arrow-in-mini-modal.svg'"></svg-icon>
             </span>
@@ -78,7 +78,7 @@
           <div class="header-modal header-lang-modal">
             <ul class="header-modal-items">
               @for (headerModalLangItem of headerModalLangItems; track headerModalLangItem) {
-                <li class="header-modal-item">
+                <li (click)="selectLanguage(headerModalLangItem)" class="header-modal-item">
                   <a>{{ headerModalLangItem }}</a>
                 </li>
               }

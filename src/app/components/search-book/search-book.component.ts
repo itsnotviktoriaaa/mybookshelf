@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, Input, OnChanges } from '@angular/c
 import { environment } from '../../../environments/environment.development';
 import { BehaviorSubject, catchError, EMPTY, finalize, tap } from 'rxjs';
 import { NotificationStatusEnum } from '../../modals/auth';
+import { TranslateModule } from '@ngx-translate/core';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { ISearchDetail } from '../../modals/user';
 import { AsyncPipe } from '@angular/common';
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-search-book',
   standalone: true,
-  imports: [SvgIconComponent, TransformDateBookPipe, AsyncPipe],
+  imports: [SvgIconComponent, TransformDateBookPipe, AsyncPipe, TranslateModule],
   templateUrl: './search-book.component.html',
   styleUrl: './search-book.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

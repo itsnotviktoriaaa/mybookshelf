@@ -1,15 +1,18 @@
 <section class="home user-common-padding">
   <!--  <div class="quotes"></div>-->
-  <h2 class="home-hello">Good Morning</h2>
+  <h2 class="home-hello">{{ 'morning' | translate }}</h2>
   @if (miniLoader$ | async; as miniLoader) {
     <app-mini-modal [miniLoader]="miniLoader"></app-mini-modal>
   }
   @if (recommendedBooks$ | async; as recommendedBooks) {
     <div class="home-common-wrapper">
-      <h3 class="home-common">Recommended for You</h3>
+      <h3 class="home-common">{{ 'recommended' | translate }}</h3>
       @if (recommendedBooks$ | async) {
-        <span [routerLink]="'/home/show'" [queryParams]="{ show: 'recommended' }" class="home-show"
-          >Show All</span
+        <span
+          [routerLink]="'/home/show'"
+          [queryParams]="{ show: 'recommended' }"
+          class="home-show"
+          >{{ 'showAll' | translate }}</span
         >
       }
     </div>
@@ -19,11 +22,11 @@
   }
   @if (readingNowBooks$ | async; as readingNowBooks) {
     <div class="home-common-wrapper">
-      <h3 class="home-common">Recent Readings</h3>
+      <h3 class="home-common">{{ 'recent' | translate }}</h3>
       @if (recommendedBooks$ | async) {
-        <span [routerLink]="'/home/show'" [queryParams]="{ show: 'reading' }" class="home-show"
-          >Show All</span
-        >
+        <span [routerLink]="'/home/show'" [queryParams]="{ show: 'reading' }" class="home-show">{{
+          'showAll' | translate
+        }}</span>
       }
     </div>
     <app-google-home [googleArrayFromHome]="readingNowBooks"></app-google-home>

@@ -25,7 +25,7 @@
           class="hard-pagination-inp"
           (keydown)="keyPressOnInput($event)"
           type="tel" />
-        <span>{{ quantityOfPages$ | async }} pages</span>
+        <span>{{ quantityOfPages$ | async }} {{ 'pagesInput' | translate }}</span>
       </span>
       <span>
         <svg-icon
