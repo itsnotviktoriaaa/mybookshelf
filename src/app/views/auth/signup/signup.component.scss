@@ -29,14 +29,15 @@
 
           .verification-head {
             font-weight: 600;
-            font-size: 18px;
+            font-size: 1.2em;
             color: var(--primary-dark-gray-color);
             margin-bottom: 20px;
           }
 
           .verification-body {
             display: flex;
-            column-gap: 40px;
+            column-gap: 10px;
+            justify-content: space-between;
             margin-bottom: 90px;
 
             .verification-number {
@@ -49,7 +50,7 @@
               outline: none;
               height: 87px;
               text-align: center;
-              font-size: 55px;
+              font-size: 3em;
             }
           }
         }
@@ -74,8 +75,29 @@
 
           .verification-moving-back {
             cursor: pointer;
-            font-size: 16px;
+            font-size: 1em;
             color: var(--primary-dark-gray-color);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (width <= 525px) {
+  .signup-wrapper {
+    font-size: 0.7em;
+
+    .signup {
+      .container {
+        .auth-form {
+          .verification {
+            .verification-body {
+              .verification-number {
+                width: 25px;
+                height: 25px;
+              }
+            }
           }
         }
       }
