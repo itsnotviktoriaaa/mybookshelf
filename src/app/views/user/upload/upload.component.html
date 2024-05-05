@@ -122,14 +122,14 @@
           [disabled]="uploadForm.invalid || !pdfFile || !photoFile"
           (click)="upload()"
           class="btn-upload">
-          UPLOAD
+          {{ 'upload' | translate }}
         </button>
       } @else {
         <button
           [disabled]="uploadForm.invalid && !uploadForm.dirty && !pdfFile && !photoFile"
           (click)="editSelfBook()"
           class="btn-upload">
-          EDIT
+          {{ 'edit' | translate }}
         </button>
       }
     </div>
