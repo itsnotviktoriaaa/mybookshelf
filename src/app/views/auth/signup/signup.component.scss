@@ -104,3 +104,17 @@
     }
   }
 }
+
+@media screen and (width <= 503px) {
+  .signup-wrapper {
+    .signup {
+      .container {
+        .auth-form {
+          .verification-moving-wrapper {
+            flex-direction: column;
+          }
+        }
+      }
+    }
+  }
+}
