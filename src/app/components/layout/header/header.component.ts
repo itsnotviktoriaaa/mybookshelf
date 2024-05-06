@@ -284,35 +284,35 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
       lang === 'en' ? SelectedHeaderModalItemEngEnum : SelectedHeaderModalItemRusEnum;
     if (
       selectedHeaderModalItem === SelectedHeaderModalItemEngEnum.All ||
-      SelectedHeaderModalItemRusEnum.All
+      selectedHeaderModalItem === SelectedHeaderModalItemRusEnum.All
     ) {
       this.selectedHeaderModalItem.next(enumInAccordingToLang.All);
     }
 
     if (
       selectedHeaderModalItem === SelectedHeaderModalItemEngEnum.Title ||
-      SelectedHeaderModalItemRusEnum.Title
+      selectedHeaderModalItem === SelectedHeaderModalItemRusEnum.Title
     ) {
       this.selectedHeaderModalItem.next(enumInAccordingToLang.Title);
     }
 
     if (
       selectedHeaderModalItem === SelectedHeaderModalItemEngEnum.Author ||
-      SelectedHeaderModalItemRusEnum.Author
+      selectedHeaderModalItem === SelectedHeaderModalItemRusEnum.Author
     ) {
       this.selectedHeaderModalItem.next(enumInAccordingToLang.Author);
     }
 
     if (
       selectedHeaderModalItem === SelectedHeaderModalItemEngEnum.Text ||
-      SelectedHeaderModalItemRusEnum.Text
+      selectedHeaderModalItem === SelectedHeaderModalItemRusEnum.Text
     ) {
       this.selectedHeaderModalItem.next(enumInAccordingToLang.Text);
     }
 
     if (
       selectedHeaderModalItem === SelectedHeaderModalItemEngEnum.Subject ||
-      SelectedHeaderModalItemRusEnum.Subject
+      selectedHeaderModalItem === SelectedHeaderModalItemRusEnum.Subject
     ) {
       this.selectedHeaderModalItem.next(enumInAccordingToLang.Subject);
     }
