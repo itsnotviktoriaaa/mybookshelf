@@ -15,6 +15,8 @@ import {
 import { catchError, exhaustMap, finalize, map, of, switchMap, tap } from 'rxjs';
 import { GoogleApiService, NotificationService } from '../../core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { NotificationStatusEnum } from '../../modals/auth';
+import { TranslateService } from '@ngx-translate/core';
 import { TypedAction } from '@ngrx/store/src/models';
 import { Injectable } from '@angular/core';
 
@@ -23,7 +25,8 @@ export class FavoritesEffects {
   constructor(
     private googleApi: GoogleApiService,
     private actions$: Actions,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private translateService: TranslateService
   ) {}
 
   loadFavoritesBooks$ = createEffect(() => {
@@ -71,8 +74,22 @@ export class FavoritesEffects {
       }),
       exhaustMap(action => {
         return this.googleApi.removeFavoriteBook(action.bookId).pipe(
-          map(() => removeFromFavoritesBooksSuccess({ bookId: action.bookId })),
+          map(() => {
+            const messageKey = 'favouriteBookDeletedSuccessfully';
+            const message = this.translateService.instant(messageKey);
+            this.notificationService.notifyAboutNotification({
+              message: message,
+              status: NotificationStatusEnum.success,
+            });
+            return removeFromFavoritesBooksSuccess({ bookId: action.bookId });
+          }),
           catchError(error => {
+            const messageKey = 'favouriteBookDeletedWithError';
+            const message = this.translateService.instant(messageKey);
+            this.notificationService.notifyAboutNotification({
+              message: message,
+              status: NotificationStatusEnum.error,
+            });
             return of(removeFromFavoritesBooksFailure({ error }));
           }),
           finalize(() => {

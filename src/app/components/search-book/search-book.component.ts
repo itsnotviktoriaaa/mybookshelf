@@ -2,8 +2,8 @@ import { GoogleApiService, NotificationService, TransformDateBookPipe } from '..
 import { ChangeDetectionStrategy, Component, Input, OnChanges } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { BehaviorSubject, catchError, EMPTY, finalize, tap } from 'rxjs';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NotificationStatusEnum } from '../../modals/auth';
-import { TranslateModule } from '@ngx-translate/core';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { ISearchDetail } from '../../modals/user';
 import { AsyncPipe } from '@angular/common';
@@ -28,7 +28,8 @@ export class SearchBookComponent implements OnChanges {
   constructor(
     private router: Router,
     private googleApiService: GoogleApiService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private translateService: TranslateService
   ) {}
 
   ngOnChanges(): void {
@@ -71,15 +72,18 @@ export class SearchBookComponent implements OnChanges {
         .pipe(
           tap(() => {
             this.isFavorite$.next(isAdding);
-            const message = isAdding ? 'Success added' : 'Success removed';
+            const messageKey = isAdding ? 'successAdded' : 'successRemoved';
+            const message = this.translateService.instant(messageKey);
             this.notificationService.notifyAboutNotification({
               message,
               status: NotificationStatusEnum.success,
             });
           }),
           catchError(() => {
+            const messageKey = 'somethingWentWrong';
+            const message = this.translateService.instant(messageKey);
             this.notificationService.notifyAboutNotification({
-              message: 'Sth went wrong',
+              message: message,
               status: NotificationStatusEnum.error,
             });
             return EMPTY;

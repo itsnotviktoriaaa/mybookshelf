@@ -11,10 +11,10 @@ import { environment } from '../../../../environments/environment.development';
 import { SubscribeDecorator } from '../../../decorators/subscribe-decorator';
 import { NotificationStatusEnum, IUserSign } from '../../../modals/auth';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgClass, NgOptimizedImage, NgStyle } from '@angular/common';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import emailJs, { EmailJSResponseStatus } from '@emailjs/browser';
-import { TranslateModule } from '@ngx-translate/core';
 import { Router, RouterLink } from '@angular/router';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { AuthModule } from '@angular/fire/auth';
@@ -63,7 +63,8 @@ export class SignupComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private translateService: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -108,15 +109,19 @@ export class SignupComponent implements OnInit {
         if (param && param.length === 0) {
           this.sendCodeToEmail().then(() => {});
         } else {
+          const messageKey = 'emailUsedBefore';
+          const message = this.translateService.instant(messageKey);
           this.notificationService.notifyAboutNotification({
-            message: 'Your email address has been used before',
+            message: message,
             status: NotificationStatusEnum.error,
           });
         }
       }),
       catchError(err => {
+        const messageKey = 'somethingWentWrong';
+        const message = this.translateService.instant(messageKey);
         this.notificationService.notifyAboutNotification({
-          message: 'Something went wrong. Please, try again',
+          message: message,
           status: NotificationStatusEnum.error,
         });
         console.log(err);
@@ -201,8 +206,10 @@ export class SignupComponent implements OnInit {
       console.log('Код введен идентичный сгенерированному');
       this.sign();
     } else {
+      const messageKey = 'incorrectCode';
+      const message = this.translateService.instant(messageKey);
       this.notificationService.notifyAboutNotification({
-        message: 'Incorrect code, try entering the code again',
+        message: message,
         status: NotificationStatusEnum.error,
       });
     }
@@ -242,8 +249,10 @@ export class SignupComponent implements OnInit {
       tap((response: EmailJSResponseStatus): void => {
         this.notificationService.notifyAboutNotificationLoader(false);
         console.log('Success. Status: ' + response.text + ' ' + response.status);
+        const messageKey = 'codeSentOnEmail';
+        const message = this.translateService.instant(messageKey);
         this.notificationService.notifyAboutNotification({
-          message: 'Code was sent on your email. Please, check and enter values',
+          message: message,
           status: NotificationStatusEnum.success,
         });
 
@@ -254,8 +263,10 @@ export class SignupComponent implements OnInit {
       }),
       catchError(error => {
         this.notificationService.notifyAboutNotificationLoader(false);
+        const messageKey = 'tryAgainMessage';
+        const message = this.translateService.instant(messageKey);
         this.notificationService.notifyAboutNotification({
-          message: 'Something went wrong. Please, try again',
+          message: message,
           status: NotificationStatusEnum.error,
         });
         console.log('sth went wrong. Error ' + error.text + ' ' + error.status);
@@ -285,8 +296,10 @@ export class SignupComponent implements OnInit {
           this.notificationService.notifyAboutNotificationLoader(false);
           this.verification = false;
           this.codeWhichWrittenUserWasEqualFromEmail = true;
+          const messageKey = 'registrationSuccess';
+          const message = this.translateService.instant(messageKey);
           this.notificationService.notifyAboutNotification({
-            message: 'You have successfully registered',
+            message: message,
             status: NotificationStatusEnum.success,
           });
         }),
@@ -296,8 +309,10 @@ export class SignupComponent implements OnInit {
           //so that the red circle has time to load
           this.verification = false;
           this.codeWhichWrittenUserWasEqualFromEmail = true;
+          const messageKey = 'somethingWentWrong';
+          const message = this.translateService.instant(messageKey);
           this.notificationService.notifyAboutNotification({
-            message: `Something went wrong:( Please, try again`,
+            message: message,
             status: NotificationStatusEnum.error,
           });
           return EMPTY;

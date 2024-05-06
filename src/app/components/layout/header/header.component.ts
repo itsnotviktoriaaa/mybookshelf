@@ -463,15 +463,19 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
       .logout()
       .pipe(
         tap(() => {
+          const messageKey = 'successLogout';
+          const message = this.translateService.instant(messageKey);
           this.notificationService.notifyAboutNotification({
-            message: 'Success logout',
+            message: message,
             status: NotificationStatusEnum.success,
           });
           this.router.navigate(['/']).then(() => {});
         }),
         catchError(() => {
+          const messageKey = 'successLogout';
+          const message = this.translateService.instant(messageKey);
           this.notificationService.notifyAboutNotification({
-            message: 'Success logout',
+            message: message,
             status: NotificationStatusEnum.success,
           });
           this.router.navigate(['/']).then(() => {});

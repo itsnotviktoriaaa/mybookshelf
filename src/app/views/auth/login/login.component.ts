@@ -4,9 +4,9 @@ import { NotificationStatusEnum, IUserInfoFromGoogle } from '../../../modals/aut
 import { environment } from '../../../../environments/environment.development';
 import { SubscribeDecorator } from '../../../decorators/subscribe-decorator';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgOptimizedImage, NgStyle } from '@angular/common';
 import { catchError, EMPTY, Observable, tap } from 'rxjs';
-import { TranslateModule } from '@ngx-translate/core';
 import { Router, RouterLink } from '@angular/router';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { GoogleApiService } from '../../../core';
@@ -37,7 +37,8 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private notificationService: NotificationService,
-    private readonly googleApi: GoogleApiService
+    private readonly googleApi: GoogleApiService,
+    private translateService: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -68,15 +69,20 @@ export class LoginComponent implements OnInit {
     return this.authService.login(this.loginForm.value.email, this.loginForm.value.password).pipe(
       tap(() => {
         this.notificationService.notifyAboutNotificationLoader(false);
+        const messageKey = 'welcomeMessage';
+        const message = this.translateService.instant(messageKey);
         this.notificationService.notifyAboutNotification({
-          message: 'Welcome in MyBookShelf',
+          message: message,
           status: NotificationStatusEnum.success,
         });
         this.router.navigate(['/home']).then(() => {});
         console.log('----- Login ------');
       }),
       catchError(err => {
-        this.errorMessage = CodeMessageHandlerUtil.handlerCodeMessage(err.code);
+        this.errorMessage = CodeMessageHandlerUtil.handlerCodeMessage(
+          err.code,
+          this.translateService.currentLang
+        );
         this.notificationService.notifyAboutNotificationLoader(false);
         this.notificationService.notifyAboutNotification({
           message: `${this.errorMessage}`,

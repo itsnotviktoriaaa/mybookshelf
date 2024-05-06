@@ -17,10 +17,10 @@ import { CommonPopupComponent } from '../../UI-сomponents/common-popup/common-p
 import { CommonPopupService } from '../../core/services/common-popup.service';
 import { environment } from '../../../environments/environment.development';
 import { FavoritesFacade } from '../../ngrx/favorites/favorites.facade';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { catchError, EMPTY, exhaustMap, finalize, tap } from 'rxjs';
 import { NotificationStatusEnum } from '../../modals/auth';
 import { IBookItemTransformed } from '../../modals/user';
-import { TranslateModule } from '@ngx-translate/core';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { NgClass, NgStyle } from '@angular/common';
 import { Router } from '@angular/router';
@@ -50,7 +50,7 @@ export class BookComponent implements OnInit {
   @Output() deleteSelfBookEvent: EventEmitter<string> = new EventEmitter<string>();
   pathToIcons = environment.pathToIcons;
   isOpenDeletePopup = { isOpen: false };
-  textForPopup = { text: 'Are you sure that you want to delete?' };
+  textForPopup: { text: string } | null = null;
   page: 'own' | 'favorite' = 'own';
 
   constructor(
@@ -58,7 +58,8 @@ export class BookComponent implements OnInit {
     private databaseService: DatabaseService,
     private notificationService: NotificationService,
     private commonPopupService: CommonPopupService,
-    private favoriteFacade: FavoritesFacade
+    private favoriteFacade: FavoritesFacade,
+    private translateService: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -103,7 +104,9 @@ export class BookComponent implements OnInit {
   }
 
   openDeletePopupForOwnBook(): void {
-    this.textForPopup = { text: 'Are you sure that you want to delete this own book?' };
+    const messageKey = 'confirmDeleteOwnBook';
+    const message = this.translateService.instant(messageKey);
+    this.textForPopup = { text: message };
     this.page = 'own';
     this.isOpenDeletePopup = { isOpen: true };
   }
@@ -116,15 +119,19 @@ export class BookComponent implements OnInit {
         .pipe(
           exhaustMap(() => {
             this.deleteSelfBookEvent.emit(this.book!.id);
+            const messageKey = 'selfBookDeletedSuccessfully';
+            const message = this.translateService.instant(messageKey);
             this.notificationService.notifyAboutNotification({
-              message: 'Self book deleted successfully',
+              message: message,
               status: NotificationStatusEnum.success,
             });
             return EMPTY;
           }),
           catchError(() => {
+            const messageKey = 'selfBookDeletedWithError';
+            const message = this.translateService.instant(messageKey);
             this.notificationService.notifyAboutNotification({
-              message: 'Self book deleted with error',
+              message: message,
               status: NotificationStatusEnum.error,
             });
             return EMPTY;
@@ -139,7 +146,9 @@ export class BookComponent implements OnInit {
 
   openPopupForDeletionFromFavorite(): void {
     this.page = 'favorite';
-    this.textForPopup = { text: 'Are you sure that you want to delete from favorite?' };
+    const messageKey = 'confirmDeleteFavorite';
+    const message = this.translateService.instant(messageKey);
+    this.textForPopup = { text: message };
     this.isOpenDeletePopup = { isOpen: true };
   }
 

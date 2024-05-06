@@ -21,11 +21,11 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { environment } from '../../../../environments/environment.development';
 import { DestroyDirective } from '../../../core/directives/destroy.directive';
 import { RouterFacadeService } from '../../../ngrx/router/router.facade';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { DatabaseService, NotificationService } from '../../../core';
 import { ISelfBook, ISelfBookUpload } from '../../../modals/user';
 import { NotificationStatusEnum } from '../../../modals/auth';
 import { UploadMetadata } from '@angular/fire/storage';
-import { TranslateModule } from '@ngx-translate/core';
 import { AsyncPipe, NgStyle } from '@angular/common';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { Params, Router } from '@angular/router';
@@ -57,7 +57,8 @@ export class UploadComponent implements OnInit {
     private databaseService: DatabaseService,
     private router: Router,
     private notificationService: NotificationService,
-    private routerFacadeService: RouterFacadeService
+    private routerFacadeService: RouterFacadeService,
+    private translateService: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -98,8 +99,10 @@ export class UploadComponent implements OnInit {
     } else {
       inputElement.value = '';
       this.pdfFile = null;
+      const messageKey = 'pdfFormatError';
+      const message = this.translateService.instant(messageKey);
       this.notificationService.notifyAboutNotification({
-        message: 'It is not pdf format. Retry upload your pdf file',
+        message: message,
         status: NotificationStatusEnum.error,
       });
     }
@@ -116,8 +119,10 @@ export class UploadComponent implements OnInit {
     } else {
       inputElement.value = '';
       this.photoFile = null;
+      const messageKey = 'imageFormatError';
+      const message = this.translateService.instant(messageKey);
       this.notificationService.notifyAboutNotification({
-        message: 'It is not png, jpeg or jpg. Retry upload your image',
+        message: message,
         status: NotificationStatusEnum.error,
       });
     }
@@ -159,16 +164,20 @@ export class UploadComponent implements OnInit {
               this.photoFileInput.nativeElement.value = '';
             }
             this.notificationService.notifyAboutNotificationLoader(false);
+            const messageKey = 'bookCreated';
+            const message = this.translateService.instant(messageKey);
             this.notificationService.notifyAboutNotification({
-              message: 'Book created',
+              message: message,
               status: NotificationStatusEnum.success,
             });
             this.router.navigate(['/home/books']).then((): void => {});
           }),
           catchError(() => {
             this.notificationService.notifyAboutNotificationLoader(false);
+            const messageKey = 'errorCreatingBook';
+            const message = this.translateService.instant(messageKey);
             this.notificationService.notifyAboutNotification({
-              message: 'Error creating book',
+              message: message,
               status: NotificationStatusEnum.error,
             });
             return EMPTY;
@@ -239,15 +248,19 @@ export class UploadComponent implements OnInit {
               .pipe(
                 tap(() => {
                   this.notificationService.notifyAboutNotificationLoader(false);
+                  const messageKey = 'selfBookUpdatedSuccessfully';
+                  const message = this.translateService.instant(messageKey);
                   this.notificationService.notifyAboutNotification({
-                    message: 'Self book updated successfully',
+                    message: message,
                     status: NotificationStatusEnum.success,
                   });
                   this.router.navigate(['/home/books']).then((): void => {});
                 }),
                 catchError(() => {
+                  const messageKey = 'errorUpdatingSelfBook';
+                  const message = this.translateService.instant(messageKey);
                   this.notificationService.notifyAboutNotification({
-                    message: 'Error updating self book',
+                    message: message,
                     status: NotificationStatusEnum.error,
                   });
                   return EMPTY;

@@ -1,11 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { NotificationService } from '../../core';
 import { Subject, takeUntil, tap } from 'rxjs';
 
 @Component({
   selector: 'app-loader',
   standalone: true,
-  imports: [],
+  imports: [TranslateModule],
   templateUrl: './loader.component.html',
   styleUrl: './loader.component.scss',
 })

@@ -1,17 +1,18 @@
 import { CommonPopupService } from '../../core/services/common-popup.service';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-common-popup',
   standalone: true,
-  imports: [],
+  imports: [TranslateModule],
   templateUrl: './common-popup.component.html',
   styleUrl: './common-popup.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CommonPopupComponent {
   @Input() isOpenDeletePopup = { isOpen: false };
-  @Input() textForPopup = { text: 'Are you sure that you want to delete?' };
+  @Input() textForPopup: { text: string } | null = null;
   @Input() page: 'own' | 'favorite' = 'own';
 
   constructor(private commonPopupService: CommonPopupService) {}

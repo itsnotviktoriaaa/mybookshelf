@@ -119,8 +119,10 @@ export class PdfViewerComponent implements OnInit {
     this.book$ = this.databaseService.getSelfBook(id).pipe(
       filter((selfBook: IBookItemTransformed | null) => Boolean(selfBook)),
       catchError(() => {
+        const messageKey = 'somethingWentWrong';
+        const message = this.translateService.instant(messageKey);
         this.notificationService.notifyAboutNotification({
-          message: 'Something went wrong',
+          message: message,
           status: NotificationStatusEnum.error,
         });
         this.router.navigate(['/home/books']).then((): void => {});

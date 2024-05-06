@@ -21,8 +21,6 @@ const _favoritesState = createReducer(
     favoritesBooks: null,
   })),
   on(removeFromFavoritesBooksSuccess, (state, { bookId }) => {
-    console.log('lkjhgfghjkjhgfghjkjgfghj');
-
     if (!state.favoritesBooks) {
       return state;
     }
