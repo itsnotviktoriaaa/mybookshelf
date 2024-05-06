@@ -1,14 +1,15 @@
 import {
+  ISearchDetail,
+  ISearchInfoDetail,
+  ISearch,
+  SelectedHeaderModalItemEngEnum,
+  SelectedHeaderModalItemRusEnum,
+} from '../../modals/user';
+import {
   loadSearchLiveBooks,
   loadSearchLiveBooksFailure,
   loadSearchLiveBooksSuccess,
 } from './search-live.actions';
-import {
-  ISearchDetail,
-  ISearchInfoDetail,
-  ISearch,
-  SelectedHeaderModalItemEngEnum, SelectedHeaderModalItemRusEnum,
-} from '../../modals/user';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { TypedAction } from '@ngrx/store/src/models';

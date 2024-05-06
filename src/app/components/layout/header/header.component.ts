@@ -322,7 +322,12 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
       .pipe(
         tap((category: string): void => {
           if (category.toLowerCase() !== 'browse') {
-            this.selectedHeaderModalItem.next(SelectedHeaderModalItemEngEnum.Subject);
+            const currentLanguage: string = this.translateService.currentLang;
+            if (currentLanguage === 'en') {
+              this.selectedHeaderModalItem.next(SelectedHeaderModalItemEngEnum.Subject);
+            } else if (currentLanguage === 'ru') {
+              this.selectedHeaderModalItem.next(SelectedHeaderModalItemRusEnum.Subject);
+            }
           }
         })
       )
@@ -388,8 +393,10 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
             value &&
             value.length > 4 &&
             !this.isFavoritePage$.getValue() &&
-            this.selectedHeaderModalItem.getValue()!.toLowerCase() !==
-              SelectedHeaderModalItemEngEnum.Subject.toLowerCase()
+            (this.selectedHeaderModalItem.getValue()!.toLowerCase() !==
+              SelectedHeaderModalItemEngEnum.Subject.toLowerCase() ||
+              this.selectedHeaderModalItem.getValue()!.toLowerCase() !==
+                SelectedHeaderModalItemRusEnum.Subject.toLowerCase())
           ) {
             this.searchLiveFacade.loadSearchLiveBooks(
               value,
@@ -498,7 +505,9 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
           }
           if (
             this.selectedHeaderModalItem.getValue()?.toLowerCase() !==
-            SelectedHeaderModalItemEngEnum.Subject.toLowerCase()
+              SelectedHeaderModalItemEngEnum.Subject.toLowerCase() &&
+            this.selectedHeaderModalItem.getValue()?.toLowerCase() !==
+              SelectedHeaderModalItemRusEnum.Subject.toLowerCase()
           ) {
             categoryNew = 'browse';
           }
