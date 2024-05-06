@@ -1,7 +1,10 @@
 import { createAction, props } from '@ngrx/store';
 import { ISearchSmall } from '../../modals/user';
 
-export const loadAuthor = createAction('[Author] Load Detail Author', props<{ author: string }>());
+export const loadAuthor = createAction(
+  '[Author] Load Detail Author',
+  props<{ author: string; idOfBook: string }>()
+);
 export const loadAuthorSuccess = createAction(
   '[Author] Load Detail Author Success',
   props<{ data: ISearchSmall }>()

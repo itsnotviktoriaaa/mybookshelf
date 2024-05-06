@@ -27,8 +27,18 @@ export class AuthorEffects {
                   title: item.volumeInfo.title,
                 };
               });
+
+            const transformedDataItemsWithoutExistingDetailId = transformedDataItems.filter(
+              item => item.id !== action.idOfBook
+            );
+
+            const limitedTransformedDataItems =
+              transformedDataItemsWithoutExistingDetailId.length > 2
+                ? transformedDataItemsWithoutExistingDetailId.slice(0, 2)
+                : transformedDataItemsWithoutExistingDetailId;
+
             return loadAuthorSuccess({
-              data: { totalItems: data.totalItems, items: transformedDataItems },
+              data: { totalItems: data.totalItems, items: limitedTransformedDataItems },
             });
           }),
           catchError(error => of(loadAuthorFailure({ error })))

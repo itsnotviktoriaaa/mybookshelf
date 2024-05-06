@@ -11,8 +11,8 @@ import { Observable } from 'rxjs';
 export class AuthorFacade {
   constructor(private store: Store) {}
 
-  loadAuthor(author: string): void {
-    this.store.dispatch(loadAuthor({ author }));
+  loadAuthor(author: string, idOfBook: string): void {
+    this.store.dispatch(loadAuthor({ author, idOfBook }));
   }
 
   getDetailBook(): Observable<ISearchSmall | null> {

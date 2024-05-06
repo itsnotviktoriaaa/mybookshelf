@@ -41,7 +41,7 @@ export class DetailBookComponent implements OnInit {
     { svg: 'share-icon.svg', title: 'Share' },
   ];
 
-  author$: Observable<ISearchSmall | null> = of(null);
+  author$: BehaviorSubject<ISearchSmall | null> = new BehaviorSubject<ISearchSmall | null>(null);
   detailBook$: Observable<IDetailBookSmallInfo | null> = of(null);
 
   miniLoader$ = new BehaviorSubject<{ miniLoader: boolean }>({ miniLoader: true });
@@ -68,8 +68,15 @@ export class DetailBookComponent implements OnInit {
           tap((data: IDetailBookSmallInfo | null) => {
             this.miniLoader$.next({ miniLoader: false });
             if (data) {
-              this.authorFacade.loadAuthor(this.search(data));
-              this.author$ = this.authorFacade.getDetailBook();
+              this.authorFacade.loadAuthor(this.search(data), idOfBook);
+              this.authorFacade
+                .getDetailBook()
+                .pipe(
+                  tap((data: ISearchSmall | null): void => {
+                    this.author$.next(data);
+                  })
+                )
+                .subscribe();
               if (data.averageRating) {
                 this.rating = Math.round(data.averageRating);
               }

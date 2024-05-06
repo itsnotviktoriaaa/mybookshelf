@@ -93,7 +93,7 @@ export class GoogleApiService {
   }
   getAuthorDetail(author: string): Observable<ISearchInfoDetail> {
     return this.http.get<ISearchInfoDetail>(
-      `${environment.googleVolumeApi}?q=inauthor:${author}&maxResults=2`
+      `${environment.googleVolumeApi}?q=inauthor:${author}&maxResults=3`
     );
   }
   getSearchBooksDefault(params: IActiveParamsSearch): Observable<ISearchInfoDetail> {
