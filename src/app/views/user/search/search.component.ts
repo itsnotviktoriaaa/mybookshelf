@@ -5,6 +5,7 @@ import {
   SearchEnum,
   ISearch,
   SelectedHeaderModalItemEngEnum,
+  SelectedHeaderModalItemRusEnum,
 } from '../../../modals/user';
 import { ChangeDetectionStrategy, Component, HostListener, inject, OnInit } from '@angular/core';
 import { ActiveParamUtil, CategoryModalSearchItems, SearchStateService } from '../../../core';
@@ -58,7 +59,10 @@ export class SearchComponent implements OnInit {
       .getHeaderModalItem()
       .pipe(
         tap((type: string): void => {
-          if (type.toLowerCase() === SelectedHeaderModalItemEngEnum.Subject.toLowerCase()) {
+          if (
+            type.toLowerCase() === SelectedHeaderModalItemEngEnum.Subject.toLowerCase() ||
+            type.toLowerCase() === SelectedHeaderModalItemRusEnum.Subject.toLowerCase()
+          ) {
             this.headerModalSearchText.next(this.headerModalSearchItems[1]);
             this.searchStateService.setSearchCategory(this.headerModalSearchItems[1]);
           } else {

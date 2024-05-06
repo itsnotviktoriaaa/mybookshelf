@@ -145,6 +145,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
         },
       ];
       this.selectedHeaderModalItem.next(SelectedHeaderModalItemRusEnum.All);
+      this.searchStateService.setHeaderModalItem(SelectedHeaderModalItemRusEnum.All);
     } else if (browserLang === 'en') {
       this.lang.next('Eng');
       this.headerModalLangItems = ['Eng', 'Rus'];
@@ -172,6 +173,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
         },
       ];
       this.selectedHeaderModalItem.next(SelectedHeaderModalItemEngEnum.All);
+      this.searchStateService.setHeaderModalItem(SelectedHeaderModalItemEngEnum.All);
     }
   }
 
@@ -364,7 +366,13 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
         tap((param: boolean): void => {
           this.isFavoritePage$.next(param);
           if (!this.paramsFromUrl['type']) {
-            this.selectedHeaderModalItem.next(SelectedHeaderModalItemEngEnum.All);
+            const currentLanguage: string = this.translateService.currentLang;
+            if (currentLanguage === 'en') {
+              this.selectedHeaderModalItem.next(SelectedHeaderModalItemEngEnum.All);
+            }
+            if (currentLanguage === 'ru') {
+              this.selectedHeaderModalItem.next(SelectedHeaderModalItemRusEnum.All);
+            }
           }
         })
       )
