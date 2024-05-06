@@ -19,9 +19,11 @@
             <ul class="header-modal-items">
               @for (headerModalItem of headerModalItems; track headerModalItem) {
                 <li class="header-modal-item">
-                  <a (click)="changeSelectedHeaderModalItem(headerModalItem)">{{
-                    headerModalItem
-                  }}</a>
+                  <a
+                    id="{{ headerModalItem }}"
+                    (click)="changeSelectedHeaderModalItem(headerModalItem.id)"
+                    >{{ headerModalItem.text }}</a
+                  >
                 </li>
               }
             </ul>

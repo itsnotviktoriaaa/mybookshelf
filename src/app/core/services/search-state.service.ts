@@ -1,4 +1,4 @@
-import { SelectedHeaderModalItemEnum } from '../../modals/user';
+import { SelectedHeaderModalItemEngEnum } from '../../modals/user';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 
@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 export class SearchStateService {
   private searchCategory$: BehaviorSubject<string> = new BehaviorSubject<string>('Browse');
   private searchType$: BehaviorSubject<string> = new BehaviorSubject<string>(
-    SelectedHeaderModalItemEnum.All
+    SelectedHeaderModalItemEngEnum.All
   );
   private isFavoritePage$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   constructor() {}
