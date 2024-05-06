@@ -287,6 +287,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
       selectedHeaderModalItem === SelectedHeaderModalItemRusEnum.All
     ) {
       this.selectedHeaderModalItem.next(enumInAccordingToLang.All);
+      this.searchStateService.setHeaderModalItem(enumInAccordingToLang.All);
     }
 
     if (
@@ -294,6 +295,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
       selectedHeaderModalItem === SelectedHeaderModalItemRusEnum.Title
     ) {
       this.selectedHeaderModalItem.next(enumInAccordingToLang.Title);
+      this.searchStateService.setHeaderModalItem(enumInAccordingToLang.Title);
     }
 
     if (
@@ -301,6 +303,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
       selectedHeaderModalItem === SelectedHeaderModalItemRusEnum.Author
     ) {
       this.selectedHeaderModalItem.next(enumInAccordingToLang.Author);
+      this.searchStateService.setHeaderModalItem(enumInAccordingToLang.Author);
     }
 
     if (
@@ -308,6 +311,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
       selectedHeaderModalItem === SelectedHeaderModalItemRusEnum.Text
     ) {
       this.selectedHeaderModalItem.next(enumInAccordingToLang.Text);
+      this.searchStateService.setHeaderModalItem(enumInAccordingToLang.Text);
     }
 
     if (
@@ -315,6 +319,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
       selectedHeaderModalItem === SelectedHeaderModalItemRusEnum.Subject
     ) {
       this.selectedHeaderModalItem.next(enumInAccordingToLang.Subject);
+      this.searchStateService.setHeaderModalItem(enumInAccordingToLang.Subject);
     }
   }
 
@@ -401,10 +406,12 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
             value &&
             value.length > 4 &&
             !this.isFavoritePage$.getValue() &&
-            (this.selectedHeaderModalItem.getValue()!.toLowerCase() !==
-              SelectedHeaderModalItemEngEnum.Subject.toLowerCase() ||
-              this.selectedHeaderModalItem.getValue()!.toLowerCase() !==
-                SelectedHeaderModalItemRusEnum.Subject.toLowerCase())
+            !(
+              this.selectedHeaderModalItem.getValue()!.toLowerCase() ===
+                SelectedHeaderModalItemEngEnum.Subject.toLowerCase() ||
+              this.selectedHeaderModalItem.getValue()!.toLowerCase() ===
+                SelectedHeaderModalItemRusEnum.Subject.toLowerCase()
+            )
           ) {
             this.searchLiveFacade.loadSearchLiveBooks(
               value,
@@ -546,8 +553,19 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
       const transformValueToUpperCaseFromParams =
         params['type'].slice(0, 1).toUpperCase() + params['type'].slice(1);
 
-      this.selectedHeaderModalItem.next(transformValueToUpperCaseFromParams);
-      this.searchStateService.setHeaderModalItem(transformValueToUpperCaseFromParams);
+      const currentLanguage: string = this.translateService.currentLang;
+
+      if (currentLanguage === 'en') {
+        this.changedSelectedHeaderModalItemInAccordingToLanguage(
+          transformValueToUpperCaseFromParams,
+          'en'
+        );
+      } else if (currentLanguage === 'ru') {
+        this.changedSelectedHeaderModalItemInAccordingToLanguage(
+          transformValueToUpperCaseFromParams,
+          'ru'
+        );
+      }
     }
 
     if (
