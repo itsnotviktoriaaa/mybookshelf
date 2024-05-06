@@ -13,7 +13,7 @@ export enum SelectedHeaderModalItemEngEnum {
 }
 
 export enum SelectedHeaderModalItemRusEnum {
-  All = 'Всё',
+  All = 'Все',
   Title = 'Титул',
   Author = 'Автор',
   Text = 'Текст',

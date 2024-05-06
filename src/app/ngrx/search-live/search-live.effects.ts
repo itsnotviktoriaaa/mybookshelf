@@ -7,7 +7,7 @@ import {
   ISearchDetail,
   ISearchInfoDetail,
   ISearch,
-  SelectedHeaderModalItemEngEnum,
+  SelectedHeaderModalItemEngEnum, SelectedHeaderModalItemRusEnum,
 } from '../../modals/user';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
@@ -51,14 +51,20 @@ export class SearchLiveEffects {
                 if (
                   typeFromInput === SelectedHeaderModalItemEngEnum.Title.toLowerCase() ||
                   typeFromInput === SelectedHeaderModalItemEngEnum.Text.toLowerCase() ||
-                  typeFromInput == SelectedHeaderModalItemEngEnum.All.toLowerCase()
+                  typeFromInput == SelectedHeaderModalItemEngEnum.All.toLowerCase() ||
+                  typeFromInput === SelectedHeaderModalItemRusEnum.Title.toLowerCase() ||
+                  typeFromInput === SelectedHeaderModalItemRusEnum.Text.toLowerCase() ||
+                  typeFromInput == SelectedHeaderModalItemRusEnum.All.toLowerCase()
                 ) {
                   if (item.title) {
                     return item.title;
                   }
                 }
 
-                if (typeFromInput === SelectedHeaderModalItemEngEnum.Author.toLowerCase()) {
+                if (
+                  typeFromInput === SelectedHeaderModalItemEngEnum.Author.toLowerCase() ||
+                  typeFromInput === SelectedHeaderModalItemRusEnum.Author.toLowerCase()
+                ) {
                   if (item.authors && item.authors.length > 0) {
                     return item.authors[0];
                   }

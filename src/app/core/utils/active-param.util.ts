@@ -1,7 +1,9 @@
 import {
   IActiveParamsSearch,
-  NamesOfKeysEnum,
+  NamesOfKeysEngEnum,
+  NamesOfKeysRusEnum,
   SelectedHeaderModalItemEngEnum,
+  SelectedHeaderModalItemRusEnum,
 } from '../../modals/user';
 import { Params } from '@angular/router';
 
@@ -24,27 +26,37 @@ export class ActiveParamUtil {
       const type: string = params['type'];
 
       switch (type) {
-        case NamesOfKeysEnum.all:
+        case NamesOfKeysEngEnum.all:
+        case NamesOfKeysRusEnum.all:
           typeForRequest = '';
           break;
-        case NamesOfKeysEnum.inauthor:
-          typeForRequest = `+in${NamesOfKeysEnum.inauthor}:`;
+        case NamesOfKeysEngEnum.inauthor:
+        case NamesOfKeysRusEnum.inauthor:
+          typeForRequest = `+in${NamesOfKeysEngEnum.inauthor}:`;
           break;
-        case NamesOfKeysEnum.intitle:
-          typeForRequest = `+in${NamesOfKeysEnum.intitle}:`;
+        case NamesOfKeysEngEnum.intitle:
+        case NamesOfKeysRusEnum.intitle:
+          typeForRequest = `+in${NamesOfKeysEngEnum.intitle}:`;
           break;
-        case NamesOfKeysEnum.intext:
-          typeForRequest = `+in${NamesOfKeysEnum.intext}:`;
+        case NamesOfKeysEngEnum.intext:
+        case NamesOfKeysRusEnum.intext:
+          typeForRequest = `+in${NamesOfKeysEngEnum.intext}:`;
           break;
-        case NamesOfKeysEnum.subject:
-          typeForRequest = `+${NamesOfKeysEnum.subject}:`;
+        case NamesOfKeysEngEnum.subject:
+        case NamesOfKeysRusEnum.subject:
+          typeForRequest = `+${NamesOfKeysEngEnum.subject}:`;
           break;
         default:
-          typeForRequest = `+in${NamesOfKeysEnum.intitle}:`;
+          typeForRequest = `+in${NamesOfKeysEngEnum.intitle}:`;
       }
     }
 
-    if (params.hasOwnProperty(SelectedHeaderModalItemEngEnum.Text.toLowerCase())) {
+    if (
+      params.hasOwnProperty(
+        SelectedHeaderModalItemEngEnum.Text.toLowerCase() ||
+          SelectedHeaderModalItemRusEnum.Text.toLowerCase()
+      )
+    ) {
       textFromInput = params['text'];
     }
 
@@ -64,9 +76,9 @@ export class ActiveParamUtil {
       activeParams.q += typeForRequest + category;
     }
 
-    if (textFromInput && typeForRequest === `+${NamesOfKeysEnum.subject}:`) {
+    if (textFromInput && typeForRequest === `+${NamesOfKeysEngEnum.subject}:`) {
       activeParams.q = textFromInput + typeForRequest + category;
-    } else if (!textFromInput && typeForRequest === `+${NamesOfKeysEnum.subject}:`) {
+    } else if (!textFromInput && typeForRequest === `+${NamesOfKeysEngEnum.subject}:`) {
       activeParams.q = typeForRequest + category;
     } else if (textFromInput) {
       activeParams.q = typeForRequest + textFromInput;
@@ -84,23 +96,28 @@ export class ActiveParamUtil {
     let typeForRequest: string = '';
 
     switch (typeFromInput.toLowerCase()) {
-      case NamesOfKeysEnum.all:
+      case NamesOfKeysEngEnum.all:
+      case NamesOfKeysRusEnum.all:
         typeForRequest = '';
         break;
-      case NamesOfKeysEnum.inauthor:
-        typeForRequest = `+in${NamesOfKeysEnum.inauthor}:`;
+      case NamesOfKeysEngEnum.inauthor:
+      case NamesOfKeysRusEnum.inauthor:
+        typeForRequest = `+in${NamesOfKeysEngEnum.inauthor}:`;
         break;
-      case NamesOfKeysEnum.intitle:
-        typeForRequest = `+in${NamesOfKeysEnum.intitle}:`;
+      case NamesOfKeysEngEnum.intitle:
+      case NamesOfKeysRusEnum.intitle:
+        typeForRequest = `+in${NamesOfKeysEngEnum.intitle}:`;
         break;
-      case NamesOfKeysEnum.intext:
-        typeForRequest = `+in${NamesOfKeysEnum.intext}:`;
+      case NamesOfKeysEngEnum.intext:
+      case NamesOfKeysRusEnum.intext:
+        typeForRequest = `+in${NamesOfKeysEngEnum.intext}:`;
         break;
-      case NamesOfKeysEnum.subject:
-        typeForRequest = `+${NamesOfKeysEnum.subject}:`;
+      case NamesOfKeysEngEnum.subject:
+      case NamesOfKeysRusEnum.subject:
+        typeForRequest = `+${NamesOfKeysEngEnum.subject}:`;
         break;
       default:
-        typeForRequest = `+in${NamesOfKeysEnum.intitle}:`;
+        typeForRequest = `+in${NamesOfKeysEngEnum.intitle}:`;
     }
 
     return typeForRequest;
@@ -113,7 +130,12 @@ export class ActiveParamUtil {
       startIndex: 0,
     };
 
-    if (params.hasOwnProperty(SelectedHeaderModalItemEngEnum.Text.toLowerCase())) {
+    if (
+      params.hasOwnProperty(
+        SelectedHeaderModalItemEngEnum.Text.toLowerCase() ||
+          SelectedHeaderModalItemRusEnum.Text.toLowerCase()
+      )
+    ) {
       activeParams.q = params['text'];
     }
 
