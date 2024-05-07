@@ -1,9 +1,9 @@
 import { NgxExtendedPdfViewerModule, NgxExtendedPdfViewerService } from 'ngx-extended-pdf-viewer';
+import { catchError, EMPTY, filter, Observable, of, Subject, takeUntil, tap } from 'rxjs';
 import { LangChangeEvent, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { RouterFacadeService } from '../../../ngrx/router/router.facade';
-import { catchError, EMPTY, filter, Observable, of, tap } from 'rxjs';
 import { DatabaseService, NotificationService } from '../../../core';
 import { NotificationStatusEnum } from '../../../modals/auth';
 import { IBookItemTransformed } from '../../../modals/user';
@@ -20,7 +20,7 @@ import { AsyncPipe } from '@angular/common';
   providers: [NgxExtendedPdfViewerService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PdfViewerComponent implements OnInit {
+export class PdfViewerComponent implements OnInit, OnDestroy {
   book$: Observable<IBookItemTransformed | null> = of(null);
 
   listOfViewsAboutSpread = [
@@ -36,6 +36,7 @@ export class PdfViewerComponent implements OnInit {
   ];
 
   pathToIcons = environment.pathToIcons;
+  private getParamsDestroy$: Subject<void> = new Subject<void>();
 
   constructor(
     private pdfService: NgxExtendedPdfViewerService,
@@ -49,7 +50,8 @@ export class PdfViewerComponent implements OnInit {
       .pipe(
         tap((params: Params): void => {
           this.getInfoAboutBook(params['id']);
-        })
+        }),
+        takeUntil(this.getParamsDestroy$)
       )
       .subscribe();
 
@@ -188,5 +190,10 @@ export class PdfViewerComponent implements OnInit {
     if (download) {
       download.click();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.getParamsDestroy$.next();
+    this.getParamsDestroy$.complete();
   }
 }

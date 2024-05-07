@@ -1,12 +1,12 @@
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { IActions, IDetailBookSmallInfo, ISearchSmall } from '../../../modals/user';
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { DetailBookFacade } from '../../../ngrx/detail-book/detail-book.facade';
+import { BehaviorSubject, Observable, of, Subject, takeUntil, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment.development';
 import { DestroyDirective } from '../../../core/directives/destroy.directive';
 import { MiniModalComponent, StarComponent } from '../../../UI-сomponents';
 import { RouterFacadeService } from '../../../ngrx/router/router.facade';
 import { ReduceLetterPipe, TransformDateBookPipe } from '../../../core';
-import { BehaviorSubject, Observable, of, takeUntil, tap } from 'rxjs';
 import { AuthorFacade } from '../../../ngrx/author/author.facade';
 import { Params, Router, RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -32,7 +32,7 @@ import { SvgIconComponent } from 'angular-svg-icon';
   hostDirectives: [DestroyDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DetailBookComponent implements OnInit {
+export class DetailBookComponent implements OnInit, OnDestroy {
   rating: number = 0;
 
   actions: IActions[] = [
@@ -41,13 +41,13 @@ export class DetailBookComponent implements OnInit {
     { svg: 'share-icon.svg', title: 'Share' },
   ];
 
-  author$: BehaviorSubject<ISearchSmall | null> = new BehaviorSubject<ISearchSmall | null>(null);
+  author$: Observable<ISearchSmall | null> = of(null);
   detailBook$: Observable<IDetailBookSmallInfo | null> = of(null);
 
   miniLoader$ = new BehaviorSubject<{ miniLoader: boolean }>({ miniLoader: true });
   pathToIcons = environment.pathToIcons;
   pathToImages = environment.pathToImages;
-  private readonly destroy$ = inject(DestroyDirective).destroy$;
+  private getParamsDestroy$: Subject<void> = new Subject<void>();
 
   constructor(
     private router: Router,
@@ -58,7 +58,7 @@ export class DetailBookComponent implements OnInit {
 
   ngOnInit(): void {
     this.routerFacadeService.getParams$
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntil(this.getParamsDestroy$))
       .subscribe((params: Params): void => {
         this.miniLoader$.next({ miniLoader: true });
         const idOfBook = params['id'];
@@ -69,14 +69,7 @@ export class DetailBookComponent implements OnInit {
             this.miniLoader$.next({ miniLoader: false });
             if (data) {
               this.authorFacade.loadAuthor(this.search(data), idOfBook);
-              this.authorFacade
-                .getDetailBook()
-                .pipe(
-                  tap((data: ISearchSmall | null): void => {
-                    this.author$.next(data);
-                  })
-                )
-                .subscribe();
+              this.author$ = this.authorFacade.getDetailBook();
               if (data.averageRating) {
                 this.rating = Math.round(data.averageRating);
               }
@@ -97,5 +90,10 @@ export class DetailBookComponent implements OnInit {
   openOtherBook(authorId: string): void {
     this.miniLoader$.next({ miniLoader: true });
     this.router.navigate(['/home/book', authorId]).then((): void => {});
+  }
+
+  ngOnDestroy(): void {
+    this.getParamsDestroy$.next();
+    this.getParamsDestroy$.complete();
   }
 }
