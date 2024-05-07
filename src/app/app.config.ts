@@ -7,6 +7,7 @@ import {
 import { ApplicationConfig, importProvidersFrom, isDevMode } from '@angular/core';
 
 import { CustomRouterStateSerializer } from './ngrx/router/router-state-serializer';
+import { routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { DetailBookEffects } from './ngrx/detail-book/detail-book.effects';
 import { SearchLiveEffects } from './ngrx/search-live/search-live.effects';
 import { searchLiveReducer } from './ngrx/search-live/search-live.reducer';
@@ -15,7 +16,6 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { detailReducer } from './ngrx/detail-book/detail-book.reducer';
 import { homeNowReducer, homeReducer } from './ngrx/home/home.reducer';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { provideRouterStore, routerReducer } from '@ngrx/router-store';
 import { environment } from '../environments/environment.development';
 import { FavoritesEffects } from './ngrx/favorites/favorites.effects';
 import { favoritesReducer } from './ngrx/favorites/favorites.reducer';
@@ -84,8 +84,8 @@ export const appConfig: ApplicationConfig = {
           deps: [HttpClient],
         },
       }),
+      StoreRouterConnectingModule.forRoot({ serializer: CustomRouterStateSerializer }),
     ]),
-    provideRouterStore({ serializer: CustomRouterStateSerializer }),
     provideAngularSvgIcon(),
     provideOAuthClient(),
   ],
