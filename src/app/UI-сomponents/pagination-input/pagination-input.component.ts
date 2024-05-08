@@ -1,4 +1,13 @@
 import {
+  BehaviorSubject,
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  map,
+  takeUntil,
+  tap,
+} from 'rxjs';
+import {
   ChangeDetectionStrategy,
   Component,
   inject,
@@ -6,7 +15,6 @@ import {
   OnChanges,
   OnInit,
 } from '@angular/core';
-import { BehaviorSubject, debounceTime, distinctUntilChanged, filter, map, takeUntil } from 'rxjs';
 import { DestroyDirective } from '../../core/directives/destroy.directive';
 import { RouterFacadeService } from '../../ngrx/router/router.facade';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
@@ -42,17 +50,21 @@ export class PaginationInputComponent implements OnInit, OnChanges {
     this.inputValue.setValue(1, { emitEvent: false });
 
     this.routerFacadeService.getQueryParams$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((params: Params): void => {
-        this.queryParams = params;
-        if (this.queryParams['page']) {
-          this.inputValue.setValue(this.queryParams['page']);
-          this.valueFromInput$.next(+this.queryParams['page']);
-        } else {
-          this.inputValue.setValue('1', { emitEvent: false });
-          this.valueFromInput$.next(1);
-        }
-      });
+      .pipe(
+        debounceTime(1),
+        tap((params: Params): void => {
+          this.queryParams = params;
+          if (this.queryParams['page']) {
+            this.inputValue.setValue(this.queryParams['page']);
+            this.valueFromInput$.next(+this.queryParams['page']);
+          } else {
+            this.inputValue.setValue('1', { emitEvent: false });
+            this.valueFromInput$.next(1);
+          }
+        }),
+        takeUntil(this.destroy$)
+      )
+      .subscribe();
 
     this.inputValue.valueChanges
       .pipe(
@@ -61,6 +73,7 @@ export class PaginationInputComponent implements OnInit, OnChanges {
         filter((value): boolean => {
           return value.trim();
         }),
+        takeUntil(this.destroy$),
         map(value => {
           if (
             +value < 1 ||

@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { IActiveParamsSearch, IBookItemTransformedWithTotal } from '../../../modals/user';
+import { BehaviorSubject, debounceTime, Observable, of, takeUntil, tap } from 'rxjs';
 import { DestroyDirective } from '../../../core/directives/destroy.directive';
 import { FavoritesFacade } from '../../../ngrx/favorites/favorites.facade';
 import { RouterFacadeService } from '../../../ngrx/router/router.facade';
-import { BehaviorSubject, Observable, of, takeUntil, tap } from 'rxjs';
 import { ActiveParamUtil, SearchStateService } from '../../../core';
 import { MiniModalComponent } from '../../../UI-сomponents';
 import { TranslateModule } from '@ngx-translate/core';
@@ -37,7 +37,7 @@ export class FavoritesComponent implements OnInit, OnDestroy {
     this.searchStateService.setFavoritePage(true);
 
     this.routerFacadeService.getQueryParams$
-      .pipe(takeUntil(this.destroy$))
+      .pipe(debounceTime(1), takeUntil(this.destroy$))
       .subscribe((params: Params): void => {
         console.log(params);
         this.miniLoader$.next({ miniLoader: true });

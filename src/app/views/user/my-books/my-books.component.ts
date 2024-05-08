@@ -3,9 +3,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { BookComponent } from '../../../components';
 import { DocumentData } from '@firebase/firestore';
 import { Component, OnInit } from '@angular/core';
+import { BehaviorSubject, map, tap } from 'rxjs';
 import { DatabaseService } from '../../../core';
 import { AsyncPipe } from '@angular/common';
-import { BehaviorSubject, map } from 'rxjs';
 
 @Component({
   selector: 'app-my-books',
@@ -34,16 +34,17 @@ export class MyBooksComponent implements OnInit {
             thumbnail: item['thumbnail'],
             publishedDate: item['publishedDate'],
           })) as IBookItemTransformed[];
+        }),
+        tap((selfBooks: IBookItemTransformed[]): void => {
+          console.log(selfBooks);
+          if (selfBooks && selfBooks.length > 0) {
+            this.selfBooksSubject.next(selfBooks);
+          } else {
+            this.selfBooksSubject.next(null);
+          }
         })
       )
-      .subscribe(selfBooks => {
-        console.log(selfBooks);
-        if (selfBooks && selfBooks.length > 0) {
-          this.selfBooksSubject.next(selfBooks);
-        } else {
-          this.selfBooksSubject.next(null);
-        }
-      });
+      .subscribe();
   }
 
   deleteSelfBook(id: string): void {

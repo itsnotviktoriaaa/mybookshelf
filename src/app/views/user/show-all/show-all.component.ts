@@ -1,9 +1,9 @@
+import { BehaviorSubject, debounceTime, Observable, of, takeUntil, tap } from 'rxjs';
 import { IActiveParams, IBookItemTransformedWithTotal } from '../../../modals/user';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 import { DestroyDirective } from '../../../core/directives/destroy.directive';
 import { RouterFacadeService } from '../../../ngrx/router/router.facade';
-import { BehaviorSubject, Observable, of, takeUntil, tap } from 'rxjs';
 import { HomeFacade } from '../../../ngrx/home/home.facade';
 import { MiniModalComponent } from '../../../UI-сomponents';
 import { TranslateModule } from '@ngx-translate/core';
@@ -48,7 +48,7 @@ export class ShowAllComponent implements OnInit {
 
   ngOnInit(): void {
     this.routerFacadeService.getQueryParams$
-      .pipe(takeUntil(this.destroy$))
+      .pipe(debounceTime(1), takeUntil(this.destroy$))
       .subscribe((params: Params): void => {
         const queryParams = params['show'];
         this.activeParams.show =

@@ -1,18 +1,20 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { DestroyDirective } from '../../core/directives/destroy.directive';
+import { Component, inject, OnInit } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { NotificationService } from '../../core';
-import { Subject, takeUntil, tap } from 'rxjs';
+import { takeUntil, tap } from 'rxjs';
 
 @Component({
   selector: 'app-loader',
   standalone: true,
   imports: [TranslateModule],
+  hostDirectives: [DestroyDirective],
   templateUrl: './loader.component.html',
   styleUrl: './loader.component.scss',
 })
-export class LoaderComponent implements OnInit, OnDestroy {
+export class LoaderComponent implements OnInit {
   loader: boolean = false;
-  getNotificationLoaderDestroy$: Subject<void> = new Subject<void>();
+  private readonly destroy$ = inject(DestroyDirective).destroy$;
 
   constructor(private notificationService: NotificationService) {}
 
@@ -23,13 +25,8 @@ export class LoaderComponent implements OnInit, OnDestroy {
         tap((param: boolean): void => {
           this.loader = param;
         }),
-        takeUntil(this.getNotificationLoaderDestroy$)
+        takeUntil(this.destroy$)
       )
       .subscribe();
-  }
-
-  ngOnDestroy(): void {
-    this.getNotificationLoaderDestroy$.next();
-    this.getNotificationLoaderDestroy$.complete();
   }
 }

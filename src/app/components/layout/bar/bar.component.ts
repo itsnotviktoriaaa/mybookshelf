@@ -45,7 +45,7 @@ export class BarComponent implements OnInit, AfterViewInit {
     private router: Router,
     private translateService: TranslateService
   ) {
-    const browserLang: string | undefined = this.translateService.getBrowserLang();
+    const browserLang: string | undefined = this.translateService.currentLang;
     if (browserLang === 'ru') {
       this.menuItems$.next([
         { routerLink: '/home', icon: '/bar-home.svg', text: 'Главная' },

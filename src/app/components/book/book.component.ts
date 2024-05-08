@@ -9,16 +9,18 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  inject,
   Input,
   OnInit,
   Output,
 } from '@angular/core';
 import { CommonPopupComponent } from '../../UI-сomponents/common-popup/common-popup.component';
+import { catchError, EMPTY, exhaustMap, finalize, takeUntil, tap } from 'rxjs';
 import { CommonPopupService } from '../../core/services/common-popup.service';
 import { environment } from '../../../environments/environment.development';
+import { DestroyDirective } from '../../core/directives/destroy.directive';
 import { FavoritesFacade } from '../../ngrx/favorites/favorites.facade';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { catchError, EMPTY, exhaustMap, finalize, tap } from 'rxjs';
 import { NotificationStatusEnum } from '../../modals/auth';
 import { IBookItemTransformed } from '../../modals/user';
 import { SvgIconComponent } from 'angular-svg-icon';
@@ -40,6 +42,7 @@ import { Router } from '@angular/router';
   ],
   templateUrl: './book.component.html',
   styleUrl: './book.component.scss',
+  hostDirectives: [DestroyDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [CommonPopupService],
 })
@@ -52,6 +55,7 @@ export class BookComponent implements OnInit {
   isOpenDeletePopup = { isOpen: false };
   textForPopup: { text: string } | null = null;
   page: 'own' | 'favorite' = 'own';
+  private readonly destroy$ = inject(DestroyDirective).destroy$;
 
   constructor(
     private router: Router,
@@ -70,7 +74,8 @@ export class BookComponent implements OnInit {
           if (param) {
             this.deleteSelfBook();
           }
-        })
+        }),
+        takeUntil(this.destroy$)
       )
       .subscribe();
 
@@ -81,7 +86,8 @@ export class BookComponent implements OnInit {
           if (param) {
             this.deleteFavoriteBook();
           }
-        })
+        }),
+        takeUntil(this.destroy$)
       )
       .subscribe();
   }
@@ -138,7 +144,8 @@ export class BookComponent implements OnInit {
           }),
           finalize(() => {
             this.notificationService.notifyAboutNotificationLoader(false);
-          })
+          }),
+          takeUntil(this.destroy$)
         )
         .subscribe();
     }

@@ -1,25 +1,27 @@
 import { NotificationStatusEnum, NotificationType } from '../../modals/auth';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { finalize, Subject, takeUntil, tap } from 'rxjs';
+import { DestroyDirective } from '../../core/directives/destroy.directive';
+import { Component, inject, OnInit } from '@angular/core';
 import { NgClass, NgStyle } from '@angular/common';
 import { NotificationService } from '../../core';
+import { finalize, takeUntil, tap } from 'rxjs';
 
 @Component({
   selector: 'app-notification',
   standalone: true,
   imports: [NgClass, NgStyle],
+  hostDirectives: [DestroyDirective],
   templateUrl: './notification.component.html',
   styleUrl: './notification.component.scss',
 })
-export class NotificationComponent implements OnInit, OnDestroy {
+export class NotificationComponent implements OnInit {
   message: string | null = null;
   timeout: number = 0;
   protected readonly NotificationStatusEnum = NotificationStatusEnum;
-  notificationServiceDestroy$: Subject<void> = new Subject<void>();
   status!:
     | NotificationStatusEnum.error
     | NotificationStatusEnum.success
     | NotificationStatusEnum.info;
+  private readonly destroy$ = inject(DestroyDirective).destroy$;
 
   constructor(private notificationService: NotificationService) {}
 
@@ -37,13 +39,8 @@ export class NotificationComponent implements OnInit, OnDestroy {
         finalize(() => {
           clearTimeout(this.timeout);
         }),
-        takeUntil(this.notificationServiceDestroy$)
+        takeUntil(this.destroy$)
       )
       .subscribe();
-  }
-
-  ngOnDestroy(): void {
-    this.notificationServiceDestroy$.next();
-    this.notificationServiceDestroy$.complete();
   }
 }

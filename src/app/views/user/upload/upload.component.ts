@@ -1,6 +1,7 @@
 import {
   BehaviorSubject,
   catchError,
+  debounceTime,
   EMPTY,
   filter,
   forkJoin,
@@ -69,7 +70,7 @@ export class UploadComponent implements OnInit {
     });
 
     this.routerFacadeService.getQueryParams$
-      .pipe(takeUntil(this.destroy$))
+      .pipe(debounceTime(1), takeUntil(this.destroy$))
       .subscribe((params: Params): void => {
         if (params['id']) {
           this.id = params['id'];
@@ -181,7 +182,8 @@ export class UploadComponent implements OnInit {
               status: NotificationStatusEnum.error,
             });
             return EMPTY;
-          })
+          }),
+          takeUntil(this.destroy$)
         )
         .subscribe();
     }
@@ -233,47 +235,50 @@ export class UploadComponent implements OnInit {
           )
         : of(null);
 
-      forkJoin([deletePreviousPdf$, deletePreviousPhoto$, uploadPdf$, uploadPhoto$]).subscribe({
-        next: ([, , webReaderLink, thumbnail]) => {
-          if (webReaderLink) {
-            selfBook.webReaderLink = webReaderLink;
-          }
-          if (thumbnail) {
-            selfBook.thumbnail = thumbnail;
-          }
+      forkJoin([deletePreviousPdf$, deletePreviousPhoto$, uploadPdf$, uploadPhoto$])
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: ([, , webReaderLink, thumbnail]) => {
+            if (webReaderLink) {
+              selfBook.webReaderLink = webReaderLink;
+            }
+            if (thumbnail) {
+              selfBook.thumbnail = thumbnail;
+            }
 
-          if (this.id) {
-            this.databaseService
-              .updateSelfBook(this.id, selfBook)
-              .pipe(
-                tap(() => {
-                  this.notificationService.notifyAboutNotificationLoader(false);
-                  const messageKey = 'selfBookUpdatedSuccessfully';
-                  const message = this.translateService.instant(messageKey);
-                  this.notificationService.notifyAboutNotification({
-                    message: message,
-                    status: NotificationStatusEnum.success,
-                  });
-                  this.router.navigate(['/home/books']).then((): void => {});
-                }),
-                catchError(() => {
-                  const messageKey = 'errorUpdatingSelfBook';
-                  const message = this.translateService.instant(messageKey);
-                  this.notificationService.notifyAboutNotification({
-                    message: message,
-                    status: NotificationStatusEnum.error,
-                  });
-                  return EMPTY;
-                })
-              )
-              .subscribe();
-          }
-        },
-        error: error => {
-          this.notificationService.notifyAboutNotificationLoader(false);
-          console.error('Error uploading files:', error);
-        },
-      });
+            if (this.id) {
+              this.databaseService
+                .updateSelfBook(this.id, selfBook)
+                .pipe(
+                  tap(() => {
+                    this.notificationService.notifyAboutNotificationLoader(false);
+                    const messageKey = 'selfBookUpdatedSuccessfully';
+                    const message = this.translateService.instant(messageKey);
+                    this.notificationService.notifyAboutNotification({
+                      message: message,
+                      status: NotificationStatusEnum.success,
+                    });
+                    this.router.navigate(['/home/books']).then((): void => {});
+                  }),
+                  catchError(() => {
+                    const messageKey = 'errorUpdatingSelfBook';
+                    const message = this.translateService.instant(messageKey);
+                    this.notificationService.notifyAboutNotification({
+                      message: message,
+                      status: NotificationStatusEnum.error,
+                    });
+                    return EMPTY;
+                  }),
+                  takeUntil(this.destroy$)
+                )
+                .subscribe();
+            }
+          },
+          error: error => {
+            this.notificationService.notifyAboutNotificationLoader(false);
+            console.error('Error uploading files:', error);
+          },
+        });
     }
   }
 
@@ -305,7 +310,8 @@ export class UploadComponent implements OnInit {
         }),
         catchError(() => {
           return EMPTY;
-        })
+        }),
+        takeUntil(this.destroy$)
       )
       .subscribe();
   }

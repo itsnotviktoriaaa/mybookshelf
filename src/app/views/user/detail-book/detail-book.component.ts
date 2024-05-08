@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { BehaviorSubject, debounceTime, Observable, of, takeUntil, tap } from 'rxjs';
 import { IActions, IDetailBookSmallInfo, ISearchSmall } from '../../../modals/user';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { DetailBookFacade } from '../../../ngrx/detail-book/detail-book.facade';
-import { BehaviorSubject, Observable, of, Subject, takeUntil, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment.development';
 import { DestroyDirective } from '../../../core/directives/destroy.directive';
 import { MiniModalComponent, StarComponent } from '../../../UI-сomponents';
@@ -32,7 +32,7 @@ import { SvgIconComponent } from 'angular-svg-icon';
   hostDirectives: [DestroyDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DetailBookComponent implements OnInit, OnDestroy {
+export class DetailBookComponent implements OnInit {
   rating: number = 0;
 
   actions: IActions[] = [
@@ -47,7 +47,7 @@ export class DetailBookComponent implements OnInit, OnDestroy {
   miniLoader$ = new BehaviorSubject<{ miniLoader: boolean }>({ miniLoader: true });
   pathToIcons = environment.pathToIcons;
   pathToImages = environment.pathToImages;
-  private getParamsDestroy$: Subject<void> = new Subject<void>();
+  private readonly destroy$ = inject(DestroyDirective).destroy$;
 
   constructor(
     private router: Router,
@@ -58,25 +58,31 @@ export class DetailBookComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.routerFacadeService.getParams$
-      .pipe(takeUntil(this.getParamsDestroy$))
-      .subscribe((params: Params): void => {
-        this.miniLoader$.next({ miniLoader: true });
-        const idOfBook = params['id'];
-        console.log(idOfBook);
-        this.detailBookFacade.loadDetailBook(idOfBook);
-        this.detailBook$ = this.detailBookFacade.getDetailBook().pipe(
-          tap((data: IDetailBookSmallInfo | null) => {
-            this.miniLoader$.next({ miniLoader: false });
-            if (data) {
-              this.authorFacade.loadAuthor(this.search(data), idOfBook);
-              this.author$ = this.authorFacade.getDetailBook();
-              if (data.averageRating) {
-                this.rating = Math.round(data.averageRating);
-              }
-            }
-          })
-        );
-      });
+      .pipe(
+        debounceTime(1),
+        tap((params: Params): void => {
+          this.miniLoader$.next({ miniLoader: true });
+          const idOfBook = params['id'];
+          console.log(idOfBook);
+          if (idOfBook) {
+            this.detailBookFacade.loadDetailBook(idOfBook);
+            this.detailBook$ = this.detailBookFacade.getDetailBook().pipe(
+              tap((data: IDetailBookSmallInfo | null) => {
+                this.miniLoader$.next({ miniLoader: false });
+                if (data) {
+                  this.authorFacade.loadAuthor(this.search(data), idOfBook);
+                  this.author$ = this.authorFacade.getDetailBook();
+                  if (data.averageRating) {
+                    this.rating = Math.round(data.averageRating);
+                  }
+                }
+              })
+            );
+          }
+        }),
+        takeUntil(this.destroy$)
+      )
+      .subscribe();
   }
 
   search(data: IDetailBookSmallInfo): string {
@@ -90,10 +96,5 @@ export class DetailBookComponent implements OnInit, OnDestroy {
   openOtherBook(authorId: string): void {
     this.miniLoader$.next({ miniLoader: true });
     this.router.navigate(['/home/book', authorId]).then((): void => {});
-  }
-
-  ngOnDestroy(): void {
-    this.getParamsDestroy$.next();
-    this.getParamsDestroy$.complete();
   }
 }

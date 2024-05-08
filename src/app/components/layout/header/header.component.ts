@@ -117,7 +117,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     private routerFacadeService: RouterFacadeService,
     private translateService: TranslateService
   ) {
-    const browserLang: string | undefined = this.translateService.getBrowserLang();
+    const browserLang: string | undefined = this.translateService.currentLang;
     if (browserLang === 'ru') {
       this.lang.next('Русс');
       this.headerModalLangItems = ['Англ', 'Русс'];
@@ -344,6 +344,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   subscribeOnQueryParams(): void {
     this.routerFacadeService.getQueryParams$
       .pipe(
+        debounceTime(1),
         tap((params: Params): void => {
           this.setValuesFromParams(params);
           this.paramsFromUrl = params;
@@ -356,6 +357,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   subscribeOnGetUrl(): void {
     this.routerFacadeService.getUrl$
       .pipe(
+        debounceTime(1),
         tap((url: string): void => {
           this.existUrl = url;
         }),

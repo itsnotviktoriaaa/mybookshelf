@@ -11,11 +11,11 @@ import { ChangeDetectionStrategy, Component, HostListener, inject, OnInit } from
 import { ActiveParamUtil, CategoryModalSearchItems, SearchStateService } from '../../../core';
 import { environment } from '../../../../environments/environment.development';
 import { DestroyDirective } from '../../../core/directives/destroy.directive';
+import { BehaviorSubject, debounceTime, filter, takeUntil, tap } from 'rxjs';
 import { FavoritesFacade } from '../../../ngrx/favorites/favorites.facade';
 import { RouterFacadeService } from '../../../ngrx/router/router.facade';
 import { SearchFacade } from '../../../ngrx/search/search.facade';
 import { PaginationInputComponent } from '../../../UI-сomponents';
-import { BehaviorSubject, filter, takeUntil, tap } from 'rxjs';
 import { SearchBookComponent } from '../../../components';
 import { TranslateModule } from '@ngx-translate/core';
 import { SvgIconComponent } from 'angular-svg-icon';
@@ -58,6 +58,7 @@ export class SearchComponent implements OnInit {
     this.searchStateService
       .getHeaderModalItem()
       .pipe(
+        takeUntil(this.destroy$),
         tap((type: string): void => {
           if (
             type.toLowerCase() === SelectedHeaderModalItemEngEnum.Subject.toLowerCase() ||
@@ -73,37 +74,48 @@ export class SearchComponent implements OnInit {
       .subscribe();
 
     this.routerFacadeService.getQueryParams$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((params: Params): void => {
-        this.setValuesFromParams(params);
+      .pipe(
+        debounceTime(1),
+        tap((params: Params): void => {
+          this.setValuesFromParams(params);
 
-        const newParams: IActiveParamsSearch = ActiveParamUtil.processParam(params);
+          const newParams: IActiveParamsSearch = ActiveParamUtil.processParam(params);
 
-        this.searchFacade.loadSearchBooks(newParams);
-        this.searchFacade.getSearchBooks().subscribe(data => {
-          this.searchBooks$.next(data);
-        });
+          this.searchFacade.loadSearchBooks(newParams);
+          this.searchFacade
+            .getSearchBooks()
+            .pipe(
+              tap((data: ISearch | null): void => {
+                this.searchBooks$.next(data);
+              }),
+              takeUntil(this.destroy$)
+            )
+            .subscribe();
 
-        const newParamsForFavorite: IActiveParamsSearch =
-          ActiveParamUtil.processParamsForFavoritePage(params);
+          const newParamsForFavorite: IActiveParamsSearch =
+            ActiveParamUtil.processParamsForFavoritePage(params);
 
-        this.favoriteFacade.loadFavoritesBooks(newParamsForFavorite);
-        this.favoriteFacade
-          .getFavoritesBooks()
-          .pipe(
-            filter((data: IBookItemTransformedWithTotal | null) => !!data),
-            tap((books: IBookItemTransformedWithTotal | null): void => {
-              const newArrayWithIdOfFavorites: string[] = [];
-              if (books && books.items && books.items.length > 0) {
-                books.items.forEach((item: IBookItemTransformed): void => {
-                  newArrayWithIdOfFavorites.push(item.id);
-                });
-                this.idOfFavorites = newArrayWithIdOfFavorites;
-              }
-            })
-          )
-          .subscribe();
-      });
+          this.favoriteFacade.loadFavoritesBooks(newParamsForFavorite);
+          this.favoriteFacade
+            .getFavoritesBooks()
+            .pipe(
+              takeUntil(this.destroy$),
+              filter((data: IBookItemTransformedWithTotal | null) => !!data),
+              tap((books: IBookItemTransformedWithTotal | null): void => {
+                const newArrayWithIdOfFavorites: string[] = [];
+                if (books && books.items && books.items.length > 0) {
+                  books.items.forEach((item: IBookItemTransformed): void => {
+                    newArrayWithIdOfFavorites.push(item.id);
+                  });
+                  this.idOfFavorites = newArrayWithIdOfFavorites;
+                }
+              })
+            )
+            .subscribe();
+        }),
+        takeUntil(this.destroy$)
+      )
+      .subscribe();
   }
 
   openOrCloseMiniModal(): void {

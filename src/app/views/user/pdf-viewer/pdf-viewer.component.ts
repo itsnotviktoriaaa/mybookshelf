@@ -1,8 +1,9 @@
 import { NgxExtendedPdfViewerModule, NgxExtendedPdfViewerService } from 'ngx-extended-pdf-viewer';
-import { catchError, EMPTY, filter, Observable, of, Subject, takeUntil, tap } from 'rxjs';
 import { LangChangeEvent, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, inject } from '@angular/core';
+import { catchError, EMPTY, filter, Observable, of, takeUntil, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment.development';
+import { DestroyDirective } from '../../../core/directives/destroy.directive';
 import { RouterFacadeService } from '../../../ngrx/router/router.facade';
 import { DatabaseService, NotificationService } from '../../../core';
 import { NotificationStatusEnum } from '../../../modals/auth';
@@ -17,11 +18,13 @@ import { AsyncPipe } from '@angular/common';
   styleUrls: ['./pdf-viewer.component.scss'],
   standalone: true,
   imports: [NgxExtendedPdfViewerModule, SvgIconComponent, AsyncPipe, TranslateModule],
+  hostDirectives: [DestroyDirective],
   providers: [NgxExtendedPdfViewerService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PdfViewerComponent implements OnInit, OnDestroy {
+export class PdfViewerComponent implements OnInit {
   book$: Observable<IBookItemTransformed | null> = of(null);
+  private readonly destroy$ = inject(DestroyDirective).destroy$;
 
   listOfViewsAboutSpread = [
     { title: 'No Spreads', id: 'secondarySpreadNone' },
@@ -36,7 +39,6 @@ export class PdfViewerComponent implements OnInit, OnDestroy {
   ];
 
   pathToIcons = environment.pathToIcons;
-  private getParamsDestroy$: Subject<void> = new Subject<void>();
 
   constructor(
     private pdfService: NgxExtendedPdfViewerService,
@@ -48,14 +50,15 @@ export class PdfViewerComponent implements OnInit, OnDestroy {
   ) {
     this.routerFacadeService.getParams$
       .pipe(
+        filter((params: Params) => Boolean(params['id'])),
         tap((params: Params): void => {
           this.getInfoAboutBook(params['id']);
         }),
-        takeUntil(this.getParamsDestroy$)
+        takeUntil(this.destroy$)
       )
       .subscribe();
 
-    const browserLang: string | undefined = this.translateService.getBrowserLang();
+    const browserLang: string | undefined = this.translateService.currentLang;
     if (browserLang === 'ru') {
       this.listOfViewsAboutSpread = [
         { title: 'Без', id: 'secondarySpreadNone' },
@@ -112,7 +115,8 @@ export class PdfViewerComponent implements OnInit, OnDestroy {
               { title: 'Обтекание', id: 'secondaryScrollWrapped' },
             ];
           }
-        })
+        }),
+        takeUntil(this.destroy$)
       )
       .subscribe();
   }
@@ -190,10 +194,5 @@ export class PdfViewerComponent implements OnInit, OnDestroy {
     if (download) {
       download.click();
     }
-  }
-
-  ngOnDestroy(): void {
-    this.getParamsDestroy$.next();
-    this.getParamsDestroy$.complete();
   }
 }
