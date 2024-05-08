@@ -1,17 +1,5 @@
-import {
-  loadReadingNowBooks,
-  loadReadingNowBooksFailure,
-  loadReadingNowBooksSuccess,
-  loadRecommendedBooks,
-  loadRecommendedBooksFailure,
-  loadRecommendedBooksSuccess,
-} from './';
-import {
-  arrayFromBookItemTransformedInterface,
-  BookInterface,
-  BookItemInterface,
-  BookItemTransformedInterface,
-} from 'types/';
+import { loadReadingNowBooks, loadReadingNowBooksFailure, loadReadingNowBooksSuccess, loadRecommendedBooks, loadRecommendedBooksFailure, loadRecommendedBooksSuccess } from './';
+import { arrayFromBookItemTransformedInterface, BookInterface, BookItemInterface, BookItemTransformedInterface } from 'types/';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap, tap } from 'rxjs';
 import { TypedAction } from '@ngrx/store/src/models';
@@ -43,19 +31,17 @@ export class BookEffects {
             ): {
               data: arrayFromBookItemTransformedInterface;
             } & TypedAction<'[Book] Load Recommended Books Success'> => {
-              const transformedItems: BookItemTransformedInterface[] = data.items.map(
-                (item: BookItemInterface): BookItemTransformedInterface => {
-                  return {
-                    id: item.id,
-                    thumbnail: item.volumeInfo.imageLinks.thumbnail,
-                    title: item.volumeInfo.title,
-                    author: item.volumeInfo.authors,
-                    publishedDate: item.volumeInfo.publishedDate,
-                    webReaderLink: item.accessInfo.webReaderLink,
-                    pageCount: item.volumeInfo.pageCount,
-                  };
-                }
-              );
+              const transformedItems: BookItemTransformedInterface[] = data.items.map((item: BookItemInterface): BookItemTransformedInterface => {
+                return {
+                  id: item.id,
+                  thumbnail: item.volumeInfo.imageLinks.thumbnail,
+                  title: item.volumeInfo.title,
+                  author: item.volumeInfo.authors,
+                  publishedDate: item.volumeInfo.publishedDate,
+                  webReaderLink: item.accessInfo.webReaderLink,
+                  pageCount: item.volumeInfo.pageCount,
+                };
+              });
 
               return loadRecommendedBooksSuccess({
                 data: { items: transformedItems, totalItems: data.totalItems },
@@ -79,19 +65,17 @@ export class BookEffects {
             ): {
               data: arrayFromBookItemTransformedInterface;
             } & TypedAction<'[Book] Load Reading Now Books Success'> => {
-              const transformedItems: BookItemTransformedInterface[] = data.items.map(
-                (item: BookItemInterface): BookItemTransformedInterface => {
-                  return {
-                    id: item.id,
-                    thumbnail: item.volumeInfo.imageLinks.thumbnail,
-                    title: item.volumeInfo.title,
-                    author: item.volumeInfo.authors,
-                    publishedDate: item.volumeInfo.publishedDate,
-                    webReaderLink: item.accessInfo.webReaderLink,
-                    pageCount: item.volumeInfo.pageCount,
-                  };
-                }
-              );
+              const transformedItems: BookItemTransformedInterface[] = data.items.map((item: BookItemInterface): BookItemTransformedInterface => {
+                return {
+                  id: item.id,
+                  thumbnail: item.volumeInfo.imageLinks.thumbnail,
+                  title: item.volumeInfo.title,
+                  author: item.volumeInfo.authors,
+                  publishedDate: item.volumeInfo.publishedDate,
+                  webReaderLink: item.accessInfo.webReaderLink,
+                  pageCount: item.volumeInfo.pageCount,
+                };
+              });
 
               return loadReadingNowBooksSuccess({
                 data: { items: transformedItems, totalItems: data.totalItems },
