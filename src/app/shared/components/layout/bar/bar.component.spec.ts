@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BarComponent } from './bar.component';
+import { BarComponent } from 'app/shared';
 
 describe('BarComponent', () => {
   let component: BarComponent;

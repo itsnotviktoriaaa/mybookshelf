@@ -1,6 +1,6 @@
 import { Directive } from '@angular/core';
 import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
-import { Constants } from '../constans';
+import { Constants } from 'app/shared';
 
 @Directive({
   selector: '[appPasswordNotEmail]',

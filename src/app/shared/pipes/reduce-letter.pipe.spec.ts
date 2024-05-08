@@ -1,4 +1,4 @@
-import { ReduceLetterPipe } from './reduce-letter.pipe';
+import { ReduceLetterPipe } from 'app/shared';
 
 describe('ReduceLetterPipe', () => {
   it('create an instance', () => {

@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { CanActivateFn } from '@angular/router';
 
-import { authForwardGuard } from './auth-forward.guard';
+import { authForwardGuard } from 'app/shared';
 
 describe('authForwardGuard', () => {
   const executeGuard: CanActivateFn = (...guardParameters) => TestBed.runInInjectionContext(() => authForwardGuard(...guardParameters));

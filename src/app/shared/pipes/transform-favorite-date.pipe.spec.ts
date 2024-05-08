@@ -1,4 +1,4 @@
-import { TransformFavoriteDatePipe } from './transform-favorite-date.pipe';
+import { TransformFavoriteDatePipe } from 'app/shared';
 
 describe('TransformFavoriteDatePipe', () => {
   it('create an instance', () => {

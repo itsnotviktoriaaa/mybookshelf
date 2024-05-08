@@ -1,11 +1,22 @@
-import { Injectable } from '@angular/core';
-import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
-import { loadReadingNowBooks, loadReadingNowBooksFailure, loadReadingNowBooksSuccess, loadRecommendedBooks, loadRecommendedBooksFailure, loadRecommendedBooksSuccess } from './';
-import { catchError, filter, map, of, switchMap, tap } from 'rxjs';
-import { GoogleApiService } from 'core/';
-import { arrayFromBookItemTransformedInterface, BookInterface, BookItemInterface, BookItemTransformedInterface } from 'types/';
+import {
+  loadReadingNowBooks,
+  loadReadingNowBooksFailure,
+  loadReadingNowBooksSuccess,
+  loadRecommendedBooks,
+  loadRecommendedBooksFailure,
+  loadRecommendedBooksSuccess,
+} from './';
+import {
+  arrayFromBookItemTransformedInterface,
+  BookInterface,
+  BookItemInterface,
+  BookItemTransformedInterface,
+} from 'types/';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { catchError, map, of, switchMap, tap } from 'rxjs';
 import { TypedAction } from '@ngrx/store/src/models';
-import { selectReadingNowBooks, selectRecommendedBooks } from './';
+import { Injectable } from '@angular/core';
+import { GoogleApiService } from 'core/';
 import { Store } from '@ngrx/store';
 
 @Injectable()
@@ -21,63 +32,75 @@ export class BookEffects {
   loadRecommendedBooks$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(loadRecommendedBooks),
-      concatLatestFrom(() => this.store.select(selectRecommendedBooks)),
-      filter(([action, recommendedBooks]) => {
-        return !recommendedBooks || action.startIndex !== this._previousStartIndexForRecommendedBook;
-      }),
-      switchMap(([action]) =>
-        this.googleApi.getRecommended(action.startIndex).pipe(
+      switchMap(action => {
+        return this.googleApi.getRecommended(action.startIndex).pipe(
           tap(() => {
             this._previousStartIndexForRecommendedBook = action.startIndex;
           }),
-          map((data: BookInterface): { data: arrayFromBookItemTransformedInterface } & TypedAction<'[Book] Load Recommended Books Success'> => {
-            const transformedItems: BookItemTransformedInterface[] = data.items.map((item: BookItemInterface): BookItemTransformedInterface => {
-              return {
-                id: item.id,
-                thumbnail: item.volumeInfo.imageLinks.thumbnail,
-                title: item.volumeInfo.title,
-                author: item.volumeInfo.authors,
-                publishedDate: item.volumeInfo.publishedDate,
-                webReaderLink: item.accessInfo.webReaderLink,
-                pageCount: item.volumeInfo.pageCount,
-              };
-            });
+          map(
+            (
+              data: BookInterface
+            ): {
+              data: arrayFromBookItemTransformedInterface;
+            } & TypedAction<'[Book] Load Recommended Books Success'> => {
+              const transformedItems: BookItemTransformedInterface[] = data.items.map(
+                (item: BookItemInterface): BookItemTransformedInterface => {
+                  return {
+                    id: item.id,
+                    thumbnail: item.volumeInfo.imageLinks.thumbnail,
+                    title: item.volumeInfo.title,
+                    author: item.volumeInfo.authors,
+                    publishedDate: item.volumeInfo.publishedDate,
+                    webReaderLink: item.accessInfo.webReaderLink,
+                    pageCount: item.volumeInfo.pageCount,
+                  };
+                }
+              );
 
-            return loadRecommendedBooksSuccess({ data: { items: transformedItems, totalItems: data.totalItems } });
-          }),
+              return loadRecommendedBooksSuccess({
+                data: { items: transformedItems, totalItems: data.totalItems },
+              });
+            }
+          ),
           catchError(error => of(loadRecommendedBooksFailure({ error })))
-        )
-      )
+        );
+      })
     );
   });
 
   loadReadingNowBooks$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(loadReadingNowBooks),
-      concatLatestFrom(() => this.store.select(selectReadingNowBooks)),
-      filter(([action, readingNowBooks]) => {
-        return !readingNowBooks || action.startIndex !== this._previousStartIndexForReadingBook;
-      }),
-      switchMap(([action]) =>
-        this.googleApi.getReadingNow(action.startIndex).pipe(
-          map((data: BookInterface): { data: arrayFromBookItemTransformedInterface } & TypedAction<'[Book] Load Reading Now Books Success'> => {
-            const transformedItems: BookItemTransformedInterface[] = data.items.map((item: BookItemInterface): BookItemTransformedInterface => {
-              return {
-                id: item.id,
-                thumbnail: item.volumeInfo.imageLinks.thumbnail,
-                title: item.volumeInfo.title,
-                author: item.volumeInfo.authors,
-                publishedDate: item.volumeInfo.publishedDate,
-                webReaderLink: item.accessInfo.webReaderLink,
-                pageCount: item.volumeInfo.pageCount,
-              };
-            });
+      switchMap(action => {
+        return this.googleApi.getReadingNow(action.startIndex).pipe(
+          map(
+            (
+              data: BookInterface
+            ): {
+              data: arrayFromBookItemTransformedInterface;
+            } & TypedAction<'[Book] Load Reading Now Books Success'> => {
+              const transformedItems: BookItemTransformedInterface[] = data.items.map(
+                (item: BookItemInterface): BookItemTransformedInterface => {
+                  return {
+                    id: item.id,
+                    thumbnail: item.volumeInfo.imageLinks.thumbnail,
+                    title: item.volumeInfo.title,
+                    author: item.volumeInfo.authors,
+                    publishedDate: item.volumeInfo.publishedDate,
+                    webReaderLink: item.accessInfo.webReaderLink,
+                    pageCount: item.volumeInfo.pageCount,
+                  };
+                }
+              );
 
-            return loadReadingNowBooksSuccess({ data: { items: transformedItems, totalItems: data.totalItems } });
-          }),
+              return loadReadingNowBooksSuccess({
+                data: { items: transformedItems, totalItems: data.totalItems },
+              });
+            }
+          ),
           catchError(error => of(loadReadingNowBooksFailure({ error })))
-        )
-      )
+        );
+      })
     );
   });
 }

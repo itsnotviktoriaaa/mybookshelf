@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SearchBookComponent } from './search-book.component';
+import { SearchBookComponent } from 'app/shared';
 
 describe('SearchBookComponent', () => {
   let component: SearchBookComponent;

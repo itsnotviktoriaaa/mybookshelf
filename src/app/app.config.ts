@@ -1,45 +1,50 @@
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
-import { InMemoryScrollingFeature, InMemoryScrollingOptions, provideRouter, withInMemoryScrolling } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
-import { routes } from './app.routes';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { getAuth, provideAuth } from '@angular/fire/auth';
+import { DetailBookEffects } from 'app/ngrx';
+
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { getStorage, provideStorage } from '@angular/fire/storage';
-import { provideHttpClient } from '@angular/common/http';
-import { provideAngularSvgIcon } from 'angular-svg-icon';
-import { provideOAuthClient } from 'angular-oauth2-oidc';
-import { provideStore } from '@ngrx/store';
-import { provideEffects } from '@ngrx/effects';
-import { homeNowReducer, homeReducer } from 'ngr/';
-import { BookEffects } from 'ngr/';
-import { favoritesReducer } from 'ngr/';
-import { FavoritesEffects } from 'ngr/';
-import { DetailBookEffects } from 'ngr/';
-import { detailReducer } from 'ngr/';
-import { AuthorEffects } from 'ngr/';
-import { authorReducer } from 'ngr/';
 import { environment } from '../environments/environment.development';
-
-const scrollConfig: InMemoryScrollingOptions = {
-  scrollPositionRestoration: 'enabled',
-};
-
-const inMemoryScrollingFeature: InMemoryScrollingFeature = withInMemoryScrolling(scrollConfig);
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getStorage, provideStorage } from '@angular/fire/storage';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { getAuth, provideAuth } from '@angular/fire/auth';
+import { provideHttpClient } from '@angular/common/http';
+import { provideOAuthClient } from 'angular-oauth2-oidc';
+import { provideAngularSvgIcon } from 'angular-svg-icon';
+import { homeNowReducer, homeReducer } from 'app/ngrx';
+import { EffectsModule } from '@ngrx/effects';
+import { FavoritesEffects } from 'app/ngrx';
+import { favoritesReducer } from 'app/ngrx';
+import { StoreModule } from '@ngrx/store';
+import { detailReducer } from 'app/ngrx';
+import { AuthorEffects } from 'app/ngrx';
+import { authorReducer } from 'app/ngrx';
+import { BookEffects } from 'app/ngrx';
+import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes, inMemoryScrollingFeature),
     provideHttpClient(),
     importProvidersFrom([
+      RouterModule.forRoot(routes, {
+        scrollPositionRestoration: 'enabled',
+      }),
       provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
       provideAuth(() => getAuth()),
       provideFirestore(() => getFirestore()),
       provideStorage(() => getStorage()),
+      StoreModule.forRoot({
+        home: homeReducer,
+        homeNow: homeNowReducer,
+        favorites: favoritesReducer,
+        detailBook: detailReducer,
+        author: authorReducer,
+      }),
+      EffectsModule.forRoot([BookEffects, FavoritesEffects, DetailBookEffects, AuthorEffects]),
+      !environment.production ? StoreDevtoolsModule.instrument() : [],
     ]),
     provideAngularSvgIcon(),
     provideOAuthClient(),
-    provideStore({ home: homeReducer, homeNow: homeNowReducer, favorites: favoritesReducer, detailBook: detailReducer, author: authorReducer }),
-    provideEffects([BookEffects, FavoritesEffects, DetailBookEffects, AuthorEffects]),
   ],
 };

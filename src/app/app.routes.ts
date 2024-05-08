@@ -19,32 +19,32 @@ export const routes: Routes = [
       {
         path: '',
         title: 'MyBookShelf',
-        loadComponent: () => import('app/views/').then(c => c.HomeComponent),
+        loadComponent: () => import('app/views/user').then(c => c.HomeComponent),
       },
       {
         path: 'show',
         title: 'MyBookShelf',
-        loadComponent: () => import('app/views/').then(c => c.ShowAllComponent),
+        loadComponent: () => import('app/views/user').then(c => c.ShowAllComponent),
       },
       {
         path: 'favorites',
         title: 'MyBookShelf',
-        loadComponent: () => import('app/views/').then(c => c.FavoritesComponent),
+        loadComponent: () => import('app/views/user').then(c => c.FavoritesComponent),
       },
       {
         path: 'book/:id',
         title: 'MyBookShelf',
-        loadComponent: () => import('app/views/').then(c => c.DetailBookComponent),
+        loadComponent: () => import('app/views/user').then(c => c.DetailBookComponent),
       },
       {
         path: 'upload',
         title: 'MyBookShelf',
-        loadComponent: () => import('app/views/').then(c => c.UploadComponent),
+        loadComponent: () => import('app/views/user').then(c => c.UploadComponent),
       },
       {
         path: 'search',
         title: 'MyBookShelf',
-        loadComponent: () => import('app/views/').then(c => c.SearchComponent),
+        loadComponent: () => import('app/views/user').then(c => c.SearchComponent),
       },
     ],
   },

@@ -1,4 +1,4 @@
-import { TransformDateBookPipe } from './transform-date-book.pipe';
+import { TransformDateBookPipe } from 'app/shared';
 
 describe('TransformDateBookPipe', () => {
   it('create an instance', () => {
