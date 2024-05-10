@@ -22,10 +22,10 @@ export const removeFromFavoritesBooks = createAction(
   props<{ bookId: string }>()
 );
 export const removeFromFavoritesBooksSuccess = createAction(
-  '[Favorites] Remove Favorites Book',
+  '[Favorites] Remove Favorites Book Success',
   props<{ bookId: string }>()
 );
 export const removeFromFavoritesBooksFailure = createAction(
-  '[Favorites] Remove Favorites Book',
+  '[Favorites] Remove Favorites Book Failure',
   props<{ error: null }>()
 );

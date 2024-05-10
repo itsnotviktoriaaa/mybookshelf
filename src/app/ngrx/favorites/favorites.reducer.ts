@@ -33,9 +33,19 @@ const _favoritesState = createReducer(
       return state;
     }
 
+    if (
+      state &&
+      state.favoritesBooks &&
+      state.favoritesBooks.items &&
+      state.favoritesBooks.items.length === 1
+    ) {
+      return { ...state, favoritesBooks: null };
+    }
+
     const filteredItems = state.favoritesBooks.items.filter(
       favoritesBook => favoritesBook.id !== bookId
     );
+
     const totalItems = filteredItems.length;
     return {
       ...state,
