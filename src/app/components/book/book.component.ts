@@ -1,11 +1,4 @@
 import {
-  DatabaseService,
-  NotificationService,
-  ReduceLetterPipe,
-  TransformDateBookPipe,
-  TransformFavoriteDatePipe,
-} from '../../core';
-import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
@@ -14,18 +7,19 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { ReduceLetterPipe, TransformDateBookPipe, TransformFavoriteDatePipe } from '../../core';
 import { CommonPopupComponent } from '../../UI-сomponents/common-popup/common-popup.component';
-import { catchError, EMPTY, exhaustMap, finalize, takeUntil, tap } from 'rxjs';
 import { CommonPopupService } from '../../core/services/common-popup.service';
 import { environment } from '../../../environments/environment.development';
 import { DestroyDirective } from '../../core/directives/destroy.directive';
 import { FavoritesFacade } from '../../ngrx/favorites/favorites.facade';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { NotificationStatusEnum } from '../../modals/auth';
+import { MyBooksFacade } from '../../ngrx/my-books/my-books.facade';
 import { IBookItemTransformed } from '../../modals/user';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { NgClass, NgStyle } from '@angular/common';
 import { Router } from '@angular/router';
+import { takeUntil, tap } from 'rxjs';
 
 @Component({
   selector: 'app-book',
@@ -59,10 +53,9 @@ export class BookComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private databaseService: DatabaseService,
-    private notificationService: NotificationService,
     private commonPopupService: CommonPopupService,
     private favoriteFacade: FavoritesFacade,
+    private myBookFacade: MyBooksFacade,
     private translateService: TranslateService
   ) {}
 
@@ -119,35 +112,11 @@ export class BookComponent implements OnInit {
 
   deleteSelfBook(): void {
     if (this.book) {
-      this.notificationService.notifyAboutNotificationLoader(true);
-      this.databaseService
-        .deleteBookAndFile(this.book.id, this.book.webReaderLink, this.book.thumbnail)
-        .pipe(
-          exhaustMap(() => {
-            this.deleteSelfBookEvent.emit(this.book!.id);
-            const messageKey = 'selfBookDeletedSuccessfully';
-            const message = this.translateService.instant(messageKey);
-            this.notificationService.notifyAboutNotification({
-              message: message,
-              status: NotificationStatusEnum.success,
-            });
-            return EMPTY;
-          }),
-          catchError(() => {
-            const messageKey = 'selfBookDeletedWithError';
-            const message = this.translateService.instant(messageKey);
-            this.notificationService.notifyAboutNotification({
-              message: message,
-              status: NotificationStatusEnum.error,
-            });
-            return EMPTY;
-          }),
-          finalize(() => {
-            this.notificationService.notifyAboutNotificationLoader(false);
-          }),
-          takeUntil(this.destroy$)
-        )
-        .subscribe();
+      this.myBookFacade.loadRemoveMyBook(
+        this.book.id,
+        this.book.webReaderLink,
+        this.book.thumbnail
+      );
     }
   }
 

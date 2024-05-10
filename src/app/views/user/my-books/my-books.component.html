@@ -1,17 +1,16 @@
 <section class="my-books common-padding">
   <h2 class="common-title">{{ 'myBooksTitle' | translate }}</h2>
-  @if (selfBooks$ | async; as selfBooks) {
-    <div class="list-books">
-      @for (selfBook of selfBooks; track selfBook) {
-        <app-book
-          [bigInfo]="true"
-          [selfBook]="true"
-          [book]="selfBook"
-          (deleteSelfBookEvent)="deleteSelfBook($event)"></app-book>
-      }
-    </div>
-  }
-  @if ((selfBooks$ | async) === null) {
-    <span>{{ 'dontHaveSelfBook' | translate }}</span>
+  @if (isLoading$ | async) {
+    <app-mini-modal></app-mini-modal>
+  } @else {
+    @if (selfBooks$ | async; as selfBooks) {
+      <div class="list-books">
+        @for (selfBook of selfBooks; track selfBook) {
+          <app-book [bigInfo]="true" [selfBook]="true" [book]="selfBook"></app-book>
+        }
+      </div>
+    } @else {
+      <span>{{ 'dontHaveSelfBook' | translate }}</span>
+    }
   }
 </section>

@@ -17,6 +17,8 @@ import { favoritesReducer } from './ngrx/favorites/favorites.reducer';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { getStorage, provideStorage } from '@angular/fire/storage';
+import { myBooksReducer } from './ngrx/my-books/my-books.reducer';
+import { MyBooksEffects } from './ngrx/my-books/my-books.effects';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AuthorEffects } from './ngrx/author/author.effects';
 import { authorReducer } from './ngrx/author/author.reducer';
@@ -57,6 +59,7 @@ export const appConfig: ApplicationConfig = {
         author: authorReducer,
         search: searchReducer,
         searchLive: searchLiveReducer,
+        myBooks: myBooksReducer,
         user: userReducer,
         router: routerReducer,
       }),
@@ -67,6 +70,7 @@ export const appConfig: ApplicationConfig = {
         AuthorEffects,
         SearchEffects,
         SearchLiveEffects,
+        MyBooksEffects,
       ]),
       TranslateModule.forRoot({
         loader: {

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'app-mini-modal',
@@ -6,12 +6,4 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   templateUrl: './mini-modal.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MiniModalComponent {
-  @Input() miniLoader: { miniLoader: boolean } = { miniLoader: false };
-  @Input() miniLoaderReading: { miniLoader: boolean } = { miniLoader: false };
-  constructor() {}
-
-  // ngOnChanges() {
-  //   console.log(this.miniLoader);
-  // }
-}
+export class MiniModalComponent {}
