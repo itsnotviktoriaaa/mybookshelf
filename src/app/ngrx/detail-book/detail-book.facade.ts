@@ -1,4 +1,4 @@
-import { selectDetailBook } from './detail-book.selector';
+import { selectDetailBook, selectLoadingOfDetailBook } from './detail-book.selector';
 import { IDetailBookSmallInfo } from '../../modals/user';
 import { loadDetailBook } from './detail-book.actions';
 import { Injectable } from '@angular/core';
@@ -17,5 +17,9 @@ export class DetailBookFacade {
 
   getDetailBook(): Observable<IDetailBookSmallInfo | null> {
     return this.store.select(selectDetailBook);
+  }
+
+  getLoadingOfDetailBook(): Observable<boolean> {
+    return this.store.select(selectLoadingOfDetailBook);
   }
 }

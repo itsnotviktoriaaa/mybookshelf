@@ -6,3 +6,8 @@ export const selectDetailBook = createSelector(
   selectDetailBookState,
   (state: DetailBookState) => state.detailBook
 );
+
+export const selectLoadingOfDetailBook = createSelector(
+  selectDetailBookState,
+  (state: DetailBookState) => state.isLoading
+);

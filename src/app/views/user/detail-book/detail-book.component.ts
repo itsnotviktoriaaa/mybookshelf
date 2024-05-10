@@ -49,12 +49,16 @@ export class DetailBookComponent implements OnInit {
   pathToImages = environment.pathToImages;
   private readonly destroy$ = inject(DestroyDirective).destroy$;
 
+  isLoading$: Observable<boolean>;
+
   constructor(
     private router: Router,
     private detailBookFacade: DetailBookFacade,
     private authorFacade: AuthorFacade,
     private routerFacadeService: RouterFacadeService
-  ) {}
+  ) {
+    this.isLoading$ = this.detailBookFacade.getLoadingOfDetailBook();
+  }
 
   ngOnInit(): void {
     this.routerFacadeService.getParams$
