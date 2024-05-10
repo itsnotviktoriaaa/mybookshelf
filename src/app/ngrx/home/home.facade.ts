@@ -1,4 +1,9 @@
-import { selectReadingNowBooks, selectRecommendedBooks } from './home.selectors';
+import {
+  selectLoadingOfReadingNowBooks,
+  selectLoadingOfRecommendedBooks,
+  selectReadingNowBooks,
+  selectRecommendedBooks,
+} from './home.selectors';
 import { loadReadingNowBooks, loadRecommendedBooks } from './home.actions';
 import { IBookItemTransformedWithTotal } from '../../modals/user';
 import { Injectable } from '@angular/core';
@@ -25,5 +30,13 @@ export class HomeFacade {
 
   getReadingNowBooks(): Observable<IBookItemTransformedWithTotal | null> {
     return this.store.select(selectReadingNowBooks);
+  }
+
+  getLoadingOfRecommendedBooks(): Observable<boolean> {
+    return this.store.select(selectLoadingOfRecommendedBooks);
+  }
+
+  getLoadingOfReadingNowBooks(): Observable<boolean> {
+    return this.store.select(selectLoadingOfReadingNowBooks);
   }
 }

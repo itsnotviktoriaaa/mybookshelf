@@ -14,5 +14,4 @@ import { AsyncPipe } from '@angular/common';
 })
 export class GoogleHomeComponent {
   @Input() googleArrayFromHome: IBookItemTransformedWithTotal | null = null;
-  @Input() miniLoader: { miniLoader: boolean } = { miniLoader: false };
 }

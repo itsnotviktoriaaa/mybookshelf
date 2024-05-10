@@ -1,4 +1,4 @@
-import { BehaviorSubject, debounceTime, Observable, of, takeUntil, tap } from 'rxjs';
+import { debounceTime, Observable, of, takeUntil, tap } from 'rxjs';
 import { IActions, IDetailBookSmallInfo, ISearchSmall } from '../../../modals/user';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { DetailBookFacade } from '../../../ngrx/detail-book/detail-book.facade';
@@ -44,7 +44,6 @@ export class DetailBookComponent implements OnInit {
   author$: Observable<ISearchSmall | null> = of(null);
   detailBook$: Observable<IDetailBookSmallInfo | null> = of(null);
 
-  miniLoader$ = new BehaviorSubject<{ miniLoader: boolean }>({ miniLoader: true });
   pathToIcons = environment.pathToIcons;
   pathToImages = environment.pathToImages;
   private readonly destroy$ = inject(DestroyDirective).destroy$;
@@ -65,14 +64,12 @@ export class DetailBookComponent implements OnInit {
       .pipe(
         debounceTime(1),
         tap((params: Params): void => {
-          this.miniLoader$.next({ miniLoader: true });
           const idOfBook = params['id'];
           console.log(idOfBook);
           if (idOfBook) {
             this.detailBookFacade.loadDetailBook(idOfBook);
             this.detailBook$ = this.detailBookFacade.getDetailBook().pipe(
               tap((data: IDetailBookSmallInfo | null) => {
-                this.miniLoader$.next({ miniLoader: false });
                 if (data) {
                   this.authorFacade.loadAuthor(this.search(data), idOfBook);
                   this.author$ = this.authorFacade.getDetailBook();
@@ -98,7 +95,6 @@ export class DetailBookComponent implements OnInit {
   }
 
   openOtherBook(authorId: string): void {
-    this.miniLoader$.next({ miniLoader: true });
     this.router.navigate(['/home/book', authorId]).then((): void => {});
   }
 }

@@ -1,34 +1,38 @@
 <section class="home user-common-padding">
   <!--  <div class="quotes"></div>-->
   <h2 class="home-hello">{{ 'morning' | translate }}</h2>
-  @if (miniLoader$ | async; as miniLoader) {
-    <app-mini-modal [miniLoader]="miniLoader"></app-mini-modal>
-  }
-  @if (recommendedBooks$ | async; as recommendedBooks) {
-    <div class="home-common-wrapper">
-      <h3 class="home-common">{{ 'recommended' | translate }}</h3>
-      @if (recommendedBooks$ | async) {
-        <span
-          [routerLink]="'/home/show'"
-          [queryParams]="{ show: 'recommended' }"
-          class="home-show"
-          >{{ 'showAll' | translate }}</span
-        >
-      }
-    </div>
-    <app-google-home
-      [googleArrayFromHome]="recommendedBooks"
-      [miniLoader]="miniLoader$.getValue()"></app-google-home>
-  }
-  @if (readingNowBooks$ | async; as readingNowBooks) {
-    <div class="home-common-wrapper">
-      <h3 class="home-common">{{ 'recent' | translate }}</h3>
-      @if (recommendedBooks$ | async) {
-        <span [routerLink]="'/home/show'" [queryParams]="{ show: 'reading' }" class="home-show">{{
-          'showAll' | translate
-        }}</span>
-      }
-    </div>
-    <app-google-home [googleArrayFromHome]="readingNowBooks"></app-google-home>
+  @if (isLoading$ | async) {
+    <app-mini-modal></app-mini-modal>
+  } @else {
+    @if (recommendedBooks$ | async; as recommendedBooks) {
+      <div class="home-common-wrapper">
+        <h3 class="home-common">{{ 'recommended' | translate }}</h3>
+        @if (recommendedBooks$ | async) {
+          <span
+            [routerLink]="'/home/show'"
+            [queryParams]="{ show: 'recommended' }"
+            class="home-show"
+            >{{ 'showAll' | translate }}</span
+          >
+        }
+      </div>
+      <app-google-home [googleArrayFromHome]="recommendedBooks"></app-google-home>
+    }
+
+    @if (readingNowBooks$ | async; as readingNowBooks) {
+      <div class="home-common-wrapper">
+        <h3 class="home-common">{{ 'recent' | translate }}</h3>
+        @if (readingNowBooks$ | async) {
+          <span [routerLink]="'/home/show'" [queryParams]="{ show: 'reading' }" class="home-show">{{
+            'showAll' | translate
+          }}</span>
+        }
+      </div>
+      <app-google-home [googleArrayFromHome]="readingNowBooks"></app-google-home>
+    }
+
+    @if ((recommendedBooks$ | async) === null && (readingNowBooks$ | async) === null) {
+      <h3 class="common-nothing">No books available</h3>
+    }
   }
 </section>

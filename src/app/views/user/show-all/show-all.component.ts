@@ -1,4 +1,3 @@
-import { BehaviorSubject, debounceTime, Observable, of, takeUntil, tap } from 'rxjs';
 import { IActiveParams, IBookItemTransformedWithTotal } from '../../../modals/user';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
@@ -7,6 +6,7 @@ import { RouterFacadeService } from '../../../ngrx/router/router.facade';
 import { HomeFacade } from '../../../ngrx/home/home.facade';
 import { MiniModalComponent } from '../../../UI-сomponents';
 import { TranslateModule } from '@ngx-translate/core';
+import { Observable, of, takeUntil, tap } from 'rxjs';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { BookComponent } from '../../../components';
 import { SvgIconComponent } from 'angular-svg-icon';
@@ -36,19 +36,21 @@ export class ShowAllComponent implements OnInit {
 
   showBooks$: Observable<IBookItemTransformedWithTotal | null> = of(null);
 
-  miniLoader$ = new BehaviorSubject<{ miniLoader: boolean }>({ miniLoader: true });
   pathToIcons = environment.pathToIcons;
   private readonly destroy$ = inject(DestroyDirective).destroy$;
+  isLoading$: Observable<boolean>;
 
   constructor(
     private router: Router,
     private homeFacade: HomeFacade,
     private routerFacadeService: RouterFacadeService
-  ) {}
+  ) {
+    this.isLoading$ = this.homeFacade.getLoadingOfRecommendedBooks();
+  }
 
   ngOnInit(): void {
     this.routerFacadeService.getQueryParams$
-      .pipe(debounceTime(1), takeUntil(this.destroy$))
+      .pipe(takeUntil(this.destroy$))
       .subscribe((params: Params): void => {
         const queryParams = params['show'];
         this.activeParams.show =
@@ -57,6 +59,10 @@ export class ShowAllComponent implements OnInit {
             : queryParams === 'reading'
               ? 'reading'
               : 'recommended';
+
+        if (this.activeParams.show === 'reading') {
+          this.isLoading$ = this.homeFacade.getLoadingOfReadingNowBooks();
+        }
         if (Object.prototype.hasOwnProperty.call(params, 'page')) {
           this.activeParams.page = +params['page'];
           console.log(this.activeParams);
@@ -69,14 +75,12 @@ export class ShowAllComponent implements OnInit {
   }
 
   loadBooks(): void {
-    this.miniLoader$.next({ miniLoader: true });
     if (this.activeParams.show === 'recommended') {
       this.homeFacade.loadRecommendedBooks(this.startIndex);
       this.showBooks$ = this.homeFacade.getRecommendedBooks().pipe(
         tap((showBooks: IBookItemTransformedWithTotal | null) => {
           console.log(showBooks);
-          this.miniLoader$.next({ miniLoader: false });
-          console.log(this.miniLoader$.getValue());
+
           this.definedQuantityOfPages(showBooks);
         })
       );
@@ -84,7 +88,7 @@ export class ShowAllComponent implements OnInit {
       this.homeFacade.loadReadingNowBooks(this.startIndex);
       this.showBooks$ = this.homeFacade.getReadingNowBooks().pipe(
         tap((showBooks: IBookItemTransformedWithTotal | null) => {
-          this.miniLoader$.next({ miniLoader: false });
+          console.log(showBooks);
           this.definedQuantityOfPages(showBooks);
         })
       );

@@ -12,38 +12,24 @@ import {
   IBookItem,
   IBookItemTransformed,
 } from '../../modals/user';
-import { selectReadingNowBooks, selectRecommendedBooks } from './home.selectors';
-import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
-import { catchError, filter, map, of, switchMap, tap } from 'rxjs';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { catchError, map, of, switchMap } from 'rxjs';
 import { TypedAction } from '@ngrx/store/src/models';
 import { GoogleApiService } from '../../core';
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
 
 @Injectable()
 export class BookEffects {
-  private _previousStartIndexForRecommendedBook: number = 0;
-  private _previousStartIndexForReadingBook: number = 0;
   constructor(
     private actions$: Actions,
-    private googleApi: GoogleApiService,
-    private store: Store
+    private googleApi: GoogleApiService
   ) {}
 
   loadRecommendedBooks$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(loadRecommendedBooks),
-      concatLatestFrom(() => this.store.select(selectRecommendedBooks)),
-      filter(([action, recommendedBooks]) => {
-        return (
-          !recommendedBooks || action.startIndex !== this._previousStartIndexForRecommendedBook
-        );
-      }),
-      switchMap(([action]) =>
+      switchMap(action =>
         this.googleApi.getRecommended(action.startIndex).pipe(
-          tap(() => {
-            this._previousStartIndexForRecommendedBook = action.startIndex;
-          }),
           map(
             (
               data: IBook
@@ -78,11 +64,7 @@ export class BookEffects {
   loadReadingNowBooks$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(loadReadingNowBooks),
-      concatLatestFrom(() => this.store.select(selectReadingNowBooks)),
-      filter(([action, readingNowBooks]) => {
-        return !readingNowBooks || action.startIndex !== this._previousStartIndexForReadingBook;
-      }),
-      switchMap(([action]) =>
+      switchMap(action =>
         this.googleApi.getReadingNow(action.startIndex).pipe(
           map(
             (

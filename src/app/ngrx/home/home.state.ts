@@ -6,4 +6,5 @@ export interface HomeState {
 }
 export interface HomeNowState {
   readingNowBooks: IBookItemTransformedWithTotal | null;
+  loading: boolean;
 }
