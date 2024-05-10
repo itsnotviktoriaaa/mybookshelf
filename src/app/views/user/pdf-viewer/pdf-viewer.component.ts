@@ -1,12 +1,13 @@
-import { NgxExtendedPdfViewerModule, NgxExtendedPdfViewerService } from 'ngx-extended-pdf-viewer';
+import { BehaviorSubject, catchError, EMPTY, filter, Observable, of, takeUntil, tap } from 'rxjs';
 import { LangChangeEvent, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { Component, ChangeDetectionStrategy, OnInit, inject } from '@angular/core';
-import { catchError, EMPTY, filter, Observable, of, takeUntil, tap } from 'rxjs';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 import { DestroyDirective } from '../../../core/directives/destroy.directive';
 import { RouterFacadeService } from '../../../ngrx/router/router.facade';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { DatabaseService, NotificationService } from '../../../core';
 import { NotificationStatusEnum } from '../../../modals/auth';
+import { MiniModalComponent } from '../../../UI-сomponents';
 import { IBookItemTransformed } from '../../../modals/user';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { Params, Router } from '@angular/router';
@@ -17,9 +18,14 @@ import { AsyncPipe } from '@angular/common';
   templateUrl: './pdf-viewer.component.html',
   styleUrls: ['./pdf-viewer.component.scss'],
   standalone: true,
-  imports: [NgxExtendedPdfViewerModule, SvgIconComponent, AsyncPipe, TranslateModule],
+  imports: [
+    NgxExtendedPdfViewerModule,
+    SvgIconComponent,
+    AsyncPipe,
+    TranslateModule,
+    MiniModalComponent,
+  ],
   hostDirectives: [DestroyDirective],
-  providers: [NgxExtendedPdfViewerService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PdfViewerComponent implements OnInit {
@@ -39,9 +45,9 @@ export class PdfViewerComponent implements OnInit {
   ];
 
   pathToIcons = environment.pathToIcons;
+  isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
   constructor(
-    private pdfService: NgxExtendedPdfViewerService,
     private routerFacadeService: RouterFacadeService,
     private databaseService: DatabaseService,
     private router: Router,
@@ -193,6 +199,21 @@ export class PdfViewerComponent implements OnInit {
     const download: HTMLElement | null = document.getElementById('download');
     if (download) {
       download.click();
+    }
+  }
+
+  onPdfLoad(isLoad: 'pdfLoaded' | 'pdfLoadingFailed'): void {
+    if (isLoad === 'pdfLoaded') {
+      this.isLoading$.next(false);
+    } else if (isLoad === 'pdfLoadingFailed') {
+      this.isLoading$.next(false);
+      const messageKey = 'somethingWentWrong';
+      const message = this.translateService.instant(messageKey);
+      this.notificationService.notifyAboutNotification({
+        message: message,
+        status: NotificationStatusEnum.error,
+      });
+      this.router.navigate(['/home/books']).then((): void => {});
     }
   }
 }

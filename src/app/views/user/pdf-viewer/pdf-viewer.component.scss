@@ -4,11 +4,11 @@
 .pdf-viewer {
   @include common-calc-height;
 
+  background-color: var(--gray-label-color);
   position: relative;
 
   .pdf-viewer-header {
     padding: 23px 18px;
-    background-color: var(--gray-label-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -74,33 +74,37 @@
     }
   }
 
-  .pdf-viewer-background {
-    background-color: var(--gray-label-color);
-  }
-
-  .pdf-viewer-number {
+  .pdf-viewer-wrapper {
     display: flex;
     align-items: center;
-    column-gap: 10px;
-    justify-content: center;
-    padding: 10px 0;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 5px 10px;
 
-    .pdf-viewer-arrow {
-      cursor: pointer;
+    .pdf-viewer-number {
+      display: flex;
+      align-items: center;
+      column-gap: 10px;
+      justify-content: center;
+      padding: 10px 0;
+
+      .pdf-viewer-arrow {
+        cursor: pointer;
+      }
     }
-  }
 
-  .pdf-viewer-zoom {
-    display: flex;
-    align-items: center;
-    column-gap: 10px;
-    justify-content: center;
-  }
+    .pdf-viewer-zoom {
+      display: flex;
+      align-items: center;
+      column-gap: 10px;
+      justify-content: center;
+    }
 
-  .pdf-download {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    .pdf-download {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 
   .pdf-edit {

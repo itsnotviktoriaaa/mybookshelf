@@ -47,45 +47,51 @@
         </div>
       </div>
     </div>
-    <div class="pdf-viewer-background pdf-viewer-zoom">
-      <pdf-zoom-in></pdf-zoom-in>
-      <pdf-zoom-out></pdf-zoom-out>
-      <div>
-        <pdf-zoom-dropdown
-          [zoomLevels]="[
-            'auto',
-            'page-actual',
-            'page-fit',
-            'page-width',
-            '50%',
-            '100%',
-            '125%',
-            '150%',
-            '200%',
-            '300%',
-            '400%'
-          ]"></pdf-zoom-dropdown>
+    @if (isLoading$ | async) {
+      <app-mini-modal></app-mini-modal>
+    } @else {
+      <div class="pdf-viewer-wrapper">
+        <div class="pdf-viewer-zoom">
+          <pdf-zoom-in></pdf-zoom-in>
+          <pdf-zoom-out></pdf-zoom-out>
+          <div>
+            <pdf-zoom-dropdown
+              [zoomLevels]="[
+                'auto',
+                'page-actual',
+                'page-fit',
+                'page-width',
+                '50%',
+                '100%',
+                '125%',
+                '150%',
+                '200%',
+                '300%',
+                '400%'
+              ]"></pdf-zoom-dropdown>
+          </div>
+        </div>
+        <div class="pdf-viewer-number">
+          <svg-icon
+            [src]="pathToIcons + '/pdf-arrow.svg'"
+            (click)="primaryPrevious()"
+            [svgStyle]="{ position: 'relative', 'top.px': 2 }"
+            class="pdf-viewer-arrow"></svg-icon>
+          <pdf-page-number></pdf-page-number>
+          <svg-icon
+            (click)="nextPrimary()"
+            [svgStyle]="{ transform: 'rotate(180deg)', position: 'relative', 'top.px': 2 }"
+            class="pdf-viewer-arrow"
+            [src]="pathToIcons + '/pdf-arrow.svg'"></svg-icon>
+        </div>
+        <div class="pdf-download">
+          <svg-icon
+            (click)="download()"
+            [svgStyle]="{ cursor: 'pointer' }"
+            [src]="pathToIcons + '/pdf-arrow-down.svg'"></svg-icon>
+        </div>
       </div>
-    </div>
-    <div class="pdf-viewer-background pdf-viewer-number">
-      <svg-icon
-        [src]="pathToIcons + '/pdf-arrow.svg'"
-        (click)="primaryPrevious()"
-        [svgStyle]="{ position: 'relative', 'top.px': 2 }"
-        class="pdf-viewer-arrow"></svg-icon>
-      <pdf-page-number></pdf-page-number>
-      <svg-icon
-        (click)="nextPrimary()"
-        [svgStyle]="{ transform: 'rotate(180deg)', position: 'relative', 'top.px': 2 }"
-        class="pdf-viewer-arrow"
-        [src]="pathToIcons + '/pdf-arrow.svg'"></svg-icon>
-    </div>
-    <div class="pdf-viewer-background pdf-download">
-      <svg-icon
-        (click)="download()"
-        [svgStyle]="{ cursor: 'pointer' }"
-        [src]="pathToIcons + '/pdf-arrow-down.svg'"></svg-icon>
-    </div>
+    }
     <ngx-extended-pdf-viewer
       [src]="book.webReaderLink"
       [zoom]="'auto'"
@@ -93,10 +99,14 @@
       [textLayer]="true"
       [backgroundColor]="'#4D4D4D'"
       [showHandToolButton]="true"
-      [language]="'en'">
+      [language]="'en'"
+      (pdfLoaded)="onPdfLoad('pdfLoaded')"
+      (pdfLoadingFailed)="onPdfLoad('pdfLoadingFailed')">
     </ngx-extended-pdf-viewer>
-    <div class="pdf-edit" (click)="edit()">
-      <svg-icon [src]="pathToIcons + '/pdf-edit.svg'"></svg-icon>
-    </div>
+    @if ((isLoading$ | async) === false) {
+      <div class="pdf-edit" (click)="edit()">
+        <svg-icon [src]="pathToIcons + '/pdf-edit.svg'"></svg-icon>
+      </div>
+    }
   </section>
 }
