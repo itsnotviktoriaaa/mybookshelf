@@ -31,18 +31,21 @@
       <div></div>
     </header>
     <div class="content">
-      @if (searchBooks$ | async; as searchBooks) {
-        @for (searchBook of searchBooks.items; track $index) {
-          <app-search-book
-            [searchBook]="searchBook"
-            [idOfFavorites]="idOfFavorites"></app-search-book>
+      @if (isLoading$ | async) {
+        <app-mini-modal></app-mini-modal>
+      } @else {
+        @if (searchBooks$ | async; as searchBooks) {
+          @for (searchBook of searchBooks.items; track $index) {
+            <app-search-book
+              [searchBook]="searchBook"
+              [idOfFavorites]="idOfFavorites"></app-search-book>
+          }
+          <app-pagination-input
+            [quantityOfBooks]="(searchBooks$ | async)?.totalItems"></app-pagination-input>
+        } @else {
+          <span>You must choose options</span>
         }
       }
     </div>
-    @if ((searchBooks$ | async) === null) {
-      You must choose options
-    }
   </div>
-  <app-pagination-input
-    [quantityOfBooks]="(searchBooks$ | async)?.totalItems"></app-pagination-input>
 </section>

@@ -9,13 +9,13 @@ import {
 } from '../../../modals/user';
 import { ChangeDetectionStrategy, Component, HostListener, inject, OnInit } from '@angular/core';
 import { ActiveParamUtil, CategoryModalSearchItems, SearchStateService } from '../../../core';
+import { BehaviorSubject, debounceTime, filter, Observable, takeUntil, tap } from 'rxjs';
+import { MiniModalComponent, PaginationInputComponent } from '../../../UI-сomponents';
 import { environment } from '../../../../environments/environment.development';
 import { DestroyDirective } from '../../../core/directives/destroy.directive';
-import { BehaviorSubject, debounceTime, filter, takeUntil, tap } from 'rxjs';
 import { FavoritesFacade } from '../../../ngrx/favorites/favorites.facade';
 import { RouterFacadeService } from '../../../ngrx/router/router.facade';
 import { SearchFacade } from '../../../ngrx/search/search.facade';
-import { PaginationInputComponent } from '../../../UI-сomponents';
 import { SearchBookComponent } from '../../../components';
 import { TranslateModule } from '@ngx-translate/core';
 import { SvgIconComponent } from 'angular-svg-icon';
@@ -31,6 +31,7 @@ import { Params } from '@angular/router';
     AsyncPipe,
     PaginationInputComponent,
     TranslateModule,
+    MiniModalComponent,
   ],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss',
@@ -45,13 +46,16 @@ export class SearchComponent implements OnInit {
   searchBooks$ = new BehaviorSubject<ISearch | null>(null);
   idOfFavorites: string[] = [];
   private readonly destroy$ = inject(DestroyDirective).destroy$;
+  isLoading$: Observable<boolean>;
 
   constructor(
     private searchFacade: SearchFacade,
     private favoriteFacade: FavoritesFacade,
     private searchStateService: SearchStateService,
     private routerFacadeService: RouterFacadeService
-  ) {}
+  ) {
+    this.isLoading$ = this.searchFacade.getLoadingOfSearchBooks();
+  }
 
   ngOnInit(): void {
     this.headerModalSearchText.next(SearchEnum.Browse);

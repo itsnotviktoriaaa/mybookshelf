@@ -1,5 +1,5 @@
+import { selectLoadingOfSearchBooks, selectSearchBooks } from './search.selector';
 import { IActiveParamsSearch, ISearch } from '../../modals/user';
-import { selectSearchBooks } from './search.selector';
 import { loadSearchBooks } from './search.actions';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -16,5 +16,9 @@ export class SearchFacade {
   }
   getSearchBooks(): Observable<ISearch | null> {
     return this.store.select(selectSearchBooks);
+  }
+
+  getLoadingOfSearchBooks(): Observable<boolean> {
+    return this.store.select(selectLoadingOfSearchBooks);
   }
 }

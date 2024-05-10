@@ -6,3 +6,8 @@ export const selectSearchBooks = createSelector(
   selectSearchState,
   (state: SearchState) => state.search
 );
+
+export const selectLoadingOfSearchBooks = createSelector(
+  selectSearchState,
+  (state: SearchState) => state.isLoading
+);
