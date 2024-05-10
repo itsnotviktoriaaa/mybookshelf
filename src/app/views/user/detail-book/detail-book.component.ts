@@ -1,4 +1,3 @@
-import { debounceTime, Observable, of, takeUntil, tap } from 'rxjs';
 import { IActions, IDetailBookSmallInfo, ISearchSmall } from '../../../modals/user';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { DetailBookFacade } from '../../../ngrx/detail-book/detail-book.facade';
@@ -7,6 +6,7 @@ import { DestroyDirective } from '../../../core/directives/destroy.directive';
 import { MiniModalComponent, StarComponent } from '../../../UI-сomponents';
 import { RouterFacadeService } from '../../../ngrx/router/router.facade';
 import { ReduceLetterPipe, TransformDateBookPipe } from '../../../core';
+import { debounceTime, Observable, of, takeUntil, tap } from 'rxjs';
 import { AuthorFacade } from '../../../ngrx/author/author.facade';
 import { Params, Router, RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';

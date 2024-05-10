@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/cor
 import { environment } from '../../../../environments/environment.development';
 import { DestroyDirective } from '../../../core/directives/destroy.directive';
 import { RouterFacadeService } from '../../../ngrx/router/router.facade';
+import { SearchAllEnum } from '../../../modals/user/search-all.enum';
 import { HomeFacade } from '../../../ngrx/home/home.facade';
 import { MiniModalComponent } from '../../../UI-сomponents';
 import { TranslateModule } from '@ngx-translate/core';
@@ -54,13 +55,13 @@ export class ShowAllComponent implements OnInit {
       .subscribe((params: Params): void => {
         const queryParams = params['show'];
         this.activeParams.show =
-          queryParams === 'recommended'
-            ? 'recommended'
-            : queryParams === 'reading'
-              ? 'reading'
-              : 'recommended';
+          queryParams === SearchAllEnum.recommended
+            ? SearchAllEnum.recommended
+            : queryParams === SearchAllEnum.reading
+              ? SearchAllEnum.reading
+              : SearchAllEnum.recommended;
 
-        if (this.activeParams.show === 'reading') {
+        if (this.activeParams.show === SearchAllEnum.reading) {
           this.isLoading$ = this.homeFacade.getLoadingOfReadingNowBooks();
         }
         if (Object.prototype.hasOwnProperty.call(params, 'page')) {
@@ -75,7 +76,7 @@ export class ShowAllComponent implements OnInit {
   }
 
   loadBooks(): void {
-    if (this.activeParams.show === 'recommended') {
+    if (this.activeParams.show === SearchAllEnum.recommended) {
       this.homeFacade.loadRecommendedBooks(this.startIndex);
       this.showBooks$ = this.homeFacade.getRecommendedBooks().pipe(
         tap((showBooks: IBookItemTransformedWithTotal | null) => {
@@ -84,7 +85,7 @@ export class ShowAllComponent implements OnInit {
           this.definedQuantityOfPages(showBooks);
         })
       );
-    } else if (this.activeParams.show === 'reading') {
+    } else if (this.activeParams.show === SearchAllEnum.reading) {
       this.homeFacade.loadReadingNowBooks(this.startIndex);
       this.showBooks$ = this.homeFacade.getReadingNowBooks().pipe(
         tap((showBooks: IBookItemTransformedWithTotal | null) => {
@@ -119,9 +120,11 @@ export class ShowAllComponent implements OnInit {
 
   openPage(page: number): void {
     this.activeParams.page = page;
-    this.router.navigate(['/home/show'], {
-      queryParams: this.activeParams,
-    });
+    this.router
+      .navigate(['/home/show'], {
+        queryParams: this.activeParams,
+      })
+      .then((): void => {});
   }
 
   openPrevPage(): void {
@@ -131,7 +134,7 @@ export class ShowAllComponent implements OnInit {
         .navigate(['/home/show'], {
           queryParams: this.activeParams,
         })
-        .then(() => {});
+        .then((): void => {});
     }
   }
 
@@ -142,7 +145,7 @@ export class ShowAllComponent implements OnInit {
         .navigate(['/home/show'], {
           queryParams: this.activeParams,
         })
-        .then(() => {});
+        .then((): void => {});
     }
   }
 }
