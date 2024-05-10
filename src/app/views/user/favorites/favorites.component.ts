@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { IActiveParamsSearch, IBookItemTransformedWithTotal } from '../../../modals/user';
-import { BehaviorSubject, debounceTime, Observable, of, takeUntil, tap } from 'rxjs';
 import { DestroyDirective } from '../../../core/directives/destroy.directive';
 import { FavoritesFacade } from '../../../ngrx/favorites/favorites.facade';
 import { RouterFacadeService } from '../../../ngrx/router/router.facade';
 import { ActiveParamUtil, SearchStateService } from '../../../core';
+import { debounceTime, Observable, of, takeUntil } from 'rxjs';
 import { MiniModalComponent } from '../../../UI-сomponents';
 import { TranslateModule } from '@ngx-translate/core';
 import { BookComponent } from '../../../components';
@@ -21,17 +21,17 @@ import { Params } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FavoritesComponent implements OnInit, OnDestroy {
+  isLoading$: Observable<boolean>;
   favoritesBooks$: Observable<IBookItemTransformedWithTotal | null> = of(null);
-
-  miniLoader$ = new BehaviorSubject<{ miniLoader: boolean }>({ miniLoader: true });
-
   private readonly destroy$ = inject(DestroyDirective).destroy$;
 
   constructor(
     private favoriteFacade: FavoritesFacade,
     private searchStateService: SearchStateService,
     private routerFacadeService: RouterFacadeService
-  ) {}
+  ) {
+    this.isLoading$ = this.favoriteFacade.getLoadingOfFavoritesBooks();
+  }
 
   ngOnInit(): void {
     this.searchStateService.setFavoritePage(true);
@@ -40,18 +40,12 @@ export class FavoritesComponent implements OnInit, OnDestroy {
       .pipe(debounceTime(1), takeUntil(this.destroy$))
       .subscribe((params: Params): void => {
         console.log(params);
-        this.miniLoader$.next({ miniLoader: true });
 
         const newParamsForFavorite: IActiveParamsSearch =
           ActiveParamUtil.processParamsForFavoritePage(params);
 
         this.favoriteFacade.loadFavoritesBooks(newParamsForFavorite);
-        this.favoritesBooks$ = this.favoriteFacade.getFavoritesBooks().pipe(
-          tap((books: IBookItemTransformedWithTotal | null): void => {
-            console.log(books);
-            this.miniLoader$.next({ miniLoader: false });
-          })
-        );
+        this.favoritesBooks$ = this.favoriteFacade.getFavoritesBooks();
       });
   }
 

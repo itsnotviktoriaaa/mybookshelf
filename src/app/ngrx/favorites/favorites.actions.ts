@@ -13,6 +13,10 @@ export const loadFavoritesBooksFailure = createAction(
   '[Favorites] Load Favorites Books Failure',
   props<{ error: null }>()
 );
+
+export const startLoading = createAction('[Favorites] Start Loading');
+export const stopLoading = createAction('[Favorites] Stop Loading');
+
 export const removeFromFavoritesBooks = createAction(
   '[Favorites] Remove Favorites Book',
   props<{ bookId: string }>()

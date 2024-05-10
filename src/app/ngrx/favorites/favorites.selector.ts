@@ -6,3 +6,7 @@ export const selectFavoritesBooks = createSelector(
   selectFavoritesState,
   (state: FavoritesState) => state.favoritesBooks
 );
+export const selectLoadingOfFavoritesBooks = createSelector(
+  selectFavoritesState,
+  (state: FavoritesState) => state.isLoading
+);

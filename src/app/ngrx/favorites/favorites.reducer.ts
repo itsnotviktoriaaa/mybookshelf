@@ -1,4 +1,5 @@
 import {
+  loadFavoritesBooks,
   loadFavoritesBooksFailure,
   loadFavoritesBooksSuccess,
   removeFromFavoritesBooksSuccess,
@@ -8,17 +9,24 @@ import { FavoritesState } from './favorites.state';
 
 export const initialState: FavoritesState = {
   favoritesBooks: null,
+  isLoading: false,
 };
 
 const _favoritesState = createReducer(
   initialState,
+  on(loadFavoritesBooks, state => ({
+    ...state,
+    isLoading: true,
+  })),
   on(loadFavoritesBooksSuccess, (state, { data }) => ({
     ...state,
     favoritesBooks: data,
+    isLoading: false,
   })),
   on(loadFavoritesBooksFailure, state => ({
     ...state,
     favoritesBooks: null,
+    isLoading: false,
   })),
   on(removeFromFavoritesBooksSuccess, (state, { bookId }) => {
     if (!state.favoritesBooks) {

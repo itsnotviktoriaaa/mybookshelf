@@ -1,6 +1,6 @@
+import { selectFavoritesBooks, selectLoadingOfFavoritesBooks } from './favorites.selector';
 import { IActiveParamsSearch, IBookItemTransformedWithTotal } from '../../modals/user';
 import { loadFavoritesBooks, removeFromFavoritesBooks } from './favorites.actions';
-import { selectFavoritesBooks } from './favorites.selector';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -16,6 +16,10 @@ export class FavoritesFacade {
   }
   getFavoritesBooks(): Observable<IBookItemTransformedWithTotal | null> {
     return this.store.select(selectFavoritesBooks);
+  }
+
+  getLoadingOfFavoritesBooks(): Observable<boolean> {
+    return this.store.select(selectLoadingOfFavoritesBooks);
   }
 
   loadRemoveFavoritesBooks(bookId: string): void {
