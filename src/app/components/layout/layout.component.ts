@@ -57,7 +57,7 @@ export class LayoutComponent {
       .pipe(
         tap((user: IUserInfoFromGoogle | null) => {
           if (!user) {
-            console.log('wowowowow');
+            console.log('wowowowow4');
             this.googleApi.initiateAuthentication();
           }
         })

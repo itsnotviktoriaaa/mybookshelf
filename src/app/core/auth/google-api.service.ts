@@ -1,6 +1,7 @@
 import { IActiveParamsSearch, IBook, IDetailBook, ISearchInfoDetail } from '../../modals/user';
 import { environment } from '../../../environments/environment.development';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { JwksValidationHandler } from 'angular-oauth2-oidc-jwks';
 import { IUserInfoFromGoogle } from '../../modals/auth';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { OAuthService } from 'angular-oauth2-oidc';
@@ -29,32 +30,47 @@ export class GoogleApiService {
         if (!this.oAuthService.hasValidAccessToken()) {
           this.oAuthService.initLoginFlow();
         } else {
-          this.oAuthService.loadUserProfile().then(userProfile => {
-            this.oAuthService.setupAutomaticSilentRefresh();
-            // console.log(this.oAuthService.getAccessToken());
-            // console.log(JSON.stringify(userProfile));
-            this.userProfileSubject.next(userProfile as IUserInfoFromGoogle);
-            this.authService
-              .checkEmailWasUsed(this.userProfileSubject.getValue()!.info.email)
-              .pipe(
-                tap((param: string[]) => {
-                  if (param && param.length > 0) {
-                    console.log('here we are');
-                    this.authService.login(
-                      this.userProfileSubject.getValue()!.info.email,
-                      this.userProfileSubject.getValue()!.info.sub
-                    );
-                  } else {
-                    this.authService.register(
-                      this.userProfileSubject.getValue()!.info.email,
-                      this.userProfileSubject.getValue()!.info.name,
-                      (userProfile as IUserInfoFromGoogle).info.sub
-                    );
-                  }
-                })
-              )
-              .subscribe();
-          });
+          this.oAuthService
+            .loadUserProfile()
+            .then(userProfile => {
+              this.oAuthService.tokenValidationHandler = new JwksValidationHandler();
+
+              this.oAuthService.events.subscribe(event => {
+                console.log(event);
+                if (event.type === 'token_received') {
+                  console.log('Automatic token refresh event received:', event);
+                }
+              });
+
+              this.oAuthService.setupAutomaticSilentRefresh({
+                login_hint: (userProfile as IUserInfoFromGoogle)['info']['email'],
+              });
+
+              this.userProfileSubject.next(userProfile as IUserInfoFromGoogle);
+              this.authService
+                .checkEmailWasUsed(this.userProfileSubject.getValue()!.info.email)
+                .pipe(
+                  tap((param: string[]) => {
+                    if (param && param.length > 0) {
+                      console.log('here we are');
+                      this.authService.login(
+                        this.userProfileSubject.getValue()!.info.email,
+                        this.userProfileSubject.getValue()!.info.sub
+                      );
+                    } else {
+                      this.authService.register(
+                        this.userProfileSubject.getValue()!.info.email,
+                        this.userProfileSubject.getValue()!.info.name,
+                        (userProfile as IUserInfoFromGoogle).info.sub
+                      );
+                    }
+                  })
+                )
+                .subscribe();
+            })
+            .catch(() => {
+              this.router.navigate(['/']).then((): void => {});
+            });
         }
       });
     });
