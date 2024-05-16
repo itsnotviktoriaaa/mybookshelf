@@ -35,7 +35,7 @@
           [formControl]="searchField"
           class="header-search-input"
           type="text"
-          placeholder="{{ 'searchPlaceholder' | translate }}" />
+          placeholder="{{ 'search-page.searchPlaceholder' | translate }}" />
         @if (searchTexts$ | async; as searchTexts) {
           <div class="header-search-offers">
             @for (searchText of searchTexts; track searchText) {

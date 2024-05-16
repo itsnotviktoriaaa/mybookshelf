@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
     return this.authService.login(this.loginForm.value.email, this.loginForm.value.password).pipe(
       tap(() => {
         this.notificationService.notifyAboutNotificationLoader(false);
-        const messageKey = 'welcomeMessage';
+        const messageKey = 'message.welcomeMessage';
         const message = this.translateService.instant(messageKey);
         this.notificationService.notifyAboutNotification({
           message: message,

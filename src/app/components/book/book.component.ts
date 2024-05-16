@@ -106,7 +106,7 @@ export class BookComponent implements OnInit {
   }
 
   openDeletePopupForOwnBook(): void {
-    const messageKey = 'confirmDeleteOwnBook';
+    const messageKey = 'modal.confirmDeleteOwnBook';
     const message = this.translateService.instant(messageKey);
     this.textForPopup = { text: message };
     this.page = 'own';
@@ -125,7 +125,7 @@ export class BookComponent implements OnInit {
 
   openPopupForDeletionFromFavorite(): void {
     this.page = 'favorite';
-    const messageKey = 'confirmDeleteFavorite';
+    const messageKey = 'modal.confirmDeleteFavorite';
     const message = this.translateService.instant(messageKey);
     this.textForPopup = { text: message };
     this.isOpenDeletePopup = { isOpen: true };

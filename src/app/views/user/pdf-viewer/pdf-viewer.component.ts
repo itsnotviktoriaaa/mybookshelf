@@ -131,7 +131,7 @@ export class PdfViewerComponent implements OnInit {
     this.book$ = this.databaseService.getSelfBook(id).pipe(
       filter((selfBook: IBookItemTransformed | null) => Boolean(selfBook)),
       catchError(() => {
-        const messageKey = 'somethingWentWrong';
+        const messageKey = 'message.somethingWentWrong';
         const message = this.translateService.instant(messageKey);
         this.notificationService.notifyAboutNotification({
           message: message,
@@ -207,7 +207,7 @@ export class PdfViewerComponent implements OnInit {
       this.isLoading$.next(false);
     } else if (isLoad === 'pdfLoadingFailed') {
       this.isLoading$.next(false);
-      const messageKey = 'somethingWentWrong';
+      const messageKey = 'message.somethingWentWrong';
       const message = this.translateService.instant(messageKey);
       this.notificationService.notifyAboutNotification({
         message: message,

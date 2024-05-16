@@ -7,7 +7,7 @@
         <div class="common-padding">
           <div class="back-to-result">
             <svg-icon [src]="pathToIcons + '/arrow-small-left.svg'"></svg-icon>
-            <span>{{ 'backToResult' | translate }}</span>
+            <span>{{ 'detail-page.backToResult' | translate }}</span>
           </div>
           <div class="detail-items">
             <div class="detail-item-common">
@@ -28,7 +28,7 @@
                 <div class="detail-center-info">
                   <h1 class="detail-center-info-title">{{ detailBook.title }}</h1>
                   <h2 class="detail-center-info-author">
-                    {{ 'byWhom' | translate }}
+                    {{ 'detail-page.byWhom' | translate }}
                     <a class="detail-center-info-author-decoration">{{ detailBook.authors[0] }}</a
                     >, {{ detailBook.publishedDate | transformDateBook }}
                   </h2>
@@ -39,13 +39,15 @@
                 @if (detailBook.averageRating) {
                   <div class="detail-central-reviews">
                     <app-star [rating]="rating"></app-star>
-                    <span>{{ detailBook.averageRating }}.0 {{ 'rating' | translate }}</span>
+                    <span
+                      >{{ detailBook.averageRating }}.0 {{ 'detail-page.rating' | translate }}</span
+                    >
                   </div>
                 }
                 @if (detailBook.accessInfo && detailBook.accessInfo.length > 0) {
                   <div class="detail-central-availability">
                     <h3 class="detail-central-availability-title">
-                      {{ 'availability' | translate }}
+                      {{ 'detail-page.availability' | translate }}
                     </h3>
                     @for (accessInfo of detailBook.accessInfo; track $index) {
                       <div class="detail-central-availability-item">
@@ -63,10 +65,10 @@
                   <button
                     (click)="openPageOnGoogle(detailBook.webReaderLink)"
                     class="detail-btn detail-btn-orange">
-                    {{ 'readBig' | translate }}
+                    {{ 'button.readBig' | translate }}
                   </button>
                   <button class="detail-btn detail-btn-green">
-                    <span class="detail-btn-green-text">{{ 'listen' | translate }}</span>
+                    <span class="detail-btn-green-text">{{ 'button.listen' | translate }}</span>
                     <div class="detail-btn-green-headphones-wrapper">
                       <svg-icon
                         class="detail-btn-green-headphones"
@@ -78,8 +80,8 @@
             </div>
             <div class="detail-right detail-item">
               <h3 class="detail-right-title">
-                <span class="detail-right-title-orange">{{ 'about' | translate }}</span>
-                {{ 'story' | translate }}
+                <span class="detail-right-title-orange">{{ 'detail-page.about' | translate }}</span>
+                {{ 'detail-page.story' | translate }}
               </h3>
               <div class="detail-right-author-wrapper">
                 <h4 class="detail-right-author-name">{{ detailBook.authors[0] }}</h4>
@@ -92,7 +94,9 @@
                 [innerHTML]="detailBook.description | reduceLetter: 'author'"></div>
               @if (author$ | async; as author) {
                 <div class="detail-right-other">
-                  <div class="detail-right-other-text">{{ 'otherBooks' | translate }}</div>
+                  <div class="detail-right-other-text">
+                    {{ 'detail-page.otherBooks' | translate }}
+                  </div>
                   <div class="detail-right-other-images">
                     @for (authorItem of author.items; track $index) {
                       <div (click)="openOtherBook(authorItem.id)" class="detail-right-other-image">
@@ -106,7 +110,7 @@
           </div>
         </div>
       } @else {
-        <div class="common-nothing">{{ 'noInfo' | translate }}</div>
+        <div class="common-nothing">{{ 'detail-page.noInfo' | translate }}</div>
       }
     }
   </div>

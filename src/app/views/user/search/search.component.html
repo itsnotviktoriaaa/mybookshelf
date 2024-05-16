@@ -24,9 +24,9 @@
   </div>
   <div class="search-books">
     <header class="search-header">
-      <div class="search-header-title">{{ 'searchTitle' | translate }}</div>
-      <div class="search-header-title">{{ 'searchPages' | translate }}</div>
-      <div class="search-header-title">{{ 'searchCategory' | translate }}</div>
+      <div class="search-header-title">{{ 'search-page.searchTitle' | translate }}</div>
+      <div class="search-header-title">{{ 'search-page.searchPages' | translate }}</div>
+      <div class="search-header-title">{{ 'search-page.searchCategory' | translate }}</div>
       <div></div>
       <div></div>
     </header>
@@ -43,7 +43,7 @@
           <app-pagination-input
             [quantityOfBooks]="(searchBooks$ | async)?.totalItems"></app-pagination-input>
         } @else {
-          <span>{{ 'youMustChooseOptions' | translate }}</span>
+          <span>{{ 'search-page.youMustChooseOptions' | translate }}</span>
         }
       }
     </div>

@@ -53,7 +53,7 @@ export const FavouriteStore = signalStore(
           .removeFavoriteBook(bookId)
           .pipe(
             tap(() => {
-              const messageKey = 'favouriteBookDeletedSuccessfully';
+              const messageKey = 'message.favouriteBookDeletedSuccessfully';
               const message = translateService.instant(messageKey);
               notificationService.notifyAboutNotification({
                 message: message,
@@ -84,7 +84,7 @@ export const FavouriteStore = signalStore(
               }));
             }),
             catchError(error => {
-              const messageKey = 'favouriteBookDeletedWithError';
+              const messageKey = 'message.favouriteBookDeletedWithError';
               const message = translateService.instant(messageKey);
               notificationService.notifyAboutNotification({
                 message: message,

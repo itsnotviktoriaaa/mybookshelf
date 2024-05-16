@@ -100,7 +100,7 @@ export class UploadComponent implements OnInit {
     } else {
       inputElement.value = '';
       this.pdfFile = null;
-      const messageKey = 'pdfFormatError';
+      const messageKey = 'message.pdfFormatError';
       const message = this.translateService.instant(messageKey);
       this.notificationService.notifyAboutNotification({
         message: message,
@@ -120,7 +120,7 @@ export class UploadComponent implements OnInit {
     } else {
       inputElement.value = '';
       this.photoFile = null;
-      const messageKey = 'imageFormatError';
+      const messageKey = 'message.imageFormatError';
       const message = this.translateService.instant(messageKey);
       this.notificationService.notifyAboutNotification({
         message: message,
@@ -165,7 +165,7 @@ export class UploadComponent implements OnInit {
               this.photoFileInput.nativeElement.value = '';
             }
             this.notificationService.notifyAboutNotificationLoader(false);
-            const messageKey = 'bookCreated';
+            const messageKey = 'message.bookCreated';
             const message = this.translateService.instant(messageKey);
             this.notificationService.notifyAboutNotification({
               message: message,
@@ -175,7 +175,7 @@ export class UploadComponent implements OnInit {
           }),
           catchError(() => {
             this.notificationService.notifyAboutNotificationLoader(false);
-            const messageKey = 'errorCreatingBook';
+            const messageKey = 'message.errorCreatingBook';
             const message = this.translateService.instant(messageKey);
             this.notificationService.notifyAboutNotification({
               message: message,
@@ -252,7 +252,7 @@ export class UploadComponent implements OnInit {
                 .pipe(
                   tap(() => {
                     this.notificationService.notifyAboutNotificationLoader(false);
-                    const messageKey = 'selfBookUpdatedSuccessfully';
+                    const messageKey = 'message.selfBookUpdatedSuccessfully';
                     const message = this.translateService.instant(messageKey);
                     this.notificationService.notifyAboutNotification({
                       message: message,
@@ -261,7 +261,7 @@ export class UploadComponent implements OnInit {
                     this.router.navigate(['/home/books']).then((): void => {});
                   }),
                   catchError(() => {
-                    const messageKey = 'errorUpdatingSelfBook';
+                    const messageKey = 'message.errorUpdatingSelfBook';
                     const message = this.translateService.instant(messageKey);
                     this.notificationService.notifyAboutNotification({
                       message: message,

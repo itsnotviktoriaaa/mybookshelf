@@ -81,7 +81,7 @@ export class FavoritesEffects {
       exhaustMap(action => {
         return this.googleApi.removeFavoriteBook(action.bookId).pipe(
           map(() => {
-            const messageKey = 'favouriteBookDeletedSuccessfully';
+            const messageKey = 'message.favouriteBookDeletedSuccessfully';
             const message = this.translateService.instant(messageKey);
             this.notificationService.notifyAboutNotification({
               message: message,
@@ -90,7 +90,7 @@ export class FavoritesEffects {
             return removeFromFavoritesBooksSuccess({ bookId: action.bookId });
           }),
           catchError(error => {
-            const messageKey = 'favouriteBookDeletedWithError';
+            const messageKey = 'message.favouriteBookDeletedWithError';
             const message = this.translateService.instant(messageKey);
             this.notificationService.notifyAboutNotification({
               message: message,

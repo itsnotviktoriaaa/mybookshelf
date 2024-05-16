@@ -72,7 +72,7 @@ export class SearchBookComponent implements OnChanges {
         .pipe(
           tap(() => {
             this.isFavorite$.next(isAdding);
-            const messageKey = isAdding ? 'successAdded' : 'successRemoved';
+            const messageKey = isAdding ? 'message.successAdded' : 'message.successRemoved';
             const message = this.translateService.instant(messageKey);
             this.notificationService.notifyAboutNotification({
               message,
@@ -80,7 +80,7 @@ export class SearchBookComponent implements OnChanges {
             });
           }),
           catchError(() => {
-            const messageKey = 'somethingWentWrong';
+            const messageKey = 'message.somethingWentWrong';
             const message = this.translateService.instant(messageKey);
             this.notificationService.notifyAboutNotification({
               message: message,

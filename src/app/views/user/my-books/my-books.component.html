@@ -1,5 +1,5 @@
 <section class="my-books common-padding">
-  <h2 class="common-title">{{ 'myBooksTitle' | translate }}</h2>
+  <h2 class="common-title">{{ 'myBooks-page.myBooksTitle' | translate }}</h2>
   @if (isLoading$ | async) {
     <app-mini-modal></app-mini-modal>
   } @else {
@@ -10,7 +10,7 @@
         }
       </div>
     } @else {
-      <span>{{ 'dontHaveSelfBook' | translate }}</span>
+      <span>{{ 'myBooks.dontHaveSelfBook' | translate }}</span>
     }
   }
 </section>

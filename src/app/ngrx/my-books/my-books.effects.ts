@@ -60,7 +60,7 @@ export class MyBooksEffects {
           .deleteBookAndFile(action.id, action.webReaderLink, action.thumbnail)
           .pipe(
             switchMap(() => {
-              const messageKey = 'selfBookDeletedSuccessfully';
+              const messageKey = 'message.selfBookDeletedSuccessfully';
               const message = this.translateService.instant(messageKey);
               this.notificationService.notifyAboutNotification({
                 message: message,
@@ -69,7 +69,7 @@ export class MyBooksEffects {
               return of(removeFromMyBooksSuccess({ bookId: action.id }));
             }),
             catchError(error => {
-              const messageKey = 'selfBookDeletedWithError';
+              const messageKey = 'message.selfBookDeletedWithError';
               const message = this.translateService.instant(messageKey);
               this.notificationService.notifyAboutNotification({
                 message: message,

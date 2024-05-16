@@ -109,7 +109,7 @@ export class SignupComponent implements OnInit {
         if (param && param.length === 0) {
           this.sendCodeToEmail().then(() => {});
         } else {
-          const messageKey = 'emailUsedBefore';
+          const messageKey = 'message.emailUsedBefore';
           const message = this.translateService.instant(messageKey);
           this.notificationService.notifyAboutNotification({
             message: message,
@@ -118,7 +118,7 @@ export class SignupComponent implements OnInit {
         }
       }),
       catchError(err => {
-        const messageKey = 'somethingWentWrong';
+        const messageKey = 'message.somethingWentWrong';
         const message = this.translateService.instant(messageKey);
         this.notificationService.notifyAboutNotification({
           message: message,
@@ -206,7 +206,7 @@ export class SignupComponent implements OnInit {
       console.log('Код введен идентичный сгенерированному');
       this.sign();
     } else {
-      const messageKey = 'incorrectCode';
+      const messageKey = 'message.incorrectCode';
       const message = this.translateService.instant(messageKey);
       this.notificationService.notifyAboutNotification({
         message: message,
@@ -249,7 +249,7 @@ export class SignupComponent implements OnInit {
       tap((response: EmailJSResponseStatus): void => {
         this.notificationService.notifyAboutNotificationLoader(false);
         console.log('Success. Status: ' + response.text + ' ' + response.status);
-        const messageKey = 'codeSentOnEmail';
+        const messageKey = 'message.codeSentOnEmail';
         const message = this.translateService.instant(messageKey);
         this.notificationService.notifyAboutNotification({
           message: message,
@@ -263,7 +263,7 @@ export class SignupComponent implements OnInit {
       }),
       catchError(error => {
         this.notificationService.notifyAboutNotificationLoader(false);
-        const messageKey = 'tryAgainMessage';
+        const messageKey = 'message.tryAgainMessage';
         const message = this.translateService.instant(messageKey);
         this.notificationService.notifyAboutNotification({
           message: message,
@@ -296,7 +296,7 @@ export class SignupComponent implements OnInit {
           this.notificationService.notifyAboutNotificationLoader(false);
           this.verification = false;
           this.codeWhichWrittenUserWasEqualFromEmail = true;
-          const messageKey = 'registrationSuccess';
+          const messageKey = 'message.registrationSuccess';
           const message = this.translateService.instant(messageKey);
           this.notificationService.notifyAboutNotification({
             message: message,
@@ -309,7 +309,7 @@ export class SignupComponent implements OnInit {
           //so that the red circle has time to load
           this.verification = false;
           this.codeWhichWrittenUserWasEqualFromEmail = true;
-          const messageKey = 'somethingWentWrong';
+          const messageKey = 'message.somethingWentWrong';
           const message = this.translateService.instant(messageKey);
           this.notificationService.notifyAboutNotification({
             message: message,

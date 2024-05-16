@@ -1,10 +1,12 @@
 <section class="upload-wrapper">
   <div class="upload">
-    <div class="upload-title">{{ 'uploadTitle' | translate }}</div>
+    <div class="upload-title">{{ 'upload-page.uploadTitle' | translate }}</div>
     <form [formGroup]="uploadForm" class="upload-items">
       <div class="upload-item-wrapper">
         <div class="upload-item">
-          <label class="upload-label" for="title">{{ 'uploadFormTitle' | translate }}</label>
+          <label class="upload-label" for="title">{{
+            'upload-page.uploadFormTitle' | translate
+          }}</label>
           <input
             [ngStyle]="{
               'border-color':
@@ -15,7 +17,7 @@
             }"
             formControlName="title"
             class="upload-input"
-            placeholder="{{ 'uploadFormTitlePlaceholder' | translate }}"
+            placeholder="{{ 'upload-page.uploadFormTitlePlaceholder' | translate }}"
             id="title"
             type="text" />
         </div>
@@ -23,12 +25,14 @@
           uploadForm.get('title')?.invalid &&
           (uploadForm.get('title')?.dirty || uploadForm.get('title')?.touched)
         ) {
-          <div class="error-message">{{ 'uploadFormTitleError' | translate }}</div>
+          <div class="error-message">{{ 'upload-page.uploadFormTitleError' | translate }}</div>
         }
       </div>
       <div class="upload-item-wrapper">
         <div class="upload-item">
-          <label class="upload-label" for="author">{{ 'uploadFormAuthor' | translate }}</label>
+          <label class="upload-label" for="author">{{
+            'upload-page.uploadFormAuthor' | translate
+          }}</label>
           <input
             [ngStyle]="{
               'border-color':
@@ -39,7 +43,7 @@
             }"
             formControlName="author"
             class="upload-input"
-            placeholder="{{ 'uploadFormAuthor' | translate }}"
+            placeholder="{{ 'upload-page.uploadFormAuthor' | translate }}"
             id="author"
             type="text" />
         </div>
@@ -47,13 +51,13 @@
           uploadForm.get('author')?.invalid &&
           (uploadForm.get('author')?.dirty || uploadForm.get('author')?.touched)
         ) {
-          <div class="error-message">{{ 'uploadFormAuthorError' | translate }}</div>
+          <div class="error-message">{{ 'upload-page.uploadFormAuthorError' | translate }}</div>
         }
       </div>
       <div class="upload-item-wrapper">
         <div class="upload-item">
           <label class="upload-label" for="description">{{
-            'uploadFormDescription' | translate
+            'upload-page.uploadFormDescription' | translate
           }}</label>
           <textarea
             [ngStyle]="{
@@ -66,13 +70,15 @@
             formControlName="description"
             class="upload-textarea"
             id="description"
-            placeholder="{{ 'uploadFormPurpose' | translate }}"></textarea>
+            placeholder="{{ 'upload-page.uploadFormPurpose' | translate }}"></textarea>
         </div>
         @if (
           uploadForm.get('description')?.invalid &&
           (uploadForm.get('description')?.dirty || uploadForm.get('description')?.touched)
         ) {
-          <div class="error-message">{{ 'uploadFormDescriptionError' | translate }}</div>
+          <div class="error-message">
+            {{ 'upload-page.uploadFormDescriptionError' | translate }}
+          </div>
         }
       </div>
       <div class="upload-item-wrapper">
@@ -83,11 +89,15 @@
                 [svgStyle]="{ width: '60px', height: '60px' }"
                 [src]="pathToIcons + '/icon-pdf.svg'"></svg-icon>
             </div>
-            <span class="upload-image-text">{{ 'uploadFormFileChanging' | translate }}</span>
+            <span class="upload-image-text">{{
+              'upload-page.uploadFormFileChanging' | translate
+            }}</span>
           </div>
         }
         <div class="upload-item">
-          <label class="upload-label" for="pdfFile">{{ 'uploadFormFile' | translate }}</label>
+          <label class="upload-label" for="pdfFile">{{
+            'upload-page.uploadFormFile' | translate
+          }}</label>
           <input
             #pdfFileInput
             class="upload-input"
@@ -101,11 +111,15 @@
         @if ((photoUrl | async) && !photoFile) {
           <div class="upload-image-wrapper">
             <div class="upload-image" style="background-image: url({{ photoUrl | async }})"></div>
-            <span class="upload-image-text">{{ 'uploadFormImageChanging' | translate }}</span>
+            <span class="upload-image-text">{{
+              'upload-page.uploadFormImageChanging' | translate
+            }}</span>
           </div>
         }
         <div class="upload-item">
-          <label class="upload-label" for="photoFile">{{ 'uploadFormImage' | translate }}</label>
+          <label class="upload-label" for="photoFile">{{
+            'upload-page.uploadFormImage' | translate
+          }}</label>
           <input
             #photoFileInput
             class="upload-input"
@@ -122,14 +136,14 @@
           [disabled]="uploadForm.invalid || !pdfFile || !photoFile"
           (click)="upload()"
           class="btn-upload">
-          {{ 'upload' | translate }}
+          {{ 'button.upload' | translate }}
         </button>
       } @else {
         <button
           [disabled]="uploadForm.invalid && !uploadForm.dirty && !pdfFile && !photoFile"
           (click)="editSelfBook()"
           class="btn-upload">
-          {{ 'edit' | translate }}
+          {{ 'button.edit' | translate }}
         </button>
       }
     </div>
