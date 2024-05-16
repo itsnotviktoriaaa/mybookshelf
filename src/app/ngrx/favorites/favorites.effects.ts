@@ -35,6 +35,12 @@ export class FavoritesEffects {
       switchMap(action => {
         return this.googleApi.getFavorites(action.params).pipe(
           map((data: IBook): { data: IBookItemTransformedWithTotal } & TypedAction<string> => {
+            if (data.totalItems === 0) {
+              return loadFavoritesBooksSuccess({
+                data: { items: [], totalItems: 0 },
+              });
+            }
+
             const transformedItems: IBookItemTransformed[] = data.items.map((item: IBookItem) => {
               return {
                 id: item.id,

@@ -14,6 +14,7 @@ import { environment } from '../../../environments/environment.development';
 import { DestroyDirective } from '../../core/directives/destroy.directive';
 import { FavoritesFacade } from '../../ngrx/favorites/favorites.facade';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { FavouriteStore } from '../../ngrx/favorites/favorites.store';
 import { MyBooksFacade } from '../../ngrx/my-books/my-books.facade';
 import { IBookItemTransformed } from '../../modals/user';
 import { SvgIconComponent } from 'angular-svg-icon';
@@ -50,6 +51,8 @@ export class BookComponent implements OnInit {
   textForPopup: { text: string } | null = null;
   page: 'own' | 'favorite' = 'own';
   private readonly destroy$ = inject(DestroyDirective).destroy$;
+
+  store = inject(FavouriteStore);
 
   constructor(
     private router: Router,
@@ -130,7 +133,8 @@ export class BookComponent implements OnInit {
 
   deleteFavoriteBook(): void {
     if (this.book && this.book.id) {
-      this.favoriteFacade.loadRemoveFavoritesBooks(this.book.id);
+      this.store.deleteLoadFavoriteBook(this.book.id);
+      // this.favoriteFacade.loadRemoveFavoritesBooks(this.book.id);
     }
   }
 }

@@ -1,16 +1,18 @@
 <section class="favorites common-padding">
   <h2 class="common-title">{{ 'favouriteTitle' | translate }}</h2>
-  @if (isLoading$ | async) {
+  @if (store.loading()) {
     <app-mini-modal></app-mini-modal>
-  } @else {
-    @if (favoritesBooks$ | async; as favoritesBooks) {
-      <div class="list-books">
-        @for (favoriteBook of favoritesBooks.items; track favoriteBook) {
-          <app-book [bigInfo]="true" [book]="favoriteBook"></app-book>
-        }
-      </div>
-    } @else {
-      <h3 class="common-nothing">{{ 'dontHaveFavouriteBook' | translate }}</h3>
+  }
+  <div class="list-books">
+    @for (favoriteBook of store.favorites().items; track favoriteBook; let index = $index) {
+      <app-book [bigInfo]="true" [book]="favoriteBook"></app-book>
     }
+  </div>
+  @if (
+    store.loading() === false &&
+    ((store.favorites().items && store.favorites().items.length === 0) ||
+      store.favorites() === undefined)
+  ) {
+    <span class="common-nothing"> {{ 'dontHaveFavouriteBook' | translate }}</span>
   }
 </section>

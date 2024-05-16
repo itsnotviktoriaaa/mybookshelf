@@ -1,13 +1,14 @@
 import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { IActiveParamsSearch, IBookItemTransformedWithTotal } from '../../../modals/user';
 import { DestroyDirective } from '../../../core/directives/destroy.directive';
 import { FavoritesFacade } from '../../../ngrx/favorites/favorites.facade';
+import { FavouriteStore } from '../../../ngrx/favorites/favorites.store';
 import { RouterFacadeService } from '../../../ngrx/router/router.facade';
 import { ActiveParamUtil, SearchStateService } from '../../../core';
-import { debounceTime, Observable, of, takeUntil } from 'rxjs';
 import { MiniModalComponent } from '../../../UI-сomponents';
+import { IActiveParamsSearch } from '../../../modals/user';
 import { TranslateModule } from '@ngx-translate/core';
 import { BookComponent } from '../../../components';
+import { debounceTime, takeUntil } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { Params } from '@angular/router';
 
@@ -21,16 +22,18 @@ import { Params } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FavoritesComponent implements OnInit, OnDestroy {
-  isLoading$: Observable<boolean>;
-  favoritesBooks$: Observable<IBookItemTransformedWithTotal | null> = of(null);
+  // isLoading$: Observable<boolean>;
+  // favoritesBooks$: Observable<IBookItemTransformedWithTotal | null> = of(null);
   private readonly destroy$ = inject(DestroyDirective).destroy$;
+
+  store = inject(FavouriteStore);
 
   constructor(
     private favoriteFacade: FavoritesFacade,
     private searchStateService: SearchStateService,
     private routerFacadeService: RouterFacadeService
   ) {
-    this.isLoading$ = this.favoriteFacade.getLoadingOfFavoritesBooks();
+    // this.isLoading$ = this.favoriteFacade.getLoadingOfFavoritesBooks();
   }
 
   ngOnInit(): void {
@@ -44,9 +47,15 @@ export class FavoritesComponent implements OnInit, OnDestroy {
         const newParamsForFavorite: IActiveParamsSearch =
           ActiveParamUtil.processParamsForFavoritePage(params);
 
-        this.favoriteFacade.loadFavoritesBooks(newParamsForFavorite);
-        this.favoritesBooks$ = this.favoriteFacade.getFavoritesBooks();
+        this.loadFavorites(newParamsForFavorite);
+
+        // this.favoriteFacade.loadFavoritesBooks(newParamsForFavorite);
+        // this.favoritesBooks$ = this.favoriteFacade.getFavoritesBooks();
       });
+  }
+
+  loadFavorites(newParamsForFavorite: IActiveParamsSearch): void {
+    this.store.loadAll(newParamsForFavorite);
   }
 
   ngOnDestroy(): void {
