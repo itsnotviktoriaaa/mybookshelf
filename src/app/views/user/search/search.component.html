@@ -43,7 +43,7 @@
           <app-pagination-input
             [quantityOfBooks]="(searchBooks$ | async)?.totalItems"></app-pagination-input>
         } @else {
-          <span>You must choose options</span>
+          <span>{{ 'youMustChooseOptions' | translate }}</span>
         }
       }
     </div>

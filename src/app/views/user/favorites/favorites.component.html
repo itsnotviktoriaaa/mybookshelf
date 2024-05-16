@@ -2,17 +2,17 @@
   <h2 class="common-title">{{ 'favouriteTitle' | translate }}</h2>
   @if (store.loading()) {
     <app-mini-modal></app-mini-modal>
-  }
-  <div class="list-books">
-    @for (favoriteBook of store.favorites().items; track favoriteBook; let index = $index) {
-      <app-book [bigInfo]="true" [book]="favoriteBook"></app-book>
+  } @else {
+    <div class="list-books">
+      @for (favoriteBook of store.favorites().items; track favoriteBook; let index = $index) {
+        <app-book [bigInfo]="true" [book]="favoriteBook"></app-book>
+      }
+    </div>
+    @if (
+      (store.favorites().items && store.favorites().items.length === 0) ||
+      store.favorites() === undefined
+    ) {
+      <span class="common-nothing"> {{ 'dontHaveFavouriteBook' | translate }}</span>
     }
-  </div>
-  @if (
-    store.loading() === false &&
-    ((store.favorites().items && store.favorites().items.length === 0) ||
-      store.favorites() === undefined)
-  ) {
-    <span class="common-nothing"> {{ 'dontHaveFavouriteBook' | translate }}</span>
   }
 </section>
