@@ -6,8 +6,8 @@ import { Observable, Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class NotificationService {
-  loader$: Subject<boolean> = new Subject<boolean>();
-  notification$: Subject<NotificationType> = new Subject<NotificationType>();
+  private loader$: Subject<boolean> = new Subject<boolean>();
+  private notification$: Subject<NotificationType> = new Subject<NotificationType>();
 
   getNotification(): Observable<NotificationType> {
     return this.notification$.asObservable();

@@ -8,7 +8,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class ReduceLetterPipe implements PipeTransform {
   quantityPossibleLetter: number = 0;
   constructor() {}
-  transform(value: string, className: string): string {
+  transform(value: string, className: 'book-name' | 'book-author' | 'author'): string {
     if (!value) return value;
     if (className === 'book-name') {
       this.quantityPossibleLetter = 15;
