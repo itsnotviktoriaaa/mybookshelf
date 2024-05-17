@@ -33,7 +33,7 @@ export class NotificationComponent implements OnInit {
           this.message = obj.message;
           this.status = obj.status;
           this.timeout = window.setTimeout((): void => {
-            this.message = null;
+            this.setMessageLikeNull();
           }, 4000);
         }),
         finalize(() => {
@@ -42,5 +42,9 @@ export class NotificationComponent implements OnInit {
         takeUntil(this.destroy$)
       )
       .subscribe();
+  }
+
+  setMessageLikeNull(): void {
+    this.message = null;
   }
 }

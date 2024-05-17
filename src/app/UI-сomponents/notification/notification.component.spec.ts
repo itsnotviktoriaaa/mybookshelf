@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NotificationComponent } from './notification.component';
 import { NotificationStatusEnum } from '../../modals/auth';
 import { NotificationService } from '../../core';
@@ -86,28 +86,30 @@ describe('NotificationComponent', (): void => {
     });
   });
 
-  // it('should not have notification', fakeAsync(() => {
-  //   const notificationServiceSpy = TestBed.inject(
-  //     NotificationService
-  //   ) as jasmine.SpyObj<NotificationService>;
-  //
-  //   notificationServiceSpy.getNotification.and.returnValue(
-  //     of({
-  //       message: 'Test message',
-  //       status: NotificationStatusEnum.error,
-  //     })
-  //   );
-  //
-  //   component.ngOnInit();
-  //   fixture.detectChanges();
-  //
-  //   // Initially, message should be set
-  //   expect(component.message).toBe('Test message');
-  //
-  //   // Advance time by 4000 ms
-  //   tick(4100);
-  //
-  //   // Now, the message should be null
-  //   expect(component.message).toBeNull();
-  // }));
+  it('should not have notification', fakeAsync((): void => {
+    const notificationServiceSpy = TestBed.inject(
+      NotificationService
+    ) as jasmine.SpyObj<NotificationService>;
+
+    notificationServiceSpy.getNotification.and.returnValue(
+      of({
+        message: 'Test message',
+        status: NotificationStatusEnum.error,
+      })
+    );
+
+    component.ngOnInit();
+    fixture.detectChanges();
+    expect(component.message).toBe('Test message');
+
+    setTimeout((): void => {
+      component.setMessageLikeNull();
+    }, 4000);
+
+    setTimeout((): void => {
+      expect(component.message).toBeNull();
+    }, 4100);
+
+    tick(4100);
+  }));
 });
