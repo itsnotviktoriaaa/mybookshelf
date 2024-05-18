@@ -89,7 +89,7 @@ export class SearchLiveEffects {
               });
             }
           ),
-          catchError(error => of(loadSearchLiveBooksFailure({ error })))
+          catchError(() => of(loadSearchLiveBooksFailure({ error: null })))
         );
       })
     );
