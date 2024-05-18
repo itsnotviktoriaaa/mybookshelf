@@ -41,7 +41,7 @@ export class AuthorEffects {
               data: { totalItems: data.totalItems, items: limitedTransformedDataItems },
             });
           }),
-          catchError(error => of(loadAuthorFailure({ error })))
+          catchError(() => of(loadAuthorFailure({ error: null })))
         );
       })
     );

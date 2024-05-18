@@ -44,7 +44,7 @@ export class DetailBookEffects {
             }
             return loadDetailBookSuccess({ data: transformedData });
           }),
-          catchError(error => of(loadDetailBookFailure({ error })))
+          catchError(() => of(loadDetailBookFailure({ error: null })))
         );
       })
     );

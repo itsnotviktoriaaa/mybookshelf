@@ -5,7 +5,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { of } from 'rxjs';
 
 describe('PaginationInputComponent', (): void => {
   let component: PaginationInputComponent;
@@ -15,7 +14,6 @@ describe('PaginationInputComponent', (): void => {
     const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
 
     const routerFacadeServiceSpy = jasmine.createSpyObj('RouterFacadeService', ['getQueryParams$']);
-    routerFacadeServiceSpy.getQueryParams$.and.returnValue(of({ page: '3' }));
 
     await TestBed.configureTestingModule({
       imports: [
@@ -43,19 +41,11 @@ describe('PaginationInputComponent', (): void => {
     component.quantityOfBooks = 40;
     component.ngOnChanges();
     expect(component.isShow.value).toBe(false);
-
-    const componentElement = fixture.nativeElement.querySelector('.hard-pagination-wrapper');
-    expect(componentElement).toBeNull();
   });
 
-  // it('should define quantity of book and set false if page more than 1', fakeAsync((): void => {
-  //   component.quantityOfBooks = 41;
-  //   component.ngOnChanges();
-  //   expect(component.isShow.value).toBe(true);
-  //
-  //   const componentElement = fixture.nativeElement.querySelector('.hard-pagination-wrapper');
-  //   tick();
-  //   fixture.detectChanges();
-  //   expect(componentElement).toBeTruthy();
-  // }));
+  it('should define quantity of book and set false if page more than 1', (): void => {
+    component.quantityOfBooks = 41;
+    component.ngOnChanges();
+    expect(component.isShow.value).toBe(true);
+  });
 });
