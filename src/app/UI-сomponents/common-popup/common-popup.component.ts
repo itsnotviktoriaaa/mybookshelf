@@ -13,7 +13,7 @@ import { TranslateModule } from '@ngx-translate/core';
 export class CommonPopupComponent {
   @Input() isOpenDeletePopup = { isOpen: false };
   @Input() textForPopup: { text: string } | null = null;
-  @Input() page: 'own' | 'favorite' = 'own';
+  @Input() page: 'own' | 'favorite' | null = null;
 
   constructor(private commonPopupService: CommonPopupService) {}
 

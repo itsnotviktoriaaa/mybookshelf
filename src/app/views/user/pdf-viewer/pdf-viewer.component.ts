@@ -7,7 +7,7 @@ import { RouterFacadeService } from '../../../ngrx/router/router.facade';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { DatabaseService, NotificationService } from '../../../core';
 import { NotificationStatusEnum } from '../../../modals/auth';
-import { MiniModalComponent } from '../../../UI-сomponents';
+import { MiniLoaderComponent } from '../../../UI-сomponents';
 import { IBookItemTransformed } from '../../../modals/user';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { Params, Router } from '@angular/router';
@@ -23,7 +23,7 @@ import { AsyncPipe } from '@angular/common';
     SvgIconComponent,
     AsyncPipe,
     TranslateModule,
-    MiniModalComponent,
+    MiniLoaderComponent,
   ],
   hostDirectives: [DestroyDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,

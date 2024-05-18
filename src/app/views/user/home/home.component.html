@@ -2,7 +2,7 @@
   <!--  <div class="quotes"></div>-->
   <h2 class="home-hello">{{ 'home-page.morning' | translate }}</h2>
   @if (isLoading$ | async) {
-    <app-mini-modal></app-mini-modal>
+    <app-mini-loader></app-mini-loader>
   } @else {
     @if (recommendedBooks$ | async; as recommendedBooks) {
       <div class="home-common-wrapper">

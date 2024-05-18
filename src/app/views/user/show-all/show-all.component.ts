@@ -4,8 +4,8 @@ import { environment } from '../../../../environments/environment.development';
 import { DestroyDirective } from '../../../core/directives/destroy.directive';
 import { RouterFacadeService } from '../../../ngrx/router/router.facade';
 import { SearchAllEnum } from '../../../modals/user/search-all.enum';
+import { MiniLoaderComponent } from '../../../UI-сomponents';
 import { HomeFacade } from '../../../ngrx/home/home.facade';
-import { MiniModalComponent } from '../../../UI-сomponents';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable, of, takeUntil, tap } from 'rxjs';
 import { AsyncPipe, NgClass } from '@angular/common';
@@ -21,7 +21,7 @@ import { Params, Router } from '@angular/router';
     AsyncPipe,
     NgClass,
     SvgIconComponent,
-    MiniModalComponent,
+    MiniLoaderComponent,
     TranslateModule,
   ],
   templateUrl: './show-all.component.html',

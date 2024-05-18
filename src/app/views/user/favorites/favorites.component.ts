@@ -4,7 +4,7 @@ import { FavoritesFacade } from '../../../ngrx/favorites/favorites.facade';
 import { FavouriteStore } from '../../../ngrx/favorites/favorites.store';
 import { RouterFacadeService } from '../../../ngrx/router/router.facade';
 import { ActiveParamUtil, SearchStateService } from '../../../core';
-import { MiniModalComponent } from '../../../UI-сomponents';
+import { MiniLoaderComponent } from '../../../UI-сomponents';
 import { IActiveParamsSearch } from '../../../modals/user';
 import { TranslateModule } from '@ngx-translate/core';
 import { BookComponent } from '../../../components';
@@ -15,7 +15,7 @@ import { Params } from '@angular/router';
 @Component({
   selector: 'app-favorites',
   standalone: true,
-  imports: [BookComponent, AsyncPipe, MiniModalComponent, TranslateModule],
+  imports: [BookComponent, AsyncPipe, MiniLoaderComponent, TranslateModule],
   templateUrl: './favorites.component.html',
   styleUrl: './favorites.component.scss',
   hostDirectives: [DestroyDirective],

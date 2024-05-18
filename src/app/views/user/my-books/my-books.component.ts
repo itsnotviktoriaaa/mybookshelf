@@ -1,5 +1,5 @@
 import { MyBooksFacade } from '../../../ngrx/my-books/my-books.facade';
-import { MiniModalComponent } from '../../../UI-сomponents';
+import { MiniLoaderComponent } from '../../../UI-сomponents';
 import { IBookItemTransformed } from '../../../modals/user';
 import { TranslateModule } from '@ngx-translate/core';
 import { BookComponent } from '../../../components';
@@ -10,7 +10,7 @@ import { Observable, of } from 'rxjs';
 @Component({
   selector: 'app-my-books',
   standalone: true,
-  imports: [AsyncPipe, BookComponent, TranslateModule, MiniModalComponent],
+  imports: [AsyncPipe, BookComponent, TranslateModule, MiniLoaderComponent],
   templateUrl: './my-books.component.html',
   styleUrl: './my-books.component.scss',
 })

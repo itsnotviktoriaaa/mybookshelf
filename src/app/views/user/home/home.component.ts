@@ -1,8 +1,8 @@
 import { SubscribeDecorator } from '../../../decorators/subscribe-decorator';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { IBookItemTransformedWithTotal } from '../../../modals/user';
+import { MiniLoaderComponent } from '../../../UI-сomponents';
 import { HomeFacade } from '../../../ngrx/home/home.facade';
-import { MiniModalComponent } from '../../../UI-сomponents';
 import { IUserInfoFromGoogle } from '../../../modals/auth';
 import { GoogleHomeComponent } from '../../../components';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
@@ -19,7 +19,7 @@ import { AsyncPipe } from '@angular/common';
     BookComponent,
     AsyncPipe,
     RouterLink,
-    MiniModalComponent,
+    MiniLoaderComponent,
     GoogleHomeComponent,
     TranslateModule,
   ],

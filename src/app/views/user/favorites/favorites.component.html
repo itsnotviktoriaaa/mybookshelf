@@ -1,7 +1,7 @@
 <section class="favorites common-padding">
   <h2 class="common-title">{{ 'favorite-page.favouriteTitle' | translate }}</h2>
   @if (store.loading()) {
-    <app-mini-modal></app-mini-modal>
+    <app-mini-loader></app-mini-loader>
   } @else {
     <div class="list-books">
       @for (favoriteBook of store.favorites().items; track favoriteBook; let index = $index) {

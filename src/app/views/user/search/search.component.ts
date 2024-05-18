@@ -10,7 +10,7 @@ import {
 import { ChangeDetectionStrategy, Component, HostListener, inject, OnInit } from '@angular/core';
 import { ActiveParamUtil, CategoryModalSearchItems, SearchStateService } from '../../../core';
 import { BehaviorSubject, debounceTime, filter, Observable, takeUntil, tap } from 'rxjs';
-import { MiniModalComponent, PaginationInputComponent } from '../../../UI-сomponents';
+import { MiniLoaderComponent, PaginationInputComponent } from '../../../UI-сomponents';
 import { environment } from '../../../../environments/environment.development';
 import { DestroyDirective } from '../../../core/directives/destroy.directive';
 import { FavoritesFacade } from '../../../ngrx/favorites/favorites.facade';
@@ -31,7 +31,7 @@ import { Params } from '@angular/router';
     AsyncPipe,
     PaginationInputComponent,
     TranslateModule,
-    MiniModalComponent,
+    MiniLoaderComponent,
   ],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss',

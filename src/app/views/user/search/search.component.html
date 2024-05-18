@@ -32,7 +32,7 @@
     </header>
     <div class="content">
       @if (isLoading$ | async) {
-        <app-mini-modal></app-mini-modal>
+        <app-mini-loader></app-mini-loader>
       } @else {
         @if (searchBooks$ | async; as searchBooks) {
           @for (searchBook of searchBooks.items; track $index) {

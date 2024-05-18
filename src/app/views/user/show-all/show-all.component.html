@@ -1,6 +1,6 @@
 <section class="show user-common-padding">
   @if (isLoading$ | async) {
-    <app-mini-modal></app-mini-modal>
+    <app-mini-loader></app-mini-loader>
   } @else {
     @if (showBooks$ | async; as showBooks) {
       <div class="show-books">

@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/cor
 import { DetailBookFacade } from '../../../ngrx/detail-book/detail-book.facade';
 import { environment } from '../../../../environments/environment.development';
 import { DestroyDirective } from '../../../core/directives/destroy.directive';
-import { MiniModalComponent, StarComponent } from '../../../UI-сomponents';
+import { MiniLoaderComponent, StarComponent } from '../../../UI-сomponents';
 import { RouterFacadeService } from '../../../ngrx/router/router.facade';
 import { ReduceLetterPipe, TransformDateBookPipe } from '../../../core';
 import { debounceTime, Observable, of, takeUntil, tap } from 'rxjs';
@@ -23,7 +23,7 @@ import { SvgIconComponent } from 'angular-svg-icon';
     TransformDateBookPipe,
     ReduceLetterPipe,
     RouterLink,
-    MiniModalComponent,
+    MiniLoaderComponent,
     StarComponent,
     TranslateModule,
   ],
