@@ -37,7 +37,7 @@ export class SearchEffects {
               data: { totalItems: data.totalItems, items: transformedDataItems },
             });
           }),
-          catchError(error => of(loadSearchBooksFailure({ error })))
+          catchError(() => of(loadSearchBooksFailure({ error: null })))
         );
       })
     );
