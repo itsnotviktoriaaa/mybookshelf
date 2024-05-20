@@ -12,7 +12,7 @@ type FavoritesState = {
   loading: boolean;
 };
 
-const initialState: FavoritesState = {
+export const initialState: FavoritesState = {
   favorites: {
     items: [],
     totalItems: 0,

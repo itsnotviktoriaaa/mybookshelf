@@ -45,7 +45,7 @@ export class MyBooksEffects {
               data: transformedData,
             });
           }),
-          catchError(error => of(loadMyBooksFailure({ error })))
+          catchError(() => of(loadMyBooksFailure({ error: null })))
         );
       })
     );
@@ -68,14 +68,14 @@ export class MyBooksEffects {
               });
               return of(removeFromMyBooksSuccess({ bookId: action.id }));
             }),
-            catchError(error => {
+            catchError(() => {
               const messageKey = 'message.selfBookDeletedWithError';
               const message = this.translateService.instant(messageKey);
               this.notificationService.notifyAboutNotification({
                 message: message,
                 status: NotificationStatusEnum.error,
               });
-              return of(removeFromMyBooksFailure({ error }));
+              return of(removeFromMyBooksFailure({ error: null }));
             }),
             finalize(() => {
               this.notificationService.notifyAboutNotificationLoader(false);

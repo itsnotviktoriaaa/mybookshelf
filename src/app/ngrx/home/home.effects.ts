@@ -55,7 +55,7 @@ export class BookEffects {
               });
             }
           ),
-          catchError(error => of(loadRecommendedBooksFailure({ error })))
+          catchError(() => of(loadRecommendedBooksFailure({ error: null })))
         )
       )
     );
@@ -91,7 +91,7 @@ export class BookEffects {
               });
             }
           ),
-          catchError(error => of(loadReadingNowBooksFailure({ error })))
+          catchError(() => of(loadReadingNowBooksFailure({ error: null })))
         )
       )
     );

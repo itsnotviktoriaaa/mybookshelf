@@ -62,7 +62,7 @@ export class FavoritesEffects {
               data: { items: uniqueItems, totalItems: data.totalItems },
             });
           }),
-          catchError(error => of(loadFavoritesBooksFailure({ error })))
+          catchError(() => of(loadFavoritesBooksFailure({ error: null })))
         );
       })
     );
@@ -89,14 +89,14 @@ export class FavoritesEffects {
             });
             return removeFromFavoritesBooksSuccess({ bookId: action.bookId });
           }),
-          catchError(error => {
+          catchError(() => {
             const messageKey = 'message.favouriteBookDeletedWithError';
             const message = this.translateService.instant(messageKey);
             this.notificationService.notifyAboutNotification({
               message: message,
               status: NotificationStatusEnum.error,
             });
-            return of(removeFromFavoritesBooksFailure({ error }));
+            return of(removeFromFavoritesBooksFailure({ error: null }));
           }),
           finalize(() => {
             this.notificationService.notifyAboutNotificationLoader(false);
