@@ -433,11 +433,15 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   transformSearchString(value: string): string {
-    return value.split(' ').join('+');
+    const stringWithSingleSpaces = value.replace(/\s+/g, ' ');
+    return stringWithSingleSpaces.split(' ').join('+');
   }
 
   transformTextFromParams(value: string): string {
-    return value.split('+').join(' ');
+    let result = value.split('+').join(' ');
+    result = result.trim();
+    result = result.replace(/\s+/g, ' ');
+    return result;
   }
 
   openOrCloseMiniModal(
