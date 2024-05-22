@@ -1,0 +1,454 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">frontend documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content class">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Classes</li>
+  <li class="breadcrumb-item" >Constants</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/core/utils/constants.ts</code>
+        </p>
+
+
+
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Static</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#regularForPassword" >regularForPassword</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+            <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="regularForPassword"></a>
+                    <span class="name">
+                            <span class="modifier">Static</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>regularForPassword</b></span>
+                        <a href="#regularForPassword"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>RegExp</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>/^(?&#x3D;.*\d)(?&#x3D;.*[a-z])(?&#x3D;.*[A-Z])[0-9a-zA-Z]{8,}$/</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="2" class="link-to-prism">src/app/core/utils/constants.ts:2</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export class Constants {
+  public static readonly regularForPassword: RegExp &#x3D;
+    /^(?&#x3D;.*\d)(?&#x3D;.*[a-z])(?&#x3D;.*[A-Z])[0-9a-zA-Z]{8,}$/;
+}
+
+export const CategoryModalSearchItems: string[] &#x3D; [
+  &#x27;Browse&#x27;,
+  &#x27;Adventure stories&#x27;,
+  &#x27;Action theory&#x27;,
+  &#x27;Almanacs&#x27;,
+  &#x27;Architecture&#x27;,
+  &#x27;Art&#x27;,
+  &#x27;Artificial intelligence&#x27;,
+  &#x27;Asteroids&#x27;,
+  &#x27;Astrionics&#x27;,
+  &#x27;Australia&#x27;,
+  &#x27;Automatic indexing&#x27;,
+  &#x27;Authors, English&#x27;,
+  &#x27;Big data&#x27;,
+  &#x27;Bibles&#x27;,
+  &#x27;Bioengineering&#x27;,
+  &#x27;Books and reading&#x27;,
+  &#x27;Business&#x27;,
+  &#x27;Business &amp; Economics&#x27;,
+  &#x27;California&#x27;,
+  &#x27;Career change&#x27;,
+  &#x27;Case-based reasoning&#x27;,
+  &#x27;Chemical engineering&#x27;,
+  &#x27;Children with social disabilities&#x27;,
+  &#x27;Commerce&#x27;,
+  &#x27;Communications, Military&#x27;,
+  &#x27;Computer engineering&#x27;,
+  &#x27;Computer industry&#x27;,
+  &#x27;Computer interfaces&#x27;,
+  &#x27;Computer programs&#x27;,
+  &#x27;Computer security&#x27;,
+  &#x27;Computer service industry&#x27;,
+  &#x27;Computer simulation&#x27;,
+  &#x27;Computer software&#x27;,
+  &#x27;Computer-assisted instruction&#x27;,
+  &#x27;Computerized self-help devices for people with disabilities&#x27;,
+  &#x27;Computational linguistics&#x27;,
+  &#x27;Computational neuroscience&#x27;,
+  &#x27;Computer algorithms&#x27;,
+  &#x27;Computer-assisted instruction&#x27;,
+  &#x27;Computers&#x27;,
+  &#x27;Computers and people&#x27;,
+  &#x27;Construction industry&#x27;,
+  &#x27;Context (Linguistics)&#x27;,
+  &#x27;Copyright&#x27;,
+  &#x27;Crafts &amp; Hobbies&#x27;,
+  &#x27;Cross-cultural studies&#x27;,
+  &#x27;Curriculum planning&#x27;,
+  &#x27;Databases&#x27;,
+  &#x27;Database management&#x27;,
+  &#x27;Data mining&#x27;,
+  &#x27;Delegated legislation&#x27;,
+  &#x27;Dental care&#x27;,
+  &#x27;Documentation&#x27;,
+  &#x27;Earth sciences&#x27;,
+  &#x27;Economics&#x27;,
+  &#x27;Education&#x27;,
+  &#x27;Electronic books&#x27;,
+  &#x27;Electronic data processing&#x27;,
+  &#x27;Electronic journals&#x27;,
+  &#x27;Electronics&#x27;,
+  &#x27;Encyclopedias and dictionaries&#x27;,
+  &#x27;Engineering&#x27;,
+  &#x27;England&#x27;,
+  &#x27;Encyclopedias and dictionaries&#x27;,
+  &#x27;Ethnomusicology&#x27;,
+  &#x27;Evidence-based medicine&#x27;,
+  &#x27;Expert systems (Computer science)&#x27;,
+  &#x27;Expert systems (Computer science)&#x27;,
+  &#x27;Fiction&#x27;,
+  &#x27;Fisheries&#x27;,
+  &#x27;Folklore&#x27;,
+  &#x27;Foreign Language Study&#x27;,
+  &#x27;Games&#x27;,
+  &#x27;Games &amp; Activities&#x27;,
+  &#x27;Gazettes&#x27;,
+  &#x27;Geology&#x27;,
+  &#x27;Government attorneys&#x27;,
+  &#x27;Government publications&#x27;,
+  &#x27;History&#x27;,
+  &#x27;History&#x27;,
+  &#x27;Humanities&#x27;,
+  &#x27;Humor&#x27;,
+  &#x27;Hypercube networks (Computer networks)&#x27;,
+  &#x27;Iowa&#x27;,
+  &#x27;India&#x27;,
+  &#x27;Indians of North America&#x27;,
+  &#x27;Information services&#x27;,
+  &#x27;Information storage and retrieval systems&#x27;,
+  &#x27;Information technology&#x27;,
+  &#x27;Interventional magnetic resonance imaging&#x27;,
+  &#x27;International cooperation&#x27;,
+  &#x27;Internet marketing&#x27;,
+  &#x27;Ireland&#x27;,
+  &#x27;Juvenile Fiction&#x27;,
+  &#x27;Juvenile Nonfiction&#x27;,
+  &#x27;Language Arts &amp; Disciplines&#x27;,
+  &#x27;Latin America&#x27;,
+  &#x27;Law&#x27;,
+  &#x27;Law reports, digests, etc&#x27;,
+  &#x27;Law reviews&#x27;,
+  &#x27;Library resources&#x27;,
+  &#x27;Library science&#x27;,
+  &#x27;Linguistics&#x27;,
+  &#x27;Logic programming&#x27;,
+  &#x27;London (England)&#x27;,
+  &#x27;Machine learning&#x27;,
+  &#x27;Macintosh (Computer)&#x27;,
+  &#x27;Mathematics&#x27;,
+  &#x27;Medical&#x27;,
+  &#x27;Medical care&#x27;,
+  &#x27;Medicine&#x27;,
+  &#x27;Memory&#x27;,
+  &#x27;Mermaids&#x27;,
+  &#x27;Microcomputers&#x27;,
+  &#x27;Minnesota&#x27;,
+  &#x27;Music&#x27;,
+  &#x27;Nature&#x27;,
+  &#x27;New Jersey&#x27;,
+  &#x27;New Zealand&#x27;,
+  &#x27;Nigeria&#x27;,
+  &#x27;Nuclear energy&#x27;,
+  &#x27;Nutrition&#x27;,
+  &#x27;Operating systems (Computers)&#x27;,
+  &#x27;Periodicals&#x27;,
+  &#x27;Piano&#x27;,
+  &#x27;Pharmacology&#x27;,
+  &#x27;Philosophy&#x27;,
+  &#x27;Pleading&#x27;,
+  &#x27;Police&#x27;,
+  &#x27;Political Science&#x27;,
+  &#x27;Popular works&#x27;,
+  &#x27;Power resources&#x27;,
+  &#x27;Programming languages (Electronic computers)&#x27;,
+  &#x27;Psychology&#x27;,
+  &#x27;Public health&#x27;,
+  &#x27;Reference&#x27;,
+  &#x27;Religion&#x27;,
+  &#x27;Rogues and vagabonds&#x27;,
+  &#x27;Science&#x27;,
+  &#x27;Scratch (Game)&#x27;,
+  &#x27;Scrabble (Game)&#x27;,
+  &#x27;Social Science&#x27;,
+  &#x27;Soil conservation&#x27;,
+  &#x27;Southern States&#x27;,
+  &#x27;Sports &amp; Recreation&#x27;,
+  &#x27;Sri Lanka&#x27;,
+  &#x27;Study Aids&#x27;,
+  &#x27;Subjects&#x27;,
+  &#x27;Subjects (Culture)&#x27;,
+  &#x27;Technology &amp; Engineering&#x27;,
+  &#x27;Terms and phrases&#x27;,
+  &#x27;Theater&#x27;,
+  &#x27;Travel&#x27;,
+  &#x27;Vocational education&#x27;,
+  &#x27;Young Adult Fiction&#x27;,
+];
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
+            var COMPODOC_CURRENT_PAGE_URL = 'Constants.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

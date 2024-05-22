@@ -1,0 +1,2809 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>frontend documentation</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="icon" type="image/x-icon" href="./images/favicon.ico" />
+    <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="stylesheet" href="./styles/dark.css" />
+  </head>
+  <body>
+    <script>
+      // Blocking script to avaoid flickering dark mode
+      // Dark mode toggle button
+      var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+      var darkModeState = useDark.matches;
+      var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+      var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+      var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+      function checkToggle(check) {
+        for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+          $darkModeToggleSwitchers[i].checked = check;
+        }
+      }
+
+      function toggleDarkMode(state) {
+        if (window.localStorage) {
+          localStorage.setItem('compodoc_darkmode-state', state);
+        }
+
+        checkToggle(state);
+
+        const hasClass = document.body.classList.contains('dark');
+
+        if (state) {
+          for (var i = 0; i < $darkModeToggles.length; i++) {
+            $darkModeToggles[i].classList.add('dark');
+          }
+          if (!hasClass) {
+            document.body.classList.add('dark');
+          }
+        } else {
+          for (var i = 0; i < $darkModeToggles.length; i++) {
+            $darkModeToggles[i].classList.remove('dark');
+          }
+          if (hasClass) {
+            document.body.classList.remove('dark');
+          }
+        }
+      }
+
+      useDark.addEventListener('change', function (evt) {
+        toggleDarkMode(evt.matches);
+      });
+      if (darkModeStateLocal) {
+        darkModeState = darkModeStateLocal === 'true';
+      }
+      toggleDarkMode(darkModeState);
+    </script>
+
+    <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+      <a href="./" class="navbar-brand">frontend documentation</a>
+      <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+    </div>
+
+    <div class="xs-menu menu" id="mobile-menu">
+      <div id="book-search-input" role="search">
+        <input type="text" placeholder="Type to search" />
+      </div>
+      <compodoc-menu></compodoc-menu>
+    </div>
+
+    <div class="container-fluid main">
+      <div class="row main">
+        <div class="hidden-xs menu">
+          <compodoc-menu mode="normal"></compodoc-menu>
+        </div>
+        <!-- START CONTENT -->
+        <div class="content coverage">
+          <div class="content-data">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">Documentation coverage</li>
+            </ol>
+
+            <div>
+              <img src="./images/coverage-badge-documentation.svg" />
+            </div>
+
+            <table class="table table-bordered coverage" id="coverage-table">
+              <thead class="coverage-header">
+                <tr>
+                  <th>File</th>
+                  <th>Type</th>
+                  <th>Identifier</th>
+                  <th style="text-align: right" class="statements" data-sort-default>Statements</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./components/CommonPopupComponent.html"
+                      >src/app/UI-сomponents/common-popup/common-popup.component.ts</a
+                    >
+                  </td>
+                  <td>component</td>
+                  <td>CommonPopupComponent</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/7)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./components/LoaderComponent.html"
+                      >src/app/UI-сomponents/loader/loader.component.ts</a
+                    >
+                  </td>
+                  <td>component</td>
+                  <td>LoaderComponent</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/5)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./components/MiniLoaderComponent.html"
+                      >src/app/UI-сomponents/miniloader/mini-loader.component.ts</a
+                    >
+                  </td>
+                  <td>component</td>
+                  <td>MiniLoaderComponent</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./components/NotificationComponent.html"
+                      >src/app/UI-сomponents/notification/notification.component.ts</a
+                    >
+                  </td>
+                  <td>component</td>
+                  <td>NotificationComponent</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/9)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./components/PaginationInputComponent.html"
+                      >src/app/UI-сomponents/pagination-input/pagination-input.component.ts</a
+                    >
+                  </td>
+                  <td>component</td>
+                  <td>PaginationInputComponent</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/18)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./components/StarComponent.html"
+                      >src/app/UI-сomponents/star/star.component.ts</a
+                    >
+                  </td>
+                  <td>component</td>
+                  <td>StarComponent</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/2)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./components/AppComponent.html">src/app/app.component.ts</a>
+                  </td>
+                  <td>component</td>
+                  <td>AppComponent</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/4)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/functions.html#HttpLoaderFactory"
+                      >src/app/app.config.ts</a
+                    >
+                  </td>
+                  <td>function</td>
+                  <td>HttpLoaderFactory</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#appConfig">src/app/app.config.ts</a>
+                  </td>
+                  <td>variable</td>
+                  <td>appConfig</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./components/BookComponent.html"
+                      >src/app/components/book/book.component.ts</a
+                    >
+                  </td>
+                  <td>component</td>
+                  <td>BookComponent</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/20)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./components/GoogleHomeComponent.html"
+                      >src/app/components/google-home/google-home.component.ts</a
+                    >
+                  </td>
+                  <td>component</td>
+                  <td>GoogleHomeComponent</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/2)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./components/BarComponent.html"
+                      >src/app/components/layout/bar/bar.component.ts</a
+                    >
+                  </td>
+                  <td>component</td>
+                  <td>BarComponent</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/10)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./components/HeaderComponent.html"
+                      >src/app/components/layout/header/header.component.ts</a
+                    >
+                  </td>
+                  <td>component</td>
+                  <td>HeaderComponent</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/44)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./components/LayoutComponent.html"
+                      >src/app/components/layout/layout.component.ts</a
+                    >
+                  </td>
+                  <td>component</td>
+                  <td>LayoutComponent</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/2)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./components/SearchBookComponent.html"
+                      >src/app/components/search-book/search-book.component.ts</a
+                    >
+                  </td>
+                  <td>component</td>
+                  <td>SearchBookComponent</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/13)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./injectables/AuthService.html">src/app/core/auth/auth.service.ts</a>
+                  </td>
+                  <td>injectable</td>
+                  <td>AuthService</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/8)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./injectables/GoogleApiService.html"
+                      >src/app/core/auth/google-api.service.ts</a
+                    >
+                  </td>
+                  <td>injectable</td>
+                  <td>GoogleApiService</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/17)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./directives/PasswordNotEmailDirective.html"
+                      >src/app/core/directives/app-password-not-email.directive.ts</a
+                    >
+                  </td>
+                  <td>directive</td>
+                  <td>PasswordNotEmailDirective</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/2)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./directives/PasswordRepeatDirective.html"
+                      >src/app/core/directives/app-password-repeat.directive.ts</a
+                    >
+                  </td>
+                  <td>directive</td>
+                  <td>PasswordRepeatDirective</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/2)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./directives/DestroyDirective.html"
+                      >src/app/core/directives/destroy.directive.ts</a
+                    >
+                  </td>
+                  <td>directive</td>
+                  <td>DestroyDirective</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/3)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#authForwardGuard"
+                      >src/app/core/guards/auth-forward.guard.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>authForwardGuard</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./pipes/ReduceLetterPipe.html"
+                      >src/app/core/pipes/reduce-letter.pipe.ts</a
+                    >
+                  </td>
+                  <td>pipe</td>
+                  <td>ReduceLetterPipe</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./pipes/TransformDateBookPipe.html"
+                      >src/app/core/pipes/transform-date-book.pipe.ts</a
+                    >
+                  </td>
+                  <td>pipe</td>
+                  <td>TransformDateBookPipe</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./pipes/TransformFavoriteDatePipe.html"
+                      >src/app/core/pipes/transform-favorite-date.pipe.ts</a
+                    >
+                  </td>
+                  <td>pipe</td>
+                  <td>TransformFavoriteDatePipe</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./injectables/CommonPopupService.html"
+                      >src/app/core/services/common-popup.service.ts</a
+                    >
+                  </td>
+                  <td>injectable</td>
+                  <td>CommonPopupService</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/7)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./injectables/DatabaseService.html"
+                      >src/app/core/services/database.service.ts</a
+                    >
+                  </td>
+                  <td>injectable</td>
+                  <td>DatabaseService</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/13)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./injectables/FavoriteService.html"
+                      >src/app/core/services/favorite.service.ts</a
+                    >
+                  </td>
+                  <td>injectable</td>
+                  <td>FavoriteService</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/5)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./injectables/NotificationService.html"
+                      >src/app/core/services/notification.service.ts</a
+                    >
+                  </td>
+                  <td>injectable</td>
+                  <td>NotificationService</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/7)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./injectables/SearchStateService.html"
+                      >src/app/core/services/search-state.service.ts</a
+                    >
+                  </td>
+                  <td>injectable</td>
+                  <td>SearchStateService</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/11)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./classes/ActiveParamUtil.html"
+                      >src/app/core/utils/active-param.util.ts</a
+                    >
+                  </td>
+                  <td>class</td>
+                  <td>ActiveParamUtil</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/5)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./classes/CodeMessageHandlerUtil.html"
+                      >src/app/core/utils/code-message-handler.util.ts</a
+                    >
+                  </td>
+                  <td>class</td>
+                  <td>CodeMessageHandlerUtil</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/2)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./classes/Constants.html">src/app/core/utils/constants.ts</a>
+                  </td>
+                  <td>class</td>
+                  <td>Constants</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/2)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#CategoryModalSearchItems"
+                      >src/app/core/utils/constants.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>CategoryModalSearchItems</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/functions.html#SubscribeDecorator"
+                      >src/app/decorators/subscribe-decorator.ts</a
+                    >
+                  </td>
+                  <td>function</td>
+                  <td>SubscribeDecorator</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./interfaces/IUser.html">src/app/modals/auth/user.interface.ts</a>
+                  </td>
+                  <td>interface</td>
+                  <td>IUser</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/4)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./interfaces/IUserInfoFromGoogle.html"
+                      >src/app/modals/auth/user.interface.ts</a
+                    >
+                  </td>
+                  <td>interface</td>
+                  <td>IUserInfoFromGoogle</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/2)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./interfaces/IUserSign.html">src/app/modals/auth/user.interface.ts</a>
+                  </td>
+                  <td>interface</td>
+                  <td>IUserSign</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/2)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./interfaces/IActiveParams.html"
+                      >src/app/modals/user/active-params.interface.ts</a
+                    >
+                  </td>
+                  <td>interface</td>
+                  <td>IActiveParams</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/3)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./interfaces/IMenuBelowBar.html"
+                      >src/app/modals/user/bar.interface.ts</a
+                    >
+                  </td>
+                  <td>interface</td>
+                  <td>IMenuBelowBar</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/3)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./interfaces/IMenuItem.html">src/app/modals/user/bar.interface.ts</a>
+                  </td>
+                  <td>interface</td>
+                  <td>IMenuItem</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/2)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./interfaces/IActions.html">src/app/modals/user/book.interface.ts</a>
+                  </td>
+                  <td>interface</td>
+                  <td>IActions</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/3)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./interfaces/IBook.html">src/app/modals/user/book.interface.ts</a>
+                  </td>
+                  <td>interface</td>
+                  <td>IBook</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/4)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./interfaces/IBookItem.html">src/app/modals/user/book.interface.ts</a>
+                  </td>
+                  <td>interface</td>
+                  <td>IBookItem</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/10)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./interfaces/IBookItemAccessInfo.html"
+                      >src/app/modals/user/book.interface.ts</a
+                    >
+                  </td>
+                  <td>interface</td>
+                  <td>IBookItemAccessInfo</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/11)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./interfaces/IBookItemLayerInfo.html"
+                      >src/app/modals/user/book.interface.ts</a
+                    >
+                  </td>
+                  <td>interface</td>
+                  <td>IBookItemLayerInfo</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/2)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./interfaces/IBookItemSaleInfo.html"
+                      >src/app/modals/user/book.interface.ts</a
+                    >
+                  </td>
+                  <td>interface</td>
+                  <td>IBookItemSaleInfo</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/8)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./interfaces/IBookItemTransformed.html"
+                      >src/app/modals/user/book.interface.ts</a
+                    >
+                  </td>
+                  <td>interface</td>
+                  <td>IBookItemTransformed</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/13)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./interfaces/IBookItemTransformedWithTotal.html"
+                      >src/app/modals/user/book.interface.ts</a
+                    >
+                  </td>
+                  <td>interface</td>
+                  <td>IBookItemTransformedWithTotal</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/3)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./interfaces/IBookItemVolumeInfo.html"
+                      >src/app/modals/user/book.interface.ts</a
+                    >
+                  </td>
+                  <td>interface</td>
+                  <td>IBookItemVolumeInfo</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/21)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./interfaces/IDetailBook.html"
+                      >src/app/modals/user/book.interface.ts</a
+                    >
+                  </td>
+                  <td>interface</td>
+                  <td>IDetailBook</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/10)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./interfaces/IDetailBookSmallInfo.html"
+                      >src/app/modals/user/book.interface.ts</a
+                    >
+                  </td>
+                  <td>interface</td>
+                  <td>IDetailBookSmallInfo</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/11)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./interfaces/ISearch.html">src/app/modals/user/book.interface.ts</a>
+                  </td>
+                  <td>interface</td>
+                  <td>ISearch</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/3)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./interfaces/ISearchDetail.html"
+                      >src/app/modals/user/book.interface.ts</a
+                    >
+                  </td>
+                  <td>interface</td>
+                  <td>ISearchDetail</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/9)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./interfaces/ISearchInfoDetail.html"
+                      >src/app/modals/user/book.interface.ts</a
+                    >
+                  </td>
+                  <td>interface</td>
+                  <td>ISearchInfoDetail</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/4)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./interfaces/ISearchSmall.html"
+                      >src/app/modals/user/book.interface.ts</a
+                    >
+                  </td>
+                  <td>interface</td>
+                  <td>ISearchSmall</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/3)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./interfaces/IUploadFilesAndCreateBookDatabase.html"
+                      >src/app/modals/user/database.interface.ts</a
+                    >
+                  </td>
+                  <td>interface</td>
+                  <td>IUploadFilesAndCreateBookDatabase</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/8)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./interfaces/HeaderModalI.html"
+                      >src/app/modals/user/header.interface.ts</a
+                    >
+                  </td>
+                  <td>interface</td>
+                  <td>HeaderModalI</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/3)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./interfaces/ISelfBook.html"
+                      >src/app/modals/user/self-book.interface.ts</a
+                    >
+                  </td>
+                  <td>interface</td>
+                  <td>ISelfBook</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/7)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./interfaces/ISelfBookUpload.html"
+                      >src/app/modals/user/self-book.interface.ts</a
+                    >
+                  </td>
+                  <td>interface</td>
+                  <td>ISelfBookUpload</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/5)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#setUserAction"
+                      >src/app/ngrx/auth-firebase/auth-firebase.actions.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>setUserAction</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./injectables/AuthFirebaseFacade.html"
+                      >src/app/ngrx/auth-firebase/auth-firebase.facade.ts</a
+                    >
+                  </td>
+                  <td>injectable</td>
+                  <td>AuthFirebaseFacade</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/4)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/functions.html#userReducer"
+                      >src/app/ngrx/auth-firebase/auth-firebase.reducer.ts</a
+                    >
+                  </td>
+                  <td>function</td>
+                  <td>userReducer</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#_userReducer"
+                      >src/app/ngrx/auth-firebase/auth-firebase.reducer.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>_userReducer</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#initialState"
+                      >src/app/ngrx/auth-firebase/auth-firebase.reducer.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>initialState</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#selectCurrentUser"
+                      >src/app/ngrx/auth-firebase/auth-firebase.selector.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>selectCurrentUser</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#selectUserState"
+                      >src/app/ngrx/auth-firebase/auth-firebase.selector.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>selectUserState</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./interfaces/UserState.html"
+                      >src/app/ngrx/auth-firebase/auth-firebase.state.ts</a
+                    >
+                  </td>
+                  <td>interface</td>
+                  <td>UserState</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/2)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#loadAuthor"
+                      >src/app/ngrx/author/author.actions.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>loadAuthor</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#loadAuthorFailure"
+                      >src/app/ngrx/author/author.actions.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>loadAuthorFailure</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#loadAuthorSuccess"
+                      >src/app/ngrx/author/author.actions.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>loadAuthorSuccess</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./injectables/AuthorEffects.html"
+                      >src/app/ngrx/author/author.effects.ts</a
+                    >
+                  </td>
+                  <td>injectable</td>
+                  <td>AuthorEffects</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/3)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./injectables/AuthorFacade.html"
+                      >src/app/ngrx/author/author.facade.ts</a
+                    >
+                  </td>
+                  <td>injectable</td>
+                  <td>AuthorFacade</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/4)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/functions.html#authorReducer"
+                      >src/app/ngrx/author/author.reducer.ts</a
+                    >
+                  </td>
+                  <td>function</td>
+                  <td>authorReducer</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#_authorState"
+                      >src/app/ngrx/author/author.reducer.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>_authorState</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#initialState"
+                      >src/app/ngrx/author/author.reducer.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>initialState</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#selectAuthor"
+                      >src/app/ngrx/author/author.selector.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>selectAuthor</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#selectAuthorState"
+                      >src/app/ngrx/author/author.selector.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>selectAuthorState</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./interfaces/AuthorState.html">src/app/ngrx/author/author.state.ts</a>
+                  </td>
+                  <td>interface</td>
+                  <td>AuthorState</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/2)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#loadDetailBook"
+                      >src/app/ngrx/detail-book/detail-book.actions.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>loadDetailBook</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#loadDetailBookFailure"
+                      >src/app/ngrx/detail-book/detail-book.actions.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>loadDetailBookFailure</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#loadDetailBookSuccess"
+                      >src/app/ngrx/detail-book/detail-book.actions.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>loadDetailBookSuccess</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./injectables/DetailBookEffects.html"
+                      >src/app/ngrx/detail-book/detail-book.effects.ts</a
+                    >
+                  </td>
+                  <td>injectable</td>
+                  <td>DetailBookEffects</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/3)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./injectables/DetailBookFacade.html"
+                      >src/app/ngrx/detail-book/detail-book.facade.ts</a
+                    >
+                  </td>
+                  <td>injectable</td>
+                  <td>DetailBookFacade</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/5)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/functions.html#detailReducer"
+                      >src/app/ngrx/detail-book/detail-book.reducer.ts</a
+                    >
+                  </td>
+                  <td>function</td>
+                  <td>detailReducer</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#_detailBookState"
+                      >src/app/ngrx/detail-book/detail-book.reducer.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>_detailBookState</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#initialState"
+                      >src/app/ngrx/detail-book/detail-book.reducer.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>initialState</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#selectDetailBook"
+                      >src/app/ngrx/detail-book/detail-book.selector.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>selectDetailBook</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#selectDetailBookState"
+                      >src/app/ngrx/detail-book/detail-book.selector.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>selectDetailBookState</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#selectLoadingOfDetailBook"
+                      >src/app/ngrx/detail-book/detail-book.selector.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>selectLoadingOfDetailBook</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./interfaces/DetailBookState.html"
+                      >src/app/ngrx/detail-book/detail-book.state.ts</a
+                    >
+                  </td>
+                  <td>interface</td>
+                  <td>DetailBookState</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/3)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#loadFavoritesBooks"
+                      >src/app/ngrx/favorites/favorites.actions.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>loadFavoritesBooks</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#loadFavoritesBooksFailure"
+                      >src/app/ngrx/favorites/favorites.actions.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>loadFavoritesBooksFailure</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#loadFavoritesBooksSuccess"
+                      >src/app/ngrx/favorites/favorites.actions.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>loadFavoritesBooksSuccess</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#removeFromFavoritesBooks"
+                      >src/app/ngrx/favorites/favorites.actions.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>removeFromFavoritesBooks</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#removeFromFavoritesBooksFailure"
+                      >src/app/ngrx/favorites/favorites.actions.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>removeFromFavoritesBooksFailure</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#removeFromFavoritesBooksSuccess"
+                      >src/app/ngrx/favorites/favorites.actions.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>removeFromFavoritesBooksSuccess</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./injectables/FavoritesEffects.html"
+                      >src/app/ngrx/favorites/favorites.effects.ts</a
+                    >
+                  </td>
+                  <td>injectable</td>
+                  <td>FavoritesEffects</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/5)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./injectables/FavoritesFacade.html"
+                      >src/app/ngrx/favorites/favorites.facade.ts</a
+                    >
+                  </td>
+                  <td>injectable</td>
+                  <td>FavoritesFacade</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/6)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/functions.html#favoritesReducer"
+                      >src/app/ngrx/favorites/favorites.reducer.ts</a
+                    >
+                  </td>
+                  <td>function</td>
+                  <td>favoritesReducer</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#_favoritesState"
+                      >src/app/ngrx/favorites/favorites.reducer.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>_favoritesState</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#initialState"
+                      >src/app/ngrx/favorites/favorites.reducer.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>initialState</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#selectFavoritesBooks"
+                      >src/app/ngrx/favorites/favorites.selector.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>selectFavoritesBooks</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#selectFavoritesState"
+                      >src/app/ngrx/favorites/favorites.selector.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>selectFavoritesState</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#selectLoadingOfFavoritesBooks"
+                      >src/app/ngrx/favorites/favorites.selector.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>selectLoadingOfFavoritesBooks</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./interfaces/FavoritesState.html"
+                      >src/app/ngrx/favorites/favorites.state.ts</a
+                    >
+                  </td>
+                  <td>interface</td>
+                  <td>FavoritesState</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/3)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#FavouriteStore"
+                      >src/app/ngrx/favorites/favorites.store.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>FavouriteStore</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#initialState"
+                      >src/app/ngrx/favorites/favorites.store.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>initialState</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#loadReadingNowBooks"
+                      >src/app/ngrx/home/home.actions.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>loadReadingNowBooks</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#loadReadingNowBooksFailure"
+                      >src/app/ngrx/home/home.actions.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>loadReadingNowBooksFailure</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#loadReadingNowBooksSuccess"
+                      >src/app/ngrx/home/home.actions.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>loadReadingNowBooksSuccess</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#loadRecommendedBooks"
+                      >src/app/ngrx/home/home.actions.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>loadRecommendedBooks</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#loadRecommendedBooksFailure"
+                      >src/app/ngrx/home/home.actions.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>loadRecommendedBooksFailure</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#loadRecommendedBooksSuccess"
+                      >src/app/ngrx/home/home.actions.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>loadRecommendedBooksSuccess</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./injectables/BookEffects.html">src/app/ngrx/home/home.effects.ts</a>
+                  </td>
+                  <td>injectable</td>
+                  <td>BookEffects</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/4)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./injectables/HomeFacade.html">src/app/ngrx/home/home.facade.ts</a>
+                  </td>
+                  <td>injectable</td>
+                  <td>HomeFacade</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/8)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/functions.html#homeNowReducer"
+                      >src/app/ngrx/home/home.reducer.ts</a
+                    >
+                  </td>
+                  <td>function</td>
+                  <td>homeNowReducer</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/functions.html#homeReducer"
+                      >src/app/ngrx/home/home.reducer.ts</a
+                    >
+                  </td>
+                  <td>function</td>
+                  <td>homeReducer</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#_homeNowReducer"
+                      >src/app/ngrx/home/home.reducer.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>_homeNowReducer</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#_homeReducer"
+                      >src/app/ngrx/home/home.reducer.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>_homeReducer</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#initialState"
+                      >src/app/ngrx/home/home.reducer.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>initialState</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#initialState1"
+                      >src/app/ngrx/home/home.reducer.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>initialState1</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#selectHomeNowState"
+                      >src/app/ngrx/home/home.selectors.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>selectHomeNowState</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#selectHomeState"
+                      >src/app/ngrx/home/home.selectors.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>selectHomeState</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#selectLoadingOfReadingNowBooks"
+                      >src/app/ngrx/home/home.selectors.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>selectLoadingOfReadingNowBooks</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#selectLoadingOfRecommendedBooks"
+                      >src/app/ngrx/home/home.selectors.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>selectLoadingOfRecommendedBooks</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#selectReadingNowBooks"
+                      >src/app/ngrx/home/home.selectors.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>selectReadingNowBooks</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#selectRecommendedBooks"
+                      >src/app/ngrx/home/home.selectors.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>selectRecommendedBooks</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./interfaces/HomeNowState.html">src/app/ngrx/home/home.state.ts</a>
+                  </td>
+                  <td>interface</td>
+                  <td>HomeNowState</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/3)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./interfaces/HomeState.html">src/app/ngrx/home/home.state.ts</a>
+                  </td>
+                  <td>interface</td>
+                  <td>HomeState</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/3)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#loadMyBooks"
+                      >src/app/ngrx/my-books/my-books.actions.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>loadMyBooks</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#loadMyBooksFailure"
+                      >src/app/ngrx/my-books/my-books.actions.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>loadMyBooksFailure</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#loadMyBooksSuccess"
+                      >src/app/ngrx/my-books/my-books.actions.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>loadMyBooksSuccess</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#removeFromMyBooks"
+                      >src/app/ngrx/my-books/my-books.actions.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>removeFromMyBooks</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#removeFromMyBooksFailure"
+                      >src/app/ngrx/my-books/my-books.actions.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>removeFromMyBooksFailure</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#removeFromMyBooksSuccess"
+                      >src/app/ngrx/my-books/my-books.actions.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>removeFromMyBooksSuccess</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./injectables/MyBooksEffects.html"
+                      >src/app/ngrx/my-books/my-books.effects.ts</a
+                    >
+                  </td>
+                  <td>injectable</td>
+                  <td>MyBooksEffects</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/4)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./injectables/MyBooksFacade.html"
+                      >src/app/ngrx/my-books/my-books.facade.ts</a
+                    >
+                  </td>
+                  <td>injectable</td>
+                  <td>MyBooksFacade</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/6)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/functions.html#myBooksReducer"
+                      >src/app/ngrx/my-books/my-books.reducer.ts</a
+                    >
+                  </td>
+                  <td>function</td>
+                  <td>myBooksReducer</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#_myBooksState"
+                      >src/app/ngrx/my-books/my-books.reducer.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>_myBooksState</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#initialState"
+                      >src/app/ngrx/my-books/my-books.reducer.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>initialState</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#selectLoadingOfMyBooks"
+                      >src/app/ngrx/my-books/my-books.selector.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>selectLoadingOfMyBooks</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#selectMyBooks"
+                      >src/app/ngrx/my-books/my-books.selector.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>selectMyBooks</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#selectMyBooksState"
+                      >src/app/ngrx/my-books/my-books.selector.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>selectMyBooksState</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./interfaces/MyBooksState.html"
+                      >src/app/ngrx/my-books/my-books.state.ts</a
+                    >
+                  </td>
+                  <td>interface</td>
+                  <td>MyBooksState</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/3)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./classes/CustomRouterStateSerializer.html"
+                      >src/app/ngrx/router/router-state-serializer.ts</a
+                    >
+                  </td>
+                  <td>class</td>
+                  <td>CustomRouterStateSerializer</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/2)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./interfaces/RouterState.html"
+                      >src/app/ngrx/router/router-state-serializer.ts</a
+                    >
+                  </td>
+                  <td>interface</td>
+                  <td>RouterState</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/5)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#mergeRouteData"
+                      >src/app/ngrx/router/router-state-serializer.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>mergeRouteData</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#mergeRouteParams"
+                      >src/app/ngrx/router/router-state-serializer.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>mergeRouteParams</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./injectables/RouterFacadeService.html"
+                      >src/app/ngrx/router/router.facade.ts</a
+                    >
+                  </td>
+                  <td>injectable</td>
+                  <td>RouterFacadeService</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/5)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#selectParams"
+                      >src/app/ngrx/router/router.selectors.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>selectParams</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#selectQueryParams"
+                      >src/app/ngrx/router/router.selectors.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>selectQueryParams</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#selectRouterState"
+                      >src/app/ngrx/router/router.selectors.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>selectRouterState</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#selectUrl"
+                      >src/app/ngrx/router/router.selectors.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>selectUrl</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#loadSearchLiveBooks"
+                      >src/app/ngrx/search-live/search-live.actions.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>loadSearchLiveBooks</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#loadSearchLiveBooksFailure"
+                      >src/app/ngrx/search-live/search-live.actions.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>loadSearchLiveBooksFailure</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#loadSearchLiveBooksSuccess"
+                      >src/app/ngrx/search-live/search-live.actions.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>loadSearchLiveBooksSuccess</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#resetSearchLiveBooks"
+                      >src/app/ngrx/search-live/search-live.actions.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>resetSearchLiveBooks</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./injectables/SearchLiveEffects.html"
+                      >src/app/ngrx/search-live/search-live.effects.ts</a
+                    >
+                  </td>
+                  <td>injectable</td>
+                  <td>SearchLiveEffects</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/3)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./injectables/SearchLiveFacade.html"
+                      >src/app/ngrx/search-live/search-live.facade.ts</a
+                    >
+                  </td>
+                  <td>injectable</td>
+                  <td>SearchLiveFacade</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/5)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/functions.html#searchLiveReducer"
+                      >src/app/ngrx/search-live/search-live.reducer.ts</a
+                    >
+                  </td>
+                  <td>function</td>
+                  <td>searchLiveReducer</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#_searchLiveState"
+                      >src/app/ngrx/search-live/search-live.reducer.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>_searchLiveState</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#initialState"
+                      >src/app/ngrx/search-live/search-live.reducer.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>initialState</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#selectSearchLiveBooks"
+                      >src/app/ngrx/search-live/search-live.selector.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>selectSearchLiveBooks</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#selectSearchLiveState"
+                      >src/app/ngrx/search-live/search-live.selector.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>selectSearchLiveState</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./interfaces/SearchLiveState.html"
+                      >src/app/ngrx/search-live/search-live.state.ts</a
+                    >
+                  </td>
+                  <td>interface</td>
+                  <td>SearchLiveState</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/2)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#loadSearchBooks"
+                      >src/app/ngrx/search/search.actions.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>loadSearchBooks</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#loadSearchBooksFailure"
+                      >src/app/ngrx/search/search.actions.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>loadSearchBooksFailure</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#loadSearchBooksSuccess"
+                      >src/app/ngrx/search/search.actions.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>loadSearchBooksSuccess</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./injectables/SearchEffects.html"
+                      >src/app/ngrx/search/search.effects.ts</a
+                    >
+                  </td>
+                  <td>injectable</td>
+                  <td>SearchEffects</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/3)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./injectables/SearchFacade.html"
+                      >src/app/ngrx/search/search.facade.ts</a
+                    >
+                  </td>
+                  <td>injectable</td>
+                  <td>SearchFacade</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/5)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/functions.html#searchReducer"
+                      >src/app/ngrx/search/search.reducer.ts</a
+                    >
+                  </td>
+                  <td>function</td>
+                  <td>searchReducer</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#_searchState"
+                      >src/app/ngrx/search/search.reducer.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>_searchState</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#initialState"
+                      >src/app/ngrx/search/search.reducer.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>initialState</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#selectLoadingOfSearchBooks"
+                      >src/app/ngrx/search/search.selector.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>selectLoadingOfSearchBooks</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#selectSearchBooks"
+                      >src/app/ngrx/search/search.selector.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>selectSearchBooks</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#selectSearchState"
+                      >src/app/ngrx/search/search.selector.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>selectSearchState</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./interfaces/SearchState.html">src/app/ngrx/search/search.state.ts</a>
+                  </td>
+                  <td>interface</td>
+                  <td>SearchState</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/3)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./components/LoginComponent.html"
+                      >src/app/views/auth/login/login.component.ts</a
+                    >
+                  </td>
+                  <td>component</td>
+                  <td>LoginComponent</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/12)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./components/SignupComponent.html"
+                      >src/app/views/auth/signup/signup.component.ts</a
+                    >
+                  </td>
+                  <td>component</td>
+                  <td>SignupComponent</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/35)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./components/DetailBookComponent.html"
+                      >src/app/views/user/detail-book/detail-book.component.ts</a
+                    >
+                  </td>
+                  <td>component</td>
+                  <td>DetailBookComponent</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/14)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./components/FavoritesComponent.html"
+                      >src/app/views/user/favorites/favorites.component.ts</a
+                    >
+                  </td>
+                  <td>component</td>
+                  <td>FavoritesComponent</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/7)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./components/HomeComponent.html"
+                      >src/app/views/user/home/home.component.ts</a
+                    >
+                  </td>
+                  <td>component</td>
+                  <td>HomeComponent</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/8)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./components/MyBooksComponent.html"
+                      >src/app/views/user/my-books/my-books.component.ts</a
+                    >
+                  </td>
+                  <td>component</td>
+                  <td>MyBooksComponent</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/5)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./components/PdfViewerComponent.html"
+                      >src/app/views/user/pdf-viewer/pdf-viewer.component.ts</a
+                    >
+                  </td>
+                  <td>component</td>
+                  <td>PdfViewerComponent</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/18)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./components/SearchComponent.html"
+                      >src/app/views/user/search/search.component.ts</a
+                    >
+                  </td>
+                  <td>component</td>
+                  <td>SearchComponent</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/16)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./components/ShowAllComponent.html"
+                      >src/app/views/user/show-all/show-all.component.ts</a
+                    >
+                  </td>
+                  <td>component</td>
+                  <td>ShowAllComponent</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/17)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./components/UploadComponent.html"
+                      >src/app/views/user/upload/upload.component.ts</a
+                    >
+                  </td>
+                  <td>component</td>
+                  <td>UploadComponent</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/20)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#environment"
+                      >src/environments/environment.development.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>environment</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+                <tr class="low">
+                  <td>
+                    <!-- miscellaneous -->
+                    <a href="./miscellaneous/variables.html#environment"
+                      >src/environments/environment.production.ts</a
+                    >
+                  </td>
+                  <td>variable</td>
+                  <td>environment</td>
+                  <td align="right" data-sort="0">
+                    <span class="coverage-percent">0 %</span>
+                    <span class="coverage-count">(0/1)</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <script src="js/libs/tablesort.min.js"></script>
+            <script src="js/libs/tablesort.number.min.js"></script>
+            <script>
+              new Tablesort(document.getElementById('coverage-table'));
+            </script>
+          </div>
+          <div class="search-results">
+            <div class="has-results">
+              <h1 class="search-results-title">
+                <span class="search-results-count"></span> results matching "<span
+                  class="search-query"></span
+                >"
+              </h1>
+              <ul class="search-results-list"></ul>
+            </div>
+            <div class="no-results">
+              <h1 class="search-results-title">
+                No results matching "<span class="search-query"></span>"
+              </h1>
+            </div>
+          </div>
+        </div>
+        <!-- END CONTENT -->
+      </div>
+    </div>
+
+    <label class="dark-mode-switch">
+      <input type="checkbox" />
+      <span class="slider">
+        <svg
+          class="slider-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          height="20"
+          stroke="#000"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          width="20"
+          xmlns="http://www.w3.org/2000/svg">
+          <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+        </svg>
+      </span>
+    </label>
+
+    <script>
+      var COMPODOC_CURRENT_PAGE_DEPTH = 0;
+      var COMPODOC_CURRENT_PAGE_CONTEXT = 'coverage';
+      var COMPODOC_CURRENT_PAGE_URL = 'coverage.html';
+      var MAX_SEARCH_RESULTS = 15;
+    </script>
+
+    <script>
+      $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+      checkToggle(darkModeState);
+      if ($darkModeToggleSwitchers.length > 0) {
+        for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+          $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+            darkModeState = !darkModeState;
+            toggleDarkMode(darkModeState);
+          });
+        }
+      }
+    </script>
+
+    <script src="./js/libs/custom-elements.min.js"></script>
+    <script src="./js/libs/lit-html.js"></script>
+
+    <script src="./js/menu-wc.js" defer></script>
+    <script nomodule src="./js/menu-wc_es5.js" defer></script>
+
+    <script src="./js/libs/bootstrap-native.js"></script>
+
+    <script src="./js/libs/es6-shim.min.js"></script>
+    <script src="./js/libs/EventDispatcher.js"></script>
+    <script src="./js/libs/promise.min.js"></script>
+    <script src="./js/libs/zepto.min.js"></script>
+
+    <script src="./js/compodoc.js"></script>
+
+    <script src="./js/tabs.js"></script>
+    <script src="./js/menu.js"></script>
+    <script src="./js/libs/clipboard.min.js"></script>
+    <script src="./js/libs/prism.js"></script>
+    <script src="./js/sourceCode.js"></script>
+    <script src="./js/search/search.js"></script>
+    <script src="./js/search/lunr.min.js"></script>
+    <script src="./js/search/search-lunr.js"></script>
+    <script src="./js/search/search_index.js"></script>
+    <script src="./js/lazy-load-graphs.js"></script>
+  </body>
+</html>

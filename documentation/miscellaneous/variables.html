@@ -1,0 +1,3161 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>frontend documentation</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico" />
+    <link rel="stylesheet" href="../styles/style.css" />
+    <link rel="stylesheet" href="../styles/dark.css" />
+  </head>
+  <body>
+    <script>
+      // Blocking script to avaoid flickering dark mode
+      // Dark mode toggle button
+      var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+      var darkModeState = useDark.matches;
+      var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+      var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+      var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+      function checkToggle(check) {
+        for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+          $darkModeToggleSwitchers[i].checked = check;
+        }
+      }
+
+      function toggleDarkMode(state) {
+        if (window.localStorage) {
+          localStorage.setItem('compodoc_darkmode-state', state);
+        }
+
+        checkToggle(state);
+
+        const hasClass = document.body.classList.contains('dark');
+
+        if (state) {
+          for (var i = 0; i < $darkModeToggles.length; i++) {
+            $darkModeToggles[i].classList.add('dark');
+          }
+          if (!hasClass) {
+            document.body.classList.add('dark');
+          }
+        } else {
+          for (var i = 0; i < $darkModeToggles.length; i++) {
+            $darkModeToggles[i].classList.remove('dark');
+          }
+          if (hasClass) {
+            document.body.classList.remove('dark');
+          }
+        }
+      }
+
+      useDark.addEventListener('change', function (evt) {
+        toggleDarkMode(evt.matches);
+      });
+      if (darkModeStateLocal) {
+        darkModeState = darkModeStateLocal === 'true';
+      }
+      toggleDarkMode(darkModeState);
+    </script>
+
+    <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+      <a href="../" class="navbar-brand">frontend documentation</a>
+      <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+    </div>
+
+    <div class="xs-menu menu" id="mobile-menu">
+      <div id="book-search-input" role="search">
+        <input type="text" placeholder="Type to search" />
+      </div>
+      <compodoc-menu></compodoc-menu>
+    </div>
+
+    <div class="container-fluid main">
+      <div class="row main">
+        <div class="hidden-xs menu">
+          <compodoc-menu mode="normal"></compodoc-menu>
+        </div>
+        <!-- START CONTENT -->
+        <div class="content miscellaneous-variables">
+          <div class="content-data">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">Miscellaneous</li>
+              <li class="breadcrumb-item">Variables</li>
+            </ol>
+
+            <section data-compodoc="block-index">
+              <h3 id="index">Index</h3>
+              <table class="table table-sm table-bordered index-table">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <ul class="index-list">
+                        <li>
+                          <a href="#_authorState" title="src/app/ngrx/author/author.reducer.ts"
+                            ><b>_authorState</b>&nbsp;&nbsp;&nbsp;(src/.../author.reducer.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#_detailBookState"
+                            title="src/app/ngrx/detail-book/detail-book.reducer.ts"
+                            ><b>_detailBookState</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../detail-book.reducer.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#_favoritesState"
+                            title="src/app/ngrx/favorites/favorites.reducer.ts"
+                            ><b>_favoritesState</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../favorites.reducer.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a href="#_homeNowReducer" title="src/app/ngrx/home/home.reducer.ts"
+                            ><b>_homeNowReducer</b>&nbsp;&nbsp;&nbsp;(src/.../home.reducer.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a href="#_homeReducer" title="src/app/ngrx/home/home.reducer.ts"
+                            ><b>_homeReducer</b>&nbsp;&nbsp;&nbsp;(src/.../home.reducer.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a href="#_myBooksState" title="src/app/ngrx/my-books/my-books.reducer.ts"
+                            ><b>_myBooksState</b>&nbsp;&nbsp;&nbsp;(src/.../my-books.reducer.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#_searchLiveState"
+                            title="src/app/ngrx/search-live/search-live.reducer.ts"
+                            ><b>_searchLiveState</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../search-live.reducer.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a href="#_searchState" title="src/app/ngrx/search/search.reducer.ts"
+                            ><b>_searchState</b>&nbsp;&nbsp;&nbsp;(src/.../search.reducer.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#_userReducer"
+                            title="src/app/ngrx/auth-firebase/auth-firebase.reducer.ts"
+                            ><b>_userReducer</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../auth-firebase.reducer.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a href="#appConfig" title="src/app/app.config.ts"
+                            ><b>appConfig</b>&nbsp;&nbsp;&nbsp;(src/.../app.config.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#authForwardGuard"
+                            title="src/app/core/guards/auth-forward.guard.ts"
+                            ><b>authForwardGuard</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../auth-forward.guard.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#CategoryModalSearchItems"
+                            title="src/app/core/utils/constants.ts"
+                            ><b>CategoryModalSearchItems</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../constants.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a href="#environment" title="src/environments/environment.development.ts"
+                            ><b>environment</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../environment.development.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a href="#environment" title="src/environments/environment.production.ts"
+                            ><b>environment</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../environment.production.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#FavouriteStore"
+                            title="src/app/ngrx/favorites/favorites.store.ts"
+                            ><b>FavouriteStore</b>&nbsp;&nbsp;&nbsp;(src/.../favorites.store.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#initialState"
+                            title="src/app/ngrx/auth-firebase/auth-firebase.reducer.ts"
+                            ><b>initialState</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../auth-firebase.reducer.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#initialState"
+                            title="src/app/ngrx/detail-book/detail-book.reducer.ts"
+                            ><b>initialState</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../detail-book.reducer.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a href="#initialState" title="src/app/ngrx/author/author.reducer.ts"
+                            ><b>initialState</b>&nbsp;&nbsp;&nbsp;(src/.../author.reducer.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#initialState"
+                            title="src/app/ngrx/favorites/favorites.reducer.ts"
+                            ><b>initialState</b>&nbsp;&nbsp;&nbsp;(src/.../favorites.reducer.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a href="#initialState" title="src/app/ngrx/favorites/favorites.store.ts"
+                            ><b>initialState</b>&nbsp;&nbsp;&nbsp;(src/.../favorites.store.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a href="#initialState" title="src/app/ngrx/home/home.reducer.ts"
+                            ><b>initialState</b>&nbsp;&nbsp;&nbsp;(src/.../home.reducer.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a href="#initialState" title="src/app/ngrx/my-books/my-books.reducer.ts"
+                            ><b>initialState</b>&nbsp;&nbsp;&nbsp;(src/.../my-books.reducer.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a href="#initialState" title="src/app/ngrx/search/search.reducer.ts"
+                            ><b>initialState</b>&nbsp;&nbsp;&nbsp;(src/.../search.reducer.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#initialState"
+                            title="src/app/ngrx/search-live/search-live.reducer.ts"
+                            ><b>initialState</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../search-live.reducer.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a href="#initialState1" title="src/app/ngrx/home/home.reducer.ts"
+                            ><b>initialState1</b>&nbsp;&nbsp;&nbsp;(src/.../home.reducer.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a href="#loadAuthor" title="src/app/ngrx/author/author.actions.ts"
+                            ><b>loadAuthor</b>&nbsp;&nbsp;&nbsp;(src/.../author.actions.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a href="#loadAuthorFailure" title="src/app/ngrx/author/author.actions.ts"
+                            ><b>loadAuthorFailure</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../author.actions.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a href="#loadAuthorSuccess" title="src/app/ngrx/author/author.actions.ts"
+                            ><b>loadAuthorSuccess</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../author.actions.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#loadDetailBook"
+                            title="src/app/ngrx/detail-book/detail-book.actions.ts"
+                            ><b>loadDetailBook</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../detail-book.actions.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#loadDetailBookFailure"
+                            title="src/app/ngrx/detail-book/detail-book.actions.ts"
+                            ><b>loadDetailBookFailure</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../detail-book.actions.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#loadDetailBookSuccess"
+                            title="src/app/ngrx/detail-book/detail-book.actions.ts"
+                            ><b>loadDetailBookSuccess</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../detail-book.actions.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#loadFavoritesBooks"
+                            title="src/app/ngrx/favorites/favorites.actions.ts"
+                            ><b>loadFavoritesBooks</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../favorites.actions.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#loadFavoritesBooksFailure"
+                            title="src/app/ngrx/favorites/favorites.actions.ts"
+                            ><b>loadFavoritesBooksFailure</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../favorites.actions.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#loadFavoritesBooksSuccess"
+                            title="src/app/ngrx/favorites/favorites.actions.ts"
+                            ><b>loadFavoritesBooksSuccess</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../favorites.actions.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a href="#loadMyBooks" title="src/app/ngrx/my-books/my-books.actions.ts"
+                            ><b>loadMyBooks</b>&nbsp;&nbsp;&nbsp;(src/.../my-books.actions.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#loadMyBooksFailure"
+                            title="src/app/ngrx/my-books/my-books.actions.ts"
+                            ><b>loadMyBooksFailure</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../my-books.actions.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#loadMyBooksSuccess"
+                            title="src/app/ngrx/my-books/my-books.actions.ts"
+                            ><b>loadMyBooksSuccess</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../my-books.actions.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a href="#loadReadingNowBooks" title="src/app/ngrx/home/home.actions.ts"
+                            ><b>loadReadingNowBooks</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../home.actions.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#loadReadingNowBooksFailure"
+                            title="src/app/ngrx/home/home.actions.ts"
+                            ><b>loadReadingNowBooksFailure</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../home.actions.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#loadReadingNowBooksSuccess"
+                            title="src/app/ngrx/home/home.actions.ts"
+                            ><b>loadReadingNowBooksSuccess</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../home.actions.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a href="#loadRecommendedBooks" title="src/app/ngrx/home/home.actions.ts"
+                            ><b>loadRecommendedBooks</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../home.actions.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#loadRecommendedBooksFailure"
+                            title="src/app/ngrx/home/home.actions.ts"
+                            ><b>loadRecommendedBooksFailure</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../home.actions.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#loadRecommendedBooksSuccess"
+                            title="src/app/ngrx/home/home.actions.ts"
+                            ><b>loadRecommendedBooksSuccess</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../home.actions.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a href="#loadSearchBooks" title="src/app/ngrx/search/search.actions.ts"
+                            ><b>loadSearchBooks</b>&nbsp;&nbsp;&nbsp;(src/.../search.actions.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#loadSearchBooksFailure"
+                            title="src/app/ngrx/search/search.actions.ts"
+                            ><b>loadSearchBooksFailure</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../search.actions.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#loadSearchBooksSuccess"
+                            title="src/app/ngrx/search/search.actions.ts"
+                            ><b>loadSearchBooksSuccess</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../search.actions.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#loadSearchLiveBooks"
+                            title="src/app/ngrx/search-live/search-live.actions.ts"
+                            ><b>loadSearchLiveBooks</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../search-live.actions.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#loadSearchLiveBooksFailure"
+                            title="src/app/ngrx/search-live/search-live.actions.ts"
+                            ><b>loadSearchLiveBooksFailure</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../search-live.actions.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#loadSearchLiveBooksSuccess"
+                            title="src/app/ngrx/search-live/search-live.actions.ts"
+                            ><b>loadSearchLiveBooksSuccess</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../search-live.actions.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#mergeRouteData"
+                            title="src/app/ngrx/router/router-state-serializer.ts"
+                            ><b>mergeRouteData</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../router-state-serializer.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#mergeRouteParams"
+                            title="src/app/ngrx/router/router-state-serializer.ts"
+                            ><b>mergeRouteParams</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../router-state-serializer.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#removeFromFavoritesBooks"
+                            title="src/app/ngrx/favorites/favorites.actions.ts"
+                            ><b>removeFromFavoritesBooks</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../favorites.actions.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#removeFromFavoritesBooksFailure"
+                            title="src/app/ngrx/favorites/favorites.actions.ts"
+                            ><b>removeFromFavoritesBooksFailure</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../favorites.actions.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#removeFromFavoritesBooksSuccess"
+                            title="src/app/ngrx/favorites/favorites.actions.ts"
+                            ><b>removeFromFavoritesBooksSuccess</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../favorites.actions.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#removeFromMyBooks"
+                            title="src/app/ngrx/my-books/my-books.actions.ts"
+                            ><b>removeFromMyBooks</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../my-books.actions.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#removeFromMyBooksFailure"
+                            title="src/app/ngrx/my-books/my-books.actions.ts"
+                            ><b>removeFromMyBooksFailure</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../my-books.actions.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#removeFromMyBooksSuccess"
+                            title="src/app/ngrx/my-books/my-books.actions.ts"
+                            ><b>removeFromMyBooksSuccess</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../my-books.actions.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#resetSearchLiveBooks"
+                            title="src/app/ngrx/search-live/search-live.actions.ts"
+                            ><b>resetSearchLiveBooks</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../search-live.actions.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a href="#selectAuthor" title="src/app/ngrx/author/author.selector.ts"
+                            ><b>selectAuthor</b>&nbsp;&nbsp;&nbsp;(src/.../author.selector.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#selectAuthorState"
+                            title="src/app/ngrx/author/author.selector.ts"
+                            ><b>selectAuthorState</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../author.selector.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#selectCurrentUser"
+                            title="src/app/ngrx/auth-firebase/auth-firebase.selector.ts"
+                            ><b>selectCurrentUser</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../auth-firebase.selector.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#selectDetailBook"
+                            title="src/app/ngrx/detail-book/detail-book.selector.ts"
+                            ><b>selectDetailBook</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../detail-book.selector.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#selectDetailBookState"
+                            title="src/app/ngrx/detail-book/detail-book.selector.ts"
+                            ><b>selectDetailBookState</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../detail-book.selector.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#selectFavoritesBooks"
+                            title="src/app/ngrx/favorites/favorites.selector.ts"
+                            ><b>selectFavoritesBooks</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../favorites.selector.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#selectFavoritesState"
+                            title="src/app/ngrx/favorites/favorites.selector.ts"
+                            ><b>selectFavoritesState</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../favorites.selector.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a href="#selectHomeNowState" title="src/app/ngrx/home/home.selectors.ts"
+                            ><b>selectHomeNowState</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../home.selectors.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a href="#selectHomeState" title="src/app/ngrx/home/home.selectors.ts"
+                            ><b>selectHomeState</b>&nbsp;&nbsp;&nbsp;(src/.../home.selectors.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#selectLoadingOfDetailBook"
+                            title="src/app/ngrx/detail-book/detail-book.selector.ts"
+                            ><b>selectLoadingOfDetailBook</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../detail-book.selector.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#selectLoadingOfFavoritesBooks"
+                            title="src/app/ngrx/favorites/favorites.selector.ts"
+                            ><b>selectLoadingOfFavoritesBooks</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../favorites.selector.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#selectLoadingOfMyBooks"
+                            title="src/app/ngrx/my-books/my-books.selector.ts"
+                            ><b>selectLoadingOfMyBooks</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../my-books.selector.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#selectLoadingOfReadingNowBooks"
+                            title="src/app/ngrx/home/home.selectors.ts"
+                            ><b>selectLoadingOfReadingNowBooks</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../home.selectors.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#selectLoadingOfRecommendedBooks"
+                            title="src/app/ngrx/home/home.selectors.ts"
+                            ><b>selectLoadingOfRecommendedBooks</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../home.selectors.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#selectLoadingOfSearchBooks"
+                            title="src/app/ngrx/search/search.selector.ts"
+                            ><b>selectLoadingOfSearchBooks</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../search.selector.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#selectMyBooks"
+                            title="src/app/ngrx/my-books/my-books.selector.ts"
+                            ><b>selectMyBooks</b>&nbsp;&nbsp;&nbsp;(src/.../my-books.selector.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#selectMyBooksState"
+                            title="src/app/ngrx/my-books/my-books.selector.ts"
+                            ><b>selectMyBooksState</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../my-books.selector.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a href="#selectParams" title="src/app/ngrx/router/router.selectors.ts"
+                            ><b>selectParams</b>&nbsp;&nbsp;&nbsp;(src/.../router.selectors.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#selectQueryParams"
+                            title="src/app/ngrx/router/router.selectors.ts"
+                            ><b>selectQueryParams</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../router.selectors.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#selectReadingNowBooks"
+                            title="src/app/ngrx/home/home.selectors.ts"
+                            ><b>selectReadingNowBooks</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../home.selectors.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#selectRecommendedBooks"
+                            title="src/app/ngrx/home/home.selectors.ts"
+                            ><b>selectRecommendedBooks</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../home.selectors.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#selectRouterState"
+                            title="src/app/ngrx/router/router.selectors.ts"
+                            ><b>selectRouterState</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../router.selectors.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#selectSearchBooks"
+                            title="src/app/ngrx/search/search.selector.ts"
+                            ><b>selectSearchBooks</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../search.selector.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#selectSearchLiveBooks"
+                            title="src/app/ngrx/search-live/search-live.selector.ts"
+                            ><b>selectSearchLiveBooks</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../search-live.selector.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#selectSearchLiveState"
+                            title="src/app/ngrx/search-live/search-live.selector.ts"
+                            ><b>selectSearchLiveState</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../search-live.selector.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#selectSearchState"
+                            title="src/app/ngrx/search/search.selector.ts"
+                            ><b>selectSearchState</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../search.selector.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a href="#selectUrl" title="src/app/ngrx/router/router.selectors.ts"
+                            ><b>selectUrl</b>&nbsp;&nbsp;&nbsp;(src/.../router.selectors.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#selectUserState"
+                            title="src/app/ngrx/auth-firebase/auth-firebase.selector.ts"
+                            ><b>selectUserState</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../auth-firebase.selector.ts)</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            href="#setUserAction"
+                            title="src/app/ngrx/auth-firebase/auth-firebase.actions.ts"
+                            ><b>setUserAction</b
+                            >&nbsp;&nbsp;&nbsp;(src/.../auth-firebase.actions.ts)</a
+                          >
+                        </li>
+                      </ul>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+
+            <h3>src/app/ngrx/author/author.reducer.ts</h3>
+            <section data-compodoc="block-properties">
+              <h3></h3>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="_authorState"></a>
+                      <span class="name">
+                        <span><b>_authorState</b></span>
+                        <a href="#_authorState"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createReducer( initialState, on(loadAuthorSuccess, (state, { data })
+                        &#x3D;&gt; ({ ...state, author: data, })), on(loadAuthorFailure, state
+                        &#x3D;&gt; ({ ...state, author: null, })) )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="initialState"></a>
+                      <span class="name">
+                        <span><b>initialState</b></span>
+                        <a href="#initialState"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Type : </i>
+                      <code
+                        ><a href="../interfaces/AuthorState.html" target="_self"
+                          >AuthorState</a
+                        ></code
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4"><i>Default value : </i><code>{ author: null, }</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <h3>src/app/ngrx/detail-book/detail-book.reducer.ts</h3>
+            <section data-compodoc="block-properties">
+              <h3></h3>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="_detailBookState"></a>
+                      <span class="name">
+                        <span><b>_detailBookState</b></span>
+                        <a href="#_detailBookState"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createReducer( initialState, on(loadDetailBook, state &#x3D;&gt; ({
+                        ...state, isLoading: true, })), on(loadDetailBookSuccess, (state, { data })
+                        &#x3D;&gt; ({ ...state, detailBook: data, isLoading: false, })),
+                        on(loadDetailBookFailure, state &#x3D;&gt; ({ ...state, detailBook: null,
+                        isLoading: false, })) )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="initialState"></a>
+                      <span class="name">
+                        <span><b>initialState</b></span>
+                        <a href="#initialState"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Type : </i>
+                      <code
+                        ><a href="../interfaces/DetailBookState.html" target="_self"
+                          >DetailBookState</a
+                        ></code
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i><code>{ detailBook: null, isLoading: false, }</code>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <h3>src/app/ngrx/favorites/favorites.reducer.ts</h3>
+            <section data-compodoc="block-properties">
+              <h3></h3>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="_favoritesState"></a>
+                      <span class="name">
+                        <span><b>_favoritesState</b></span>
+                        <a href="#_favoritesState"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createReducer( initialState, on(loadFavoritesBooks, state &#x3D;&gt; ({
+                        ...state, isLoading: true, })), on(loadFavoritesBooksSuccess, (state, { data
+                        }) &#x3D;&gt; ({ ...state, favoritesBooks: data, isLoading: false, })),
+                        on(loadFavoritesBooksFailure, state &#x3D;&gt; ({ ...state, favoritesBooks:
+                        null, isLoading: false, })), on(removeFromFavoritesBooksSuccess, (state, {
+                        bookId }) &#x3D;&gt; { if (!state.favoritesBooks) { return state; } if (
+                        state &amp;&amp; state.favoritesBooks &amp;&amp; state.favoritesBooks.items
+                        &amp;&amp; state.favoritesBooks.items.length &#x3D;&#x3D;&#x3D; 1 ) { return
+                        { ...state, favoritesBooks: null }; } const filteredItems &#x3D;
+                        state.favoritesBooks.items.filter( favoritesBook &#x3D;&gt; favoritesBook.id
+                        !&#x3D;&#x3D; bookId ); const totalItems &#x3D; filteredItems.length; return
+                        { ...state, favoritesBooks: { items: filteredItems, totalItems: totalItems,
+                        }, }; }) )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="initialState"></a>
+                      <span class="name">
+                        <span><b>initialState</b></span>
+                        <a href="#initialState"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Type : </i>
+                      <code
+                        ><a href="../interfaces/FavoritesState.html" target="_self"
+                          >FavoritesState</a
+                        ></code
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code>{ favoritesBooks: null, isLoading: false, }</code>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <h3>src/app/ngrx/home/home.reducer.ts</h3>
+            <section data-compodoc="block-properties">
+              <h3></h3>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="_homeNowReducer"></a>
+                      <span class="name">
+                        <span><b>_homeNowReducer</b></span>
+                        <a href="#_homeNowReducer"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createReducer( initialState1, on(loadReadingNowBooks, state &#x3D;&gt; ({
+                        ...state, loading: true, })), on(loadReadingNowBooksSuccess, (state, { data
+                        }) &#x3D;&gt; ({ ...state, readingNowBooks: data, loading: false, })),
+                        on(loadReadingNowBooksFailure, state &#x3D;&gt; ({ ...state,
+                        readingNowBooks: null, loading: false, })) )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="_homeReducer"></a>
+                      <span class="name">
+                        <span><b>_homeReducer</b></span>
+                        <a href="#_homeReducer"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createReducer( initialState, on(loadRecommendedBooks, state &#x3D;&gt; ({
+                        ...state, loading: true, })), on(loadRecommendedBooksSuccess, (state, { data
+                        }) &#x3D;&gt; ({ ...state, recommendedBooks: data, loading: false, })),
+                        on(loadRecommendedBooksFailure, state &#x3D;&gt; ({ ...state,
+                        recommendedBooks: null, loading: false, })) )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="initialState"></a>
+                      <span class="name">
+                        <span><b>initialState</b></span>
+                        <a href="#initialState"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Type : </i>
+                      <code
+                        ><a href="../interfaces/HomeState.html" target="_self">HomeState</a></code
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i><code>{ recommendedBooks: null, loading: true, }</code>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="initialState1"></a>
+                      <span class="name">
+                        <span><b>initialState1</b></span>
+                        <a href="#initialState1"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Type : </i>
+                      <code
+                        ><a href="../interfaces/HomeNowState.html" target="_self"
+                          >HomeNowState</a
+                        ></code
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i><code>{ readingNowBooks: null, loading: false, }</code>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <h3>src/app/ngrx/my-books/my-books.reducer.ts</h3>
+            <section data-compodoc="block-properties">
+              <h3></h3>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="_myBooksState"></a>
+                      <span class="name">
+                        <span><b>_myBooksState</b></span>
+                        <a href="#_myBooksState"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createReducer( initialState, on(loadMyBooks, state &#x3D;&gt; ({ ...state,
+                        isLoading: true, })), on(loadMyBooksSuccess, (state, { data }) &#x3D;&gt; {
+                        if (data &amp;&amp; data.length &#x3D;&#x3D;&#x3D; 0) { return { ...state,
+                        myBooks: null, isLoading: false, }; } return { ...state, myBooks: data,
+                        isLoading: false, }; }), on(loadMyBooksFailure, state &#x3D;&gt; ({
+                        ...state, myBooks: null, isLoading: false, })) )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="initialState"></a>
+                      <span class="name">
+                        <span><b>initialState</b></span>
+                        <a href="#initialState"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Type : </i>
+                      <code
+                        ><a href="../interfaces/MyBooksState.html" target="_self"
+                          >MyBooksState</a
+                        ></code
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i><code>{ myBooks: null, isLoading: false, }</code>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <h3>src/app/ngrx/search-live/search-live.reducer.ts</h3>
+            <section data-compodoc="block-properties">
+              <h3></h3>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="_searchLiveState"></a>
+                      <span class="name">
+                        <span><b>_searchLiveState</b></span>
+                        <a href="#_searchLiveState"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createReducer( initialState, on(loadSearchLiveBooksSuccess, (state, { data
+                        }) &#x3D;&gt; { return { ...state, searchLive: data, }; }),
+                        on(loadSearchLiveBooksFailure, state &#x3D;&gt; { return { ...state,
+                        searchLive: null, }; }), on(resetSearchLiveBooks, (state, { data })
+                        &#x3D;&gt; ({ ...state, searchLive: data, })) )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="initialState"></a>
+                      <span class="name">
+                        <span><b>initialState</b></span>
+                        <a href="#initialState"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Type : </i>
+                      <code
+                        ><a href="../interfaces/SearchLiveState.html" target="_self"
+                          >SearchLiveState</a
+                        ></code
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i><code>{ searchLive: null, }</code>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <h3>src/app/ngrx/search/search.reducer.ts</h3>
+            <section data-compodoc="block-properties">
+              <h3></h3>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="_searchState"></a>
+                      <span class="name">
+                        <span><b>_searchState</b></span>
+                        <a href="#_searchState"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createReducer( initialState, on(loadSearchBooks, state &#x3D;&gt; { return
+                        { ...state, isLoading: true, }; }), on(loadSearchBooksSuccess, (state, {
+                        data }) &#x3D;&gt; { return { ...state, search: data, isLoading: false, };
+                        }), on(loadSearchBooksFailure, state &#x3D;&gt; { return { ...state, search:
+                        null, isLoading: false, }; }) )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="initialState"></a>
+                      <span class="name">
+                        <span><b>initialState</b></span>
+                        <a href="#initialState"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Type : </i>
+                      <code
+                        ><a href="../interfaces/SearchState.html" target="_self"
+                          >SearchState</a
+                        ></code
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i><code>{ search: null, isLoading: false, }</code>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <h3>src/app/ngrx/auth-firebase/auth-firebase.reducer.ts</h3>
+            <section data-compodoc="block-properties">
+              <h3></h3>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="_userReducer"></a>
+                      <span class="name">
+                        <span><b>_userReducer</b></span>
+                        <a href="#_userReducer"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createReducer( initialState, on(setUserAction, (state, { user }) &#x3D;&gt;
+                        ({ ...state, user: user, })) )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="initialState"></a>
+                      <span class="name">
+                        <span><b>initialState</b></span>
+                        <a href="#initialState"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Type : </i>
+                      <code
+                        ><a href="../interfaces/UserState.html" target="_self">UserState</a></code
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4"><i>Default value : </i><code>{ user: null, }</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <h3>src/app/app.config.ts</h3>
+            <section data-compodoc="block-properties">
+              <h3></h3>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="appConfig"></a>
+                      <span class="name">
+                        <span><b>appConfig</b></span>
+                        <a href="#appConfig"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4"><i>Type : </i> <code>ApplicationConfig</code></td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >{ providers: [ provideHttpClient(), importProvidersFrom([
+                        RouterModule.forRoot(routes, { scrollPositionRestoration:
+                        &#x27;enabled&#x27;, }), provideFirebaseApp(() &#x3D;&gt;
+                        initializeApp(environment.firebaseConfig)), provideAuth(() &#x3D;&gt;
+                        getAuth()), provideFirestore(() &#x3D;&gt; getFirestore()),
+                        provideStorage(() &#x3D;&gt; getStorage()),
+                        StoreRouterConnectingModule.forRoot({ serializer:
+                        CustomRouterStateSerializer }), StoreModule.forRoot({ home: homeReducer,
+                        homeNow: homeNowReducer, favorites: favoritesReducer, detailBook:
+                        detailReducer, author: authorReducer, search: searchReducer, searchLive:
+                        searchLiveReducer, myBooks: myBooksReducer, user: userReducer, router:
+                        routerReducer, }), EffectsModule.forRoot([ BookEffects, FavoritesEffects,
+                        DetailBookEffects, AuthorEffects, SearchEffects, SearchLiveEffects,
+                        MyBooksEffects, ]), TranslateModule.forRoot({ loader: { provide:
+                        TranslateLoader, useFactory: HttpLoaderFactory, deps: [HttpClient], }, }),
+                        !environment.production ? StoreDevtoolsModule.instrument() : [], ]),
+                        provideAngularSvgIcon(), provideOAuthClient(), ], }</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <h3>src/app/core/guards/auth-forward.guard.ts</h3>
+            <section data-compodoc="block-properties">
+              <h3></h3>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="authForwardGuard"></a>
+                      <span class="name">
+                        <span><b>authForwardGuard</b></span>
+                        <a href="#authForwardGuard"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4"><i>Type : </i> <code>CanActivateFn</code></td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >(route: ActivatedRouteSnapshot, state) &#x3D;&gt; { const router: Router
+                        &#x3D; inject(Router); const oAuthService: OAuthService &#x3D;
+                        inject(OAuthService); oAuthService.configure(environment.oAuthConfig);
+                        console.log(&#x27;HIIIII&#x27;); if (state.url &#x3D;&#x3D;&#x3D;
+                        &#x27;/&#x27; || state.url &#x3D;&#x3D;&#x3D; &#x27;/signup&#x27;) { return
+                        from(oAuthService.loadDiscoveryDocument()).pipe( switchMap(() &#x3D;&gt;
+                        oAuthService.tryLoginImplicitFlow()), switchMap(() &#x3D;&gt; { if
+                        (!oAuthService.hasValidAccessToken()) { console.log(&#x27;мы тут&#x27;);
+                        return of(true); } else { console.log(&#x27;jjjejeje&#x27;); return
+                        of(router.createUrlTree([&#x27;/home&#x27;])); } }) ); } else if
+                        (state.url.includes(&#x27;/home&#x27;)) { console.log(state.url); return
+                        from(oAuthService.loadDiscoveryDocument()).pipe( switchMap(() &#x3D;&gt;
+                        oAuthService.tryLoginImplicitFlow()), switchMap(() &#x3D;&gt; { if
+                        (!oAuthService.hasValidAccessToken()) { return
+                        of(router.createUrlTree([&#x27;/&#x27;])); } else { console.log(&#x27;WE ARE
+                        HEREEE&#x27;); return of(true); } }), catchError(err &#x3D;&gt; {
+                        console.log(err); return of(router.createUrlTree([&#x27;/&#x27;])); }) ); }
+                        return of(true); }</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <h3>src/app/core/utils/constants.ts</h3>
+            <section data-compodoc="block-properties">
+              <h3></h3>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="CategoryModalSearchItems"></a>
+                      <span class="name">
+                        <span><b>CategoryModalSearchItems</b></span>
+                        <a href="#CategoryModalSearchItems"
+                          ><span class="icon ion-ios-link"></span
+                        ></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4"><i>Type : </i> <code>string[]</code></td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >[ &#x27;Browse&#x27;, &#x27;Adventure stories&#x27;, &#x27;Action
+                        theory&#x27;, &#x27;Almanacs&#x27;, &#x27;Architecture&#x27;,
+                        &#x27;Art&#x27;, &#x27;Artificial intelligence&#x27;, &#x27;Asteroids&#x27;,
+                        &#x27;Astrionics&#x27;, &#x27;Australia&#x27;, &#x27;Automatic
+                        indexing&#x27;, &#x27;Authors, English&#x27;, &#x27;Big data&#x27;,
+                        &#x27;Bibles&#x27;, &#x27;Bioengineering&#x27;, &#x27;Books and
+                        reading&#x27;, &#x27;Business&#x27;, &#x27;Business &amp; Economics&#x27;,
+                        &#x27;California&#x27;, &#x27;Career change&#x27;, &#x27;Case-based
+                        reasoning&#x27;, &#x27;Chemical engineering&#x27;, &#x27;Children with
+                        social disabilities&#x27;, &#x27;Commerce&#x27;, &#x27;Communications,
+                        Military&#x27;, &#x27;Computer engineering&#x27;, &#x27;Computer
+                        industry&#x27;, &#x27;Computer interfaces&#x27;, &#x27;Computer
+                        programs&#x27;, &#x27;Computer security&#x27;, &#x27;Computer service
+                        industry&#x27;, &#x27;Computer simulation&#x27;, &#x27;Computer
+                        software&#x27;, &#x27;Computer-assisted instruction&#x27;,
+                        &#x27;Computerized self-help devices for people with disabilities&#x27;,
+                        &#x27;Computational linguistics&#x27;, &#x27;Computational
+                        neuroscience&#x27;, &#x27;Computer algorithms&#x27;, &#x27;Computer-assisted
+                        instruction&#x27;, &#x27;Computers&#x27;, &#x27;Computers and people&#x27;,
+                        &#x27;Construction industry&#x27;, &#x27;Context (Linguistics)&#x27;,
+                        &#x27;Copyright&#x27;, &#x27;Crafts &amp; Hobbies&#x27;,
+                        &#x27;Cross-cultural studies&#x27;, &#x27;Curriculum planning&#x27;,
+                        &#x27;Databases&#x27;, &#x27;Database management&#x27;, &#x27;Data
+                        mining&#x27;, &#x27;Delegated legislation&#x27;, &#x27;Dental care&#x27;,
+                        &#x27;Documentation&#x27;, &#x27;Earth sciences&#x27;,
+                        &#x27;Economics&#x27;, &#x27;Education&#x27;, &#x27;Electronic books&#x27;,
+                        &#x27;Electronic data processing&#x27;, &#x27;Electronic journals&#x27;,
+                        &#x27;Electronics&#x27;, &#x27;Encyclopedias and dictionaries&#x27;,
+                        &#x27;Engineering&#x27;, &#x27;England&#x27;, &#x27;Encyclopedias and
+                        dictionaries&#x27;, &#x27;Ethnomusicology&#x27;, &#x27;Evidence-based
+                        medicine&#x27;, &#x27;Expert systems (Computer science)&#x27;, &#x27;Expert
+                        systems (Computer science)&#x27;, &#x27;Fiction&#x27;,
+                        &#x27;Fisheries&#x27;, &#x27;Folklore&#x27;, &#x27;Foreign Language
+                        Study&#x27;, &#x27;Games&#x27;, &#x27;Games &amp; Activities&#x27;,
+                        &#x27;Gazettes&#x27;, &#x27;Geology&#x27;, &#x27;Government attorneys&#x27;,
+                        &#x27;Government publications&#x27;, &#x27;History&#x27;,
+                        &#x27;History&#x27;, &#x27;Humanities&#x27;, &#x27;Humor&#x27;,
+                        &#x27;Hypercube networks (Computer networks)&#x27;, &#x27;Iowa&#x27;,
+                        &#x27;India&#x27;, &#x27;Indians of North America&#x27;, &#x27;Information
+                        services&#x27;, &#x27;Information storage and retrieval systems&#x27;,
+                        &#x27;Information technology&#x27;, &#x27;Interventional magnetic resonance
+                        imaging&#x27;, &#x27;International cooperation&#x27;, &#x27;Internet
+                        marketing&#x27;, &#x27;Ireland&#x27;, &#x27;Juvenile Fiction&#x27;,
+                        &#x27;Juvenile Nonfiction&#x27;, &#x27;Language Arts &amp;
+                        Disciplines&#x27;, &#x27;Latin America&#x27;, &#x27;Law&#x27;, &#x27;Law
+                        reports, digests, etc&#x27;, &#x27;Law reviews&#x27;, &#x27;Library
+                        resources&#x27;, &#x27;Library science&#x27;, &#x27;Linguistics&#x27;,
+                        &#x27;Logic programming&#x27;, &#x27;London (England)&#x27;, &#x27;Machine
+                        learning&#x27;, &#x27;Macintosh (Computer)&#x27;, &#x27;Mathematics&#x27;,
+                        &#x27;Medical&#x27;, &#x27;Medical care&#x27;, &#x27;Medicine&#x27;,
+                        &#x27;Memory&#x27;, &#x27;Mermaids&#x27;, &#x27;Microcomputers&#x27;,
+                        &#x27;Minnesota&#x27;, &#x27;Music&#x27;, &#x27;Nature&#x27;, &#x27;New
+                        Jersey&#x27;, &#x27;New Zealand&#x27;, &#x27;Nigeria&#x27;, &#x27;Nuclear
+                        energy&#x27;, &#x27;Nutrition&#x27;, &#x27;Operating systems
+                        (Computers)&#x27;, &#x27;Periodicals&#x27;, &#x27;Piano&#x27;,
+                        &#x27;Pharmacology&#x27;, &#x27;Philosophy&#x27;, &#x27;Pleading&#x27;,
+                        &#x27;Police&#x27;, &#x27;Political Science&#x27;, &#x27;Popular
+                        works&#x27;, &#x27;Power resources&#x27;, &#x27;Programming languages
+                        (Electronic computers)&#x27;, &#x27;Psychology&#x27;, &#x27;Public
+                        health&#x27;, &#x27;Reference&#x27;, &#x27;Religion&#x27;, &#x27;Rogues and
+                        vagabonds&#x27;, &#x27;Science&#x27;, &#x27;Scratch (Game)&#x27;,
+                        &#x27;Scrabble (Game)&#x27;, &#x27;Social Science&#x27;, &#x27;Soil
+                        conservation&#x27;, &#x27;Southern States&#x27;, &#x27;Sports &amp;
+                        Recreation&#x27;, &#x27;Sri Lanka&#x27;, &#x27;Study Aids&#x27;,
+                        &#x27;Subjects&#x27;, &#x27;Subjects (Culture)&#x27;, &#x27;Technology &amp;
+                        Engineering&#x27;, &#x27;Terms and phrases&#x27;, &#x27;Theater&#x27;,
+                        &#x27;Travel&#x27;, &#x27;Vocational education&#x27;, &#x27;Young Adult
+                        Fiction&#x27;, ]</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <h3>src/environments/environment.development.ts</h3>
+            <section data-compodoc="block-properties">
+              <h3></h3>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="environment"></a>
+                      <span class="name">
+                        <span><b>environment</b></span>
+                        <a href="#environment"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Type : </i>
+                      <code
+                        ><a
+                          href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object"
+                          target="_blank"
+                          >object</a
+                        ></code
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >{ production: false, firebaseConfig: { apiKey:
+                        &#x27;AIzaSyB67xGD4gUa3kfl3rJK4J_ug1x4TJxvXaE&#x27;, authDomain:
+                        &#x27;mybookshelff-c1a0f.firebaseapp.com&#x27;, projectId:
+                        &#x27;mybookshelff-c1a0f&#x27;, storageBucket:
+                        &#x27;mybookshelff-c1a0f.appspot.com&#x27;, messagingSenderId:
+                        &#x27;555465691254&#x27;, appId:
+                        &#x27;1:555465691254:web:b7a43bec009264f6154f57&#x27;, }, oAuthConfig: {
+                        issuer: &#x27;https://accounts.google.com&#x27;,
+                        strictDiscoveryDocumentValidation: false, redirectUri:
+                        window.location.origin + &#x27;/home&#x27;, clientId:
+                        &#x27;65112255634-ng7630k656779ppmhme8iipohbacudv7.apps.googleusercontent.com&#x27;,
+                        scope: &#x27;openid profile email
+                        https://www.googleapis.com/auth/books&#x27;, useSilentRefresh: true,
+                        silentRefreshRedirectUri: window.location.origin +
+                        &#x27;/silent-refresh.html&#x27;, showDebugInformation: false,
+                        timeoutFactor: 0.75, preventClearHashAfterLogin: true, }, googleLibraryApi:
+                        &#x27;https://www.googleapis.com/books/v1/mylibrary/bookshelves/&#x27;,
+                        googleVolumeApi: &#x27;https://www.googleapis.com/books/v1/volumes&#x27;,
+                        pathToIcons: &#x27;assets/images/icons&#x27;, pathToImages:
+                        &#x27;assets/images&#x27;, }</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <h3>src/environments/environment.production.ts</h3>
+            <section data-compodoc="block-properties">
+              <h3></h3>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="environment"></a>
+                      <span class="name">
+                        <span><b>environment</b></span>
+                        <a href="#environment"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Type : </i>
+                      <code
+                        ><a
+                          href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object"
+                          target="_blank"
+                          >object</a
+                        ></code
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >{ production: true, firebaseConfig: { apiKey:
+                        &#x27;AIzaSyB67xGD4gUa3kfl3rJK4J_ug1x4TJxvXaE&#x27;, authDomain:
+                        &#x27;mybookshelff-c1a0f.firebaseapp.com&#x27;, projectId:
+                        &#x27;mybookshelff-c1a0f&#x27;, storageBucket:
+                        &#x27;mybookshelff-c1a0f.appspot.com&#x27;, messagingSenderId:
+                        &#x27;555465691254&#x27;, appId:
+                        &#x27;1:555465691254:web:b7a43bec009264f6154f57&#x27;, }, oAuthConfig: {
+                        issuer: &#x27;https://accounts.google.com&#x27;,
+                        strictDiscoveryDocumentValidation: false, redirectUri:
+                        window.location.origin + &#x27;/home&#x27;, clientId:
+                        &#x27;65112255634-ng7630k656779ppmhme8iipohbacudv7.apps.googleusercontent.com&#x27;,
+                        scope: &#x27;openid profile email
+                        https://www.googleapis.com/auth/books&#x27;, useSilentRefresh: true,
+                        silentRefreshRedirectUri: window.location.origin +
+                        &#x27;/silent-refresh.html&#x27;, showDebugInformation: false,
+                        timeoutFactor: 0.75, preventClearHashAfterLogin: true, }, googleLibraryApi:
+                        &#x27;https://www.googleapis.com/books/v1/mylibrary/bookshelves/&#x27;,
+                        googleVolumeApi: &#x27;https://www.googleapis.com/books/v1/volumes&#x27;,
+                        pathToIcons: &#x27;assets/images/icons&#x27;, pathToImages:
+                        &#x27;assets/images&#x27;, }</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <h3>src/app/ngrx/favorites/favorites.store.ts</h3>
+            <section data-compodoc="block-properties">
+              <h3></h3>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="FavouriteStore"></a>
+                      <span class="name">
+                        <span><b>FavouriteStore</b></span>
+                        <a href="#FavouriteStore"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >signalStore( { providedIn: &#x27;root&#x27; }, withState(initialState),
+                        withMethods( ( store, favoriteService &#x3D; inject(FavoriteService),
+                        googleApiService &#x3D; inject(GoogleApiService), notificationService &#x3D;
+                        inject(NotificationService), translateService &#x3D;
+                        inject(TranslateService) ) &#x3D;&gt; ({ loadAll(newParamsForFavorite:
+                        IActiveParamsSearch) { patchState(store, { loading: true }); favoriteService
+                        .getFavorites(newParamsForFavorite) .pipe( tap((favorites:
+                        IBookItemTransformedWithTotal): void &#x3D;&gt; { patchState(store, {
+                        favorites, loading: false }); }) ) .subscribe(); },
+                        deleteLoadFavoriteBook(bookId: string) {
+                        notificationService.notifyAboutNotificationLoader(true); patchState(store, {
+                        loading: false }); googleApiService .removeFavoriteBook(bookId) .pipe(
+                        tap(() &#x3D;&gt; { const messageKey &#x3D;
+                        &#x27;message.favouriteBookDeletedSuccessfully&#x27;; const message &#x3D;
+                        translateService.instant(messageKey);
+                        notificationService.notifyAboutNotification({ message: message, status:
+                        NotificationStatusEnum.success, }); if (!store.favorites) {
+                        patchState(store, { loading: false }); return; } if ( store &amp;&amp;
+                        store.favorites &amp;&amp; store.favorites.items &amp;&amp;
+                        store.favorites.items.length &#x3D;&#x3D;&#x3D; 1 ) { patchState(store, {
+                        favorites: undefined, loading: false }); return; } patchState(store, state
+                        &#x3D;&gt; ({ favorites: { items: state.favorites.items.filter(favorite
+                        &#x3D;&gt; favorite.id !&#x3D;&#x3D; bookId), totalItems:
+                        state.favorites.totalItems - 1, }, loading: false, })); }), catchError(error
+                        &#x3D;&gt; { const messageKey &#x3D;
+                        &#x27;message.favouriteBookDeletedWithError&#x27;; const message &#x3D;
+                        translateService.instant(messageKey);
+                        notificationService.notifyAboutNotification({ message: message, status:
+                        NotificationStatusEnum.error, }); return throwError(() &#x3D;&gt; error);
+                        }), finalize((): void &#x3D;&gt; {
+                        notificationService.notifyAboutNotificationLoader(false); }) ) .subscribe();
+                        }, }) ) )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="initialState"></a>
+                      <span class="name">
+                        <span><b>initialState</b></span>
+                        <a href="#initialState"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Type : </i>
+                      <code
+                        ><a href="../interfaces/FavoritesState.html" target="_self"
+                          >FavoritesState</a
+                        ></code
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code>{ favorites: { items: [], totalItems: 0, }, loading: false, }</code>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <h3>src/app/ngrx/author/author.actions.ts</h3>
+            <section data-compodoc="block-properties">
+              <h3></h3>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="loadAuthor"></a>
+                      <span class="name">
+                        <span><b>loadAuthor</b></span>
+                        <a href="#loadAuthor"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createAction( &#x27;[Author] Load Detail Author&#x27;, props&lt;{ author:
+                        string; idOfBook: string }&gt;() )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="loadAuthorFailure"></a>
+                      <span class="name">
+                        <span><b>loadAuthorFailure</b></span>
+                        <a href="#loadAuthorFailure"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createAction( &#x27;[Author] Load Detail Author Failure&#x27;, props&lt;{
+                        error: null }&gt;() )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="loadAuthorSuccess"></a>
+                      <span class="name">
+                        <span><b>loadAuthorSuccess</b></span>
+                        <a href="#loadAuthorSuccess"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createAction( &#x27;[Author] Load Detail Author Success&#x27;, props&lt;{
+                        data: ISearchSmall }&gt;() )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <h3>src/app/ngrx/detail-book/detail-book.actions.ts</h3>
+            <section data-compodoc="block-properties">
+              <h3></h3>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="loadDetailBook"></a>
+                      <span class="name">
+                        <span><b>loadDetailBook</b></span>
+                        <a href="#loadDetailBook"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createAction( &#x27;[Detail Book] Load Detail Book&#x27;, props&lt;{
+                        idOfBook: string }&gt;() )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="loadDetailBookFailure"></a>
+                      <span class="name">
+                        <span><b>loadDetailBookFailure</b></span>
+                        <a href="#loadDetailBookFailure"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createAction( &#x27;[Detail Book] Load Detail Books Failure&#x27;,
+                        props&lt;{ error: null }&gt;() )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="loadDetailBookSuccess"></a>
+                      <span class="name">
+                        <span><b>loadDetailBookSuccess</b></span>
+                        <a href="#loadDetailBookSuccess"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createAction( &#x27;[Detail Book] Load Detail Books Success&#x27;,
+                        props&lt;{ data: IDetailBookSmallInfo }&gt;() )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <h3>src/app/ngrx/favorites/favorites.actions.ts</h3>
+            <section data-compodoc="block-properties">
+              <h3></h3>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="loadFavoritesBooks"></a>
+                      <span class="name">
+                        <span><b>loadFavoritesBooks</b></span>
+                        <a href="#loadFavoritesBooks"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createAction( &#x27;[Favorites] Load Favorites Books&#x27;, props&lt;{
+                        params: IActiveParamsSearch }&gt;() )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="loadFavoritesBooksFailure"></a>
+                      <span class="name">
+                        <span><b>loadFavoritesBooksFailure</b></span>
+                        <a href="#loadFavoritesBooksFailure"
+                          ><span class="icon ion-ios-link"></span
+                        ></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createAction( &#x27;[Favorites] Load Favorites Books Failure&#x27;,
+                        props&lt;{ error: null }&gt;() )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="loadFavoritesBooksSuccess"></a>
+                      <span class="name">
+                        <span><b>loadFavoritesBooksSuccess</b></span>
+                        <a href="#loadFavoritesBooksSuccess"
+                          ><span class="icon ion-ios-link"></span
+                        ></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createAction( &#x27;[Favorites] Load Favorites Books Success&#x27;,
+                        props&lt;{ data: IBookItemTransformedWithTotal }&gt;() )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="removeFromFavoritesBooks"></a>
+                      <span class="name">
+                        <span><b>removeFromFavoritesBooks</b></span>
+                        <a href="#removeFromFavoritesBooks"
+                          ><span class="icon ion-ios-link"></span
+                        ></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createAction( &#x27;[Favorites] Remove Favorites Book&#x27;, props&lt;{
+                        bookId: string }&gt;() )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="removeFromFavoritesBooksFailure"></a>
+                      <span class="name">
+                        <span><b>removeFromFavoritesBooksFailure</b></span>
+                        <a href="#removeFromFavoritesBooksFailure"
+                          ><span class="icon ion-ios-link"></span
+                        ></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createAction( &#x27;[Favorites] Remove Favorites Book Failure&#x27;,
+                        props&lt;{ error: null }&gt;() )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="removeFromFavoritesBooksSuccess"></a>
+                      <span class="name">
+                        <span><b>removeFromFavoritesBooksSuccess</b></span>
+                        <a href="#removeFromFavoritesBooksSuccess"
+                          ><span class="icon ion-ios-link"></span
+                        ></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createAction( &#x27;[Favorites] Remove Favorites Book Success&#x27;,
+                        props&lt;{ bookId: string }&gt;() )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <h3>src/app/ngrx/my-books/my-books.actions.ts</h3>
+            <section data-compodoc="block-properties">
+              <h3></h3>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="loadMyBooks"></a>
+                      <span class="name">
+                        <span><b>loadMyBooks</b></span>
+                        <a href="#loadMyBooks"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code>createAction(&#x27;[MyBooks] Load My Books&#x27;)</code>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="loadMyBooksFailure"></a>
+                      <span class="name">
+                        <span><b>loadMyBooksFailure</b></span>
+                        <a href="#loadMyBooksFailure"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createAction( &#x27;[MyBooks] Load My Books Failure&#x27;, props&lt;{
+                        error: null }&gt;() )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="loadMyBooksSuccess"></a>
+                      <span class="name">
+                        <span><b>loadMyBooksSuccess</b></span>
+                        <a href="#loadMyBooksSuccess"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createAction( &#x27;[MyBooks] Load My Books Success&#x27;, props&lt;{ data:
+                        IBookItemTransformed[] }&gt;() )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="removeFromMyBooks"></a>
+                      <span class="name">
+                        <span><b>removeFromMyBooks</b></span>
+                        <a href="#removeFromMyBooks"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createAction( &#x27;[MyBooks] Remove My Book&#x27;, props&lt;{ id: string;
+                        webReaderLink: string; thumbnail: string }&gt;() )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="removeFromMyBooksFailure"></a>
+                      <span class="name">
+                        <span><b>removeFromMyBooksFailure</b></span>
+                        <a href="#removeFromMyBooksFailure"
+                          ><span class="icon ion-ios-link"></span
+                        ></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createAction( &#x27;[MyBooks] Remove My Book Failure&#x27;, props&lt;{
+                        error: null }&gt;() )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="removeFromMyBooksSuccess"></a>
+                      <span class="name">
+                        <span><b>removeFromMyBooksSuccess</b></span>
+                        <a href="#removeFromMyBooksSuccess"
+                          ><span class="icon ion-ios-link"></span
+                        ></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createAction( &#x27;[MyBooks] Remove My Book Success&#x27;, props&lt;{
+                        bookId: string }&gt;() )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <h3>src/app/ngrx/home/home.actions.ts</h3>
+            <section data-compodoc="block-properties">
+              <h3></h3>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="loadReadingNowBooks"></a>
+                      <span class="name">
+                        <span><b>loadReadingNowBooks</b></span>
+                        <a href="#loadReadingNowBooks"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createAction( &#x27;[Book] Load Reading Now Books&#x27;, props&lt;{
+                        startIndex: number }&gt;() )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="loadReadingNowBooksFailure"></a>
+                      <span class="name">
+                        <span><b>loadReadingNowBooksFailure</b></span>
+                        <a href="#loadReadingNowBooksFailure"
+                          ><span class="icon ion-ios-link"></span
+                        ></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createAction( &#x27;[Book] Load Reading Now Books Failure&#x27;, props&lt;{
+                        error: null }&gt;() )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="loadReadingNowBooksSuccess"></a>
+                      <span class="name">
+                        <span><b>loadReadingNowBooksSuccess</b></span>
+                        <a href="#loadReadingNowBooksSuccess"
+                          ><span class="icon ion-ios-link"></span
+                        ></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createAction( &#x27;[Book] Load Reading Now Books Success&#x27;, props&lt;{
+                        data: IBookItemTransformedWithTotal }&gt;() )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="loadRecommendedBooks"></a>
+                      <span class="name">
+                        <span><b>loadRecommendedBooks</b></span>
+                        <a href="#loadRecommendedBooks"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createAction( &#x27;[Book] Load Recommended Books&#x27;, props&lt;{
+                        startIndex: number }&gt;() )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="loadRecommendedBooksFailure"></a>
+                      <span class="name">
+                        <span><b>loadRecommendedBooksFailure</b></span>
+                        <a href="#loadRecommendedBooksFailure"
+                          ><span class="icon ion-ios-link"></span
+                        ></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createAction( &#x27;[Book] Load Recommended Books Failure&#x27;, props&lt;{
+                        error: null }&gt;() )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="loadRecommendedBooksSuccess"></a>
+                      <span class="name">
+                        <span><b>loadRecommendedBooksSuccess</b></span>
+                        <a href="#loadRecommendedBooksSuccess"
+                          ><span class="icon ion-ios-link"></span
+                        ></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createAction( &#x27;[Book] Load Recommended Books Success&#x27;, props&lt;{
+                        data: IBookItemTransformedWithTotal }&gt;() )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <h3>src/app/ngrx/search/search.actions.ts</h3>
+            <section data-compodoc="block-properties">
+              <h3></h3>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="loadSearchBooks"></a>
+                      <span class="name">
+                        <span><b>loadSearchBooks</b></span>
+                        <a href="#loadSearchBooks"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createAction( &#x27;[Search] Load Search Books&#x27;, props&lt;{ params:
+                        IActiveParamsSearch }&gt;() )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="loadSearchBooksFailure"></a>
+                      <span class="name">
+                        <span><b>loadSearchBooksFailure</b></span>
+                        <a href="#loadSearchBooksFailure"
+                          ><span class="icon ion-ios-link"></span
+                        ></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createAction( &#x27;[Search] Load Search Books Failure&#x27;, props&lt;{
+                        error: null }&gt;() )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="loadSearchBooksSuccess"></a>
+                      <span class="name">
+                        <span><b>loadSearchBooksSuccess</b></span>
+                        <a href="#loadSearchBooksSuccess"
+                          ><span class="icon ion-ios-link"></span
+                        ></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createAction( &#x27;[Search] Load Search Books Success&#x27;, props&lt;{
+                        data: ISearch }&gt;() )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <h3>src/app/ngrx/search-live/search-live.actions.ts</h3>
+            <section data-compodoc="block-properties">
+              <h3></h3>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="loadSearchLiveBooks"></a>
+                      <span class="name">
+                        <span><b>loadSearchLiveBooks</b></span>
+                        <a href="#loadSearchLiveBooks"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createAction( &#x27;[Search Live] Load Search Live Books&#x27;, props&lt;{
+                        textFromInput: string; typeFromInput: string }&gt;() )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="loadSearchLiveBooksFailure"></a>
+                      <span class="name">
+                        <span><b>loadSearchLiveBooksFailure</b></span>
+                        <a href="#loadSearchLiveBooksFailure"
+                          ><span class="icon ion-ios-link"></span
+                        ></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createAction( &#x27;[Search Live] Load Search Live Books Failure&#x27;,
+                        props&lt;{ error: null }&gt;() )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="loadSearchLiveBooksSuccess"></a>
+                      <span class="name">
+                        <span><b>loadSearchLiveBooksSuccess</b></span>
+                        <a href="#loadSearchLiveBooksSuccess"
+                          ><span class="icon ion-ios-link"></span
+                        ></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createAction( &#x27;[Search Live] Load Search Live Books Success&#x27;,
+                        props&lt;{ data: string[] }&gt;() )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="resetSearchLiveBooks"></a>
+                      <span class="name">
+                        <span><b>resetSearchLiveBooks</b></span>
+                        <a href="#resetSearchLiveBooks"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createAction( &#x27;[Search Live] Reset Search Live Books&#x27;, props&lt;{
+                        data: null }&gt;() )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <h3>src/app/ngrx/router/router-state-serializer.ts</h3>
+            <section data-compodoc="block-properties">
+              <h3></h3>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="mergeRouteData"></a>
+                      <span class="name">
+                        <span><b>mergeRouteData</b></span>
+                        <a href="#mergeRouteData"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >(route: ActivatedRouteSnapshot): Data &#x3D;&gt; !route ? {} : {
+                        ...route.data, ...mergeRouteData( (route.children.find(({ outlet })
+                        &#x3D;&gt; outlet &#x3D;&#x3D;&#x3D; &#x27;primary&#x27;) ||
+                        route.firstChild) as ActivatedRouteSnapshot ), }</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="mergeRouteParams"></a>
+                      <span class="name">
+                        <span><b>mergeRouteParams</b></span>
+                        <a href="#mergeRouteParams"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >( route: ActivatedRouteSnapshot, getter: (activatedRoute:
+                        ActivatedRouteSnapshot) &#x3D;&gt; Params ): Params &#x3D;&gt; !route ? {} :
+                        { ...getter(route), ...mergeRouteParams( (route.children.find(({ outlet })
+                        &#x3D;&gt; outlet &#x3D;&#x3D;&#x3D; &#x27;primary&#x27;) ||
+                        route.firstChild) as ActivatedRouteSnapshot, getter ), }</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <h3>src/app/ngrx/author/author.selector.ts</h3>
+            <section data-compodoc="block-properties">
+              <h3></h3>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="selectAuthor"></a>
+                      <span class="name">
+                        <span><b>selectAuthor</b></span>
+                        <a href="#selectAuthor"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createSelector(selectAuthorState, (state: AuthorState) &#x3D;&gt;
+                        state.author)</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="selectAuthorState"></a>
+                      <span class="name">
+                        <span><b>selectAuthorState</b></span>
+                        <a href="#selectAuthorState"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code>createFeatureSelector&lt;AuthorState&gt;(&#x27;author&#x27;)</code>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <h3>src/app/ngrx/auth-firebase/auth-firebase.selector.ts</h3>
+            <section data-compodoc="block-properties">
+              <h3></h3>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="selectCurrentUser"></a>
+                      <span class="name">
+                        <span><b>selectCurrentUser</b></span>
+                        <a href="#selectCurrentUser"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createSelector(selectUserState, (state: UserState) &#x3D;&gt;
+                        state.user)</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="selectUserState"></a>
+                      <span class="name">
+                        <span><b>selectUserState</b></span>
+                        <a href="#selectUserState"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code>createFeatureSelector&lt;UserState&gt;(&#x27;user&#x27;)</code>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <h3>src/app/ngrx/detail-book/detail-book.selector.ts</h3>
+            <section data-compodoc="block-properties">
+              <h3></h3>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="selectDetailBook"></a>
+                      <span class="name">
+                        <span><b>selectDetailBook</b></span>
+                        <a href="#selectDetailBook"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createSelector( selectDetailBookState, (state: DetailBookState) &#x3D;&gt;
+                        state.detailBook )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="selectDetailBookState"></a>
+                      <span class="name">
+                        <span><b>selectDetailBookState</b></span>
+                        <a href="#selectDetailBookState"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createFeatureSelector&lt;DetailBookState&gt;(&#x27;detailBook&#x27;)</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="selectLoadingOfDetailBook"></a>
+                      <span class="name">
+                        <span><b>selectLoadingOfDetailBook</b></span>
+                        <a href="#selectLoadingOfDetailBook"
+                          ><span class="icon ion-ios-link"></span
+                        ></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createSelector( selectDetailBookState, (state: DetailBookState) &#x3D;&gt;
+                        state.isLoading )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <h3>src/app/ngrx/favorites/favorites.selector.ts</h3>
+            <section data-compodoc="block-properties">
+              <h3></h3>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="selectFavoritesBooks"></a>
+                      <span class="name">
+                        <span><b>selectFavoritesBooks</b></span>
+                        <a href="#selectFavoritesBooks"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createSelector( selectFavoritesState, (state: FavoritesState) &#x3D;&gt;
+                        state.favoritesBooks )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="selectFavoritesState"></a>
+                      <span class="name">
+                        <span><b>selectFavoritesState</b></span>
+                        <a href="#selectFavoritesState"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createFeatureSelector&lt;FavoritesState&gt;(&#x27;favorites&#x27;)</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="selectLoadingOfFavoritesBooks"></a>
+                      <span class="name">
+                        <span><b>selectLoadingOfFavoritesBooks</b></span>
+                        <a href="#selectLoadingOfFavoritesBooks"
+                          ><span class="icon ion-ios-link"></span
+                        ></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createSelector( selectFavoritesState, (state: FavoritesState) &#x3D;&gt;
+                        state.isLoading )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <h3>src/app/ngrx/home/home.selectors.ts</h3>
+            <section data-compodoc="block-properties">
+              <h3></h3>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="selectHomeNowState"></a>
+                      <span class="name">
+                        <span><b>selectHomeNowState</b></span>
+                        <a href="#selectHomeNowState"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code>createFeatureSelector&lt;HomeNowState&gt;(&#x27;homeNow&#x27;)</code>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="selectHomeState"></a>
+                      <span class="name">
+                        <span><b>selectHomeState</b></span>
+                        <a href="#selectHomeState"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code>createFeatureSelector&lt;HomeState&gt;(&#x27;home&#x27;)</code>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="selectLoadingOfReadingNowBooks"></a>
+                      <span class="name">
+                        <span><b>selectLoadingOfReadingNowBooks</b></span>
+                        <a href="#selectLoadingOfReadingNowBooks"
+                          ><span class="icon ion-ios-link"></span
+                        ></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createSelector( selectHomeNowState, (state: HomeNowState) &#x3D;&gt;
+                        state.loading )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="selectLoadingOfRecommendedBooks"></a>
+                      <span class="name">
+                        <span><b>selectLoadingOfRecommendedBooks</b></span>
+                        <a href="#selectLoadingOfRecommendedBooks"
+                          ><span class="icon ion-ios-link"></span
+                        ></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createSelector( selectHomeState, (state: HomeState) &#x3D;&gt;
+                        state.loading )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="selectReadingNowBooks"></a>
+                      <span class="name">
+                        <span><b>selectReadingNowBooks</b></span>
+                        <a href="#selectReadingNowBooks"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createSelector( selectHomeNowState, (state: HomeNowState) &#x3D;&gt;
+                        state.readingNowBooks )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="selectRecommendedBooks"></a>
+                      <span class="name">
+                        <span><b>selectRecommendedBooks</b></span>
+                        <a href="#selectRecommendedBooks"
+                          ><span class="icon ion-ios-link"></span
+                        ></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createSelector( selectHomeState, (state: HomeState) &#x3D;&gt;
+                        state.recommendedBooks )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <h3>src/app/ngrx/my-books/my-books.selector.ts</h3>
+            <section data-compodoc="block-properties">
+              <h3></h3>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="selectLoadingOfMyBooks"></a>
+                      <span class="name">
+                        <span><b>selectLoadingOfMyBooks</b></span>
+                        <a href="#selectLoadingOfMyBooks"
+                          ><span class="icon ion-ios-link"></span
+                        ></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createSelector( selectMyBooksState, (state: MyBooksState) &#x3D;&gt;
+                        state.isLoading )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="selectMyBooks"></a>
+                      <span class="name">
+                        <span><b>selectMyBooks</b></span>
+                        <a href="#selectMyBooks"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createSelector( selectMyBooksState, (state: MyBooksState) &#x3D;&gt;
+                        state.myBooks )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="selectMyBooksState"></a>
+                      <span class="name">
+                        <span><b>selectMyBooksState</b></span>
+                        <a href="#selectMyBooksState"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code>createFeatureSelector&lt;MyBooksState&gt;(&#x27;myBooks&#x27;)</code>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <h3>src/app/ngrx/search/search.selector.ts</h3>
+            <section data-compodoc="block-properties">
+              <h3></h3>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="selectLoadingOfSearchBooks"></a>
+                      <span class="name">
+                        <span><b>selectLoadingOfSearchBooks</b></span>
+                        <a href="#selectLoadingOfSearchBooks"
+                          ><span class="icon ion-ios-link"></span
+                        ></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createSelector( selectSearchState, (state: SearchState) &#x3D;&gt;
+                        state.isLoading )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="selectSearchBooks"></a>
+                      <span class="name">
+                        <span><b>selectSearchBooks</b></span>
+                        <a href="#selectSearchBooks"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createSelector( selectSearchState, (state: SearchState) &#x3D;&gt;
+                        state.search )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="selectSearchState"></a>
+                      <span class="name">
+                        <span><b>selectSearchState</b></span>
+                        <a href="#selectSearchState"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code>createFeatureSelector&lt;SearchState&gt;(&#x27;search&#x27;)</code>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <h3>src/app/ngrx/router/router.selectors.ts</h3>
+            <section data-compodoc="block-properties">
+              <h3></h3>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="selectParams"></a>
+                      <span class="name">
+                        <span><b>selectParams</b></span>
+                        <a href="#selectParams"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createSelector(selectRouterState, router &#x3D;&gt;
+                        router?.state?.params)</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="selectQueryParams"></a>
+                      <span class="name">
+                        <span><b>selectQueryParams</b></span>
+                        <a href="#selectQueryParams"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createSelector( selectRouterState, router &#x3D;&gt;
+                        router?.state?.queryParams )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="selectRouterState"></a>
+                      <span class="name">
+                        <span><b>selectRouterState</b></span>
+                        <a href="#selectRouterState"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createFeatureSelector&lt;RouterReducerState&lt;RouterState&gt;&gt;(&#x27;router&#x27;)</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="selectUrl"></a>
+                      <span class="name">
+                        <span><b>selectUrl</b></span>
+                        <a href="#selectUrl"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createSelector(selectRouterState, router &#x3D;&gt;
+                        router?.state?.url)</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <h3>src/app/ngrx/search-live/search-live.selector.ts</h3>
+            <section data-compodoc="block-properties">
+              <h3></h3>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="selectSearchLiveBooks"></a>
+                      <span class="name">
+                        <span><b>selectSearchLiveBooks</b></span>
+                        <a href="#selectSearchLiveBooks"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createSelector( selectSearchLiveState, (state: SearchLiveState) &#x3D;&gt;
+                        state.searchLive )</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="selectSearchLiveState"></a>
+                      <span class="name">
+                        <span><b>selectSearchLiveState</b></span>
+                        <a href="#selectSearchLiveState"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createFeatureSelector&lt;SearchLiveState&gt;(&#x27;searchLive&#x27;)</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <h3>src/app/ngrx/auth-firebase/auth-firebase.actions.ts</h3>
+            <section data-compodoc="block-properties">
+              <h3></h3>
+              <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4">
+                      <a name="setUserAction"></a>
+                      <span class="name">
+                        <span><b>setUserAction</b></span>
+                        <a href="#setUserAction"><span class="icon ion-ios-link"></span></a>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4">
+                      <i>Default value : </i
+                      ><code
+                        >createAction(&#x27;[User] Set User&#x27;, props&lt;{ user: string | null
+                        }&gt;())</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+          </div>
+          <div class="search-results">
+            <div class="has-results">
+              <h1 class="search-results-title">
+                <span class="search-results-count"></span> results matching "<span
+                  class="search-query"></span
+                >"
+              </h1>
+              <ul class="search-results-list"></ul>
+            </div>
+            <div class="no-results">
+              <h1 class="search-results-title">
+                No results matching "<span class="search-query"></span>"
+              </h1>
+            </div>
+          </div>
+        </div>
+        <!-- END CONTENT -->
+      </div>
+    </div>
+
+    <label class="dark-mode-switch">
+      <input type="checkbox" />
+      <span class="slider">
+        <svg
+          class="slider-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          height="20"
+          stroke="#000"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          width="20"
+          xmlns="http://www.w3.org/2000/svg">
+          <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+        </svg>
+      </span>
+    </label>
+
+    <script>
+      var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+      var COMPODOC_CURRENT_PAGE_CONTEXT = 'miscellaneous-variables';
+      var COMPODOC_CURRENT_PAGE_URL = 'variables.html';
+      var MAX_SEARCH_RESULTS = 15;
+    </script>
+
+    <script>
+      $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+      checkToggle(darkModeState);
+      if ($darkModeToggleSwitchers.length > 0) {
+        for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+          $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+            darkModeState = !darkModeState;
+            toggleDarkMode(darkModeState);
+          });
+        }
+      }
+    </script>
+
+    <script src="../js/libs/custom-elements.min.js"></script>
+    <script src="../js/libs/lit-html.js"></script>
+
+    <script src="../js/menu-wc.js" defer></script>
+    <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+    <script src="../js/libs/bootstrap-native.js"></script>
+
+    <script src="../js/libs/es6-shim.min.js"></script>
+    <script src="../js/libs/EventDispatcher.js"></script>
+    <script src="../js/libs/promise.min.js"></script>
+    <script src="../js/libs/zepto.min.js"></script>
+
+    <script src="../js/compodoc.js"></script>
+
+    <script src="../js/tabs.js"></script>
+    <script src="../js/menu.js"></script>
+    <script src="../js/libs/clipboard.min.js"></script>
+    <script src="../js/libs/prism.js"></script>
+    <script src="../js/sourceCode.js"></script>
+    <script src="../js/search/search.js"></script>
+    <script src="../js/search/lunr.min.js"></script>
+    <script src="../js/search/search-lunr.js"></script>
+    <script src="../js/search/search_index.js"></script>
+    <script src="../js/lazy-load-graphs.js"></script>
+  </body>
+</html>

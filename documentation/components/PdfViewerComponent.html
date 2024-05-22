@@ -1,0 +1,1662 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">frontend documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  PdfViewerComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/views/user/pdf-viewer/pdf-viewer.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
+
+
+                <tr>
+                    <td class="col-md-3">HostDirectives</td>
+                    <td class="col-md-9">
+                                    <code><a href="../directives/DestroyDirective.html" target="_self" >DestroyDirective</a></code>
+<br/>
+                    </td>
+                </tr>
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-pdf-viewer</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>NgxExtendedPdfViewerModule</code>
+                            <code>SvgIconComponent</code>
+                            <code>AsyncPipe</code>
+                            <code>TranslateModule</code>
+                                <code><a href="../components/MiniLoaderComponent.html" target="_self" >MiniLoaderComponent</a></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./pdf-viewer.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./pdf-viewer.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#book$" >book$</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#destroy$" >destroy$</a>
+                            </li>
+                            <li>
+                                <a href="#isLoading$" >isLoading$</a>
+                            </li>
+                            <li>
+                                <a href="#listOfViewsAboutScrolling" >listOfViewsAboutScrolling</a>
+                            </li>
+                            <li>
+                                <a href="#listOfViewsAboutSpread" >listOfViewsAboutSpread</a>
+                            </li>
+                            <li>
+                                <a href="#pathToIcons" >pathToIcons</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#backToMyBooks" >backToMyBooks</a>
+                            </li>
+                            <li>
+                                <a href="#chooseView" >chooseView</a>
+                            </li>
+                            <li>
+                                <a href="#customOpeningFullScreen" >customOpeningFullScreen</a>
+                            </li>
+                            <li>
+                                <a href="#download" >download</a>
+                            </li>
+                            <li>
+                                <a href="#edit" >edit</a>
+                            </li>
+                            <li>
+                                <a href="#getInfoAboutBook" >getInfoAboutBook</a>
+                            </li>
+                            <li>
+                                <a href="#nextPrimary" >nextPrimary</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onPdfLoad" >onPdfLoad</a>
+                            </li>
+                            <li>
+                                <a href="#primaryPrevious" >primaryPrevious</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(routerFacadeService: <a href="../injectables/RouterFacadeService.html" target="_self">RouterFacadeService</a>, databaseService: <a href="../injectables/DatabaseService.html" target="_self">DatabaseService</a>, router: Router, notificationService: <a href="../injectables/NotificationService.html" target="_self">NotificationService</a>, translateService: TranslateService)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/views/user/pdf-viewer/pdf-viewer.component.ts:48</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>routerFacadeService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/RouterFacadeService.html" target="_self" >RouterFacadeService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>databaseService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/DatabaseService.html" target="_self" >DatabaseService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                    <code>Router</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>notificationService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/NotificationService.html" target="_self" >NotificationService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>translateService</td>
+                                                  
+                                                        <td>
+                                                                    <code>TranslateService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="backToMyBooks"></a>
+                    <span class="name">
+                        <span ><b>backToMyBooks</b></span>
+                        <a href="#backToMyBooks"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>backToMyBooks()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="146"
+                                    class="link-to-prism">src/app/views/user/pdf-viewer/pdf-viewer.component.ts:146</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="chooseView"></a>
+                    <span class="name">
+                        <span ><b>chooseView</b></span>
+                        <a href="#chooseView"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>chooseView(event: Event, listOfView: "spread" | "scrolling")</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="157"
+                                    class="link-to-prism">src/app/views/user/pdf-viewer/pdf-viewer.component.ts:157</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>Event</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>listOfView</td>
+                                            <td>
+                                                        <code>&quot;spread&quot; | &quot;scrolling&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="customOpeningFullScreen"></a>
+                    <span class="name">
+                        <span ><b>customOpeningFullScreen</b></span>
+                        <a href="#customOpeningFullScreen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>customOpeningFullScreen()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="150"
+                                    class="link-to-prism">src/app/views/user/pdf-viewer/pdf-viewer.component.ts:150</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="download"></a>
+                    <span class="name">
+                        <span ><b>download</b></span>
+                        <a href="#download"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>download()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="198"
+                                    class="link-to-prism">src/app/views/user/pdf-viewer/pdf-viewer.component.ts:198</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="edit"></a>
+                    <span class="name">
+                        <span ><b>edit</b></span>
+                        <a href="#edit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>edit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="177"
+                                    class="link-to-prism">src/app/views/user/pdf-viewer/pdf-viewer.component.ts:177</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getInfoAboutBook"></a>
+                    <span class="name">
+                        <span ><b>getInfoAboutBook</b></span>
+                        <a href="#getInfoAboutBook"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getInfoAboutBook(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="130"
+                                    class="link-to-prism">src/app/views/user/pdf-viewer/pdf-viewer.component.ts:130</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="nextPrimary"></a>
+                    <span class="name">
+                        <span ><b>nextPrimary</b></span>
+                        <a href="#nextPrimary"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>nextPrimary()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="184"
+                                    class="link-to-prism">src/app/views/user/pdf-viewer/pdf-viewer.component.ts:184</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="95"
+                                    class="link-to-prism">src/app/views/user/pdf-viewer/pdf-viewer.component.ts:95</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onPdfLoad"></a>
+                    <span class="name">
+                        <span ><b>onPdfLoad</b></span>
+                        <a href="#onPdfLoad"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onPdfLoad(isLoad: "pdfLoaded" | "pdfLoadingFailed")</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="205"
+                                    class="link-to-prism">src/app/views/user/pdf-viewer/pdf-viewer.component.ts:205</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>isLoad</td>
+                                            <td>
+                                                        <code>&quot;pdfLoaded&quot; | &quot;pdfLoadingFailed&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="primaryPrevious"></a>
+                    <span class="name">
+                        <span ><b>primaryPrevious</b></span>
+                        <a href="#primaryPrevious"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>primaryPrevious()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="191"
+                                    class="link-to-prism">src/app/views/user/pdf-viewer/pdf-viewer.component.ts:191</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="book$"></a>
+                    <span class="name">
+                        <span ><b>book$</b></span>
+                        <a href="#book$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Observable&lt;IBookItemTransformed | null&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>of(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/views/user/pdf-viewer/pdf-viewer.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="destroy$"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>destroy$</b></span>
+                        <a href="#destroy$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(DestroyDirective).destroy$</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/views/user/pdf-viewer/pdf-viewer.component.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isLoading$"></a>
+                    <span class="name">
+                        <span ><b>isLoading$</b></span>
+                        <a href="#isLoading$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>BehaviorSubject&lt;boolean&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new BehaviorSubject&lt;boolean&gt;(true)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/views/user/pdf-viewer/pdf-viewer.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="listOfViewsAboutScrolling"></a>
+                    <span class="name">
+                        <span ><b>listOfViewsAboutScrolling</b></span>
+                        <a href="#listOfViewsAboutScrolling"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    { title: &#x27;Vertical Scrolling&#x27;, id: &#x27;secondaryScrollVertical&#x27; },
+    { title: &#x27;Horizontal Scrolling&#x27;, id: &#x27;secondaryScrollHorizontal&#x27; },
+    { title: &#x27;Wrapped Scrolling&#x27;, id: &#x27;secondaryScrollWrapped&#x27; },
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/views/user/pdf-viewer/pdf-viewer.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="listOfViewsAboutSpread"></a>
+                    <span class="name">
+                        <span ><b>listOfViewsAboutSpread</b></span>
+                        <a href="#listOfViewsAboutSpread"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    { title: &#x27;No Spreads&#x27;, id: &#x27;secondarySpreadNone&#x27; },
+    { title: &#x27;Odd Spreads&#x27;, id: &#x27;secondarySpreadOdd&#x27; },
+    { title: &#x27;Even Spreads&#x27;, id: &#x27;secondarySpreadEven&#x27; },
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/views/user/pdf-viewer/pdf-viewer.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="pathToIcons"></a>
+                    <span class="name">
+                        <span ><b>pathToIcons</b></span>
+                        <a href="#pathToIcons"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>environment.pathToIcons</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/views/user/pdf-viewer/pdf-viewer.component.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { BehaviorSubject, catchError, EMPTY, filter, Observable, of, takeUntil, tap } from &#x27;rxjs&#x27;;
+import { LangChangeEvent, TranslateModule, TranslateService } from &#x27;@ngx-translate/core&#x27;;
+import { ChangeDetectionStrategy, Component, inject, OnInit } from &#x27;@angular/core&#x27;;
+import { environment } from &#x27;../../../../environments/environment.development&#x27;;
+import { DestroyDirective } from &#x27;../../../core/directives/destroy.directive&#x27;;
+import { RouterFacadeService } from &#x27;../../../ngrx/router/router.facade&#x27;;
+import { NgxExtendedPdfViewerModule } from &#x27;ngx-extended-pdf-viewer&#x27;;
+import { DatabaseService, NotificationService } from &#x27;../../../core&#x27;;
+import { NotificationStatusEnum } from &#x27;../../../modals/auth&#x27;;
+import { MiniLoaderComponent } from &#x27;../../../UI-сomponents&#x27;;
+import { IBookItemTransformed } from &#x27;../../../modals/user&#x27;;
+import { SvgIconComponent } from &#x27;angular-svg-icon&#x27;;
+import { Params, Router } from &#x27;@angular/router&#x27;;
+import { AsyncPipe } from &#x27;@angular/common&#x27;;
+
+@Component({
+  selector: &#x27;app-pdf-viewer&#x27;,
+  templateUrl: &#x27;./pdf-viewer.component.html&#x27;,
+  styleUrls: [&#x27;./pdf-viewer.component.scss&#x27;],
+  standalone: true,
+  imports: [
+    NgxExtendedPdfViewerModule,
+    SvgIconComponent,
+    AsyncPipe,
+    TranslateModule,
+    MiniLoaderComponent,
+  ],
+  hostDirectives: [DestroyDirective],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class PdfViewerComponent implements OnInit {
+  book$: Observable&lt;IBookItemTransformed | null&gt; &#x3D; of(null);
+  private readonly destroy$ &#x3D; inject(DestroyDirective).destroy$;
+
+  listOfViewsAboutSpread &#x3D; [
+    { title: &#x27;No Spreads&#x27;, id: &#x27;secondarySpreadNone&#x27; },
+    { title: &#x27;Odd Spreads&#x27;, id: &#x27;secondarySpreadOdd&#x27; },
+    { title: &#x27;Even Spreads&#x27;, id: &#x27;secondarySpreadEven&#x27; },
+  ];
+
+  listOfViewsAboutScrolling &#x3D; [
+    { title: &#x27;Vertical Scrolling&#x27;, id: &#x27;secondaryScrollVertical&#x27; },
+    { title: &#x27;Horizontal Scrolling&#x27;, id: &#x27;secondaryScrollHorizontal&#x27; },
+    { title: &#x27;Wrapped Scrolling&#x27;, id: &#x27;secondaryScrollWrapped&#x27; },
+  ];
+
+  pathToIcons &#x3D; environment.pathToIcons;
+  isLoading$: BehaviorSubject&lt;boolean&gt; &#x3D; new BehaviorSubject&lt;boolean&gt;(true);
+
+  constructor(
+    private routerFacadeService: RouterFacadeService,
+    private databaseService: DatabaseService,
+    private router: Router,
+    private notificationService: NotificationService,
+    private translateService: TranslateService
+  ) {
+    this.routerFacadeService.getParams$
+      .pipe(
+        filter((params: Params) &#x3D;&gt; Boolean(params[&#x27;id&#x27;])),
+        tap((params: Params): void &#x3D;&gt; {
+          this.getInfoAboutBook(params[&#x27;id&#x27;]);
+        }),
+        takeUntil(this.destroy$)
+      )
+      .subscribe();
+
+    const browserLang: string | undefined &#x3D; this.translateService.currentLang;
+    if (browserLang &#x3D;&#x3D;&#x3D; &#x27;ru&#x27;) {
+      this.listOfViewsAboutSpread &#x3D; [
+        { title: &#x27;Без&#x27;, id: &#x27;secondarySpreadNone&#x27; },
+        { title: &#x27;Чётные&#x27;, id: &#x27;secondarySpreadOdd&#x27; },
+        { title: &#x27;Нечётные&#x27;, id: &#x27;secondarySpreadEven&#x27; },
+      ];
+
+      this.listOfViewsAboutScrolling &#x3D; [
+        { title: &#x27;Вертикально&#x27;, id: &#x27;secondaryScrollVertical&#x27; },
+        { title: &#x27;Горизонтально&#x27;, id: &#x27;secondaryScrollHorizontal&#x27; },
+        { title: &#x27;Обтекание&#x27;, id: &#x27;secondaryScrollWrapped&#x27; },
+      ];
+    } else if (browserLang &#x3D;&#x3D;&#x3D; &#x27;en&#x27;) {
+      this.listOfViewsAboutSpread &#x3D; [
+        { title: &#x27;No Spreads&#x27;, id: &#x27;secondarySpreadNone&#x27; },
+        { title: &#x27;Odd Spreads&#x27;, id: &#x27;secondarySpreadOdd&#x27; },
+        { title: &#x27;Even Spreads&#x27;, id: &#x27;secondarySpreadEven&#x27; },
+      ];
+
+      this.listOfViewsAboutScrolling &#x3D; [
+        { title: &#x27;Vertical Scrolling&#x27;, id: &#x27;secondaryScrollVertical&#x27; },
+        { title: &#x27;Horizontal Scrolling&#x27;, id: &#x27;secondaryScrollHorizontal&#x27; },
+        { title: &#x27;Wrapped Scrolling&#x27;, id: &#x27;secondaryScrollWrapped&#x27; },
+      ];
+    }
+  }
+
+  ngOnInit(): void {
+    this.translateService.onLangChange
+      .pipe(
+        tap((lang: LangChangeEvent): void &#x3D;&gt; {
+          if (lang.lang &#x3D;&#x3D;&#x3D; &#x27;en&#x27;) {
+            this.listOfViewsAboutSpread &#x3D; [
+              { title: &#x27;No Spreads&#x27;, id: &#x27;secondarySpreadNone&#x27; },
+              { title: &#x27;Odd Spreads&#x27;, id: &#x27;secondarySpreadOdd&#x27; },
+              { title: &#x27;Even Spreads&#x27;, id: &#x27;secondarySpreadEven&#x27; },
+            ];
+
+            this.listOfViewsAboutScrolling &#x3D; [
+              { title: &#x27;Vertical Scrolling&#x27;, id: &#x27;secondaryScrollVertical&#x27; },
+              { title: &#x27;Horizontal Scrolling&#x27;, id: &#x27;secondaryScrollHorizontal&#x27; },
+              { title: &#x27;Wrapped Scrolling&#x27;, id: &#x27;secondaryScrollWrapped&#x27; },
+            ];
+          } else if (lang.lang &#x3D;&#x3D;&#x3D; &#x27;ru&#x27;) {
+            this.listOfViewsAboutSpread &#x3D; [
+              { title: &#x27;Без&#x27;, id: &#x27;secondarySpreadNone&#x27; },
+              { title: &#x27;Чётные&#x27;, id: &#x27;secondarySpreadOdd&#x27; },
+              { title: &#x27;Нечётные&#x27;, id: &#x27;secondarySpreadEven&#x27; },
+            ];
+
+            this.listOfViewsAboutScrolling &#x3D; [
+              { title: &#x27;Вертикально&#x27;, id: &#x27;secondaryScrollVertical&#x27; },
+              { title: &#x27;Горизонтально&#x27;, id: &#x27;secondaryScrollHorizontal&#x27; },
+              { title: &#x27;Обтекание&#x27;, id: &#x27;secondaryScrollWrapped&#x27; },
+            ];
+          }
+        }),
+        takeUntil(this.destroy$)
+      )
+      .subscribe();
+  }
+
+  getInfoAboutBook(id: string): void {
+    this.book$ &#x3D; this.databaseService.getSelfBook(id).pipe(
+      filter((selfBook: IBookItemTransformed | null) &#x3D;&gt; Boolean(selfBook)),
+      catchError(() &#x3D;&gt; {
+        const messageKey &#x3D; &#x27;message.somethingWentWrong&#x27;;
+        const message &#x3D; this.translateService.instant(messageKey);
+        this.notificationService.notifyAboutNotification({
+          message: message,
+          status: NotificationStatusEnum.error,
+        });
+        this.router.navigate([&#x27;/home/books&#x27;]).then((): void &#x3D;&gt; {});
+        return EMPTY;
+      })
+    );
+  }
+
+  backToMyBooks(): void {
+    this.router.navigate([&#x27;/home/books&#x27;]).then((): void &#x3D;&gt; {});
+  }
+
+  customOpeningFullScreen(): void {
+    const presentationButton: HTMLElement | null &#x3D; document.getElementById(&#x27;presentationMode&#x27;);
+    if (presentationButton) {
+      presentationButton.click();
+    }
+  }
+
+  chooseView(event: Event, listOfView: &#x27;spread&#x27; | &#x27;scrolling&#x27;): void {
+    const target: HTMLSelectElement &#x3D; event.target as HTMLSelectElement;
+    const selectedIndex &#x3D; target.selectedIndex;
+    const selectedOptionValue &#x3D; target.options[selectedIndex].value;
+    let listOfViewChanged &#x3D; this.listOfViewsAboutSpread;
+
+    if (listOfView &#x3D;&#x3D;&#x3D; &#x27;spread&#x27;) {
+      listOfViewChanged &#x3D; this.listOfViewsAboutSpread;
+    } else if (listOfView &#x3D;&#x3D;&#x3D; &#x27;scrolling&#x27;) {
+      listOfViewChanged &#x3D; this.listOfViewsAboutScrolling;
+    }
+
+    const selectedOptionId &#x3D; listOfViewChanged.find(view &#x3D;&gt; view.title &#x3D;&#x3D;&#x3D; selectedOptionValue);
+
+    if (selectedOptionId &amp;&amp; selectedOptionId.id) {
+      const elementWhichNeedId: HTMLElement | null &#x3D; document.getElementById(selectedOptionId.id);
+      elementWhichNeedId?.click();
+    }
+  }
+
+  edit(): void {
+    const editButton: HTMLElement | null &#x3D; document.getElementById(&#x27;primaryEditorInk&#x27;);
+    if (editButton) {
+      editButton.click();
+    }
+  }
+
+  nextPrimary(): void {
+    const primaryNext: HTMLElement | null &#x3D; document.getElementById(&#x27;primaryNext&#x27;);
+    if (primaryNext) {
+      primaryNext.click();
+    }
+  }
+
+  primaryPrevious(): void {
+    const primaryPrevious: HTMLElement | null &#x3D; document.getElementById(&#x27;primaryPrevious&#x27;);
+    if (primaryPrevious) {
+      primaryPrevious.click();
+    }
+  }
+
+  download(): void {
+    const download: HTMLElement | null &#x3D; document.getElementById(&#x27;download&#x27;);
+    if (download) {
+      download.click();
+    }
+  }
+
+  onPdfLoad(isLoad: &#x27;pdfLoaded&#x27; | &#x27;pdfLoadingFailed&#x27;): void {
+    if (isLoad &#x3D;&#x3D;&#x3D; &#x27;pdfLoaded&#x27;) {
+      this.isLoading$.next(false);
+    } else if (isLoad &#x3D;&#x3D;&#x3D; &#x27;pdfLoadingFailed&#x27;) {
+      this.isLoading$.next(false);
+      const messageKey &#x3D; &#x27;message.somethingWentWrong&#x27;;
+      const message &#x3D; this.translateService.instant(messageKey);
+      this.notificationService.notifyAboutNotification({
+        message: message,
+        status: NotificationStatusEnum.error,
+      });
+      this.router.navigate([&#x27;/home/books&#x27;]).then((): void &#x3D;&gt; {});
+    }
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">@if (book$ | async; as book) {
+  &lt;section class&#x3D;&quot;pdf-viewer&quot;&gt;
+    &lt;div class&#x3D;&quot;pdf-viewer-header&quot;&gt;
+      &lt;div class&#x3D;&quot;pdf-viewer-header-info&quot;&gt;
+        &lt;div class&#x3D;&quot;pdf-viewer-header-info-back&quot; (click)&#x3D;&quot;backToMyBooks()&quot;&gt;
+          &lt;svg-icon [src]&#x3D;&quot;pathToIcons + &#x27;/pdf-icon-back.svg&#x27;&quot;&gt;&lt;/svg-icon&gt;
+          &lt;span class&#x3D;&quot;pdf-viewer-header-back-text&quot;&gt;{{ &#x27;auth-page.back&#x27; | translate }}&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;pdf-viewer-header-info-about&quot;&gt;
+          &lt;div
+            class&#x3D;&quot;pdf-viewer-header-info-about-image&quot;
+            style&#x3D;&quot;background-image: url({{ book.thumbnail }})&quot;&gt;
+            &amp;nbsp;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;pdf-viewer-header-info-about-text&quot;&gt;
+            &lt;span class&#x3D;&quot;pdf-title&quot;&gt;{{ book.title }}&lt;/span&gt;
+            &lt;span class&#x3D;&quot;pdf-author&quot;&gt;{{ book.author[0] }}&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;pdf-viewer-header-addition&quot;&gt;
+        &lt;div class&#x3D;&quot;pdf-viewer-header-addition-favorite&quot;&gt;&lt;/div&gt;
+        &lt;div class&#x3D;&quot;pdf-viewer-header-addition-full&quot;&gt;
+          &lt;button class&#x3D;&quot;pdf-addition-btn&quot; (click)&#x3D;&quot;customOpeningFullScreen()&quot;&gt;
+            {{ &#x27;viewer-page.fullScreen&#x27; | translate }}
+          &lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;pdf-viewer-header-addition-view&quot;&gt;
+          &lt;select
+            id&#x3D;&quot;optionsSpread&quot;
+            (change)&#x3D;&quot;chooseView($event, &#x27;spread&#x27;)&quot;
+            [class]&#x3D;&quot;{ &#x27;pdf-addition-btn&#x27;: true }&quot;&gt;
+            @for (option of listOfViewsAboutSpread; track option) {
+              &lt;option [value]&#x3D;&quot;option.title&quot;&gt;{{ option.title }}&lt;/option&gt;
+            }
+          &lt;/select&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;pdf-viewer-header-addition-view&quot;&gt;
+          &lt;select
+            id&#x3D;&quot;optionsScrolling&quot;
+            (change)&#x3D;&quot;chooseView($event, &#x27;scrolling&#x27;)&quot;
+            [class]&#x3D;&quot;{ &#x27;pdf-addition-btn&#x27;: true }&quot;&gt;
+            @for (option of listOfViewsAboutScrolling; track option) {
+              &lt;option [value]&#x3D;&quot;option.title&quot;&gt;{{ option.title }}&lt;/option&gt;
+            }
+          &lt;/select&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    @if (isLoading$ | async) {
+      &lt;app-mini-loader&gt;&lt;/app-mini-loader&gt;
+    } @else {
+      &lt;div class&#x3D;&quot;pdf-viewer-wrapper&quot;&gt;
+        &lt;div class&#x3D;&quot;pdf-viewer-zoom&quot;&gt;
+          &lt;pdf-zoom-in&gt;&lt;/pdf-zoom-in&gt;
+          &lt;pdf-zoom-out&gt;&lt;/pdf-zoom-out&gt;
+          &lt;div&gt;
+            &lt;pdf-zoom-dropdown
+              [zoomLevels]&#x3D;&quot;[
+                &#x27;auto&#x27;,
+                &#x27;page-actual&#x27;,
+                &#x27;page-fit&#x27;,
+                &#x27;page-width&#x27;,
+                &#x27;50%&#x27;,
+                &#x27;100%&#x27;,
+                &#x27;125%&#x27;,
+                &#x27;150%&#x27;,
+                &#x27;200%&#x27;,
+                &#x27;300%&#x27;,
+                &#x27;400%&#x27;
+              ]&quot;&gt;&lt;/pdf-zoom-dropdown&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;pdf-viewer-number&quot;&gt;
+          &lt;svg-icon
+            [src]&#x3D;&quot;pathToIcons + &#x27;/pdf-arrow.svg&#x27;&quot;
+            (click)&#x3D;&quot;primaryPrevious()&quot;
+            [svgStyle]&#x3D;&quot;{ position: &#x27;relative&#x27;, &#x27;top.px&#x27;: 2 }&quot;
+            class&#x3D;&quot;pdf-viewer-arrow&quot;&gt;&lt;/svg-icon&gt;
+          &lt;pdf-page-number&gt;&lt;/pdf-page-number&gt;
+          &lt;svg-icon
+            (click)&#x3D;&quot;nextPrimary()&quot;
+            [svgStyle]&#x3D;&quot;{ transform: &#x27;rotate(180deg)&#x27;, position: &#x27;relative&#x27;, &#x27;top.px&#x27;: 2 }&quot;
+            class&#x3D;&quot;pdf-viewer-arrow&quot;
+            [src]&#x3D;&quot;pathToIcons + &#x27;/pdf-arrow.svg&#x27;&quot;&gt;&lt;/svg-icon&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;pdf-download&quot;&gt;
+          &lt;svg-icon
+            (click)&#x3D;&quot;download()&quot;
+            [svgStyle]&#x3D;&quot;{ cursor: &#x27;pointer&#x27; }&quot;
+            [src]&#x3D;&quot;pathToIcons + &#x27;/pdf-arrow-down.svg&#x27;&quot;&gt;&lt;/svg-icon&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    }
+    &lt;ngx-extended-pdf-viewer
+      [src]&#x3D;&quot;book.webReaderLink&quot;
+      [zoom]&#x3D;&quot;&#x27;auto&#x27;&quot;
+      [showPresentationModeButton]&#x3D;&quot;true&quot;
+      [textLayer]&#x3D;&quot;true&quot;
+      [backgroundColor]&#x3D;&quot;&#x27;#4D4D4D&#x27;&quot;
+      [showHandToolButton]&#x3D;&quot;true&quot;
+      [language]&#x3D;&quot;&#x27;en&#x27;&quot;
+      (pdfLoaded)&#x3D;&quot;onPdfLoad(&#x27;pdfLoaded&#x27;)&quot;
+      (pdfLoadingFailed)&#x3D;&quot;onPdfLoad(&#x27;pdfLoadingFailed&#x27;)&quot;&gt;
+    &lt;/ngx-extended-pdf-viewer&gt;
+    @if ((isLoading$ | async) &#x3D;&#x3D;&#x3D; false) {
+      &lt;div class&#x3D;&quot;pdf-edit&quot; (click)&#x3D;&quot;edit()&quot;&gt;
+        &lt;svg-icon [src]&#x3D;&quot;pathToIcons + &#x27;/pdf-edit.svg&#x27;&quot;&gt;&lt;/svg-icon&gt;
+      &lt;/div&gt;
+    }
+  &lt;/section&gt;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./pdf-viewer.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">@import &#x27;../../../../assets/styles/mixins&#x27;;
+@import &#x27;../../../../assets/styles/_color.scss&#x27;;
+
+.pdf-viewer {
+  @include common-calc-height;
+
+  background-color: var(--gray-label-color);
+  position: relative;
+
+  .pdf-viewer-header {
+    padding: 23px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    row-gap: 10px;
+
+    .pdf-viewer-header-info {
+      display: flex;
+      align-items: center;
+      column-gap: 47px;
+
+      .pdf-viewer-header-info-back {
+        display: flex;
+        align-items: center;
+        column-gap: 9px;
+        cursor: pointer;
+        color: var(--white-color);
+
+        svg-icon {
+          position: relative;
+          top: 2px;
+        }
+      }
+
+      .pdf-viewer-header-info-about {
+        display: flex;
+        align-items: center;
+        column-gap: 16px;
+
+        .pdf-viewer-header-info-about-image {
+          width: 48px;
+          height: 48px;
+          background-position: center;
+          background-size: cover;
+          background-repeat: no-repeat;
+        }
+
+        .pdf-viewer-header-info-about-text {
+          display: flex;
+          flex-direction: column;
+          row-gap: 3px;
+          max-width: 450px;
+          color: var(--white-color);
+
+          .pdf-title {
+            font-size: 12px;
+            font-weight: 500;
+          }
+
+          .pdf-author {
+            font-size: 10px;
+            font-weight: 300;
+          }
+        }
+      }
+    }
+
+    .pdf-viewer-header-addition {
+      display: flex;
+      gap: 10px 22px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+  }
+
+  .pdf-viewer-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 5px 10px;
+
+    .pdf-viewer-number {
+      display: flex;
+      align-items: center;
+      column-gap: 10px;
+      justify-content: center;
+      padding: 10px 0;
+
+      .pdf-viewer-arrow {
+        cursor: pointer;
+      }
+    }
+
+    .pdf-viewer-zoom {
+      display: flex;
+      align-items: center;
+      column-gap: 10px;
+      justify-content: center;
+    }
+
+    .pdf-download {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .pdf-edit {
+    cursor: pointer;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--white-color);
+    border-radius: 50%;
+    position: absolute;
+    bottom: 65px;
+    right: 70px;
+  }
+}
+
+@media screen and (width &lt;&#x3D; 497px) {
+  .pdf-viewer {
+    .pdf-edit {
+      bottom: 22px;
+      right: 20px;
+    }
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div>@if (book$ | async; as book) {  <section class="pdf-viewer">    <div class="pdf-viewer-header">      <div class="pdf-viewer-header-info">        <div class="pdf-viewer-header-info-back" (click)="backToMyBooks()">          <svg-icon [src]="pathToIcons + \'/pdf-icon-back.svg\'"></svg-icon>          <span class="pdf-viewer-header-back-text">{{ \'auth-page.back\' | translate }}</span>        </div>        <div class="pdf-viewer-header-info-about">          <div            class="pdf-viewer-header-info-about-image"            style="background-image: url({{ book.thumbnail }})">            &nbsp;          </div>          <div class="pdf-viewer-header-info-about-text">            <span class="pdf-title">{{ book.title }}</span>            <span class="pdf-author">{{ book.author[0] }}</span>          </div>        </div>      </div>      <div class="pdf-viewer-header-addition">        <div class="pdf-viewer-header-addition-favorite"></div>        <div class="pdf-viewer-header-addition-full">          <button class="pdf-addition-btn" (click)="customOpeningFullScreen()">            {{ \'viewer-page.fullScreen\' | translate }}          </button>        </div>        <div class="pdf-viewer-header-addition-view">          <select            id="optionsSpread"            (change)="chooseView($event, \'spread\')"            [class]="{ \'pdf-addition-btn\': true }">            @for (option of listOfViewsAboutSpread; track option) {              <option [value]="option.title">{{ option.title }}</option>            }          </select>        </div>        <div class="pdf-viewer-header-addition-view">          <select            id="optionsScrolling"            (change)="chooseView($event, \'scrolling\')"            [class]="{ \'pdf-addition-btn\': true }">            @for (option of listOfViewsAboutScrolling; track option) {              <option [value]="option.title">{{ option.title }}</option>            }          </select>        </div>      </div>    </div>    @if (isLoading$ | async) {      <app-mini-loader></app-mini-loader>    } @else {      <div class="pdf-viewer-wrapper">        <div class="pdf-viewer-zoom">          <pdf-zoom-in></pdf-zoom-in>          <pdf-zoom-out></pdf-zoom-out>          <div>            <pdf-zoom-dropdown              [zoomLevels]="[                \'auto\',                \'page-actual\',                \'page-fit\',                \'page-width\',                \'50%\',                \'100%\',                \'125%\',                \'150%\',                \'200%\',                \'300%\',                \'400%\'              ]"></pdf-zoom-dropdown>          </div>        </div>        <div class="pdf-viewer-number">          <svg-icon            [src]="pathToIcons + \'/pdf-arrow.svg\'"            (click)="primaryPrevious()"            [svgStyle]="{ position: \'relative\', \'top.px\': 2 }"            class="pdf-viewer-arrow"></svg-icon>          <pdf-page-number></pdf-page-number>          <svg-icon            (click)="nextPrimary()"            [svgStyle]="{ transform: \'rotate(180deg)\', position: \'relative\', \'top.px\': 2 }"            class="pdf-viewer-arrow"            [src]="pathToIcons + \'/pdf-arrow.svg\'"></svg-icon>        </div>        <div class="pdf-download">          <svg-icon            (click)="download()"            [svgStyle]="{ cursor: \'pointer\' }"            [src]="pathToIcons + \'/pdf-arrow-down.svg\'"></svg-icon>        </div>      </div>    }    <ngx-extended-pdf-viewer      [src]="book.webReaderLink"      [zoom]="\'auto\'"      [showPresentationModeButton]="true"      [textLayer]="true"      [backgroundColor]="\'#4D4D4D\'"      [showHandToolButton]="true"      [language]="\'en\'"      (pdfLoaded)="onPdfLoad(\'pdfLoaded\')"      (pdfLoadingFailed)="onPdfLoad(\'pdfLoadingFailed\')">    </ngx-extended-pdf-viewer>    @if ((isLoading$ | async) === false) {      <div class="pdf-edit" (click)="edit()">        <svg-icon [src]="pathToIcons + \'/pdf-edit.svg\'"></svg-icon>      </div>    }  </section>}</div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BarComponent', 'selector': 'app-bar'},{'name': 'BookComponent', 'selector': 'app-book'},{'name': 'CommonPopupComponent', 'selector': 'app-common-popup'},{'name': 'DetailBookComponent', 'selector': 'app-detail-book'},{'name': 'FavoritesComponent', 'selector': 'app-favorites'},{'name': 'GoogleHomeComponent', 'selector': 'app-google-home'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LayoutComponent', 'selector': 'app-layout'},{'name': 'LoaderComponent', 'selector': 'app-loader'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MiniLoaderComponent', 'selector': 'app-mini-loader'},{'name': 'MyBooksComponent', 'selector': 'app-my-books'},{'name': 'NotificationComponent', 'selector': 'app-notification'},{'name': 'PaginationInputComponent', 'selector': 'app-pagination-input'},{'name': 'PdfViewerComponent', 'selector': 'app-pdf-viewer'},{'name': 'SearchBookComponent', 'selector': 'app-search-book'},{'name': 'SearchComponent', 'selector': 'app-search'},{'name': 'ShowAllComponent', 'selector': 'app-show-all'},{'name': 'SignupComponent', 'selector': 'app-signup'},{'name': 'StarComponent', 'selector': 'app-star'},{'name': 'UploadComponent', 'selector': 'app-upload'}];
+    var DIRECTIVES = [{'name': 'DestroyDirective', 'selector': '[appDestroy]'},{'name': 'PasswordNotEmailDirective', 'selector': '[appPasswordNotEmail]'},{'name': 'PasswordRepeatDirective', 'selector': '[appPasswordRepeat]'}];
+    var ACTUAL_COMPONENT = {'name': 'PdfViewerComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'PdfViewerComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
