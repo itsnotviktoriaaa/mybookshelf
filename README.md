@@ -71,3 +71,5 @@ My Book Shelf is an Angular application that allows users to manage their book c
 2. Install dependencies and serve application  
    npm i / npm install
    ng serve / ng serve --open
+
+Other info about this app you can find in folder "documentation"
