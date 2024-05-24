@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { NotificationService } from 'core/';
-import { LoaderComponent } from 'ui/';
+import { LoaderComponent } from 'app/UIComponents/';
+import { NotificationService } from 'app/core/';
 import { of } from 'rxjs';
 
 describe('LoaderComponent', (): void => {

@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { PaginationInputComponent } from 'app/UIComponents/';
 import { TranslateModule } from '@ngx-translate/core';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { PaginationInputComponent } from 'ui/';
-import { RouterFacadeService } from 'ngr/';
+import { RouterFacadeService } from 'app/ngrx/';
 import { Router } from '@angular/router';
 
 describe('PaginationInputComponent', (): void => {

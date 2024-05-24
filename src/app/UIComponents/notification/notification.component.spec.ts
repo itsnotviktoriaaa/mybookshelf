@@ -1,7 +1,7 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { NotificationStatusEnum } from 'modals/';
-import { NotificationService } from 'core/';
-import { NotificationComponent } from 'ui/';
+import { NotificationComponent } from 'app/UIComponents/';
+import { NotificationStatusEnum } from 'app/modals/';
+import { NotificationService } from 'app/core/';
 import { of } from 'rxjs';
 
 describe('NotificationComponent', (): void => {

@@ -24,8 +24,8 @@ import {
 import { catchError, forkJoin, from, map, Observable, of, switchMap, tap, throwError } from 'rxjs';
 import { CollectionReference, DocumentData } from '@firebase/firestore';
 import { UploadMetadata } from '@angular/fire/storage';
+import { AuthFirebaseFacade } from 'app/ngrx';
 import { Injectable } from '@angular/core';
-import { AuthFirebaseFacade } from 'ngr/';
 @Injectable({
   providedIn: 'root',
 })

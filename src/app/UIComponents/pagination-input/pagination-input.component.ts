@@ -20,8 +20,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { Params, Router } from '@angular/router';
-import { RouterFacadeService } from 'ngr/';
-import { DestroyDirective } from 'core/';
+import { RouterFacadeService } from 'app/ngrx/';
+import { DestroyDirective } from 'app/core/';
 
 @Component({
   selector: 'app-pagination-input',

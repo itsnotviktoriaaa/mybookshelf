@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MiniLoaderComponent } from 'ui/';
+import { MiniLoaderComponent } from 'app/UIComponents/';
 
 describe('MiniLoaderComponent', () => {
   let component: MiniLoaderComponent;

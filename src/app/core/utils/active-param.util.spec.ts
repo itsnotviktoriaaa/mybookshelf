@@ -1,5 +1,5 @@
-import { IActiveParamsSearch } from '../../modals/user';
 import { ActiveParamUtil } from './active-param.util';
+import { IActiveParamsSearch } from 'modals/';
 import { Params } from '@angular/router';
 
 describe('ActiveParamUtil', (): void => {

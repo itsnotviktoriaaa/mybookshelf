@@ -8,7 +8,7 @@ import { IUserInfoFromGoogle } from 'modals/';
 import { Injectable } from '@angular/core';
 import { ActiveParamUtil } from '../utils';
 import { Router } from '@angular/router';
-import { AuthService } from 'core/';
+import { AuthService } from 'app/core/';
 
 @Injectable({
   providedIn: 'root',

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { CommonPopupService } from 'core/';
+import { CommonPopupService } from 'app/core/';
 
 @Component({
   selector: 'app-common-popup',

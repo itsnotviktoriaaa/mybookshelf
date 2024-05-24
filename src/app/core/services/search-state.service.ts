@@ -1,4 +1,4 @@
-import { SelectedHeaderModalItemEngEnum } from 'modals/';
+import { SelectedHeaderModalItemEngEnum } from 'app/modals/';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 

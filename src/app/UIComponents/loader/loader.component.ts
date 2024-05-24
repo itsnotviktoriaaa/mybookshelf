@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { NotificationService } from 'core/';
-import { DestroyDirective } from 'core/';
+import { NotificationService } from 'app/core/';
+import { DestroyDirective } from 'app/core/';
 import { takeUntil, tap } from 'rxjs';
 
 @Component({

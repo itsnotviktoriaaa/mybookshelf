@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { CommonPopupService } from '../../core/';
+import { CommonPopupService } from 'app/core';
 import { CommonPopupComponent } from './';
 
 describe('CommonPopupComponent', (): void => {
