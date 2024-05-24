@@ -1,11 +1,11 @@
-import { AuthFirebaseFacade } from './ngrx/auth-firebase/auth-firebase.facade';
-import { LoaderComponent, NotificationComponent } from './UI-сomponents';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { DestroyDirective } from './core/directives/destroy.directive';
+import { LoaderComponent, NotificationComponent } from 'ui/';
 import { Component, inject, OnInit } from '@angular/core';
 import { filter, take, takeUntil, tap } from 'rxjs';
 import { RouterOutlet } from '@angular/router';
-import { AuthService } from './core';
+import { AuthFirebaseFacade } from 'ngr/';
+import { DestroyDirective } from 'core/';
+import { AuthService } from 'core/';
 type User = import('firebase/auth').User;
 
 @Component({

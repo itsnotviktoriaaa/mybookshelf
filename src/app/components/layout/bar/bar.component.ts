@@ -8,9 +8,9 @@ import {
 } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
-import { IMenuBelowBar, IMenuItem } from '../../../modals/user';
 import { Router, RouterLinkActive } from '@angular/router';
 import { SvgIconComponent } from 'angular-svg-icon';
+import { IMenuBelowBar, IMenuItem } from 'modals/';
 import { AsyncPipe } from '@angular/common';
 import { BehaviorSubject, tap } from 'rxjs';
 

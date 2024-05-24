@@ -1,16 +1,16 @@
 import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { DestroyDirective } from '../../../core/directives/destroy.directive';
-import { FavoritesFacade } from '../../../ngrx/favorites/favorites.facade';
-import { FavouriteStore } from '../../../ngrx/favorites/favorites.store';
-import { RouterFacadeService } from '../../../ngrx/router/router.facade';
-import { ActiveParamUtil, SearchStateService } from '../../../core';
-import { MiniLoaderComponent } from '../../../UI-сomponents';
-import { IActiveParamsSearch } from '../../../modals/user';
+import { ActiveParamUtil, SearchStateService } from 'core/';
 import { TranslateModule } from '@ngx-translate/core';
-import { BookComponent } from '../../../components';
 import { debounceTime, takeUntil } from 'rxjs';
+import { IActiveParamsSearch } from 'modals/';
 import { AsyncPipe } from '@angular/common';
+import { BookComponent } from 'components/';
+import { RouterFacadeService } from 'ngr/';
+import { MiniLoaderComponent } from 'ui/';
 import { Params } from '@angular/router';
+import { DestroyDirective } from 'core/';
+import { FavoritesFacade } from 'ngr/';
+import { FavouriteStore } from 'ngr/';
 
 @Component({
   selector: 'app-favorites',

@@ -1,7 +1,7 @@
-import { CommonPopupService } from '../../core/services/common-popup.service';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CommonPopupComponent } from './common-popup.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { CommonPopupService } from '../../core/';
+import { CommonPopupComponent } from './';
 
 describe('CommonPopupComponent', (): void => {
   let component: CommonPopupComponent;

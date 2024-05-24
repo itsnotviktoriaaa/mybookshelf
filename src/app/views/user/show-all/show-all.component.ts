@@ -1,17 +1,17 @@
-import { IActiveParams, IBookItemTransformedWithTotal } from '../../../modals/user';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
-import { DestroyDirective } from '../../../core/directives/destroy.directive';
-import { RouterFacadeService } from '../../../ngrx/router/router.facade';
-import { SearchAllEnum } from '../../../modals/user/search-all.enum';
-import { MiniLoaderComponent } from '../../../UI-сomponents';
-import { HomeFacade } from '../../../ngrx/home/home.facade';
+import { IActiveParams, IBookItemTransformedWithTotal } from 'modals/';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable, of, takeUntil, tap } from 'rxjs';
 import { AsyncPipe, NgClass } from '@angular/common';
-import { BookComponent } from '../../../components';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { Params, Router } from '@angular/router';
+import { BookComponent } from 'components/';
+import { RouterFacadeService } from 'ngr/';
+import { MiniLoaderComponent } from 'ui/';
+import { DestroyDirective } from 'core/';
+import { SearchAllEnum } from 'modals/';
+import { HomeFacade } from 'ngr/';
 
 @Component({
   selector: 'app-show-all',

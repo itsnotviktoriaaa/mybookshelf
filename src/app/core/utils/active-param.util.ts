@@ -4,7 +4,7 @@ import {
   NamesOfKeysRusEnum,
   SelectedHeaderModalItemEngEnum,
   SelectedHeaderModalItemRusEnum,
-} from '../../modals/user';
+} from 'modals/';
 import { Params } from '@angular/router';
 
 export class ActiveParamUtil {

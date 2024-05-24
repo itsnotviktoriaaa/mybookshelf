@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { IBookItemTransformedWithTotal } from '../../modals/user';
-import { MiniLoaderComponent } from '../../UI-сomponents';
-import { BookComponent } from '../book/book.component';
+import { IBookItemTransformedWithTotal } from 'modals/';
 import { AsyncPipe } from '@angular/common';
+import { BookComponent } from 'components/';
+import { MiniLoaderComponent } from 'ui/';
 
 @Component({
   selector: 'app-google-home',

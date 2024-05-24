@@ -4,7 +4,7 @@ import {
   IBookItem,
   IBookItemTransformed,
   IBookItemTransformedWithTotal,
-} from '../../modals/user';
+} from 'modals/';
 import { environment } from '../../../environments/environment.development';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, Observable, throwError } from 'rxjs';

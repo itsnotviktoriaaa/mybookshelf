@@ -4,19 +4,19 @@ import {
   NotificationService,
   PasswordNotEmailDirective,
   PasswordRepeatDirective,
-} from '../../../core';
+} from 'core/';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { catchError, EMPTY, finalize, Observable, of, Subject, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment.development';
-import { SubscribeDecorator } from '../../../decorators/subscribe-decorator';
-import { NotificationStatusEnum, IUserSign } from '../../../modals/auth';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgClass, NgOptimizedImage, NgStyle } from '@angular/common';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import emailJs, { EmailJSResponseStatus } from '@emailjs/browser';
+import { NotificationStatusEnum, IUserSign } from 'modals/';
 import { Router, RouterLink } from '@angular/router';
 import { SvgIconComponent } from 'angular-svg-icon';
+import { SubscribeDecorator } from 'decorators/';
 import { AuthModule } from '@angular/fire/auth';
 
 @Component({

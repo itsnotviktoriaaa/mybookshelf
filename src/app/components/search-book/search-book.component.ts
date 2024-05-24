@@ -1,13 +1,13 @@
-import { GoogleApiService, NotificationService, TransformDateBookPipe } from '../../core';
 import { ChangeDetectionStrategy, Component, Input, OnChanges } from '@angular/core';
+import { GoogleApiService, NotificationService, TransformDateBookPipe } from 'core/';
 import { environment } from '../../../environments/environment.development';
 import { BehaviorSubject, catchError, EMPTY, finalize, tap } from 'rxjs';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { NotificationStatusEnum } from '../../modals/auth';
 import { SvgIconComponent } from 'angular-svg-icon';
-import { ISearchDetail } from '../../modals/user';
+import { NotificationStatusEnum } from 'modals/';
 import { AsyncPipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { ISearchDetail } from 'modals/';
 
 @Component({
   selector: 'app-search-book',

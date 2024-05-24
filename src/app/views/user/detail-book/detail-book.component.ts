@@ -1,17 +1,17 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
-import { IActions, IDetailBookSmallInfo, ISearchSmall } from 'app/modals/user';
-import { MiniLoaderComponent, StarComponent } from 'app/UI-сomponents';
-import { DetailBookFacade } from 'ngr/detail-book/detail-book.facade';
-import { DestroyDirective } from 'core/directives/destroy.directive';
+import { IActions, IDetailBookSmallInfo, ISearchSmall } from 'modals/';
 import { debounceTime, Observable, of, takeUntil, tap } from 'rxjs';
 import { ReduceLetterPipe, TransformDateBookPipe } from 'app/core';
-import { RouterFacadeService } from 'ngr/router/router.facade';
 import { Params, Router, RouterLink } from '@angular/router';
-import { AuthorFacade } from 'ngr/author/author.facade';
+import { MiniLoaderComponent, StarComponent } from 'ui/';
 import { TranslateModule } from '@ngx-translate/core';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { SvgIconComponent } from 'angular-svg-icon';
+import { RouterFacadeService } from 'ngr/';
+import { DestroyDirective } from 'core/';
+import { DetailBookFacade } from 'ngr/';
+import { AuthorFacade } from 'ngr/';
 
 @Component({
   selector: 'app-detail-book',

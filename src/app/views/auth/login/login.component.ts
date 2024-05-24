@@ -1,15 +1,15 @@
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthService, CodeMessageHandlerUtil, NotificationService } from '../../../core';
-import { NotificationStatusEnum, IUserInfoFromGoogle } from '../../../modals/auth';
+import { AuthService, CodeMessageHandlerUtil, NotificationService } from 'core/';
 import { environment } from '../../../../environments/environment.development';
-import { SubscribeDecorator } from '../../../decorators/subscribe-decorator';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { NotificationStatusEnum, IUserInfoFromGoogle } from 'modals/';
 import { NgOptimizedImage, NgStyle } from '@angular/common';
 import { catchError, EMPTY, Observable, tap } from 'rxjs';
 import { Router, RouterLink } from '@angular/router';
 import { SvgIconComponent } from 'angular-svg-icon';
-import { GoogleApiService } from '../../../core';
+import { SubscribeDecorator } from 'decorators/';
+import { GoogleApiService } from 'core/';
 
 @Component({
   selector: 'app-login',

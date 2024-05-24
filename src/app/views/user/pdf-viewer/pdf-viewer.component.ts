@@ -2,16 +2,16 @@ import { BehaviorSubject, catchError, EMPTY, filter, Observable, of, takeUntil, 
 import { LangChangeEvent, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
-import { DestroyDirective } from '../../../core/directives/destroy.directive';
-import { RouterFacadeService } from '../../../ngrx/router/router.facade';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
-import { DatabaseService, NotificationService } from '../../../core';
-import { NotificationStatusEnum } from '../../../modals/auth';
-import { MiniLoaderComponent } from '../../../UI-сomponents';
-import { IBookItemTransformed } from '../../../modals/user';
+import { DatabaseService, NotificationService } from 'core/';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { Params, Router } from '@angular/router';
+import { NotificationStatusEnum } from 'modals/';
+import { IBookItemTransformed } from 'modals/';
 import { AsyncPipe } from '@angular/common';
+import { RouterFacadeService } from 'ngr/';
+import { MiniLoaderComponent } from 'ui/';
+import { DestroyDirective } from 'core/';
 
 @Component({
   selector: 'app-pdf-viewer',

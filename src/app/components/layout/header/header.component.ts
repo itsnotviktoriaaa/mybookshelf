@@ -29,23 +29,23 @@ import {
   GoogleApiService,
   NotificationService,
   SearchStateService,
-} from '../../../core';
+} from 'core/';
 import {
   HeaderClickEnum,
   SelectedHeaderModalItemEngEnum,
   SelectedHeaderModalItemRusEnum,
-} from '../../../modals/user';
-import { NotificationStatusEnum, IUserInfoFromGoogle } from '../../../modals/auth';
-import { SearchLiveFacade } from '../../../ngrx/search-live/search-live.facade';
+} from 'modals/';
 import { environment } from '../../../../environments/environment.development';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DestroyDirective } from '../../../core/directives/destroy.directive';
-import { RouterFacadeService } from '../../../ngrx/router/router.facade';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { HeaderModalI } from '../../../modals/user/header.interface';
+import { NotificationStatusEnum, IUserInfoFromGoogle } from 'modals/';
 import { AsyncPipe, NgStyle } from '@angular/common';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { Params, Router } from '@angular/router';
+import { RouterFacadeService } from 'ngr/';
+import { DestroyDirective } from 'core/';
+import { SearchLiveFacade } from 'ngr/';
+import { HeaderModalI } from 'modals/';
 
 @Component({
   selector: 'app-header',

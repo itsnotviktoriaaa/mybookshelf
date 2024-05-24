@@ -1,11 +1,11 @@
-import { MyBooksFacade } from '../../../ngrx/my-books/my-books.facade';
-import { MiniLoaderComponent } from '../../../UI-сomponents';
-import { IBookItemTransformed } from '../../../modals/user';
 import { TranslateModule } from '@ngx-translate/core';
-import { BookComponent } from '../../../components';
 import { Component, OnInit } from '@angular/core';
+import { IBookItemTransformed } from 'modals/';
 import { AsyncPipe } from '@angular/common';
+import { BookComponent } from 'components/';
+import { MiniLoaderComponent } from 'ui/';
 import { Observable, of } from 'rxjs';
+import { MyBooksFacade } from 'ngr/';
 
 @Component({
   selector: 'app-my-books',

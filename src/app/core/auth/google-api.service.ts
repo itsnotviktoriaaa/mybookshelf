@@ -1,14 +1,14 @@
-import { IActiveParamsSearch, IBook, IDetailBook, ISearchInfoDetail } from '../../modals/user';
+import { IActiveParamsSearch, IBook, IDetailBook, ISearchInfoDetail } from 'modals/';
 import { environment } from '../../../environments/environment.development';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { JwksValidationHandler } from 'angular-oauth2-oidc-jwks';
-import { IUserInfoFromGoogle } from '../../modals/auth';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { OAuthService } from 'angular-oauth2-oidc';
-import { AuthService } from './auth.service';
+import { IUserInfoFromGoogle } from 'modals/';
 import { Injectable } from '@angular/core';
 import { ActiveParamUtil } from '../utils';
 import { Router } from '@angular/router';
+import { AuthService } from 'core/';
 
 @Injectable({
   providedIn: 'root',

@@ -6,21 +6,21 @@ import {
   ISearch,
   SelectedHeaderModalItemEngEnum,
   SelectedHeaderModalItemRusEnum,
-} from '../../../modals/user';
+} from 'modals/';
 import { ChangeDetectionStrategy, Component, HostListener, inject, OnInit } from '@angular/core';
-import { ActiveParamUtil, CategoryModalSearchItems, SearchStateService } from '../../../core';
 import { BehaviorSubject, debounceTime, filter, Observable, takeUntil, tap } from 'rxjs';
-import { MiniLoaderComponent, PaginationInputComponent } from '../../../UI-сomponents';
+import { ActiveParamUtil, CategoryModalSearchItems, SearchStateService } from 'core/';
 import { environment } from '../../../../environments/environment.development';
-import { DestroyDirective } from '../../../core/directives/destroy.directive';
-import { FavoritesFacade } from '../../../ngrx/favorites/favorites.facade';
-import { RouterFacadeService } from '../../../ngrx/router/router.facade';
-import { SearchFacade } from '../../../ngrx/search/search.facade';
-import { SearchBookComponent } from '../../../components';
+import { MiniLoaderComponent, PaginationInputComponent } from 'ui/';
 import { TranslateModule } from '@ngx-translate/core';
 import { SvgIconComponent } from 'angular-svg-icon';
+import { SearchBookComponent } from 'components/';
 import { AsyncPipe } from '@angular/common';
+import { RouterFacadeService } from 'ngr/';
 import { Params } from '@angular/router';
+import { DestroyDirective } from 'core/';
+import { FavoritesFacade } from 'ngr/';
+import { SearchFacade } from 'ngr/';
 
 @Component({
   selector: 'app-search',

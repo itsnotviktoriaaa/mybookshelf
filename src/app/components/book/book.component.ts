@@ -7,20 +7,20 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { ReduceLetterPipe, TransformDateBookPipe, TransformFavoriteDatePipe } from '../../core';
-import { CommonPopupComponent } from '../../UI-сomponents/common-popup/common-popup.component';
-import { CommonPopupService } from '../../core/services/common-popup.service';
+import { ReduceLetterPipe, TransformDateBookPipe, TransformFavoriteDatePipe } from 'core/';
 import { environment } from '../../../environments/environment.development';
-import { DestroyDirective } from '../../core/directives/destroy.directive';
-import { FavoritesFacade } from '../../ngrx/favorites/favorites.facade';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { FavouriteStore } from '../../ngrx/favorites/favorites.store';
-import { MyBooksFacade } from '../../ngrx/my-books/my-books.facade';
-import { IBookItemTransformed } from '../../modals/user';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { NgClass, NgStyle } from '@angular/common';
+import { IBookItemTransformed } from 'modals/';
+import { CommonPopupService } from 'core/';
+import { CommonPopupComponent } from 'ui/';
 import { Router } from '@angular/router';
+import { DestroyDirective } from 'core/';
+import { FavoritesFacade } from 'ngr/';
+import { FavouriteStore } from 'ngr/';
 import { takeUntil, tap } from 'rxjs';
+import { MyBooksFacade } from 'ngr/';
 
 @Component({
   selector: 'app-book',

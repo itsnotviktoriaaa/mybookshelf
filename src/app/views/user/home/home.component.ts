@@ -1,16 +1,16 @@
-import { SubscribeDecorator } from '../../../decorators/subscribe-decorator';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { IBookItemTransformedWithTotal } from '../../../modals/user';
-import { MiniLoaderComponent } from '../../../UI-сomponents';
-import { HomeFacade } from '../../../ngrx/home/home.facade';
-import { IUserInfoFromGoogle } from '../../../modals/auth';
-import { GoogleHomeComponent } from '../../../components';
+import { IBookItemTransformedWithTotal } from 'modals/';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
-import { BookComponent } from '../../../components';
-import { GoogleApiService } from '../../../core';
+import { GoogleHomeComponent } from 'components/';
+import { SubscribeDecorator } from 'decorators/';
+import { IUserInfoFromGoogle } from 'modals/';
 import { RouterLink } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
+import { BookComponent } from 'components/';
+import { MiniLoaderComponent } from 'ui/';
+import { GoogleApiService } from 'core/';
+import { HomeFacade } from 'ngr/';
 
 @Component({
   selector: 'app-home',

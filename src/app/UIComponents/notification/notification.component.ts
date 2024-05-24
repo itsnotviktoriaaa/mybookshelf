@@ -1,9 +1,9 @@
-import { NotificationStatusEnum, NotificationType } from '../../modals/auth';
-import { DestroyDirective } from '../../core/directives/destroy.directive';
+import { NotificationStatusEnum, NotificationType } from 'modals/';
 import { Component, inject, OnInit } from '@angular/core';
 import { NgClass, NgStyle } from '@angular/common';
-import { NotificationService } from '../../core';
 import { finalize, takeUntil, tap } from 'rxjs';
+import { NotificationService } from 'core/';
+import { DestroyDirective } from 'core/';
 
 @Component({
   selector: 'app-notification',

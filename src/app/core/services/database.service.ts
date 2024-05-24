@@ -13,7 +13,7 @@ import {
   ISelfBook,
   ISelfBookUpload,
   IUploadFilesAndCreateBookDatabase,
-} from '../../modals/user';
+} from 'modals/';
 import {
   deleteObject,
   getDownloadURL,
@@ -22,10 +22,10 @@ import {
   uploadBytesResumable,
 } from '@angular/fire/storage';
 import { catchError, forkJoin, from, map, Observable, of, switchMap, tap, throwError } from 'rxjs';
-import { AuthFirebaseFacade } from '../../ngrx/auth-firebase/auth-firebase.facade';
 import { CollectionReference, DocumentData } from '@firebase/firestore';
 import { UploadMetadata } from '@angular/fire/storage';
 import { Injectable } from '@angular/core';
+import { AuthFirebaseFacade } from 'ngr/';
 @Injectable({
   providedIn: 'root',
 })
