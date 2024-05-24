@@ -1,15 +1,15 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { HeaderComponent } from './';
-import { BarComponent } from './';
+import { HeaderComponent } from './header/header.component';
 import { RouterOutlet } from '@angular/router';
 import { UserInfoFromGoogle } from 'types/';
 import { GoogleApiService } from 'core/';
 import { tap } from 'rxjs';
+import { BarComponent } from './bar/bar.component';
 
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [HeaderComponent, BarComponent, RouterOutlet],
+  imports: [BarComponent, HeaderComponent, RouterOutlet],
   templateUrl: './layout.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [
