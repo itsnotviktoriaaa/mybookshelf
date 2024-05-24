@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
+import { GoogleApiService, ThemeService } from 'app/core';
 import { BarComponent } from './bar/bar.component';
 import { IUserInfoFromGoogle } from 'app/modals';
 import { RouterOutlet } from '@angular/router';
-import { GoogleApiService } from 'app/core';
 import { tap } from 'rxjs';
 
 @Component({
@@ -17,7 +17,7 @@ import { tap } from 'rxjs';
       @import '../../../assets/styles/color';
       .layout-wrapper {
         padding: 48px 35px 38px 35px;
-        background-image: url('/assets/images/layout/layout-background.webp');
+        background-image: url('/assets/images/layout/layout-background-light.webp');
         background-size: cover;
         background-repeat: no-repeat;
         height: 100vh;
@@ -51,14 +51,39 @@ import { tap } from 'rxjs';
     `,
   ],
 })
-export class LayoutComponent {
-  constructor(private googleApi: GoogleApiService) {
+export class LayoutComponent implements OnInit {
+  isDarkTheme = false;
+  @ViewChild('layoutWrapper') layoutWrapper: ElementRef | null = null;
+
+  constructor(
+    private googleApi: GoogleApiService,
+    private themeService: ThemeService
+  ) {
     this.googleApi.userProfileSubject
       .pipe(
         tap((user: IUserInfoFromGoogle | null) => {
           if (!user) {
             console.log('wowowowow4');
             this.googleApi.initiateAuthentication();
+          }
+        })
+      )
+      .subscribe();
+  }
+
+  ngOnInit(): void {
+    this.themeService
+      .changeTheme$()
+      .pipe(
+        tap((theme: string): void => {
+          if (this.layoutWrapper && this.layoutWrapper.nativeElement) {
+            if (theme === 'dark') {
+              this.layoutWrapper.nativeElement.style.backgroundImage =
+                'url(/assets/images/layout/layout-background-dark.webp)';
+            } else if (theme === 'light') {
+              this.layoutWrapper.nativeElement.style.backgroundImage =
+                'url(/assets/images/layout/layout-background-light.webp)';
+            }
           }
         })
       )

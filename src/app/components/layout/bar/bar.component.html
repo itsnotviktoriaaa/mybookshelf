@@ -4,6 +4,9 @@
     <div (click)="moveToPage('/home')" class="logo">
       <img [src]="pathToImages + '/logo-bar.png'" alt="MyBookShelf" />
     </div>
+    <div class="toggle-switch" (click)="changeTheme()">
+      <div class="toggle-knob" [class.active]="isSwitchOn"></div>
+    </div>
     <nav class="menu">
       <ul class="menu-ul">
         @for (menuItem of menuItems$ | async; track menuItem) {

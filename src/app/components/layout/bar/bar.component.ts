@@ -13,6 +13,7 @@ import { SvgIconComponent } from 'angular-svg-icon';
 import { IMenuBelowBar, IMenuItem } from 'modals/';
 import { AsyncPipe } from '@angular/common';
 import { BehaviorSubject, tap } from 'rxjs';
+import { ThemeService } from 'app/core';
 
 @Component({
   selector: 'app-bar',
@@ -23,6 +24,7 @@ import { BehaviorSubject, tap } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BarComponent implements OnInit, AfterViewInit {
+  isSwitchOn = false;
   pathToIcons = environment.pathToIcons;
   pathToImages = environment.pathToImages;
   @ViewChild('close') close: ElementRef | null = null;
@@ -43,7 +45,8 @@ export class BarComponent implements OnInit, AfterViewInit {
 
   constructor(
     private router: Router,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private themeService: ThemeService
   ) {
     const browserLang: string | undefined = this.translateService.currentLang;
     if (browserLang === 'ru') {
@@ -132,6 +135,16 @@ export class BarComponent implements OnInit, AfterViewInit {
     const bar: HTMLElement | null = document.getElementById('bar');
     if (bar) {
       bar.classList.remove('bar-adaptive');
+    }
+  }
+
+  changeTheme(): void {
+    this.isSwitchOn = !this.isSwitchOn;
+    this.themeService.setTheme(this.isSwitchOn ? 'dark' : 'light');
+    if (this.isSwitchOn) {
+      this.themeService.setThemeSubject('dark');
+    } else {
+      this.themeService.setThemeSubject('light');
     }
   }
 }

@@ -8,3 +8,4 @@ export * from './header.interface';
 export * from './search.enum';
 export * from './search-all.enum';
 export * from './self-book.interface';
+export * from './theme-interface';
