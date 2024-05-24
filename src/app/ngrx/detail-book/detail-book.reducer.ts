@@ -6,13 +6,13 @@ import {
 import { Action, createReducer, on } from '@ngrx/store';
 import { DetailBookState } from './detail-book.state';
 
-export const initialState: DetailBookState = {
+export const initialStateDetailBook: DetailBookState = {
   detailBook: null,
   isLoading: false,
 };
 
 const _detailBookState = createReducer(
-  initialState,
+  initialStateDetailBook,
   on(loadDetailBook, state => ({
     ...state,
     isLoading: true,

@@ -1,8 +1,8 @@
-import { LayoutComponent } from './components';
-import { SignupComponent } from './views';
-import { authForwardGuard } from './core';
+import { LayoutComponent } from 'components/';
 import { Routes } from '@angular/router';
-import { LoginComponent } from './views';
+import { SignupComponent } from 'views/';
+import { authForwardGuard } from 'core/';
+import { LoginComponent } from 'views/';
 
 export const routes: Routes = [
   {
@@ -26,49 +26,42 @@ export const routes: Routes = [
         path: '',
         title: 'MyBookShelf',
         pathMatch: 'full',
-        loadComponent: () => import('./views/user/home/home.component').then(m => m.HomeComponent),
+        loadComponent: () => import('views/user').then(m => m.HomeComponent),
       },
       {
         path: 'show',
         title: 'MyBookShelf',
-        loadComponent: () =>
-          import('./views/user/show-all/show-all.component').then(m => m.ShowAllComponent),
+        loadComponent: () => import('views/user').then(m => m.ShowAllComponent),
       },
       {
         path: 'favorites',
         title: 'MyBookShelf',
-        loadComponent: () =>
-          import('./views/user/favorites/favorites.component').then(m => m.FavoritesComponent),
+        loadComponent: () => import('views/user').then(m => m.FavoritesComponent),
       },
       {
         path: 'book/:id',
         title: 'MyBookShelf',
-        loadComponent: () =>
-          import('./views/user/detail-book/detail-book.component').then(m => m.DetailBookComponent),
+        loadComponent: () => import('views/user').then(m => m.DetailBookComponent),
       },
       {
         path: 'upload',
         title: 'MyBookShelf',
-        loadComponent: () =>
-          import('./views/user/upload/upload.component').then(m => m.UploadComponent),
+        loadComponent: () => import('views/user').then(m => m.UploadComponent),
       },
       {
         path: 'books',
         title: 'MyBookShelf',
-        loadComponent: () =>
-          import('./views/user/my-books/my-books.component').then(m => m.MyBooksComponent),
+        loadComponent: () => import('views/user').then(m => m.MyBooksComponent),
       },
       {
         path: 'search',
         title: 'MyBookShelf',
-        loadComponent: () =>
-          import('./views/user/search/search.component').then(m => m.SearchComponent),
+        loadComponent: () => import('views/user').then(m => m.SearchComponent),
       },
       {
         path: 'reader/:id',
         title: 'MyBookShelf',
-        loadComponent: () =>
-          import('./views/user/pdf-viewer/pdf-viewer.component').then(m => m.PdfViewerComponent),
+        loadComponent: () => import('views/user').then(m => m.PdfViewerComponent),
       },
     ],
   },

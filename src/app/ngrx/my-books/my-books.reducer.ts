@@ -2,13 +2,13 @@ import { loadMyBooks, loadMyBooksFailure, loadMyBooksSuccess } from './my-books.
 import { Action, createReducer, on } from '@ngrx/store';
 import { MyBooksState } from './my-books.state';
 
-export const initialState: MyBooksState = {
+export const initialStateMyBooks: MyBooksState = {
   myBooks: null,
   isLoading: false,
 };
 
 const _myBooksState = createReducer(
-  initialState,
+  initialStateMyBooks,
   on(loadMyBooks, state => ({
     ...state,
     isLoading: true,

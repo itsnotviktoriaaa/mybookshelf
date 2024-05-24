@@ -1,37 +1,37 @@
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { CustomRouterStateSerializer } from './ngrx/router/router-state-serializer';
 import { routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store';
-import { DetailBookEffects } from './ngrx/detail-book/detail-book.effects';
-import { SearchLiveEffects } from './ngrx/search-live/search-live.effects';
-import { searchLiveReducer } from './ngrx/search-live/search-live.reducer';
-import { userReducer } from './ngrx/auth-firebase/auth-firebase.reducer';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { detailReducer } from './ngrx/detail-book/detail-book.reducer';
-import { homeNowReducer, homeReducer } from './ngrx/home/home.reducer';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { environment } from '../environments/environment.development';
-import { FavoritesEffects } from './ngrx/favorites/favorites.effects';
-import { favoritesReducer } from './ngrx/favorites/favorites.reducer';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { getStorage, provideStorage } from '@angular/fire/storage';
-import { myBooksReducer } from './ngrx/my-books/my-books.reducer';
-import { MyBooksEffects } from './ngrx/my-books/my-books.effects';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { AuthorEffects } from './ngrx/author/author.effects';
-import { authorReducer } from './ngrx/author/author.reducer';
-import { SearchEffects } from './ngrx/search/search.effects';
-import { searchReducer } from './ngrx/search/search.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { provideAngularSvgIcon } from 'angular-svg-icon';
-import { BookEffects } from './ngrx/home/home.effects';
+import { CustomRouterStateSerializer } from 'ngr/';
+import { homeNowReducer, homeReducer } from 'ngr/';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { DetailBookEffects } from 'ngr/';
+import { SearchLiveEffects } from 'ngr/';
+import { searchLiveReducer } from 'ngr/';
+import { FavoritesEffects } from 'ngr/';
+import { favoritesReducer } from 'ngr/';
 import { routes } from './app.routes';
+import { myBooksReducer } from 'ngr/';
+import { MyBooksEffects } from 'ngr/';
+import { detailReducer } from 'ngr/';
+import { AuthorEffects } from 'ngr/';
+import { authorReducer } from 'ngr/';
+import { SearchEffects } from 'ngr/';
+import { searchReducer } from 'ngr/';
+import { userReducer } from 'ngr/';
+import { BookEffects } from 'ngr/';
 
 // const scrollConfig: InMemoryScrollingOptions = {
 //   scrollPositionRestoration: 'enabled',

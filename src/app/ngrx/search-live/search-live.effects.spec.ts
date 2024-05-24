@@ -1,14 +1,10 @@
-import {
-  loadSearchLiveBooks,
-  loadSearchLiveBooksFailure,
-  loadSearchLiveBooksSuccess,
-} from './search-live.actions';
+import { loadSearchLiveBooks, loadSearchLiveBooksFailure, loadSearchLiveBooksSuccess } from './';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { SearchLiveEffects } from './search-live.effects';
 import { ISearchInfoDetail } from '../../modals/user';
 import { Observable, of, throwError } from 'rxjs';
 import { TestBed } from '@angular/core/testing';
 import { GoogleApiService } from '../../core';
+import { SearchLiveEffects } from './';
 
 describe('SearchLiveEffects', () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

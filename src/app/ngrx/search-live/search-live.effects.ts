@@ -5,11 +5,7 @@ import {
   SelectedHeaderModalItemEngEnum,
   SelectedHeaderModalItemRusEnum,
 } from '../../modals/user';
-import {
-  loadSearchLiveBooks,
-  loadSearchLiveBooksFailure,
-  loadSearchLiveBooksSuccess,
-} from './search-live.actions';
+import { loadSearchLiveBooks, loadSearchLiveBooksFailure, loadSearchLiveBooksSuccess } from './';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { TypedAction } from '@ngrx/store/src/models';

@@ -1,16 +1,16 @@
 import { loadMyBooks, loadMyBooksFailure, loadMyBooksSuccess } from './my-books.actions';
-import { initialState, myBooksReducer } from './my-books.reducer';
+import { initialStateMyBooks, myBooksReducer } from './my-books.reducer';
 import { IBookItemTransformed } from '../../modals/user';
 
 describe('MyBooksReducer', () => {
   it('should return the initial state', () => {
     const state = myBooksReducer(undefined, { type: 'unknown' });
-    expect(state).toEqual(initialState);
+    expect(state).toEqual(initialStateMyBooks);
   });
 
   it('should handle loadMyBooks', () => {
     const action = loadMyBooks();
-    const state = myBooksReducer(initialState, action);
+    const state = myBooksReducer(initialStateMyBooks, action);
     expect(state.isLoading).toBe(true);
   });
 
@@ -26,7 +26,7 @@ describe('MyBooksReducer', () => {
       },
     ];
     const action = loadMyBooksSuccess({ data: booksData });
-    const state = myBooksReducer(initialState, action);
+    const state = myBooksReducer(initialStateMyBooks, action);
     expect(state.myBooks).toEqual(booksData);
     expect(state.isLoading).toBe(false);
   });
@@ -34,14 +34,14 @@ describe('MyBooksReducer', () => {
   it('should handle loadMyBooksSuccess with empty data', () => {
     const emptyData: IBookItemTransformed[] = [];
     const action = loadMyBooksSuccess({ data: emptyData });
-    const state = myBooksReducer(initialState, action);
+    const state = myBooksReducer(initialStateMyBooks, action);
     expect(state.myBooks).toBeNull();
     expect(state.isLoading).toBe(false);
   });
 
   it('should handle loadMyBooksFailure', () => {
     const action = loadMyBooksFailure({ error: null });
-    const state = myBooksReducer(initialState, action);
+    const state = myBooksReducer(initialStateMyBooks, action);
     expect(state.myBooks).toBeNull();
     expect(state.isLoading).toBe(false);
   });

@@ -1,10 +1,6 @@
-import {
-  loadSearchLiveBooksFailure,
-  loadSearchLiveBooksSuccess,
-  resetSearchLiveBooks,
-} from './search-live.actions';
-import { searchLiveReducer } from './search-live.reducer';
-import { SearchLiveState } from './search-live.state';
+import { loadSearchLiveBooksFailure, loadSearchLiveBooksSuccess, resetSearchLiveBooks } from './';
+import { searchLiveReducer } from './';
+import { SearchLiveState } from './';
 
 describe('SearchLive Reducer', () => {
   const initialState: SearchLiveState = {

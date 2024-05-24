@@ -7,13 +7,13 @@ import {
 import { Action, createReducer, on } from '@ngrx/store';
 import { FavoritesState } from './favorites.state';
 
-export const initialState: FavoritesState = {
+export const initialStateFavorite: FavoritesState = {
   favoritesBooks: null,
   isLoading: false,
 };
 
 const _favoritesState = createReducer(
-  initialState,
+  initialStateFavorite,
   on(loadFavoritesBooks, state => ({
     ...state,
     isLoading: true,

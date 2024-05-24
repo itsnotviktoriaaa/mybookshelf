@@ -2,12 +2,12 @@ import { setUserAction } from './auth-firebase.actions';
 import { Action, createReducer, on } from '@ngrx/store';
 import { UserState } from './auth-firebase.state';
 
-const initialState: UserState = {
+export const initialStateUser: UserState = {
   user: null,
 };
 
 const _userReducer = createReducer(
-  initialState,
+  initialStateUser,
   on(setUserAction, (state, { user }) => ({
     ...state,
     user: user,

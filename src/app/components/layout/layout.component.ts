@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
-import { IUserInfoFromGoogle } from '../../modals/auth';
 import { BarComponent } from './bar/bar.component';
+import { IUserInfoFromGoogle } from 'app/modals';
 import { RouterOutlet } from '@angular/router';
-import { GoogleApiService } from '../../core';
+import { GoogleApiService } from 'app/core';
 import { tap } from 'rxjs';
 
 @Component({

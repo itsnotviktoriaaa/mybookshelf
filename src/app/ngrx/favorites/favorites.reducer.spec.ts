@@ -4,7 +4,7 @@ import {
   loadFavoritesBooksSuccess,
   removeFromFavoritesBooksSuccess,
 } from './favorites.actions';
-import { favoritesReducer, initialState } from './favorites.reducer';
+import { favoritesReducer, initialStateFavorite } from './favorites.reducer';
 import { IBookItemTransformedWithTotal } from '../../modals/user';
 import { FavoritesState } from './favorites.state';
 
@@ -12,12 +12,12 @@ describe('FavoritesReducer', () => {
   it('should return the initial state', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const state = favoritesReducer(undefined, { type: 'unknown' } as any);
-    expect(state).toEqual(initialState);
+    expect(state).toEqual(initialStateFavorite);
   });
 
   it('should handle loadFavoritesBooks', () => {
     const action = loadFavoritesBooks({ params: { q: 'test', startIndex: 0, maxResults: 40 } });
-    const state = favoritesReducer(initialState, action);
+    const state = favoritesReducer(initialStateFavorite, action);
 
     expect(state.isLoading).toBe(true);
     expect(state.favoritesBooks).toBeNull();
@@ -43,7 +43,7 @@ describe('FavoritesReducer', () => {
       totalItems: 1,
     };
     const action = loadFavoritesBooksSuccess({ data: favoritesData });
-    const state = favoritesReducer(initialState, action);
+    const state = favoritesReducer(initialStateFavorite, action);
 
     expect(state.isLoading).toBe(false);
     expect(state.favoritesBooks).toEqual(favoritesData);
@@ -51,7 +51,7 @@ describe('FavoritesReducer', () => {
 
   it('should handle loadFavoritesBooksFailure', () => {
     const action = loadFavoritesBooksFailure({ error: null });
-    const state = favoritesReducer(initialState, action);
+    const state = favoritesReducer(initialStateFavorite, action);
 
     expect(state.isLoading).toBe(false);
     expect(state.favoritesBooks).toBeNull();

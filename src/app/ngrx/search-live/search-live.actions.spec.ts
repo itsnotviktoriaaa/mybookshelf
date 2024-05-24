@@ -3,7 +3,7 @@ import {
   loadSearchLiveBooksFailure,
   loadSearchLiveBooksSuccess,
   resetSearchLiveBooks,
-} from './search-live.actions';
+} from './';
 
 describe('Search Live Actions', () => {
   it('should create loadSearchLiveBooks action', () => {

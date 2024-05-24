@@ -1,6 +1,6 @@
-import { loadSearchLiveBooks, resetSearchLiveBooks } from './search-live.actions';
-import { selectSearchLiveBooks } from './search-live.selector';
+import { loadSearchLiveBooks, resetSearchLiveBooks } from './';
 import { Injectable } from '@angular/core';
+import { selectSearchLiveBooks } from './';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 

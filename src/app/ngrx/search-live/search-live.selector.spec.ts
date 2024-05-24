@@ -1,5 +1,5 @@
-import { selectSearchLiveBooks } from './search-live.selector';
-import { SearchLiveState } from './search-live.state';
+import { selectSearchLiveBooks } from './';
+import { SearchLiveState } from './';
 
 describe('SearchLive Selectors', () => {
   const initialState: SearchLiveState = {

@@ -18,6 +18,23 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
+    "paths": {
+      "app/*": ["./src/app/*"],
+      "modals/*": ["./src/app/modals/*"],
+      "modals/": ["./src/app/modals"],
+      "ngr/*": ["./src/app/ngrx/*"],
+      "ngr/": ["./src/app/ngrx"],
+      "views/*": ["./src/app/views/*"],
+      "views/": ["./src/app/views"],
+      "core/*": ["./src/app/core/*"],
+      "core/": ["./src/app/core"],
+      "ui/*": ["./src/app/UI-components/*"],
+      "ui/": ["./src/app/UI-components"],
+      "components/*": ["./src/app/components/*"],
+      "components/": ["./src/app/components"],
+      "decorators/*": ["./src/app/decorators/*"],
+      "decorators/": ["./src/app/decorators"]
+    },
     "lib": ["ES2022", "dom"]
   },
   "angularCompilerOptions": {

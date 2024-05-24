@@ -9,13 +9,13 @@ import {
 import { createReducer, on, Action } from '@ngrx/store';
 import { HomeNowState, HomeState } from './home.state';
 
-export const initialState: HomeState = {
+export const initialStateHome: HomeState = {
   recommendedBooks: null,
   loading: true,
 };
 
 const _homeReducer = createReducer(
-  initialState,
+  initialStateHome,
   on(loadRecommendedBooks, state => ({
     ...state,
     loading: true,
@@ -36,13 +36,13 @@ export function homeReducer(state: HomeState | undefined, action: Action) {
   return _homeReducer(state, action);
 }
 
-export const initialState1: HomeNowState = {
+export const initialStateReadingNowBooks: HomeNowState = {
   readingNowBooks: null,
   loading: false,
 };
 
 const _homeNowReducer = createReducer(
-  initialState1,
+  initialStateReadingNowBooks,
   on(loadReadingNowBooks, state => ({
     ...state,
     loading: true,

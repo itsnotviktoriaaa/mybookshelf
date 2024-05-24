@@ -1,8 +1,8 @@
-import { loadSearchLiveBooks, resetSearchLiveBooks } from './search-live.actions';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { selectSearchLiveBooks } from './search-live.selector';
-import { SearchLiveFacade } from './search-live.facade';
+import { loadSearchLiveBooks, resetSearchLiveBooks } from './';
 import { TestBed } from '@angular/core/testing';
+import { selectSearchLiveBooks } from './';
+import { SearchLiveFacade } from './';
 
 describe('SearchLiveFacade', () => {
   let facade: SearchLiveFacade;
