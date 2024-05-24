@@ -33,7 +33,7 @@ export class ThemeService {
       '--primary-gray-text-color': '#d6d6d6',
       '--primary-gray-color': '#a9a9a9',
       '--primary-light-gray-color': '#4e4e4e',
-      '--gray-label-color': '#f3f3f7',
+      '--gray-label-color': '#878787',
       '--gray-text-color': '#b3b3b3',
       '--primary-orange-color': '#d26442',
       '--primary-orange-color-hover': '#e36e48',
