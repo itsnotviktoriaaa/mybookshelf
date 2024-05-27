@@ -1,0 +1,83 @@
+.quotes {
+  max-width: 811px;
+  padding: 20px;
+  background: linear-gradient(0deg, rgb(0 0 0 / 10%), rgb(0 0 0 / 10%)),
+    linear-gradient(140.88deg, #eb5231 -29.15%, #571fcf 151.64%);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 10px;
+  margin: 0 20px 42px 0;
+
+  .quotes-title {
+    font-size: 2.2em;
+    font-family: Inter, sans-serif;
+    font-weight: 500;
+    margin-bottom: 24px;
+  }
+
+  .quotes-items {
+    overflow: hidden;
+
+    .slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .slide {
+      min-width: 100%;
+      box-sizing: border-box;
+      text-align: center;
+
+      .slide-text {
+        font-size: 2em;
+      }
+
+      .slide-author {
+        margin-top: 7px;
+        text-align: end;
+      }
+    }
+  }
+
+  .dots {
+    margin-top: 14px;
+  }
+
+  .dot {
+    margin: 0 10px 0 0;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+    cursor: pointer;
+    width: 10px;
+    height: 10px;
+    background: #8a317c;
+    border: 1px solid #fff;
+
+    &:last-child {
+      margin: 0;
+    }
+  }
+
+  .dot.active {
+    background-color: #fff;
+  }
+}
+
+@media screen and (width <= 768px) {
+  .quotes {
+    font-size: 8px;
+  }
+}
+
+@media screen and (width <= 450px) {
+  .quotes {
+    font-size: 7px;
+  }
+}
+
+@media screen and (width <= 425px) {
+  .quotes {
+    font-size: 6px;
+  }
+}

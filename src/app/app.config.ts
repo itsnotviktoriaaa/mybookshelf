@@ -13,6 +13,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { provideAngularSvgIcon } from 'angular-svg-icon';
+import { QuotesEffects, quotesReducer } from 'ngr/';
 import { CustomRouterStateSerializer } from 'ngr/';
 import { homeNowReducer, homeReducer } from 'ngr/';
 import { EffectsModule } from '@ngrx/effects';
@@ -61,6 +62,7 @@ export const appConfig: ApplicationConfig = {
         searchLive: searchLiveReducer,
         myBooks: myBooksReducer,
         user: userReducer,
+        quotes: quotesReducer,
         router: routerReducer,
       }),
       EffectsModule.forRoot([
@@ -71,6 +73,7 @@ export const appConfig: ApplicationConfig = {
         SearchEffects,
         SearchLiveEffects,
         MyBooksEffects,
+        QuotesEffects,
       ]),
       TranslateModule.forRoot({
         loader: {

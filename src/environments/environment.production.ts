@@ -24,4 +24,5 @@ export const environment = {
   googleVolumeApi: 'https://www.googleapis.com/books/v1/volumes',
   pathToIcons: 'assets/images/icons',
   pathToImages: 'assets/images',
+  quotableApi: 'https://api.quotable.io/',
 };

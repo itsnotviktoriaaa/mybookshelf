@@ -9,3 +9,4 @@ export * from './search.enum';
 export * from './search-all.enum';
 export * from './self-book.interface';
 export * from './theme-interface';
+export * from './quotes.interface';

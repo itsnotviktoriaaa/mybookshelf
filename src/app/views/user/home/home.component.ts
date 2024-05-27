@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { SliderComponent } from 'components/slider/slider.component';
 import { IBookItemTransformedWithTotal } from 'modals/';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
@@ -22,6 +23,7 @@ import { HomeFacade } from 'ngr/';
     MiniLoaderComponent,
     GoogleHomeComponent,
     TranslateModule,
+    SliderComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

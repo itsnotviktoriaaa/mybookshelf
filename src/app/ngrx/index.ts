@@ -6,4 +6,5 @@ export * from './favorites';
 export * from './detail-book';
 export * from './author';
 export * from './auth-firebase';
+export * from './quotes';
 export * from './router';

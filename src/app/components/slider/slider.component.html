@@ -1,0 +1,20 @@
+@if (quotes$ | async; as quotes) {
+  <div class="quotes">
+    <h4 class="quotes-title">Today’s Quote</h4>
+    <div class="quotes-items">
+      <div class="slides" [style.transform]="getTransform()">
+        @for (quote of quotes$ | async; track quote; let i = $index) {
+          <div class="slide">
+            <span class="slide-text">{{ quote.content }}</span>
+            <div class="slide-text slide-author">{{ quote.author }}</div>
+          </div>
+        }
+      </div>
+    </div>
+    <div class="dots">
+      @for (quote of quotes$ | async; track quote; let i = $index) {
+        <span class="dot" [class.active]="i === currentSlide" (click)="goToSlide(i)"></span>
+      }
+    </div>
+  </div>
+}
