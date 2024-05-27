@@ -1,10 +1,10 @@
 <section class="my-books common-padding">
-  <h2 class="common-title">{{ 'myBooks-page.myBooksTitle' | translate }}</h2>
+  <h2 class="common-title slide-in-left">{{ 'myBooks-page.myBooksTitle' | translate }}</h2>
   @if (isLoading$ | async) {
     <app-mini-loader></app-mini-loader>
   } @else {
     @if (selfBooks$ | async; as selfBooks) {
-      <div class="list-books">
+      <div class="list-books fade-in">
         @for (selfBook of selfBooks; track selfBook) {
           <app-book [bigInfo]="true" [selfBook]="true" [book]="selfBook"></app-book>
         }

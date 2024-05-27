@@ -1,0 +1,47 @@
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fade-in 0.5s ease-in-out;
+}
+
+@keyframes slide-in-from-left {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-left {
+  animation: slide-in-from-left 0.5s ease-in-out forwards;
+}
+
+@keyframes fade-in-from-distance {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.slide-in-from-distance {
+  opacity: 0;
+  transform: scale(0.5);
+  animation: fade-in-from-distance 1s ease-in-out forwards;
+}

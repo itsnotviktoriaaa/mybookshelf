@@ -1,9 +1,9 @@
 <section class="favorites common-padding">
-  <h2 class="common-title">{{ 'favorite-page.favouriteTitle' | translate }}</h2>
+  <h2 class="common-title slide-in-left">{{ 'favorite-page.favouriteTitle' | translate }}</h2>
   @if (store.loading()) {
     <app-mini-loader></app-mini-loader>
   } @else {
-    <div class="list-books">
+    <div class="list-books fade-in">
       @for (favoriteBook of store.favorites().items; track favoriteBook; let index = $index) {
         <app-book [bigInfo]="true" [book]="favoriteBook"></app-book>
       }

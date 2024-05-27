@@ -11,7 +11,7 @@
           </div>
           <div class="detail-items">
             <div class="detail-item-common">
-              <div class="detail-left">
+              <div class="detail-left slide-in-left">
                 <div class="detail-left-image">
                   <img src="{{ detailBook.thumbnail }}" alt="{{ detailBook.title }}" />
                 </div>
@@ -24,7 +24,7 @@
                   }
                 </div>
               </div>
-              <div class="detail-center">
+              <div class="detail-center fade-in">
                 <div class="detail-center-info">
                   <h1 class="detail-center-info-title">{{ detailBook.title }}</h1>
                   <h2 class="detail-center-info-author">
@@ -78,7 +78,7 @@
                 </div>
               </div>
             </div>
-            <div class="detail-right detail-item">
+            <div class="detail-right detail-item fade-in">
               <h3 class="detail-right-title">
                 <span class="detail-right-title-orange">{{ 'detail-page.about' | translate }}</span>
                 {{ 'detail-page.story' | translate }}
@@ -99,7 +99,9 @@
                   </div>
                   <div class="detail-right-other-images">
                     @for (authorItem of author.items; track $index) {
-                      <div (click)="openOtherBook(authorItem.id)" class="detail-right-other-image">
+                      <div
+                        (click)="openOtherBook(authorItem.id)"
+                        class="detail-right-other-image slide-in-from-distance">
                         <img src="{{ authorItem.thumbnail }}" alt="{{ authorItem.title }}" />
                       </div>
                     }

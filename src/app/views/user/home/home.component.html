@@ -1,6 +1,6 @@
 <section class="home user-common-padding">
   <app-slider></app-slider>
-  <h2 class="home-hello">{{ 'home-page.morning' | translate }}</h2>
+  <h2 class="home-hello slide-in-left">{{ 'home-page.morning' | translate }}</h2>
   @if (isLoading$ | async) {
     <app-mini-loader></app-mini-loader>
   } @else {
@@ -28,7 +28,11 @@
           }}</span>
         }
       </div>
-      <app-google-home [googleArrayFromHome]="readingNowBooks"></app-google-home>
+      @defer (on viewport) {
+        <app-google-home [googleArrayFromHome]="readingNowBooks"></app-google-home>
+      } @placeholder {
+        <div>Loading...</div>
+      }
     }
 
     @if ((recommendedBooks$ | async) === null && (readingNowBooks$ | async) === null) {
