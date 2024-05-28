@@ -29,12 +29,15 @@ jobs:
       - name: Run tests
         run: npm test
 
+      - name: Print GitHub ref
+        run: echo "GitHub ref is ${{ github.ref }}"
+
       - name: Build Angular project
-        if: github.ref == 'refs/heads/master'
+        if: startsWith(github.ref, 'refs/heads/master')
         run: npm run build --prod
 
       - name: Deploy to Heroku
-        if: github.ref == 'refs/heads/master'
+        if: startsWith(github.ref, 'refs/heads/master')
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
