@@ -43,14 +43,14 @@ import { BookEffects } from 'ngr/';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(),
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
+    provideStorage(() => getStorage()),
     importProvidersFrom([
       RouterModule.forRoot(routes, {
         scrollPositionRestoration: 'enabled',
       }),
-      provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
-      provideAuth(() => getAuth()),
-      provideFirestore(() => getFirestore()),
-      provideStorage(() => getStorage()),
       StoreRouterConnectingModule.forRoot({ serializer: CustomRouterStateSerializer }),
       StoreModule.forRoot({
         home: homeReducer,
