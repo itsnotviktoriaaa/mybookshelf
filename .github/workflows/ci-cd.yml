@@ -42,5 +42,5 @@ jobs:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
         run: |
-          git remote add heroku https://git.heroku.com/${{ env.HEROKU_APP_NAME }}.git
+          git remote add heroku https://git.heroku.com/mybookshelf-frontend.git
           git push heroku `git subtree split --prefix dist/frontend`:refs/heads/master --force
