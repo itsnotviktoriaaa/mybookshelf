@@ -30,6 +30,7 @@ module.exports = function (config) {
       reporters: [{ type: 'html' }, { type: 'text-summary' }],
     },
     reporters: ['progress', 'kjhtml'],
+    singleRun: true,
     browsers: ['ChromeHeadless'],
     restartOnFileChange: true,
   });

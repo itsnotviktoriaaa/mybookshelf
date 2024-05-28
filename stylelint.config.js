@@ -7,5 +7,6 @@ module.exports = {
     'scss/at-rule-no-unknown': true,
     'selector-id-pattern': null,
     'selector-class-pattern': null,
+    'no-descending-specificity': null,
   },
 };

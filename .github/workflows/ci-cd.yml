@@ -27,7 +27,7 @@ jobs:
           npm run lint-style
 
       - name: Run tests
-        run: npm test
+        run: npm test --watch=false
 
       - name: Print GitHub ref
         run: echo "GitHub ref is ${{ github.ref }}"
