@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SelectedHeaderModalItemEngEnum } from 'models/personal-library';
+import { SelectedHeaderModalItemEnum } from 'models/personal-library';
 import { SearchStateService } from './search-state.service';
 
 describe('SearchStateService', (): void => {
@@ -31,14 +31,14 @@ describe('SearchStateService', (): void => {
 
   it('should searchType$ is default equality All', (): void => {
     service.getHeaderModalItem().subscribe((type: string): void => {
-      expect(type).toBe(SelectedHeaderModalItemEngEnum.ALL);
+      expect(type).toBe(SelectedHeaderModalItemEnum.ALL);
     });
   });
 
   it('should searchType$ is equality type', (): void => {
-    service.setHeaderModalItem(SelectedHeaderModalItemEngEnum.SUBJECT);
+    service.setHeaderModalItem(SelectedHeaderModalItemEnum.SUBJECT);
     service.getHeaderModalItem().subscribe((type: string): void => {
-      expect(type).toBe(SelectedHeaderModalItemEngEnum.SUBJECT);
+      expect(type).toBe(SelectedHeaderModalItemEnum.SUBJECT);
     });
   });
 

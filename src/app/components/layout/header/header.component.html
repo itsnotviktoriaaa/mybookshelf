@@ -7,7 +7,9 @@
           (click)="openOrCloseMiniModal(HeaderClickInterfaceEnum.ALLMINIMODAL)"
           class="header-search-all"
           [ngStyle]="{ cursor: (isFavoritePage$ | async) ? 'default' : 'pointer' }">
-          <span class="header-class-all-text">{{ selectedHeaderModalItem | async }}</span>
+          <span class="header-class-all-text">
+            {{ (selectedHeaderModalItem | async) ?? '' | translate }}
+          </span>
           <span
             [class]="{ 'header-class-all-arrow': true, active: allMiniModal }"
             [ngStyle]="{ display: (isFavoritePage$ | async) ? 'none' : 'block' }">
@@ -20,9 +22,9 @@
               @for (headerModalItem of headerModalItems; track headerModalItem) {
                 <li class="header-modal-item">
                   <a
-                    id="{{ headerModalItem }}"
-                    (click)="changeSelectedHeaderModalItem(headerModalItem)">
-                    {{ headerModalItem.text }}
+                    id="{{ headerModalItem.id }}"
+                    (click)="changeSelectedHeaderModalItem(headerModalItem.id)">
+                    {{ headerModalItem.translate | translate }}
                   </a>
                 </li>
               }
@@ -70,7 +72,9 @@
           <div
             (click)="openOrCloseMiniModal(HeaderClickInterfaceEnum.LANGMINIMODAL)"
             class="header-back-info header-lang-info">
-            <span class="header-back-text header-lang-info-text">{{ lang | async }}</span>
+            <span class="header-back-text header-lang-info-text">
+              {{ 'currentLang' | translate }}
+            </span>
             <span [class]="{ 'header-lang-info-icon': true, active: langMiniModal }">
               <svg-icon [src]="pathToIcons + '/arrow-in-mini-modal.svg'"></svg-icon>
             </span>
@@ -81,7 +85,7 @@
             <ul class="header-modal-items">
               @for (headerModalLangItem of headerModalLangItems; track headerModalLangItem) {
                 <li (click)="selectLanguage(headerModalLangItem)" class="header-modal-item">
-                  <a>{{ headerModalLangItem }}</a>
+                  <a>{{ headerModalLangItem | translate }}</a>
                 </li>
               }
             </ul>
@@ -117,7 +121,9 @@
                 let last = $last
               ) {
                 <li class="header-modal-item">
-                  <a (click)="last ? logoutForGoogle() : null">{{ headerModalAccountItem }}</a>
+                  <a (click)="last ? logoutForGoogle() : null">
+                    {{ headerModalAccountItem | translate }}
+                  </a>
                 </li>
               }
             </ul>

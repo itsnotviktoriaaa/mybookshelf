@@ -1,26 +1,25 @@
 import {
   IActiveParamsSearch,
-  IBookItemTransformedWithTotal,
   IBookItemTransformed,
-  SearchEnum,
+  IBookItemTransformedWithTotal,
   ISearch,
-  SelectedHeaderModalItemEngEnum,
-  SelectedHeaderModalItemRusEnum,
-} from 'models/';
+  SearchEnum,
+  SelectedHeaderModalItemEnum,
+} from 'app/models';
 import { ChangeDetectionStrategy, Component, HostListener, inject, OnInit } from '@angular/core';
-import { BehaviorSubject, debounceTime, filter, Observable, takeUntil, tap } from 'rxjs';
-import { ActiveParamUtil, CategoryModalSearchItems, SearchStateService } from 'core/';
+import { ActiveParamUtil, CategoryModalSearchItems, SearchStateService } from 'app/core';
+import { MiniLoaderComponent, PaginationInputComponent } from 'app/uicomponents';
 import { environment } from '../../../../environments/environment.development';
-import { MiniLoaderComponent, PaginationInputComponent } from 'ui/';
+import { BehaviorSubject, filter, Observable, takeUntil, tap } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
+import { SearchBookComponent } from 'app/components';
 import { SvgIconComponent } from 'angular-svg-icon';
-import { SearchBookComponent } from 'components/';
+import { RouterFacadeService } from 'app/ngrx';
 import { AsyncPipe } from '@angular/common';
-import { RouterFacadeService } from 'ngr/';
+import { DestroyDirective } from 'app/core';
+import { FavoritesFacade } from 'app/ngrx';
 import { Params } from '@angular/router';
-import { DestroyDirective } from 'core/';
-import { FavoritesFacade } from 'ngr/';
-import { SearchFacade } from 'ngr/';
+import { SearchFacade } from 'app/ngrx';
 
 @Component({
   selector: 'app-search',
@@ -62,12 +61,8 @@ export class SearchComponent implements OnInit {
     this.searchStateService
       .getHeaderModalItem()
       .pipe(
-        takeUntil(this.destroy$),
         tap((type: string): void => {
-          if (
-            type.toLowerCase() === SelectedHeaderModalItemEngEnum.SUBJECT.toLowerCase() ||
-            type.toLowerCase() === SelectedHeaderModalItemRusEnum.SUBJECT.toLowerCase()
-          ) {
+          if (type.toLowerCase() === SelectedHeaderModalItemEnum.SUBJECT.toLowerCase()) {
             this.headerModalSearchText.next(this.headerModalSearchItems[1]);
             this.searchStateService.setSearchCategory(this.headerModalSearchItems[1]);
           } else {
@@ -78,48 +73,37 @@ export class SearchComponent implements OnInit {
       .subscribe();
 
     this.routerFacadeService.getQueryParams$
-      .pipe(
-        debounceTime(1),
-        tap((params: Params): void => {
-          this.setValuesFromParams(params);
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((params: Params): void => {
+        this.setValuesFromParams(params);
 
-          const newParams: IActiveParamsSearch = ActiveParamUtil.processParam(params);
+        const newParams: IActiveParamsSearch = ActiveParamUtil.processParam(params);
 
-          this.searchFacade.loadSearchBooks(newParams);
-          this.searchFacade
-            .getSearchBooks()
-            .pipe(
-              tap((data: ISearch | null): void => {
-                this.searchBooks$.next(data);
-              }),
-              takeUntil(this.destroy$)
-            )
-            .subscribe();
+        this.searchFacade.loadSearchBooks(newParams);
+        this.searchFacade.getSearchBooks().subscribe(data => {
+          this.searchBooks$.next(data);
+        });
 
-          const newParamsForFavorite: IActiveParamsSearch =
-            ActiveParamUtil.processParamsForFavoritePage(params);
+        const newParamsForFavorite: IActiveParamsSearch =
+          ActiveParamUtil.processParamsForFavoritePage(params);
 
-          this.favoriteFacade.loadFavoritesBooks(newParamsForFavorite);
-          this.favoriteFacade
-            .getFavoritesBooks()
-            .pipe(
-              takeUntil(this.destroy$),
-              filter((data: IBookItemTransformedWithTotal | null) => !!data),
-              tap((books: IBookItemTransformedWithTotal | null): void => {
-                const newArrayWithIdOfFavorites: string[] = [];
-                if (books && books.items && books.items.length > 0) {
-                  books.items.forEach((item: IBookItemTransformed): void => {
-                    newArrayWithIdOfFavorites.push(item.id);
-                  });
-                  this.idOfFavorites = newArrayWithIdOfFavorites;
-                }
-              })
-            )
-            .subscribe();
-        }),
-        takeUntil(this.destroy$)
-      )
-      .subscribe();
+        this.favoriteFacade.loadFavoritesBooks(newParamsForFavorite);
+        this.favoriteFacade
+          .getFavoritesBooks()
+          .pipe(
+            filter((data: IBookItemTransformedWithTotal | null) => !!data),
+            tap((books: IBookItemTransformedWithTotal | null): void => {
+              const newArrayWithIdOfFavorites: string[] = [];
+              if (books && books.items && books.items.length > 0) {
+                books.items.forEach((item: IBookItemTransformed): void => {
+                  newArrayWithIdOfFavorites.push(item.id);
+                });
+                this.idOfFavorites = newArrayWithIdOfFavorites;
+              }
+            })
+          )
+          .subscribe();
+      });
   }
 
   openOrCloseMiniModal(): void {

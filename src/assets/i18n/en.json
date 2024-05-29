@@ -159,5 +159,28 @@
     "secondaryScrollVertical": "Vertical Scrolling",
     "secondaryScrollHorizontal": "Horizontal Scrolling",
     "secondaryScrollWrapped": "Wrapped Scrolling"
-  }
+  },
+  "language": {
+    "en": "Eng",
+    "ru": "Rus"
+  },
+  "currentLang": "Eng",
+  "selected-header-modal-item": {
+    "All": "All",
+    "Title": "Title",
+    "Author": "Author",
+    "Text": "Text",
+    "Subject": "Subject"
+  },
+  "header-modal-account-item": {
+    "profile": "Profile",
+    "favourite": "Favourite",
+    "myBooks": "My Books",
+    "logout": "Logout"
+  },
+  "All": "All",
+  "Title": "Title",
+  "Author": "Author",
+  "Text": "Text",
+  "Subject": "Subject"
 }

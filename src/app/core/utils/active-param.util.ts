@@ -1,10 +1,4 @@
-import {
-  IActiveParamsSearch,
-  NamesOfKeysEngEnum,
-  NamesOfKeysRusEnum,
-  SelectedHeaderModalItemEngEnum,
-  SelectedHeaderModalItemRusEnum,
-} from 'app/models/';
+import { IActiveParamsSearch, NamesOfKeysEnum, SelectedHeaderModalItemEnum } from 'app/models';
 import { Params } from '@angular/router';
 
 export class ActiveParamUtil {
@@ -26,37 +20,27 @@ export class ActiveParamUtil {
       const type: string = params['type'];
 
       switch (type) {
-        case NamesOfKeysEngEnum.ALL:
-        case NamesOfKeysRusEnum.ALL:
+        case NamesOfKeysEnum.ALL:
           typeForRequest = '';
           break;
-        case NamesOfKeysEngEnum.INAUTHOR:
-        case NamesOfKeysRusEnum.INAUTHOR:
-          typeForRequest = `+in${NamesOfKeysEngEnum.INAUTHOR}:`;
+        case NamesOfKeysEnum.INAUTHOR:
+          typeForRequest = `+in${NamesOfKeysEnum.INAUTHOR}:`;
           break;
-        case NamesOfKeysEngEnum.INTITLE:
-        case NamesOfKeysRusEnum.INTITLE:
-          typeForRequest = `+in${NamesOfKeysEngEnum.INTITLE}:`;
+        case NamesOfKeysEnum.INTITLE:
+          typeForRequest = `+in${NamesOfKeysEnum.INTITLE}:`;
           break;
-        case NamesOfKeysEngEnum.INTEXT:
-        case NamesOfKeysRusEnum.INTEXT:
-          typeForRequest = `+in${NamesOfKeysEngEnum.INTEXT}:`;
+        case NamesOfKeysEnum.INTEXT:
+          typeForRequest = `+in${NamesOfKeysEnum.INTEXT}:`;
           break;
-        case NamesOfKeysEngEnum.SUBJECT:
-        case NamesOfKeysRusEnum.SUBJECT:
-          typeForRequest = `+${NamesOfKeysEngEnum.SUBJECT}:`;
+        case NamesOfKeysEnum.SUBJECT:
+          typeForRequest = `+${NamesOfKeysEnum.SUBJECT}:`;
           break;
         default:
-          typeForRequest = `+in${NamesOfKeysEngEnum.INTITLE}:`;
+          typeForRequest = `+in${NamesOfKeysEnum.INTITLE}:`;
       }
     }
 
-    if (
-      params.hasOwnProperty(
-        SelectedHeaderModalItemEngEnum.TEXT.toLowerCase() ||
-          SelectedHeaderModalItemRusEnum.TEXT.toLowerCase()
-      )
-    ) {
+    if (params.hasOwnProperty(SelectedHeaderModalItemEnum.TEXT.toLowerCase())) {
       textFromInput = params['text'];
     }
 
@@ -76,9 +60,9 @@ export class ActiveParamUtil {
       activeParams.q += typeForRequest + category;
     }
 
-    if (textFromInput && typeForRequest === `+${NamesOfKeysEngEnum.SUBJECT}:`) {
+    if (textFromInput && typeForRequest === `+${NamesOfKeysEnum.SUBJECT}:`) {
       activeParams.q = textFromInput + typeForRequest + category;
-    } else if (!textFromInput && typeForRequest === `+${NamesOfKeysEngEnum.SUBJECT}:`) {
+    } else if (!textFromInput && typeForRequest === `+${NamesOfKeysEnum.SUBJECT}:`) {
       activeParams.q = typeForRequest + category;
     } else if (textFromInput) {
       activeParams.q = typeForRequest + textFromInput;
@@ -88,7 +72,7 @@ export class ActiveParamUtil {
       activeParams.q = 'search+term';
     }
 
-    // console.log(activeParams);
+    console.log(activeParams);
     return activeParams;
   }
 
@@ -96,28 +80,23 @@ export class ActiveParamUtil {
     let typeForRequest: string = '';
 
     switch (typeFromInput.toLowerCase()) {
-      case NamesOfKeysEngEnum.ALL:
-      case NamesOfKeysRusEnum.ALL:
+      case NamesOfKeysEnum.ALL:
         typeForRequest = '';
         break;
-      case NamesOfKeysEngEnum.INAUTHOR:
-      case NamesOfKeysRusEnum.INAUTHOR:
-        typeForRequest = `+in${NamesOfKeysEngEnum.INAUTHOR}:`;
+      case NamesOfKeysEnum.INAUTHOR:
+        typeForRequest = `+in${NamesOfKeysEnum.INAUTHOR}:`;
         break;
-      case NamesOfKeysEngEnum.INTITLE:
-      case NamesOfKeysRusEnum.INTITLE:
-        typeForRequest = `+in${NamesOfKeysEngEnum.INTITLE}:`;
+      case NamesOfKeysEnum.INTITLE:
+        typeForRequest = `+in${NamesOfKeysEnum.INTITLE}:`;
         break;
-      case NamesOfKeysEngEnum.INTEXT:
-      case NamesOfKeysRusEnum.INTEXT:
-        typeForRequest = `+in${NamesOfKeysEngEnum.INTEXT}:`;
+      case NamesOfKeysEnum.INTEXT:
+        typeForRequest = `+in${NamesOfKeysEnum.INTEXT}:`;
         break;
-      case NamesOfKeysEngEnum.SUBJECT:
-      case NamesOfKeysRusEnum.SUBJECT:
-        typeForRequest = `+${NamesOfKeysEngEnum.SUBJECT}:`;
+      case NamesOfKeysEnum.SUBJECT:
+        typeForRequest = `+${NamesOfKeysEnum.SUBJECT}:`;
         break;
       default:
-        typeForRequest = `+in${NamesOfKeysEngEnum.INTITLE}:`;
+        typeForRequest = `+in${NamesOfKeysEnum.INTITLE}:`;
     }
 
     return typeForRequest;
@@ -130,12 +109,7 @@ export class ActiveParamUtil {
       startIndex: 0,
     };
 
-    if (
-      params.hasOwnProperty(
-        SelectedHeaderModalItemEngEnum.TEXT.toLowerCase() ||
-          SelectedHeaderModalItemRusEnum.TEXT.toLowerCase()
-      )
-    ) {
+    if (params.hasOwnProperty(SelectedHeaderModalItemEnum.TEXT.toLowerCase())) {
       activeParams.q = params['text'];
     }
 

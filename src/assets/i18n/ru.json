@@ -159,5 +159,28 @@
     "secondaryScrollVertical": "Вертикально",
     "secondaryScrollHorizontal": "Горизонтально",
     "secondaryScrollWrapped": "Обтекание"
-  }
+  },
+  "language": {
+    "en": "Англ",
+    "ru": "Русс"
+  },
+  "currentLang": "Русс",
+  "selected-header-modal-item": {
+    "All": "Все",
+    "Title": "Титул",
+    "Author": "Автор",
+    "Text": "Текст",
+    "Subject": "Категория"
+  },
+  "header-modal-account-item": {
+    "profile": "Профиль",
+    "favourite": "Избранное",
+    "myBooks": "Мои книги",
+    "logout": "Выйти"
+  },
+  "All": "Все",
+  "Title": "Титул",
+  "Author": "Автор",
+  "Text": "Текст",
+  "Subject": "Категория"
 }

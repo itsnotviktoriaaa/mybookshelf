@@ -1,4 +1,4 @@
 export interface HeaderModalI {
-  text: string;
+  translate: string;
   id: string;
 }

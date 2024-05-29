@@ -4,18 +4,10 @@ export enum HeaderClickEnum {
   PROFILEMINIMODAL,
 }
 
-export enum SelectedHeaderModalItemEngEnum {
+export enum SelectedHeaderModalItemEnum {
   ALL = 'All',
   TITLE = 'Title',
   AUTHOR = 'Author',
   TEXT = 'Text',
   SUBJECT = 'Subject',
-}
-
-export enum SelectedHeaderModalItemRusEnum {
-  ALL = 'Все',
-  TITLE = 'Титул',
-  AUTHOR = 'Автор',
-  TEXT = 'Текст',
-  SUBJECT = 'Категория',
 }

@@ -1,15 +1,13 @@
 import {
-  ISearchDetail,
-  ISearchInfoDetail,
-  ISearch,
-  SelectedHeaderModalItemEngEnum,
-  SelectedHeaderModalItemRusEnum,
-} from '../../models/personal-library';
-import { loadSearchLiveBooks, loadSearchLiveBooksFailure, loadSearchLiveBooksSuccess } from './';
+  loadSearchLiveBooks,
+  loadSearchLiveBooksFailure,
+  loadSearchLiveBooksSuccess,
+} from './search-live.actions';
+import { ISearch, ISearchDetail, ISearchInfoDetail, SelectedHeaderModalItemEnum } from 'app/models';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { TypedAction } from '@ngrx/store/src/models';
-import { GoogleApiService } from '../../core';
+import { GoogleApiService } from 'app/core';
 import { Injectable } from '@angular/core';
 
 @Injectable()
@@ -46,22 +44,16 @@ export class SearchLiveEffects {
                 const typeFromInput: string = action.typeFromInput.toLowerCase();
 
                 if (
-                  typeFromInput === SelectedHeaderModalItemEngEnum.TITLE.toLowerCase() ||
-                  typeFromInput === SelectedHeaderModalItemEngEnum.TEXT.toLowerCase() ||
-                  typeFromInput == SelectedHeaderModalItemEngEnum.ALL.toLowerCase() ||
-                  typeFromInput === SelectedHeaderModalItemRusEnum.TITLE.toLowerCase() ||
-                  typeFromInput === SelectedHeaderModalItemRusEnum.TEXT.toLowerCase() ||
-                  typeFromInput == SelectedHeaderModalItemRusEnum.ALL.toLowerCase()
+                  typeFromInput === SelectedHeaderModalItemEnum.TITLE.toLowerCase() ||
+                  typeFromInput === SelectedHeaderModalItemEnum.TEXT.toLowerCase() ||
+                  typeFromInput == SelectedHeaderModalItemEnum.ALL.toLowerCase()
                 ) {
                   if (item.title) {
                     return item.title;
                   }
                 }
 
-                if (
-                  typeFromInput === SelectedHeaderModalItemEngEnum.AUTHOR.toLowerCase() ||
-                  typeFromInput === SelectedHeaderModalItemRusEnum.AUTHOR.toLowerCase()
-                ) {
+                if (typeFromInput === SelectedHeaderModalItemEnum.AUTHOR.toLowerCase()) {
                   if (item.authors && item.authors.length > 0) {
                     return item.authors[0];
                   }
