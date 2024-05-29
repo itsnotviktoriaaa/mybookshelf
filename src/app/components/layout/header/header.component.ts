@@ -34,18 +34,18 @@ import {
   HeaderClickEnum,
   SelectedHeaderModalItemEngEnum,
   SelectedHeaderModalItemRusEnum,
-} from 'modals/';
+} from 'models/';
 import { environment } from '../../../../environments/environment.development';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { NotificationStatusEnum, IUserInfoFromGoogle } from 'modals/';
+import { NotificationStatusEnum, IUserInfoFromGoogle } from 'models/';
 import { AsyncPipe, NgStyle } from '@angular/common';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { Params, Router } from '@angular/router';
 import { RouterFacadeService } from 'ngr/';
 import { DestroyDirective } from 'core/';
 import { SearchLiveFacade } from 'ngr/';
-import { HeaderModalI } from 'modals/';
+import { HeaderModalI } from 'models/';
 
 @Component({
   selector: 'app-header',

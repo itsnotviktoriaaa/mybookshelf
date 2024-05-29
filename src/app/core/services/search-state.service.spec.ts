@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SelectedHeaderModalItemEngEnum } from '../../modals/user';
+import { SelectedHeaderModalItemEngEnum } from '../../models/user';
 import { SearchStateService } from './search-state.service';
 
 describe('SearchStateService', (): void => {

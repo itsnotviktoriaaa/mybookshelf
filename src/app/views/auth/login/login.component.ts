@@ -3,7 +3,7 @@ import { AuthService, CodeMessageHandlerUtil, NotificationService } from 'core/'
 import { environment } from '../../../../environments/environment.development';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { NotificationStatusEnum, IUserInfoFromGoogle } from 'modals/';
+import { NotificationStatusEnum, IUserInfoFromGoogle } from 'models/';
 import { NgOptimizedImage, NgStyle } from '@angular/common';
 import { catchError, EMPTY, Observable, tap } from 'rxjs';
 import { Router, RouterLink } from '@angular/router';

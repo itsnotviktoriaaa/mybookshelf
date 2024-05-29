@@ -1,6 +1,6 @@
 import { TranslateModule } from '@ngx-translate/core';
 import { Component, OnInit } from '@angular/core';
-import { IBookItemTransformed } from 'modals/';
+import { IBookItemTransformed } from 'models/';
 import { AsyncPipe } from '@angular/common';
 import { BookComponent } from 'components/';
 import { MiniLoaderComponent } from 'ui/';

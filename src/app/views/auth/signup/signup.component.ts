@@ -13,7 +13,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgClass, NgOptimizedImage, NgStyle } from '@angular/common';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import emailJs, { EmailJSResponseStatus } from '@emailjs/browser';
-import { NotificationStatusEnum, IUserSign } from 'modals/';
+import { NotificationStatusEnum, IUserSign } from 'models/';
 import { Router, RouterLink } from '@angular/router';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { SubscribeDecorator } from 'decorators/';

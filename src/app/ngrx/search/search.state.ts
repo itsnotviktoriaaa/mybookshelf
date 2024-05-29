@@ -1,4 +1,4 @@
-import { ISearch } from '../../modals/user';
+import { ISearch } from '../../models/user';
 
 export interface SearchState {
   search: ISearch | null;

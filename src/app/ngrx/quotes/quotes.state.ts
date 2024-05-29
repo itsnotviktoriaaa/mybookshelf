@@ -1,4 +1,4 @@
-import { IQuotesSmall } from 'app/modals';
+import { IQuotesSmall } from 'app/models';
 
 export interface QuotesState {
   quotes: IQuotesSmall[] | null;

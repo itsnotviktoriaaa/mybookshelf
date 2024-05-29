@@ -6,7 +6,7 @@ import {
 } from './home.selectors';
 import { loadReadingNowBooks, loadRecommendedBooks } from './home.actions';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { IBookItemTransformedWithTotal } from '../../modals/user';
+import { IBookItemTransformedWithTotal } from '../../models/user';
 import { TestBed } from '@angular/core/testing';
 import { HomeFacade } from './home.facade';
 

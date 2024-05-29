@@ -5,7 +5,7 @@ import {
   selectRecommendedBooks,
 } from './home.selectors';
 import { loadReadingNowBooks, loadRecommendedBooks } from './home.actions';
-import { IBookItemTransformedWithTotal } from '../../modals/user';
+import { IBookItemTransformedWithTotal } from '../../models/user';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';

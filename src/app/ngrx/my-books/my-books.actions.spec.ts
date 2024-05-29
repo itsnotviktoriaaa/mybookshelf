@@ -6,7 +6,7 @@ import {
   removeFromMyBooksFailure,
   removeFromMyBooksSuccess,
 } from './my-books.actions';
-import { IBookItemTransformed } from '../../modals/user';
+import { IBookItemTransformed } from '../../models/user';
 
 describe('MyBooks Actions', () => {
   it('should create loadMyBooks action', () => {

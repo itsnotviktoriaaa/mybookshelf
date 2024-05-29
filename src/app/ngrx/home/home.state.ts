@@ -1,4 +1,4 @@
-import { IBookItemTransformedWithTotal } from '../../modals/user';
+import { IBookItemTransformedWithTotal } from '../../models/user';
 
 export interface HomeState {
   recommendedBooks: IBookItemTransformedWithTotal | null;

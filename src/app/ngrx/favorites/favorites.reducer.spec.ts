@@ -5,7 +5,7 @@ import {
   removeFromFavoritesBooksSuccess,
 } from './favorites.actions';
 import { favoritesReducer, initialStateFavorite } from './favorites.reducer';
-import { IBookItemTransformedWithTotal } from '../../modals/user';
+import { IBookItemTransformedWithTotal } from '../../models/user';
 import { FavoritesState } from './favorites.state';
 
 describe('FavoritesReducer', () => {

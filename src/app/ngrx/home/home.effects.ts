@@ -11,7 +11,7 @@ import {
   IBook,
   IBookItem,
   IBookItemTransformed,
-} from '../../modals/user';
+} from '../../models/user';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { TypedAction } from '@ngrx/store/src/models';

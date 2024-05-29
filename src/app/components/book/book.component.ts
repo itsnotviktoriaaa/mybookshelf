@@ -12,7 +12,7 @@ import { environment } from '../../../environments/environment.development';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { NgClass, NgStyle } from '@angular/common';
-import { IBookItemTransformed } from 'modals/';
+import { IBookItemTransformed } from 'models/';
 import { CommonPopupService } from 'core/';
 import { CommonPopupComponent } from 'ui/';
 import { Router } from '@angular/router';

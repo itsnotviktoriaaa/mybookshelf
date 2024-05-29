@@ -1,4 +1,4 @@
-import { IBookItemTransformed } from '../../modals/user';
+import { IBookItemTransformed } from '../../models/user';
 import { createAction, props } from '@ngrx/store';
 
 export const loadMyBooks = createAction('[MyBooks] Load My Books');

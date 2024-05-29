@@ -1,6 +1,6 @@
 import { selectDetailBook, selectLoadingOfDetailBook } from './detail-book.selector';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { IDetailBookSmallInfo } from '../../modals/user';
+import { IDetailBookSmallInfo } from '../../models/user';
 import { DetailBookFacade } from './detail-book.facade';
 import { loadDetailBook } from './detail-book.actions';
 import { TestBed } from '@angular/core/testing';

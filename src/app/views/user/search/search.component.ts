@@ -6,7 +6,7 @@ import {
   ISearch,
   SelectedHeaderModalItemEngEnum,
   SelectedHeaderModalItemRusEnum,
-} from 'modals/';
+} from 'models/';
 import { ChangeDetectionStrategy, Component, HostListener, inject, OnInit } from '@angular/core';
 import { BehaviorSubject, debounceTime, filter, Observable, takeUntil, tap } from 'rxjs';
 import { ActiveParamUtil, CategoryModalSearchItems, SearchStateService } from 'core/';

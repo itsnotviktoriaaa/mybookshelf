@@ -1,7 +1,7 @@
 import { loadAuthor, loadAuthorFailure, loadAuthorSuccess } from './author.actions';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { provideMockStore } from '@ngrx/store/testing';
-import { ISearchInfoDetail } from '../../modals/user';
+import { ISearchInfoDetail } from '../../models/user';
 import { Observable, of, throwError } from 'rxjs';
 import { AuthorEffects } from './author.effects';
 import { TestBed } from '@angular/core/testing';

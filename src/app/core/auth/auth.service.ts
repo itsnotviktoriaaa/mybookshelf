@@ -8,7 +8,7 @@ import {
   user,
 } from '@angular/fire/auth';
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
-import { IUser } from '../../modals/auth';
+import { IUser } from '../../models/auth';
 import { from, Observable } from 'rxjs';
 type User = import('firebase/auth').User;
 

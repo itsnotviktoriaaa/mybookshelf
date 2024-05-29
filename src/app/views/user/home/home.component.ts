@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SliderComponent } from 'components/slider/slider.component';
-import { IBookItemTransformedWithTotal } from 'modals/';
+import { IBookItemTransformedWithTotal } from 'models/';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 import { GoogleHomeComponent } from 'components/';
 import { SubscribeDecorator } from 'decorators/';
-import { IUserInfoFromGoogle } from 'modals/';
+import { IUserInfoFromGoogle } from 'models/';
 import { RouterLink } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { BookComponent } from 'components/';

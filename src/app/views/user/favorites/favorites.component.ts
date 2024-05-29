@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@
 import { ActiveParamUtil, SearchStateService } from 'core/';
 import { TranslateModule } from '@ngx-translate/core';
 import { debounceTime, takeUntil } from 'rxjs';
-import { IActiveParamsSearch } from 'modals/';
+import { IActiveParamsSearch } from 'models/';
 import { AsyncPipe } from '@angular/common';
 import { BookComponent } from 'components/';
 import { RouterFacadeService } from 'ngr/';

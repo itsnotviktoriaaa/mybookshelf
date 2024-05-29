@@ -1,7 +1,7 @@
 import { selectLoadingOfMyBooks, selectMyBooks } from './my-books.selector';
 import { loadMyBooks, removeFromMyBooks } from './my-books.actions';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { IBookItemTransformed } from '../../modals/user';
+import { IBookItemTransformed } from '../../models/user';
 import { MyBooksFacade } from './my-books.facade';
 import { TestBed } from '@angular/core/testing';
 

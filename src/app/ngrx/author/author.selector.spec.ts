@@ -1,5 +1,5 @@
 import { selectAuthor, selectAuthorState } from './author.selector';
-import { ISearchSmall } from '../../modals/user';
+import { ISearchSmall } from '../../models/user';
 import { AuthorState } from './author.state';
 
 describe('AuthorSelectors', () => {

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { IBookItemTransformedWithTotal } from 'modals/';
+import { IBookItemTransformedWithTotal } from 'models/';
 import { AsyncPipe } from '@angular/common';
 import { BookComponent } from 'components/';
 import { MiniLoaderComponent } from 'ui/';

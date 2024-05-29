@@ -13,7 +13,7 @@ import {
   ISelfBook,
   ISelfBookUpload,
   IUploadFilesAndCreateBookDatabase,
-} from 'modals/';
+} from 'models/';
 import {
   deleteObject,
   getDownloadURL,

@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { IQuotesSmall } from 'app/modals';
+import { IQuotesSmall } from 'app/models';
 
 export const loadQuotes = createAction('[Home] Load Quotes');
 export const loadQuotesSuccess = createAction(

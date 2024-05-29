@@ -24,10 +24,10 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { DatabaseService, NotificationService } from 'core/';
 import { UploadMetadata } from '@angular/fire/storage';
 import { AsyncPipe, NgStyle } from '@angular/common';
-import { ISelfBook, ISelfBookUpload } from 'modals/';
+import { ISelfBook, ISelfBookUpload } from 'models/';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { Params, Router } from '@angular/router';
-import { NotificationStatusEnum } from 'modals/';
+import { NotificationStatusEnum } from 'models/';
 import { RouterFacadeService } from 'ngr/';
 import { DestroyDirective } from 'core/';
 

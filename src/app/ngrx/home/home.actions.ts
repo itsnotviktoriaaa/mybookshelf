@@ -1,4 +1,4 @@
-import { IBookItemTransformedWithTotal } from '../../modals/user';
+import { IBookItemTransformedWithTotal } from '../../models/user';
 import { createAction, props } from '@ngrx/store';
 
 //Actions for getting books recommended

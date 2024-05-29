@@ -3,7 +3,7 @@ import {
   loadDetailBookFailure,
   loadDetailBookSuccess,
 } from './detail-book.actions';
-import { IDetailBook, IDetailBookSmallInfo } from '../../modals/user';
+import { IDetailBook, IDetailBookSmallInfo } from '../../models/user';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { DetailBookEffects } from './detail-book.effects';
 import { provideMockStore } from '@ngrx/store/testing';

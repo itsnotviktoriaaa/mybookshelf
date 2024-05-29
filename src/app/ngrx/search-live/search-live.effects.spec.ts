@@ -1,6 +1,6 @@
 import { loadSearchLiveBooks, loadSearchLiveBooksFailure, loadSearchLiveBooksSuccess } from './';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { ISearchInfoDetail } from '../../modals/user';
+import { ISearchInfoDetail } from '../../models/user';
 import { Observable, of, throwError } from 'rxjs';
 import { TestBed } from '@angular/core/testing';
 import { GoogleApiService } from '../../core';

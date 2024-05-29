@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { ISearchSmall } from '../../modals/user';
+import { ISearchSmall } from '../../models/user';
 
 export const loadAuthor = createAction(
   '[Author] Load Detail Author',

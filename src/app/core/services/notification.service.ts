@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { NotificationType } from 'modals/';
+import { NotificationType } from 'models/';
 import { Observable, Subject } from 'rxjs';
 
 @Injectable({

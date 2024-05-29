@@ -1,7 +1,7 @@
 import { selectQuotes } from 'ngr/quotes/quotes.selector';
 import { loadQuotes } from 'ngr/quotes/quotes.actions';
 import { Injectable } from '@angular/core';
-import { IQuotesSmall } from 'app/modals';
+import { IQuotesSmall } from 'app/models';
 import { Observable, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 

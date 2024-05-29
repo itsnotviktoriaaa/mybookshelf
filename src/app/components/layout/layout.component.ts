@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } fro
 import { HeaderComponent } from './header/header.component';
 import { GoogleApiService, ThemeService } from 'app/core';
 import { BarComponent } from './bar/bar.component';
-import { IUserInfoFromGoogle } from 'app/modals';
+import { IUserInfoFromGoogle } from 'app/models';
 import { RouterOutlet } from '@angular/router';
 import { tap } from 'rxjs';
 

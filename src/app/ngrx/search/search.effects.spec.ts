@@ -1,7 +1,7 @@
 import { loadSearchBooks, loadSearchBooksFailure, loadSearchBooksSuccess } from './search.actions';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { provideMockStore } from '@ngrx/store/testing';
-import { ISearchInfoDetail } from '../../modals/user';
+import { ISearchInfoDetail } from '../../models/user';
 import { Observable, of, throwError } from 'rxjs';
 import { SearchEffects } from './search.effects';
 import { TestBed } from '@angular/core/testing';

@@ -6,7 +6,7 @@ import {
   selectReadingNowBooks,
   selectRecommendedBooks,
 } from './home.selectors';
-import { IBookItemTransformedWithTotal } from '../../modals/user';
+import { IBookItemTransformedWithTotal } from '../../models/user';
 import { HomeNowState, HomeState } from './home.state';
 
 describe('HomeSelectors', () => {

@@ -6,7 +6,7 @@ import {
   removeFromFavoritesBooksFailure,
   removeFromFavoritesBooksSuccess,
 } from './favorites.actions';
-import { IActiveParamsSearch, IBookItemTransformedWithTotal } from '../../modals/user';
+import { IActiveParamsSearch, IBookItemTransformedWithTotal } from '../../models/user';
 
 describe('Favorites Actions', () => {
   it('should create loadFavoritesBooks action', () => {

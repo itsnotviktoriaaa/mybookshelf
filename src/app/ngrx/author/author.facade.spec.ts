@@ -1,5 +1,5 @@
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { ISearchSmall } from '../../modals/user';
+import { ISearchSmall } from '../../models/user';
 import { selectAuthor } from './author.selector';
 import { TestBed } from '@angular/core/testing';
 import { AuthorFacade } from './author.facade';

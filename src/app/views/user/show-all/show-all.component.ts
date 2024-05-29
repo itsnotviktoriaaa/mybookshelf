@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
-import { IActiveParams, IBookItemTransformedWithTotal } from 'modals/';
+import { IActiveParams, IBookItemTransformedWithTotal } from 'models/';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable, of, takeUntil, tap } from 'rxjs';
 import { AsyncPipe, NgClass } from '@angular/common';
@@ -10,7 +10,7 @@ import { BookComponent } from 'components/';
 import { RouterFacadeService } from 'ngr/';
 import { MiniLoaderComponent } from 'ui/';
 import { DestroyDirective } from 'core/';
-import { SearchAllEnum } from 'modals/';
+import { SearchAllEnum } from 'models/';
 import { HomeFacade } from 'ngr/';
 
 @Component({

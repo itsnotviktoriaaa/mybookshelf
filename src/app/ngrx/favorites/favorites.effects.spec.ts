@@ -15,7 +15,7 @@ import {
   IBookItemTransformed,
   IBookItemTransformedWithTotal,
   IBookItemVolumeInfo,
-} from '../../modals/user';
+} from '../../models/user';
 import { GoogleApiService, NotificationService } from '../../core';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { FavoritesEffects } from './favorites.effects';

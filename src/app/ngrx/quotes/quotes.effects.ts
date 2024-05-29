@@ -2,7 +2,7 @@ import { loadQuotes, loadQuotesFailure, loadQuotesSuccess } from 'app/ngrx';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { TypedAction } from '@ngrx/store/src/models';
-import { IQuotes, IQuotesSmall } from 'app/modals';
+import { IQuotes, IQuotesSmall } from 'app/models';
 import { Injectable } from '@angular/core';
 import { QuotesService } from 'app/core';
 

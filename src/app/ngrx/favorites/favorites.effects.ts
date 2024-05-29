@@ -11,11 +11,11 @@ import {
   IBook,
   IBookItem,
   IBookItemTransformed,
-} from '../../modals/user';
+} from '../../models/user';
 import { catchError, exhaustMap, finalize, map, of, switchMap, tap } from 'rxjs';
 import { GoogleApiService, NotificationService } from '../../core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { NotificationStatusEnum } from '../../modals/auth';
+import { NotificationStatusEnum } from '../../models/auth';
 import { TranslateService } from '@ngx-translate/core';
 import { TypedAction } from '@ngrx/store/src/models';
 import { Injectable } from '@angular/core';

@@ -3,7 +3,7 @@ import {
   loadDetailBookFailure,
   loadDetailBookSuccess,
 } from './detail-book.actions';
-import { IDetailBook, IDetailBookSmallInfo } from '../../modals/user';
+import { IDetailBook, IDetailBookSmallInfo } from '../../models/user';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { GoogleApiService } from '../../core';

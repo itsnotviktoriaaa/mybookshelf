@@ -3,7 +3,7 @@ import {
   loadDetailBookSuccess,
   loadDetailBookFailure,
 } from './detail-book.actions';
-import { IDetailBookSmallInfo } from '../../modals/user';
+import { IDetailBookSmallInfo } from '../../models/user';
 
 describe('Author Actions', () => {
   it('should create the loadDetailBook action', () => {

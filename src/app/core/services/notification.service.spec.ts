@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { NotificationStatusEnum, NotificationType } from '../../modals/auth';
+import { NotificationStatusEnum, NotificationType } from '../../models/auth';
 import { NotificationService } from './notification.service';
 import { Observable } from 'rxjs';
 

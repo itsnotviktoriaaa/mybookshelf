@@ -1,4 +1,4 @@
-import { NotificationStatusEnum, NotificationType } from 'app/modals/';
+import { NotificationStatusEnum, NotificationType } from 'app/models/';
 import { Component, inject, OnInit } from '@angular/core';
 import { NgClass, NgStyle } from '@angular/common';
 import { NotificationService } from 'app/core/';

@@ -1,5 +1,5 @@
 import { loadSearchBooks, loadSearchBooksFailure, loadSearchBooksSuccess } from './search.actions';
-import { ISearch, ISearchDetail } from '../../modals/user';
+import { ISearch, ISearchDetail } from '../../models/user';
 import { searchReducer } from './search.reducer';
 import { SearchState } from './search.state';
 

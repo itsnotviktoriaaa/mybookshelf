@@ -6,7 +6,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
-import { IQuotesSmall } from 'app/modals';
+import { IQuotesSmall } from 'app/models';
 import { QuotesFacade } from 'ngr/quotes';
 import { Observable, of } from 'rxjs';
 

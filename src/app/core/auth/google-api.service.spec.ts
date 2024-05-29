@@ -1,4 +1,4 @@
-import { IActiveParamsSearch, IBook, IDetailBook, ISearchInfoDetail } from '../../modals/user';
+import { IActiveParamsSearch, IBook, IDetailBook, ISearchInfoDetail } from '../../models/user';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { environment } from '../../../environments/environment.development';
 import { GoogleApiService } from './google-api.service';

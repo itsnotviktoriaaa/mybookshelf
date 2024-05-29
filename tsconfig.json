@@ -20,8 +20,8 @@
     "useDefineForClassFields": false,
     "paths": {
       "app/*": ["./src/app/*"],
-      "modals/*": ["./src/app/modals/*"],
-      "modals/": ["./src/app/modals"],
+      "models/*": ["./src/app/models/*"],
+      "models/": ["./src/app/models"],
       "ngr/*": ["./src/app/ngrx/*"],
       "ngr/": ["./src/app/ngrx"],
       "views/*": ["./src/app/views/*"],

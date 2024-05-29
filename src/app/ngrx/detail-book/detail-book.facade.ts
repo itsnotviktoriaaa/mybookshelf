@@ -1,5 +1,5 @@
 import { selectDetailBook, selectLoadingOfDetailBook } from './detail-book.selector';
-import { IDetailBookSmallInfo } from '../../modals/user';
+import { IDetailBookSmallInfo } from '../../models/user';
 import { loadDetailBook } from './detail-book.actions';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';

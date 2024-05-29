@@ -4,10 +4,10 @@ import { environment } from '../../../environments/environment.development';
 import { BehaviorSubject, catchError, EMPTY, finalize, tap } from 'rxjs';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SvgIconComponent } from 'angular-svg-icon';
-import { NotificationStatusEnum } from 'modals/';
+import { NotificationStatusEnum } from 'models/';
 import { AsyncPipe } from '@angular/common';
 import { Router } from '@angular/router';
-import { ISearchDetail } from 'modals/';
+import { ISearchDetail } from 'models/';
 
 @Component({
   selector: 'app-search-book',

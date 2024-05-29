@@ -1,9 +1,9 @@
-import { IActiveParamsSearch, IBookItemTransformedWithTotal } from '../../modals/user';
+import { IActiveParamsSearch, IBookItemTransformedWithTotal } from '../../models/user';
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 import { FavoriteService } from '../../core/services/favorite.service';
 import { GoogleApiService, NotificationService } from '../../core';
 import { catchError, finalize, tap, throwError } from 'rxjs';
-import { NotificationStatusEnum } from '../../modals/auth';
+import { NotificationStatusEnum } from '../../models/auth';
 import { TranslateService } from '@ngx-translate/core';
 import { inject } from '@angular/core';
 

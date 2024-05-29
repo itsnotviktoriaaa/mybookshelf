@@ -1,10 +1,10 @@
-import { IActiveParamsSearch, IBook, IDetailBook, ISearchInfoDetail } from 'modals/';
+import { IActiveParamsSearch, IBook, IDetailBook, ISearchInfoDetail } from 'models/';
 import { environment } from '../../../environments/environment.development';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { JwksValidationHandler } from 'angular-oauth2-oidc-jwks';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { OAuthService } from 'angular-oauth2-oidc';
-import { IUserInfoFromGoogle } from 'modals/';
+import { IUserInfoFromGoogle } from 'models/';
 import { Injectable } from '@angular/core';
 import { ActiveParamUtil } from '../utils';
 import { Router } from '@angular/router';
