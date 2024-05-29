@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { PaginationInputComponent } from 'app/UIComponents/';
+import { PaginationInputComponent } from 'app/uicomponents/';
 import { TranslateModule } from '@ngx-translate/core';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
