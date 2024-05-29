@@ -1,5 +1,5 @@
 import { selectAuthor, selectAuthorState } from './author.selector';
-import { ISearchSmall } from '../../models/user';
+import { ISearchSmall } from '../../models/personal-library';
 import { AuthorState } from './author.state';
 
 describe('AuthorSelectors', () => {

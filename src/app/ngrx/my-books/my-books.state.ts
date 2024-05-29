@@ -1,4 +1,4 @@
-import { IBookItemTransformed } from '../../models/user';
+import { IBookItemTransformed } from '../../models/personal-library';
 
 export interface MyBooksState {
   myBooks: IBookItemTransformed[] | null;

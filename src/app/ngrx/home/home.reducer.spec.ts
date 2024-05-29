@@ -12,7 +12,7 @@ import {
   initialStateHome,
   initialStateReadingNowBooks,
 } from './home.reducer';
-import { IBookItemTransformedWithTotal } from '../../models/user';
+import { IBookItemTransformedWithTotal } from '../../models/personal-library';
 
 describe('HomeReducer', () => {
   it('should return the initial state for homeReducer', () => {

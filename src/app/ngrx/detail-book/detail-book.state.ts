@@ -1,4 +1,4 @@
-import { IDetailBookSmallInfo } from '../../models/user';
+import { IDetailBookSmallInfo } from '../../models/personal-library';
 
 export interface DetailBookState {
   detailBook: IDetailBookSmallInfo | null;

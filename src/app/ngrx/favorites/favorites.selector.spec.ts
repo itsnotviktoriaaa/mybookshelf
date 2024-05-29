@@ -3,7 +3,7 @@ import {
   selectFavoritesState,
   selectLoadingOfFavoritesBooks,
 } from './favorites.selector';
-import { IBookItemTransformedWithTotal } from '../../models/user';
+import { IBookItemTransformedWithTotal } from '../../models/personal-library';
 import { FavoritesState } from './favorites.state';
 
 describe('FavoritesSelectors', () => {

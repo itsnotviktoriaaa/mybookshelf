@@ -3,7 +3,7 @@ import {
   IBook,
   IBookItemTransformed,
   IBookItemTransformedWithTotal,
-} from '../../models/user';
+} from 'models/personal-library';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { environment } from '../../../environments/environment.development';
 import { FavoriteService } from './favorite.service';

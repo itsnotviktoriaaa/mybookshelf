@@ -3,7 +3,7 @@ import {
   loadDetailBookSuccess,
   loadDetailBookFailure,
 } from './detail-book.actions';
-import { IDetailBookSmallInfo } from '../../models/user';
+import { IDetailBookSmallInfo } from '../../models/personal-library';
 
 describe('Author Actions', () => {
   it('should create the loadDetailBook action', () => {

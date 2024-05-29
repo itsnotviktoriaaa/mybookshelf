@@ -1,5 +1,5 @@
 import { selectLoadingOfSearchBooks, selectSearchBooks } from './search.selector';
-import { IActiveParamsSearch, ISearch } from '../../models/user';
+import { IActiveParamsSearch, ISearch } from '../../models/personal-library';
 import { loadSearchBooks } from './search.actions';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';

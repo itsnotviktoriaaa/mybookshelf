@@ -8,7 +8,7 @@
 // import { SearchLiveFacade } from '../../../ngrx/search-live/search-live.facade';
 // import { RouterFacadeService } from '../../../ngrx/router/router.facade';
 // import { TranslateModule, TranslateService } from '@ngx-translate/core';
-// import { HeaderModalI } from '../../../models/user/header.interface';
+// import { HeaderModalI } from '../../../models/personal-library/header.interface';
 // import { ComponentFixture, TestBed } from '@angular/core/testing';
 // import { FormControl, ReactiveFormsModule } from '@angular/forms';
 // import { Params, Router, RouterModule } from '@angular/router';

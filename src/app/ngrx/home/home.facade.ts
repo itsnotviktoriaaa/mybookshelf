@@ -4,8 +4,8 @@ import {
   selectReadingNowBooks,
   selectRecommendedBooks,
 } from './home.selectors';
+import { IBookItemTransformedWithTotal } from '../../models/personal-library';
 import { loadReadingNowBooks, loadRecommendedBooks } from './home.actions';
-import { IBookItemTransformedWithTotal } from '../../models/user';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';

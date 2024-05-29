@@ -3,7 +3,7 @@ import {
   loadDetailBookFailure,
   loadDetailBookSuccess,
 } from './detail-book.actions';
-import { IDetailBookSmallInfo } from '../../models/user';
+import { IDetailBookSmallInfo } from '../../models/personal-library';
 import { detailReducer } from './detail-book.reducer';
 import { DetailBookState } from './detail-book.state';
 import { Action } from '@ngrx/store';

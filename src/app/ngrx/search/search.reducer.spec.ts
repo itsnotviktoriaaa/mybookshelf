@@ -1,5 +1,5 @@
 import { loadSearchBooks, loadSearchBooksFailure, loadSearchBooksSuccess } from './search.actions';
-import { ISearch, ISearchDetail } from '../../models/user';
+import { ISearch, ISearchDetail } from '../../models/personal-library';
 import { searchReducer } from './search.reducer';
 import { SearchState } from './search.state';
 

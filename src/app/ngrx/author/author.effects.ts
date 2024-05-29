@@ -1,5 +1,5 @@
 import { loadAuthor, loadAuthorFailure, loadAuthorSuccess } from './author.actions';
-import { ISearchInfoDetail, ISearchSmall } from '../../models/user';
+import { ISearchInfoDetail, ISearchSmall } from '../../models/personal-library';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { TypedAction } from '@ngrx/store/src/models';

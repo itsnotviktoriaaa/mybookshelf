@@ -4,7 +4,7 @@ import {
   ISearch,
   SelectedHeaderModalItemEngEnum,
   SelectedHeaderModalItemRusEnum,
-} from '../../models/user';
+} from '../../models/personal-library';
 import { loadSearchLiveBooks, loadSearchLiveBooksFailure, loadSearchLiveBooksSuccess } from './';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';

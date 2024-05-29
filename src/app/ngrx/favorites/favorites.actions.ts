@@ -1,4 +1,4 @@
-import { IActiveParamsSearch, IBookItemTransformedWithTotal } from '../../models/user';
+import { IActiveParamsSearch, IBookItemTransformedWithTotal } from '../../models/personal-library';
 import { createAction, props } from '@ngrx/store';
 
 export const loadFavoritesBooks = createAction(

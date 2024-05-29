@@ -1,6 +1,6 @@
 import { selectLoadingOfSearchBooks, selectSearchBooks } from './search.selector';
+import { IActiveParamsSearch, ISearch } from '../../models/personal-library';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { IActiveParamsSearch, ISearch } from '../../models/user';
 import { loadSearchBooks } from './search.actions';
 import { TestBed } from '@angular/core/testing';
 import { SearchFacade } from './search.facade';

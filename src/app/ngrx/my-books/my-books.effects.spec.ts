@@ -6,10 +6,10 @@ import {
   removeFromMyBooksFailure,
   removeFromMyBooksSuccess,
 } from './my-books.actions';
+import { IBookItemTransformed } from '../../models/personal-library';
 import { DatabaseService, NotificationService } from '../../core';
 import { finalize, Observable, of, tap, throwError } from 'rxjs';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { IBookItemTransformed } from '../../models/user';
 import { TranslateService } from '@ngx-translate/core';
 import { MyBooksEffects } from './my-books.effects';
 import { DocumentData } from '@firebase/firestore';

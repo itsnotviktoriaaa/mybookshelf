@@ -1,4 +1,4 @@
-import { IActiveParamsSearch, IBookItemTransformedWithTotal } from '../../models/user';
+import { IActiveParamsSearch, IBookItemTransformedWithTotal } from '../../models/personal-library';
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 import { FavoriteService } from '../../core/services/favorite.service';
 import { GoogleApiService, NotificationService } from '../../core';

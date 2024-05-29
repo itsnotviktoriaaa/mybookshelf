@@ -6,11 +6,11 @@ import {
   removeFromMyBooksFailure,
   removeFromMyBooksSuccess,
 } from './my-books.actions';
+import { IBookItemTransformed } from '../../models/personal-library';
 import { DatabaseService, NotificationService } from '../../core';
 import { catchError, finalize, map, of, switchMap } from 'rxjs';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { NotificationStatusEnum } from '../../models/auth';
-import { IBookItemTransformed } from '../../models/user';
 import { TranslateService } from '@ngx-translate/core';
 import { TypedAction } from '@ngrx/store/src/models';
 import { DocumentData } from '@firebase/firestore';

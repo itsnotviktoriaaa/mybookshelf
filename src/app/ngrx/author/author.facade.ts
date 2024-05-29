@@ -1,4 +1,4 @@
-import { ISearchSmall } from '../../models/user';
+import { ISearchSmall } from '../../models/personal-library';
 import { selectAuthor } from './author.selector';
 import { loadAuthor } from './author.actions';
 import { Injectable } from '@angular/core';

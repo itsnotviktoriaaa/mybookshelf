@@ -1,5 +1,5 @@
 import { loadSearchBooks, loadSearchBooksFailure, loadSearchBooksSuccess } from './search.actions';
-import { ISearchDetail, ISearchInfoDetail, ISearch } from '../../models/user';
+import { ISearchDetail, ISearchInfoDetail, ISearch } from '../../models/personal-library';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { TypedAction } from '@ngrx/store/src/models';

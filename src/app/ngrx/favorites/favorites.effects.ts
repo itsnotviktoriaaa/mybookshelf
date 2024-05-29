@@ -11,7 +11,7 @@ import {
   IBook,
   IBookItem,
   IBookItemTransformed,
-} from '../../models/user';
+} from '../../models/personal-library';
 import { catchError, exhaustMap, finalize, map, of, switchMap, tap } from 'rxjs';
 import { GoogleApiService, NotificationService } from '../../core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';

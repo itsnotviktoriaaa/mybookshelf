@@ -1,12 +1,4 @@
 import {
-  loadFavoritesBooks,
-  loadFavoritesBooksFailure,
-  loadFavoritesBooksSuccess,
-  removeFromFavoritesBooks,
-  removeFromFavoritesBooksFailure,
-  removeFromFavoritesBooksSuccess,
-} from './favorites.actions';
-import {
   IBook,
   IBookItem,
   IBookItemAccessInfo,
@@ -15,7 +7,15 @@ import {
   IBookItemTransformed,
   IBookItemTransformedWithTotal,
   IBookItemVolumeInfo,
-} from '../../models/user';
+} from '../../models/personal-library';
+import {
+  loadFavoritesBooks,
+  loadFavoritesBooksFailure,
+  loadFavoritesBooksSuccess,
+  removeFromFavoritesBooks,
+  removeFromFavoritesBooksFailure,
+  removeFromFavoritesBooksSuccess,
+} from './favorites.actions';
 import { GoogleApiService, NotificationService } from '../../core';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { FavoritesEffects } from './favorites.effects';

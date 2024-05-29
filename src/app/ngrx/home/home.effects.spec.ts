@@ -7,7 +7,7 @@ import {
   IBookItemTransformed,
   IBookItemTransformedWithTotal,
   IBookItemVolumeInfo,
-} from '../../models/user';
+} from '../../models/personal-library';
 import {
   loadReadingNowBooks,
   loadReadingNowBooksFailure,

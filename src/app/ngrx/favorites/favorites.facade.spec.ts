@@ -1,5 +1,5 @@
+import { IActiveParamsSearch, IBookItemTransformedWithTotal } from '../../models/personal-library';
 import { selectFavoritesBooks, selectLoadingOfFavoritesBooks } from './favorites.selector';
-import { IActiveParamsSearch, IBookItemTransformedWithTotal } from '../../models/user';
 import { loadFavoritesBooks, removeFromFavoritesBooks } from './favorites.actions';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { FavoritesFacade } from './favorites.facade';

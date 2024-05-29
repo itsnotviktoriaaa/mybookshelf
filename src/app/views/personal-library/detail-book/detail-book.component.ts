@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
-import { IActions, IDetailBookSmallInfo, ISearchSmall } from 'models/';
+import { IActions, IDetailBookSmallInfo, ISearchSmall } from '../../../models';
 import { debounceTime, Observable, of, takeUntil, tap } from 'rxjs';
 import { ReduceLetterPipe, TransformDateBookPipe } from 'app/core';
 import { Params, Router, RouterLink } from '@angular/router';

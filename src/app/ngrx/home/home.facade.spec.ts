@@ -4,9 +4,9 @@ import {
   selectReadingNowBooks,
   selectRecommendedBooks,
 } from './home.selectors';
+import { IBookItemTransformedWithTotal } from '../../models/personal-library';
 import { loadReadingNowBooks, loadRecommendedBooks } from './home.actions';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { IBookItemTransformedWithTotal } from '../../models/user';
 import { TestBed } from '@angular/core/testing';
 import { HomeFacade } from './home.facade';
 

@@ -1,6 +1,6 @@
 import { selectLoadingOfMyBooks, selectMyBooks } from './my-books.selector';
+import { IBookItemTransformed } from '../../models/personal-library';
 import { loadMyBooks, removeFromMyBooks } from './my-books.actions';
-import { IBookItemTransformed } from '../../models/user';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
