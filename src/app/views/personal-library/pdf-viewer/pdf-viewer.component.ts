@@ -133,7 +133,7 @@ export class PdfViewerComponent implements OnInit {
       catchError(() => {
         const messageKey = 'message.somethingWentWrong';
         const message = this.translateService.instant(messageKey);
-        this.notificationService.notifyAboutNotification({
+        this.notificationService.sendNotification({
           message: message,
           status: NotificationStatusEnum.ERROR,
         });
@@ -209,7 +209,7 @@ export class PdfViewerComponent implements OnInit {
       this.isLoading$.next(false);
       const messageKey = 'message.somethingWentWrong';
       const message = this.translateService.instant(messageKey);
-      this.notificationService.notifyAboutNotification({
+      this.notificationService.sendNotification({
         message: message,
         status: NotificationStatusEnum.ERROR,
       });

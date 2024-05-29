@@ -13,7 +13,7 @@ export class NotificationService {
     return this.notification$.asObservable();
   }
 
-  notifyAboutNotification(message: NotificationType): void {
+  sendNotification(message: NotificationType): void {
     this.notification$.next(message);
   }
 
@@ -21,7 +21,7 @@ export class NotificationService {
     return this.loader$.asObservable();
   }
 
-  notifyAboutNotificationLoader(notification: boolean): void {
+  setNotificationLoader(notification: boolean): void {
     this.loader$.next(notification);
   }
 }

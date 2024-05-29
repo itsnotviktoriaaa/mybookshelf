@@ -76,14 +76,14 @@ export class FavoritesEffects {
     return this.actions$.pipe(
       ofType(removeFromFavoritesBooks),
       tap(() => {
-        this.notificationService.notifyAboutNotificationLoader(true);
+        this.notificationService.setNotificationLoader(true);
       }),
       exhaustMap(action => {
         return this.googleApi.removeFavoriteBook(action.bookId).pipe(
           map(() => {
             const messageKey = 'message.favouriteBookDeletedSuccessfully';
             const message = this.translateService.instant(messageKey);
-            this.notificationService.notifyAboutNotification({
+            this.notificationService.sendNotification({
               message: message,
               status: NotificationStatusEnum.SUCCESS,
             });
@@ -92,14 +92,14 @@ export class FavoritesEffects {
           catchError(() => {
             const messageKey = 'message.favouriteBookDeletedWithError';
             const message = this.translateService.instant(messageKey);
-            this.notificationService.notifyAboutNotification({
+            this.notificationService.sendNotification({
               message: message,
               status: NotificationStatusEnum.ERROR,
             });
             return of(removeFromFavoritesBooksFailure({ error: null }));
           }),
           finalize(() => {
-            this.notificationService.notifyAboutNotificationLoader(false);
+            this.notificationService.setNotificationLoader(false);
           })
         );
       })

@@ -36,8 +36,8 @@ describe('FavoritesEffects', () => {
       'removeFavoriteBook',
     ]);
     const notificationSpy = jasmine.createSpyObj('NotificationService', [
-      'notifyAboutNotification',
-      'notifyAboutNotificationLoader',
+      'sendNotification',
+      'setNotificationLoader',
     ]);
     const translateSpy = jasmine.createSpyObj('TranslateService', ['instant']);
 

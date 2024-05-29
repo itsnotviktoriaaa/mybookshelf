@@ -113,7 +113,7 @@ export class SignupComponent implements OnInit {
         } else {
           const messageKey = 'message.emailUsedBefore';
           const message = this.translateService.instant(messageKey);
-          this.notificationService.notifyAboutNotification({
+          this.notificationService.sendNotification({
             message: message,
             status: NotificationStatusEnum.ERROR,
           });
@@ -123,7 +123,7 @@ export class SignupComponent implements OnInit {
       catchError(err => {
         const messageKey = 'message.somethingWentWrong';
         const message = this.translateService.instant(messageKey);
-        this.notificationService.notifyAboutNotification({
+        this.notificationService.sendNotification({
           message: message,
           status: NotificationStatusEnum.ERROR,
         });
@@ -211,7 +211,7 @@ export class SignupComponent implements OnInit {
     } else {
       const messageKey = 'message.incorrectCode';
       const message = this.translateService.instant(messageKey);
-      this.notificationService.notifyAboutNotification({
+      this.notificationService.sendNotification({
         message: message,
         status: NotificationStatusEnum.ERROR,
       });
@@ -219,7 +219,7 @@ export class SignupComponent implements OnInit {
   }
 
   async sendCodeToEmail(): Promise<void> {
-    this.notificationService.notifyAboutNotificationLoader(true);
+    this.notificationService.setNotificationLoader(true);
 
     if (!this.infoFromUser) {
       this.infoFromUser = {
@@ -249,11 +249,11 @@ export class SignupComponent implements OnInit {
   ): Observable<EmailJSResponseStatus> {
     return of(response).pipe(
       tap((response: EmailJSResponseStatus): void => {
-        this.notificationService.notifyAboutNotificationLoader(false);
+        this.notificationService.setNotificationLoader(false);
         console.log('Success. Status: ' + response.text + ' ' + response.status);
         const messageKey = 'message.codeSentOnEmail';
         const message = this.translateService.instant(messageKey);
-        this.notificationService.notifyAboutNotification({
+        this.notificationService.sendNotification({
           message: message,
           status: NotificationStatusEnum.SUCCESS,
         });
@@ -265,10 +265,10 @@ export class SignupComponent implements OnInit {
       }),
       takeUntil(this.destroy$),
       catchError(error => {
-        this.notificationService.notifyAboutNotificationLoader(false);
+        this.notificationService.setNotificationLoader(false);
         const messageKey = 'message.tryAgainMessage';
         const message = this.translateService.instant(messageKey);
-        this.notificationService.notifyAboutNotification({
+        this.notificationService.sendNotification({
           message: message,
           status: NotificationStatusEnum.ERROR,
         });
@@ -286,7 +286,7 @@ export class SignupComponent implements OnInit {
   }
 
   sign(): void {
-    this.notificationService.notifyAboutNotificationLoader(true);
+    this.notificationService.setNotificationLoader(true);
     this.registerObservable().subscribe();
   }
 
@@ -295,26 +295,26 @@ export class SignupComponent implements OnInit {
       .register(this.infoFromUser!.email, this.infoFromUser!.username, this.infoFromUser!.password)
       .pipe(
         tap(() => {
-          this.notificationService.notifyAboutNotificationLoader(false);
+          this.notificationService.setNotificationLoader(false);
           this.verification = false;
           this.codeWhichWrittenUserWasEqualFromEmail = true;
           const messageKey = 'message.registrationSuccess';
           const message = this.translateService.instant(messageKey);
-          this.notificationService.notifyAboutNotification({
+          this.notificationService.sendNotification({
             message: message,
             status: NotificationStatusEnum.SUCCESS,
           });
         }),
         takeUntil(this.destroy$),
         catchError(err => {
-          this.notificationService.notifyAboutNotificationLoader(false);
+          this.notificationService.setNotificationLoader(false);
           this.errorMessage = err.code;
           //so that the red circle has time to load
           this.verification = false;
           this.codeWhichWrittenUserWasEqualFromEmail = true;
           const messageKey = 'message.somethingWentWrong';
           const message = this.translateService.instant(messageKey);
-          this.notificationService.notifyAboutNotification({
+          this.notificationService.sendNotification({
             message: message,
             status: NotificationStatusEnum.ERROR,
           });

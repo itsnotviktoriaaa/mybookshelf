@@ -40,7 +40,7 @@
 //     const authServiceMock = jasmine.createSpyObj('AuthService', ['logout']);
 //
 //     const notificationServiceMock = jasmine.createSpyObj('NotificationService', [
-//       'notifyAboutNotification',
+//       'sendNotification',
 //     ]);
 //     const googleApiMock = jasmine.createSpyObj('GoogleApiService', ['signOut']);
 //     googleApiMock.userProfileSubject = new BehaviorSubject<IUserInfoFromGoogle | null>(null);

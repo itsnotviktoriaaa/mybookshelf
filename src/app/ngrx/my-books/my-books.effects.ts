@@ -55,14 +55,14 @@ export class MyBooksEffects {
     return this.actions$.pipe(
       ofType(removeFromMyBooks),
       switchMap(action => {
-        this.notificationService.notifyAboutNotificationLoader(true);
+        this.notificationService.setNotificationLoader(true);
         return this.databaseService
           .deleteBookAndFile(action.id, action.webReaderLink, action.thumbnail)
           .pipe(
             switchMap(() => {
               const messageKey = 'message.selfBookDeletedSuccessfully';
               const message = this.translateService.instant(messageKey);
-              this.notificationService.notifyAboutNotification({
+              this.notificationService.sendNotification({
                 message: message,
                 status: NotificationStatusEnum.SUCCESS,
               });
@@ -71,14 +71,14 @@ export class MyBooksEffects {
             catchError(() => {
               const messageKey = 'message.selfBookDeletedWithError';
               const message = this.translateService.instant(messageKey);
-              this.notificationService.notifyAboutNotification({
+              this.notificationService.sendNotification({
                 message: message,
                 status: NotificationStatusEnum.ERROR,
               });
               return of(removeFromMyBooksFailure({ error: null }));
             }),
             finalize(() => {
-              this.notificationService.notifyAboutNotificationLoader(false);
+              this.notificationService.setNotificationLoader(false);
             })
           );
       })

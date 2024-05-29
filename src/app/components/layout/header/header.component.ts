@@ -471,7 +471,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
         tap(() => {
           const messageKey = 'message.successLogout';
           const message = this.translateService.instant(messageKey);
-          this.notificationService.notifyAboutNotification({
+          this.notificationService.sendNotification({
             message: message,
             status: NotificationStatusEnum.SUCCESS,
           });
@@ -480,7 +480,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
         catchError(() => {
           const messageKey = 'message.successLogout';
           const message = this.translateService.instant(messageKey);
-          this.notificationService.notifyAboutNotification({
+          this.notificationService.sendNotification({
             message: message,
             status: NotificationStatusEnum.SUCCESS,
           });

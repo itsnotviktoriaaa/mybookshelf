@@ -28,8 +28,8 @@ describe('MyBooksEffects', () => {
       'deleteBookAndFile',
     ]);
     const notificationService = jasmine.createSpyObj('NotificationService', [
-      'notifyAboutNotificationLoader',
-      'notifyAboutNotification',
+      'setNotificationLoader',
+      'sendNotification',
     ]);
     const translateService = jasmine.createSpyObj('TranslateService', ['instant']);
 
@@ -103,10 +103,10 @@ describe('MyBooksEffects', () => {
     effects.removeFromMyBooks$
       .pipe(
         tap(() => {
-          expect(notificationServiceSpy.notifyAboutNotificationLoader).toHaveBeenCalledWith(true);
+          expect(notificationServiceSpy.setNotificationLoader).toHaveBeenCalledWith(true);
         }),
         finalize(() => {
-          expect(notificationServiceSpy.notifyAboutNotificationLoader).toHaveBeenCalledWith(false);
+          expect(notificationServiceSpy.setNotificationLoader).toHaveBeenCalledWith(false);
         })
       )
       .subscribe(result => {
@@ -124,10 +124,10 @@ describe('MyBooksEffects', () => {
     effects.removeFromMyBooks$
       .pipe(
         tap(() => {
-          expect(notificationServiceSpy.notifyAboutNotificationLoader).toHaveBeenCalledWith(true);
+          expect(notificationServiceSpy.setNotificationLoader).toHaveBeenCalledWith(true);
         }),
         finalize(() => {
-          expect(notificationServiceSpy.notifyAboutNotificationLoader).toHaveBeenCalledWith(false);
+          expect(notificationServiceSpy.setNotificationLoader).toHaveBeenCalledWith(false);
         })
       )
       .subscribe(result => {

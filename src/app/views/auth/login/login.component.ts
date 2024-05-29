@@ -61,17 +61,17 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    this.notificationService.notifyAboutNotificationLoader(true);
+    this.notificationService.setNotificationLoader(true);
     this.loginObservable().subscribe();
   }
 
   loginObservable(): Observable<void> {
     return this.authService.login(this.loginForm.value.email, this.loginForm.value.password).pipe(
       tap(() => {
-        this.notificationService.notifyAboutNotificationLoader(false);
+        this.notificationService.setNotificationLoader(false);
         const messageKey = 'message.welcomeMessage';
         const message = this.translateService.instant(messageKey);
-        this.notificationService.notifyAboutNotification({
+        this.notificationService.sendNotification({
           message: message,
           status: NotificationStatusEnum.SUCCESS,
         });
@@ -84,8 +84,8 @@ export class LoginComponent implements OnInit {
           err.code,
           this.translateService.currentLang
         );
-        this.notificationService.notifyAboutNotificationLoader(false);
-        this.notificationService.notifyAboutNotification({
+        this.notificationService.setNotificationLoader(false);
+        this.notificationService.sendNotification({
           message: `${this.errorMessage}`,
           status: NotificationStatusEnum.ERROR,
         });

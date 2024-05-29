@@ -45,7 +45,7 @@ export const FavouriteStore = signalStore(
       },
 
       deleteLoadFavoriteBook(bookId: string) {
-        notificationService.notifyAboutNotificationLoader(true);
+        notificationService.setNotificationLoader(true);
 
         patchState(store, { loading: false });
 
@@ -55,7 +55,7 @@ export const FavouriteStore = signalStore(
             tap(() => {
               const messageKey = 'message.favouriteBookDeletedSuccessfully';
               const message = translateService.instant(messageKey);
-              notificationService.notifyAboutNotification({
+              notificationService.sendNotification({
                 message: message,
                 status: NotificationStatusEnum.SUCCESS,
               });
@@ -86,14 +86,14 @@ export const FavouriteStore = signalStore(
             catchError(error => {
               const messageKey = 'message.favouriteBookDeletedWithError';
               const message = translateService.instant(messageKey);
-              notificationService.notifyAboutNotification({
+              notificationService.sendNotification({
                 message: message,
                 status: NotificationStatusEnum.ERROR,
               });
               return throwError(() => error);
             }),
             finalize((): void => {
-              notificationService.notifyAboutNotificationLoader(false);
+              notificationService.setNotificationLoader(false);
             })
           )
           .subscribe();

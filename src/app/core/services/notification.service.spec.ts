@@ -23,7 +23,7 @@ describe('NotificationService', (): void => {
       done();
     });
 
-    service.notifyAboutNotification(testNotification);
+    service.sendNotification(testNotification);
   });
 
   it('should return an Observable of NotificationType', (done: DoneFn): void => {
@@ -34,7 +34,7 @@ describe('NotificationService', (): void => {
       done();
     });
 
-    service.notifyAboutNotification(testNotification);
+    service.sendNotification(testNotification);
   });
 
   it('should loader$ get true', (done: DoneFn): void => {
@@ -43,7 +43,7 @@ describe('NotificationService', (): void => {
       done();
     });
 
-    service.notifyAboutNotificationLoader(true);
+    service.setNotificationLoader(true);
   });
 
   it('should loader$ get false', (done: DoneFn): void => {
@@ -52,7 +52,7 @@ describe('NotificationService', (): void => {
       done();
     });
 
-    service.notifyAboutNotificationLoader(false);
+    service.setNotificationLoader(false);
   });
 
   it('should return an Observable of boolean', (done: DoneFn): void => {
@@ -63,6 +63,6 @@ describe('NotificationService', (): void => {
       done();
     });
 
-    service.notifyAboutNotificationLoader(true);
+    service.setNotificationLoader(true);
   });
 });

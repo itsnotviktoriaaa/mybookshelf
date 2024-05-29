@@ -102,7 +102,7 @@ export class UploadComponent implements OnInit {
       this.pdfFile = null;
       const messageKey = 'message.pdfFormatError';
       const message = this.translateService.instant(messageKey);
-      this.notificationService.notifyAboutNotification({
+      this.notificationService.sendNotification({
         message: message,
         status: NotificationStatusEnum.ERROR,
       });
@@ -122,7 +122,7 @@ export class UploadComponent implements OnInit {
       this.photoFile = null;
       const messageKey = 'message.imageFormatError';
       const message = this.translateService.instant(messageKey);
-      this.notificationService.notifyAboutNotification({
+      this.notificationService.sendNotification({
         message: message,
         status: NotificationStatusEnum.ERROR,
       });
@@ -137,7 +137,7 @@ export class UploadComponent implements OnInit {
       this.photoFileInput.nativeElement &&
       this.uploadForm.valid
     ) {
-      this.notificationService.notifyAboutNotificationLoader(true);
+      this.notificationService.setNotificationLoader(true);
       const selfBook: ISelfBookUpload = {
         title: this.uploadForm.controls['title'].value,
         author: [this.uploadForm.controls['author'].value],
@@ -164,20 +164,20 @@ export class UploadComponent implements OnInit {
             if (this.photoFileInput && this.photoFileInput.nativeElement) {
               this.photoFileInput.nativeElement.value = '';
             }
-            this.notificationService.notifyAboutNotificationLoader(false);
+            this.notificationService.setNotificationLoader(false);
             const messageKey = 'message.bookCreated';
             const message = this.translateService.instant(messageKey);
-            this.notificationService.notifyAboutNotification({
+            this.notificationService.sendNotification({
               message: message,
               status: NotificationStatusEnum.SUCCESS,
             });
             this.router.navigate(['/home/books']).then((): void => {});
           }),
           catchError(() => {
-            this.notificationService.notifyAboutNotificationLoader(false);
+            this.notificationService.setNotificationLoader(false);
             const messageKey = 'message.errorCreatingBook';
             const message = this.translateService.instant(messageKey);
-            this.notificationService.notifyAboutNotification({
+            this.notificationService.sendNotification({
               message: message,
               status: NotificationStatusEnum.ERROR,
             });
@@ -191,7 +191,7 @@ export class UploadComponent implements OnInit {
 
   editSelfBook(): void {
     if (this.pdfUrl.value && this.photoUrl.value) {
-      this.notificationService.notifyAboutNotificationLoader(true);
+      this.notificationService.setNotificationLoader(true);
       const selfBook: ISelfBook = {
         title: this.uploadForm.controls['title'].value,
         author: [this.uploadForm.controls['author'].value],
@@ -251,10 +251,10 @@ export class UploadComponent implements OnInit {
                 .updateSelfBook(this.id, selfBook)
                 .pipe(
                   tap(() => {
-                    this.notificationService.notifyAboutNotificationLoader(false);
+                    this.notificationService.setNotificationLoader(false);
                     const messageKey = 'message.selfBookUpdatedSuccessfully';
                     const message = this.translateService.instant(messageKey);
-                    this.notificationService.notifyAboutNotification({
+                    this.notificationService.sendNotification({
                       message: message,
                       status: NotificationStatusEnum.SUCCESS,
                     });
@@ -263,7 +263,7 @@ export class UploadComponent implements OnInit {
                   catchError(() => {
                     const messageKey = 'message.errorUpdatingSelfBook';
                     const message = this.translateService.instant(messageKey);
-                    this.notificationService.notifyAboutNotification({
+                    this.notificationService.sendNotification({
                       message: message,
                       status: NotificationStatusEnum.ERROR,
                     });
@@ -275,7 +275,7 @@ export class UploadComponent implements OnInit {
             }
           },
           error: error => {
-            this.notificationService.notifyAboutNotificationLoader(false);
+            this.notificationService.setNotificationLoader(false);
             console.error('Error uploading files:', error);
           },
         });
