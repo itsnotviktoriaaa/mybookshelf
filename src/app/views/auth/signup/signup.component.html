@@ -13,14 +13,14 @@
         <div class="auth-form-head">
           @if (verification) {
             <span class="auth-form-head-greeting">{{ 'auth-page.verification' | translate }}</span>
-            <span class="auth-form-head-description">{{
-              'auth-page.checkYourEmailForOTP' | translate
-            }}</span>
+            <span class="auth-form-head-description">
+              {{ 'auth-page.checkYourEmailForOTP' | translate }}
+            </span>
           } @else if (!verification && !codeWhichWrittenUserWasEqualFromEmail) {
             <span class="auth-form-head-greeting">{{ 'auth-page.registration' | translate }}</span>
-            <span class="auth-form-head-description">{{
-              'auth-page.forBothStaffStudents' | translate
-            }}</span>
+            <span class="auth-form-head-description">
+              {{ 'auth-page.forBothStaffStudents' | translate }}
+            </span>
           } @else if (codeWhichWrittenUserWasEqualFromEmail) {
             <span class="auth-form-head-greeting">{{ 'auth-page.verification' | translate }}</span>
             <span class="auth-form-head-description">{{ 'auth-page.thankYou' | translate }}</span>
@@ -269,23 +269,23 @@
         }
 
         @if (!verification && !codeWhichWrittenUserWasEqualFromEmail) {
-          <span class="auth-form-moving"
-            >{{ 'auth-page.alreadyAUser' | translate }}
-            <span class="auth-form-moving-route" routerLink="/">{{
-              'auth-page.loginNow' | translate
-            }}</span></span
-          >
+          <span class="auth-form-moving">
+            {{ 'auth-page.alreadyAUser' | translate }}
+            <span class="auth-form-moving-route" routerLink="/">
+              {{ 'auth-page.loginNow' | translate }}
+            </span>
+          </span>
         } @else if (verification) {
           <div class="verification-moving-wrapper">
             <div class="auth-form-moving">
               {{ 'auth-page.notYetReceived' | translate }}
-              <span class="auth-form-moving-route" (click)="sendCodeToEmail()">{{
-                'auth-page.resend' | translate
-              }}</span>
+              <span class="auth-form-moving-route" (click)="sendCodeToEmail()">
+                {{ 'auth-page.resend' | translate }}
+              </span>
             </div>
-            <span (click)="backToRegister()" class="verification-moving-back">{{
-              'auth-page.back' | translate
-            }}</span>
+            <span (click)="backToRegister()" class="verification-moving-back">
+              {{ 'auth-page.back' | translate }}
+            </span>
           </div>
         }
       </div>

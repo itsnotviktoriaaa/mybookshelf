@@ -4,9 +4,9 @@
     <form [formGroup]="uploadForm" class="upload-items">
       <div class="upload-item-wrapper">
         <div class="upload-item">
-          <label class="upload-label" for="title">{{
-            'upload-page.uploadFormTitle' | translate
-          }}</label>
+          <label class="upload-label" for="title">
+            {{ 'upload-page.uploadFormTitle' | translate }}
+          </label>
           <input
             [ngStyle]="{
               'border-color':
@@ -30,9 +30,9 @@
       </div>
       <div class="upload-item-wrapper">
         <div class="upload-item">
-          <label class="upload-label" for="author">{{
-            'upload-page.uploadFormAuthor' | translate
-          }}</label>
+          <label class="upload-label" for="author">
+            {{ 'upload-page.uploadFormAuthor' | translate }}
+          </label>
           <input
             [ngStyle]="{
               'border-color':
@@ -56,9 +56,9 @@
       </div>
       <div class="upload-item-wrapper">
         <div class="upload-item">
-          <label class="upload-label" for="description">{{
-            'upload-page.uploadFormDescription' | translate
-          }}</label>
+          <label class="upload-label" for="description">
+            {{ 'upload-page.uploadFormDescription' | translate }}
+          </label>
           <textarea
             [ngStyle]="{
               'border-color':
@@ -89,15 +89,15 @@
                 [svgStyle]="{ width: '60px', height: '60px' }"
                 [src]="pathToIcons + '/icon-pdf.svg'"></svg-icon>
             </div>
-            <span class="upload-image-text">{{
-              'upload-page.uploadFormFileChanging' | translate
-            }}</span>
+            <span class="upload-image-text">
+              {{ 'upload-page.uploadFormFileChanging' | translate }}
+            </span>
           </div>
         }
         <div class="upload-item">
-          <label class="upload-label" for="pdfFile">{{
-            'upload-page.uploadFormFile' | translate
-          }}</label>
+          <label class="upload-label" for="pdfFile">
+            {{ 'upload-page.uploadFormFile' | translate }}
+          </label>
           <input
             #pdfFileInput
             class="upload-input"
@@ -111,15 +111,15 @@
         @if ((photoUrl | async) && !photoFile) {
           <div class="upload-image-wrapper">
             <div class="upload-image" style="background-image: url({{ photoUrl | async }})"></div>
-            <span class="upload-image-text">{{
-              'upload-page.uploadFormImageChanging' | translate
-            }}</span>
+            <span class="upload-image-text">
+              {{ 'upload-page.uploadFormImageChanging' | translate }}
+            </span>
           </div>
         }
         <div class="upload-item">
-          <label class="upload-label" for="photoFile">{{
-            'upload-page.uploadFormImage' | translate
-          }}</label>
+          <label class="upload-label" for="photoFile">
+            {{ 'upload-page.uploadFormImage' | translate }}
+          </label>
           <input
             #photoFileInput
             class="upload-input"

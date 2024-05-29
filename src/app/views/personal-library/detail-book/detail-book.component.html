@@ -29,8 +29,8 @@
                   <h1 class="detail-center-info-title">{{ detailBook.title }}</h1>
                   <h2 class="detail-center-info-author">
                     {{ 'detail-page.byWhom' | translate }}
-                    <a class="detail-center-info-author-decoration">{{ detailBook.authors[0] }}</a
-                    >, {{ detailBook.publishedDate | transformDateBook }}
+                    <a class="detail-center-info-author-decoration">{{ detailBook.authors[0] }}</a>
+                    , {{ detailBook.publishedDate | transformDateBook }}
                   </h2>
                   @if (detailBook.publisher) {
                     <h3 class="detail-center-info-edition">{{ detailBook.publisher }}</h3>
@@ -39,9 +39,9 @@
                 @if (detailBook.averageRating) {
                   <div class="detail-central-reviews">
                     <app-star [rating]="rating"></app-star>
-                    <span
-                      >{{ detailBook.averageRating }}.0 {{ 'detail-page.rating' | translate }}</span
-                    >
+                    <span>
+                      {{ detailBook.averageRating }}.0 {{ 'detail-page.rating' | translate }}
+                    </span>
                   </div>
                 }
                 @if (detailBook.accessInfo && detailBook.accessInfo.length > 0) {
@@ -54,9 +54,9 @@
                         <svg-icon
                           class="detail-central-availability-item-icon"
                           [src]="pathToIcons + '/done-green.svg'"></svg-icon>
-                        <span class="detail-central-availability-item-description">{{
-                          accessInfo
-                        }}</span>
+                        <span class="detail-central-availability-item-description">
+                          {{ accessInfo }}
+                        </span>
                       </div>
                     }
                   </div>

@@ -12,9 +12,9 @@
             <h3 class="content-info-title">{{ searchBook.title }}</h3>
           }
           @if (searchBook.authors && searchBook.authors.length > 0 && searchBook.publishedDate) {
-            <span class="content-info-author"
-              >{{ searchBook.authors[0] }} {{ searchBook.publishedDate | transformDateBook }}</span
-            >
+            <span class="content-info-author">
+              {{ searchBook.authors[0] }} {{ searchBook.publishedDate | transformDateBook }}
+            </span>
           }
           @if (searchBook.publisher) {
             <span class="content-info-edition">{{ searchBook.publisher }}</span>

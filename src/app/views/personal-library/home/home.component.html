@@ -11,9 +11,9 @@
           <span
             [routerLink]="'/home/show'"
             [queryParams]="{ show: 'recommended' }"
-            class="home-show"
-            >{{ 'home-page.showAll' | translate }}</span
-          >
+            class="home-show">
+            {{ 'home-page.showAll' | translate }}
+          </span>
         }
       </div>
       <app-google-home [googleArrayFromHome]="recommendedBooks"></app-google-home>
@@ -23,9 +23,9 @@
       <div class="home-common-wrapper">
         <h3 class="home-common">{{ 'home-page.recent' | translate }}</h3>
         @if (readingNowBooks$ | async) {
-          <span [routerLink]="'/home/show'" [queryParams]="{ show: 'reading' }" class="home-show">{{
-            'home-page.showAll' | translate
-          }}</span>
+          <span [routerLink]="'/home/show'" [queryParams]="{ show: 'reading' }" class="home-show">
+            {{ 'home-page.showAll' | translate }}
+          </span>
         }
       </div>
       @defer (on viewport) {

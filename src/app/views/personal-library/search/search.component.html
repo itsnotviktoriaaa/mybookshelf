@@ -2,9 +2,9 @@
   <div class="header-search">
     <div class="header-back header-search-wrapper">
       <div (click)="openOrCloseMiniModal()" class="header-back-info header-search-info">
-        <span class="header-back-text header-search-info-text">{{
-          headerModalSearchText | async
-        }}</span>
+        <span class="header-back-text header-search-info-text">
+          {{ headerModalSearchText | async }}
+        </span>
         <span [class]="{ 'header-search-info-icon': true, active: browseMiniModal }">
           <svg-icon [src]="pathToIcons + '/arrow-in-mini-modal.svg'"></svg-icon>
         </span>

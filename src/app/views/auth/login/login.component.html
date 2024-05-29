@@ -104,12 +104,12 @@
           {{ 'auth-page.login' | translate }}
         </button>
 
-        <span class="auth-form-moving"
-          >{{ 'auth-page.newUser' | translate }}
-          <span class="auth-form-moving-route" routerLink="/signup">{{
-            'auth-page.registerHere' | translate
-          }}</span></span
-        >
+        <span class="auth-form-moving">
+          {{ 'auth-page.newUser' | translate }}
+          <span class="auth-form-moving-route" routerLink="/signup">
+            {{ 'auth-page.registerHere' | translate }}
+          </span>
+        </span>
         <button (click)="googleLogin()" class="auth-google">
           {{ 'auth-page.signInWithGoogle' | translate }}
         </button>

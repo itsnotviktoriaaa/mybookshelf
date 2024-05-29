@@ -101,8 +101,7 @@
       [showHandToolButton]="true"
       [language]="'en'"
       (pdfLoaded)="onPdfLoad('pdfLoaded')"
-      (pdfLoadingFailed)="onPdfLoad('pdfLoadingFailed')">
-    </ngx-extended-pdf-viewer>
+      (pdfLoadingFailed)="onPdfLoad('pdfLoadingFailed')"></ngx-extended-pdf-viewer>
     @if ((isLoading$ | async) === false) {
       <div class="pdf-edit" (click)="edit()">
         <svg-icon [src]="pathToIcons + '/pdf-edit.svg'"></svg-icon>

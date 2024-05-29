@@ -21,9 +21,9 @@
                 <li class="header-modal-item">
                   <a
                     id="{{ headerModalItem }}"
-                    (click)="changeSelectedHeaderModalItem(headerModalItem)"
-                    >{{ headerModalItem.text }}</a
-                  >
+                    (click)="changeSelectedHeaderModalItem(headerModalItem)">
+                    {{ headerModalItem.text }}
+                  </a>
                 </li>
               }
             </ul>
@@ -99,9 +99,9 @@
             <div
               (click)="openOrCloseMiniModal(HeaderClickInterfaceEnum.PROFILEMINIMODAL)"
               class="header-back-info header-account-info">
-              <span class="header-back-text header-account-info-text">{{
-                userInfo?.info?.name
-              }}</span>
+              <span class="header-back-text header-account-info-text">
+                {{ userInfo?.info?.name }}
+              </span>
               <span [class]="{ 'header-account-info-icon': true, active: profileMiniModal }">
                 <svg-icon [src]="pathToIcons + '/arrow-in-mini-modal.svg'"></svg-icon>
               </span>

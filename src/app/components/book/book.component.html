@@ -7,19 +7,20 @@
       <div class="book-image" style="background-image: url({{ book.thumbnail }})">&nbsp;</div>
       <span class="book-name">{{ book.title | reduceLetter: 'book-name' }}</span>
       @if (book.author && book.author.length > 0) {
-        <span class="book-author"
-          >{{ book.author[0] | reduceLetter: 'book-author' }}
-          {{ book.publishedDate | transformDateBook }}</span
-        >
+        <span class="book-author">
+          {{ book.author[0] | reduceLetter: 'book-author' }}
+          {{ book.publishedDate | transformDateBook }}
+        </span>
       }
       @if (book.averageRating) {
-        <span class="book-review"
-          >{{ book.averageRating }}<span class="book-review-all">/5</span></span
-        >
+        <span class="book-review">
+          {{ book.averageRating }}
+          <span class="book-review-all">/5</span>
+        </span>
       } @else {
-        <span class="book-review"
-          >{{ book.pageCount ? book.pageCount : '—' }} {{ 'common.pagesInput' | translate }}</span
-        >
+        <span class="book-review">
+          {{ book.pageCount ? book.pageCount : '—' }} {{ 'common.pagesInput' | translate }}
+        </span>
       }
       @if (bigInfo && selfBook) {
         <div class="book-actions">
@@ -38,17 +39,19 @@
           <div class="book-right-top-wrapper">
             <span class="book-right-top-title">{{ 'book.borrowedOn' | translate }}</span>
             @if (book.userInfo || selfBook) {
-              <span class="book-right-top-description">{{
-                (book.userInfo ? book.userInfo : book.publishedDate)
-                  | transformFavoriteDate: ('common.langForPipe' | translate)
-              }}</span>
+              <span class="book-right-top-description">
+                {{
+                  (book.userInfo ? book.userInfo : book.publishedDate)
+                    | transformFavoriteDate: ('common.langForPipe' | translate)
+                }}
+              </span>
             }
           </div>
           <div class="book-right-top-wrapper">
             <span class="book-right-top-title">{{ 'book.categories' | translate }}</span>
-            <span class="book-right-top-description">{{
-              book.categories ? book.categories[0] : '—'
-            }}</span>
+            <span class="book-right-top-description">
+              {{ book.categories ? book.categories[0] : '—' }}
+            </span>
           </div>
         </div>
         <div class="book-right-bottom">
