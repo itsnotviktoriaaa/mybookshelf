@@ -1,21 +1,21 @@
 export enum HeaderClickEnum {
-  allMiniModal,
-  langMiniModal,
-  profileMiniModal,
+  ALLMINIMODAL,
+  LANGMINIMODAL,
+  PROFILEMINIMODAL,
 }
 
 export enum SelectedHeaderModalItemEngEnum {
-  All = 'All',
-  Title = 'Title',
-  Author = 'Author',
-  Text = 'Text',
-  Subject = 'Subject',
+  ALL = 'All',
+  TITLE = 'Title',
+  AUTHOR = 'Author',
+  TEXT = 'Text',
+  SUBJECT = 'Subject',
 }
 
 export enum SelectedHeaderModalItemRusEnum {
-  All = 'Все',
-  Title = 'Титул',
-  Author = 'Автор',
-  Text = 'Текст',
-  Subject = 'Категория',
+  ALL = 'Все',
+  TITLE = 'Титул',
+  AUTHOR = 'Автор',
+  TEXT = 'Текст',
+  SUBJECT = 'Категория',
 }

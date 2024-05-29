@@ -113,7 +113,7 @@ export class SignupComponent implements OnInit {
           const message = this.translateService.instant(messageKey);
           this.notificationService.notifyAboutNotification({
             message: message,
-            status: NotificationStatusEnum.error,
+            status: NotificationStatusEnum.ERROR,
           });
         }
       }),
@@ -122,7 +122,7 @@ export class SignupComponent implements OnInit {
         const message = this.translateService.instant(messageKey);
         this.notificationService.notifyAboutNotification({
           message: message,
-          status: NotificationStatusEnum.error,
+          status: NotificationStatusEnum.ERROR,
         });
         console.log(err);
         return EMPTY;
@@ -210,7 +210,7 @@ export class SignupComponent implements OnInit {
       const message = this.translateService.instant(messageKey);
       this.notificationService.notifyAboutNotification({
         message: message,
-        status: NotificationStatusEnum.error,
+        status: NotificationStatusEnum.ERROR,
       });
     }
   }
@@ -253,7 +253,7 @@ export class SignupComponent implements OnInit {
         const message = this.translateService.instant(messageKey);
         this.notificationService.notifyAboutNotification({
           message: message,
-          status: NotificationStatusEnum.success,
+          status: NotificationStatusEnum.SUCCESS,
         });
 
         if (!this.verification) {
@@ -267,7 +267,7 @@ export class SignupComponent implements OnInit {
         const message = this.translateService.instant(messageKey);
         this.notificationService.notifyAboutNotification({
           message: message,
-          status: NotificationStatusEnum.error,
+          status: NotificationStatusEnum.ERROR,
         });
         console.log('sth went wrong. Error ' + error.text + ' ' + error.status);
         return EMPTY;
@@ -300,7 +300,7 @@ export class SignupComponent implements OnInit {
           const message = this.translateService.instant(messageKey);
           this.notificationService.notifyAboutNotification({
             message: message,
-            status: NotificationStatusEnum.success,
+            status: NotificationStatusEnum.SUCCESS,
           });
         }),
         catchError(err => {
@@ -313,7 +313,7 @@ export class SignupComponent implements OnInit {
           const message = this.translateService.instant(messageKey);
           this.notificationService.notifyAboutNotification({
             message: message,
-            status: NotificationStatusEnum.error,
+            status: NotificationStatusEnum.ERROR,
           });
           return EMPTY;
         })

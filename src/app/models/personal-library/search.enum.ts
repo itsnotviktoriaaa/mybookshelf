@@ -1,3 +1,3 @@
 export enum SearchEnum {
-  Browse = 'Browse',
+  BROWSE = 'Browse',
 }

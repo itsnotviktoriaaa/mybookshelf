@@ -104,7 +104,7 @@ export class UploadComponent implements OnInit {
       const message = this.translateService.instant(messageKey);
       this.notificationService.notifyAboutNotification({
         message: message,
-        status: NotificationStatusEnum.error,
+        status: NotificationStatusEnum.ERROR,
       });
     }
   }
@@ -124,7 +124,7 @@ export class UploadComponent implements OnInit {
       const message = this.translateService.instant(messageKey);
       this.notificationService.notifyAboutNotification({
         message: message,
-        status: NotificationStatusEnum.error,
+        status: NotificationStatusEnum.ERROR,
       });
     }
   }
@@ -169,7 +169,7 @@ export class UploadComponent implements OnInit {
             const message = this.translateService.instant(messageKey);
             this.notificationService.notifyAboutNotification({
               message: message,
-              status: NotificationStatusEnum.success,
+              status: NotificationStatusEnum.SUCCESS,
             });
             this.router.navigate(['/home/books']).then((): void => {});
           }),
@@ -179,7 +179,7 @@ export class UploadComponent implements OnInit {
             const message = this.translateService.instant(messageKey);
             this.notificationService.notifyAboutNotification({
               message: message,
-              status: NotificationStatusEnum.error,
+              status: NotificationStatusEnum.ERROR,
             });
             return EMPTY;
           }),
@@ -256,7 +256,7 @@ export class UploadComponent implements OnInit {
                     const message = this.translateService.instant(messageKey);
                     this.notificationService.notifyAboutNotification({
                       message: message,
-                      status: NotificationStatusEnum.success,
+                      status: NotificationStatusEnum.SUCCESS,
                     });
                     this.router.navigate(['/home/books']).then((): void => {});
                   }),
@@ -265,7 +265,7 @@ export class UploadComponent implements OnInit {
                     const message = this.translateService.instant(messageKey);
                     this.notificationService.notifyAboutNotification({
                       message: message,
-                      status: NotificationStatusEnum.error,
+                      status: NotificationStatusEnum.ERROR,
                     });
                     return EMPTY;
                   }),

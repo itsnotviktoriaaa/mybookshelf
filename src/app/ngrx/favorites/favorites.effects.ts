@@ -85,7 +85,7 @@ export class FavoritesEffects {
             const message = this.translateService.instant(messageKey);
             this.notificationService.notifyAboutNotification({
               message: message,
-              status: NotificationStatusEnum.success,
+              status: NotificationStatusEnum.SUCCESS,
             });
             return removeFromFavoritesBooksSuccess({ bookId: action.bookId });
           }),
@@ -94,7 +94,7 @@ export class FavoritesEffects {
             const message = this.translateService.instant(messageKey);
             this.notificationService.notifyAboutNotification({
               message: message,
-              status: NotificationStatusEnum.error,
+              status: NotificationStatusEnum.ERROR,
             });
             return of(removeFromFavoritesBooksFailure({ error: null }));
           }),

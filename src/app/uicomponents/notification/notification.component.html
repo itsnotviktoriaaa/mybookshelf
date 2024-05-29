@@ -2,9 +2,9 @@
   <div class="notification-wrapper">
     <span
       [ngClass]="{
-        'status-success': status === NotificationStatusEnum.success,
-        'status-error': status === NotificationStatusEnum.error,
-        'status-info': status === NotificationStatusEnum.info
+        'status-success': status === NotificationStatusEnum.SUCCESS,
+        'status-error': status === NotificationStatusEnum.ERROR,
+        'status-info': status === NotificationStatusEnum.INFO
       }"
       class="notification-message"
       >{{ message }}</span

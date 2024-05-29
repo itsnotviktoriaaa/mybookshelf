@@ -55,13 +55,13 @@ export class ShowAllComponent implements OnInit {
       .subscribe((params: Params): void => {
         const queryParams = params['show'];
         this.activeParams.show =
-          queryParams === SearchAllEnum.recommended
-            ? SearchAllEnum.recommended
-            : queryParams === SearchAllEnum.reading
-              ? SearchAllEnum.reading
-              : SearchAllEnum.recommended;
+          queryParams === SearchAllEnum.RECOMMENDED
+            ? SearchAllEnum.RECOMMENDED
+            : queryParams === SearchAllEnum.READING
+              ? SearchAllEnum.READING
+              : SearchAllEnum.RECOMMENDED;
 
-        if (this.activeParams.show === SearchAllEnum.reading) {
+        if (this.activeParams.show === SearchAllEnum.READING) {
           this.isLoading$ = this.homeFacade.getLoadingOfReadingNowBooks();
         }
         if (Object.prototype.hasOwnProperty.call(params, 'page')) {
@@ -76,7 +76,7 @@ export class ShowAllComponent implements OnInit {
   }
 
   loadBooks(): void {
-    if (this.activeParams.show === SearchAllEnum.recommended) {
+    if (this.activeParams.show === SearchAllEnum.RECOMMENDED) {
       this.homeFacade.loadRecommendedBooks(this.startIndex);
       this.showBooks$ = this.homeFacade.getRecommendedBooks().pipe(
         tap((showBooks: IBookItemTransformedWithTotal | null) => {
@@ -85,7 +85,7 @@ export class ShowAllComponent implements OnInit {
           this.definedQuantityOfPages(showBooks);
         })
       );
-    } else if (this.activeParams.show === SearchAllEnum.reading) {
+    } else if (this.activeParams.show === SearchAllEnum.READING) {
       this.homeFacade.loadReadingNowBooks(this.startIndex);
       this.showBooks$ = this.homeFacade.getReadingNowBooks().pipe(
         tap((showBooks: IBookItemTransformedWithTotal | null) => {

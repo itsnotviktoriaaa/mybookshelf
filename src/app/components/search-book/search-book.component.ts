@@ -76,7 +76,7 @@ export class SearchBookComponent implements OnChanges {
             const message = this.translateService.instant(messageKey);
             this.notificationService.notifyAboutNotification({
               message,
-              status: NotificationStatusEnum.success,
+              status: NotificationStatusEnum.SUCCESS,
             });
           }),
           catchError(() => {
@@ -84,7 +84,7 @@ export class SearchBookComponent implements OnChanges {
             const message = this.translateService.instant(messageKey);
             this.notificationService.notifyAboutNotification({
               message: message,
-              status: NotificationStatusEnum.error,
+              status: NotificationStatusEnum.ERROR,
             });
             return EMPTY;
           }),

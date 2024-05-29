@@ -58,20 +58,20 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.headerModalSearchText.next(SearchEnum.Browse);
+    this.headerModalSearchText.next(SearchEnum.BROWSE);
     this.searchStateService
       .getHeaderModalItem()
       .pipe(
         takeUntil(this.destroy$),
         tap((type: string): void => {
           if (
-            type.toLowerCase() === SelectedHeaderModalItemEngEnum.Subject.toLowerCase() ||
-            type.toLowerCase() === SelectedHeaderModalItemRusEnum.Subject.toLowerCase()
+            type.toLowerCase() === SelectedHeaderModalItemEngEnum.SUBJECT.toLowerCase() ||
+            type.toLowerCase() === SelectedHeaderModalItemRusEnum.SUBJECT.toLowerCase()
           ) {
             this.headerModalSearchText.next(this.headerModalSearchItems[1]);
             this.searchStateService.setSearchCategory(this.headerModalSearchItems[1]);
           } else {
-            this.headerModalSearchText.next(SearchEnum.Browse);
+            this.headerModalSearchText.next(SearchEnum.BROWSE);
           }
         })
       )

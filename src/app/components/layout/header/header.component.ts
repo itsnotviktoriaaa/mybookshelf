@@ -73,23 +73,23 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   headerModalLangItems = ['Eng', 'Rus'];
   headerModalItems: HeaderModalI[] = [
     {
-      text: SelectedHeaderModalItemEngEnum.All,
+      text: SelectedHeaderModalItemEngEnum.ALL,
       id: 'All',
     },
     {
-      text: SelectedHeaderModalItemEngEnum.Title,
+      text: SelectedHeaderModalItemEngEnum.TITLE,
       id: 'Title',
     },
     {
-      text: SelectedHeaderModalItemEngEnum.Author,
+      text: SelectedHeaderModalItemEngEnum.AUTHOR,
       id: 'Author',
     },
     {
-      text: SelectedHeaderModalItemEngEnum.Text,
+      text: SelectedHeaderModalItemEngEnum.TEXT,
       id: 'Text',
     },
     {
-      text: SelectedHeaderModalItemEngEnum.Subject,
+      text: SelectedHeaderModalItemEngEnum.SUBJECT,
       id: 'Subject',
     },
   ];
@@ -124,56 +124,56 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
       this.headerModalAccountItems = ['Профиль', 'Избранное', 'Мои книги', 'Выйти'];
       this.headerModalItems = [
         {
-          text: SelectedHeaderModalItemRusEnum.All,
+          text: SelectedHeaderModalItemRusEnum.ALL,
           id: 'All',
         },
         {
-          text: SelectedHeaderModalItemRusEnum.Title,
+          text: SelectedHeaderModalItemRusEnum.TITLE,
           id: 'Title',
         },
         {
-          text: SelectedHeaderModalItemRusEnum.Author,
+          text: SelectedHeaderModalItemRusEnum.AUTHOR,
           id: 'Author',
         },
         {
-          text: SelectedHeaderModalItemRusEnum.Text,
+          text: SelectedHeaderModalItemRusEnum.TEXT,
           id: 'Text',
         },
         {
-          text: SelectedHeaderModalItemRusEnum.Subject,
+          text: SelectedHeaderModalItemRusEnum.SUBJECT,
           id: 'Subject',
         },
       ];
-      this.selectedHeaderModalItem.next(SelectedHeaderModalItemRusEnum.All);
-      this.searchStateService.setHeaderModalItem(SelectedHeaderModalItemRusEnum.All);
+      this.selectedHeaderModalItem.next(SelectedHeaderModalItemRusEnum.ALL);
+      this.searchStateService.setHeaderModalItem(SelectedHeaderModalItemRusEnum.ALL);
     } else if (browserLang === 'en') {
       this.lang.next('Eng');
       this.headerModalLangItems = ['Eng', 'Rus'];
       this.headerModalAccountItems = ['Profile', 'Favourite', 'My Books', 'Logout'];
       this.headerModalItems = [
         {
-          text: SelectedHeaderModalItemEngEnum.All,
+          text: SelectedHeaderModalItemEngEnum.ALL,
           id: 'All',
         },
         {
-          text: SelectedHeaderModalItemEngEnum.Title,
+          text: SelectedHeaderModalItemEngEnum.TITLE,
           id: 'Title',
         },
         {
-          text: SelectedHeaderModalItemEngEnum.Author,
+          text: SelectedHeaderModalItemEngEnum.AUTHOR,
           id: 'Author',
         },
         {
-          text: SelectedHeaderModalItemEngEnum.Text,
+          text: SelectedHeaderModalItemEngEnum.TEXT,
           id: 'Text',
         },
         {
-          text: SelectedHeaderModalItemEngEnum.Subject,
+          text: SelectedHeaderModalItemEngEnum.SUBJECT,
           id: 'Subject',
         },
       ];
-      this.selectedHeaderModalItem.next(SelectedHeaderModalItemEngEnum.All);
-      this.searchStateService.setHeaderModalItem(SelectedHeaderModalItemEngEnum.All);
+      this.selectedHeaderModalItem.next(SelectedHeaderModalItemEngEnum.ALL);
+      this.searchStateService.setHeaderModalItem(SelectedHeaderModalItemEngEnum.ALL);
     }
   }
 
@@ -214,23 +214,23 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
       this.headerModalAccountItems = ['Profile', 'Favourite', 'My Books', 'Logout'];
       this.headerModalItems = [
         {
-          text: SelectedHeaderModalItemEngEnum.All,
+          text: SelectedHeaderModalItemEngEnum.ALL,
           id: 'All',
         },
         {
-          text: SelectedHeaderModalItemEngEnum.Title,
+          text: SelectedHeaderModalItemEngEnum.TITLE,
           id: 'Title',
         },
         {
-          text: SelectedHeaderModalItemEngEnum.Author,
+          text: SelectedHeaderModalItemEngEnum.AUTHOR,
           id: 'Author',
         },
         {
-          text: SelectedHeaderModalItemEngEnum.Text,
+          text: SelectedHeaderModalItemEngEnum.TEXT,
           id: 'Text',
         },
         {
-          text: SelectedHeaderModalItemEngEnum.Subject,
+          text: SelectedHeaderModalItemEngEnum.SUBJECT,
           id: 'Subject',
         },
       ];
@@ -248,23 +248,23 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
       this.headerModalAccountItems = ['Профиль', 'Избранное', 'Мои книги', 'Выйти'];
       this.headerModalItems = [
         {
-          text: SelectedHeaderModalItemRusEnum.All,
+          text: SelectedHeaderModalItemRusEnum.ALL,
           id: 'All',
         },
         {
-          text: SelectedHeaderModalItemRusEnum.Title,
+          text: SelectedHeaderModalItemRusEnum.TITLE,
           id: 'Title',
         },
         {
-          text: SelectedHeaderModalItemRusEnum.Author,
+          text: SelectedHeaderModalItemRusEnum.AUTHOR,
           id: 'Author',
         },
         {
-          text: SelectedHeaderModalItemRusEnum.Text,
+          text: SelectedHeaderModalItemRusEnum.TEXT,
           id: 'Text',
         },
         {
-          text: SelectedHeaderModalItemRusEnum.Subject,
+          text: SelectedHeaderModalItemRusEnum.SUBJECT,
           id: 'Subject',
         },
       ];
@@ -283,43 +283,43 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     const enumInAccordingToLang =
       lang === 'en' ? SelectedHeaderModalItemEngEnum : SelectedHeaderModalItemRusEnum;
     if (
-      selectedHeaderModalItem === SelectedHeaderModalItemEngEnum.All ||
-      selectedHeaderModalItem === SelectedHeaderModalItemRusEnum.All
+      selectedHeaderModalItem === SelectedHeaderModalItemEngEnum.ALL ||
+      selectedHeaderModalItem === SelectedHeaderModalItemRusEnum.ALL
     ) {
-      this.selectedHeaderModalItem.next(enumInAccordingToLang.All);
-      this.searchStateService.setHeaderModalItem(enumInAccordingToLang.All);
+      this.selectedHeaderModalItem.next(enumInAccordingToLang.ALL);
+      this.searchStateService.setHeaderModalItem(enumInAccordingToLang.ALL);
     }
 
     if (
-      selectedHeaderModalItem === SelectedHeaderModalItemEngEnum.Title ||
-      selectedHeaderModalItem === SelectedHeaderModalItemRusEnum.Title
+      selectedHeaderModalItem === SelectedHeaderModalItemEngEnum.TITLE ||
+      selectedHeaderModalItem === SelectedHeaderModalItemRusEnum.TITLE
     ) {
-      this.selectedHeaderModalItem.next(enumInAccordingToLang.Title);
-      this.searchStateService.setHeaderModalItem(enumInAccordingToLang.Title);
+      this.selectedHeaderModalItem.next(enumInAccordingToLang.TITLE);
+      this.searchStateService.setHeaderModalItem(enumInAccordingToLang.TITLE);
     }
 
     if (
-      selectedHeaderModalItem === SelectedHeaderModalItemEngEnum.Author ||
-      selectedHeaderModalItem === SelectedHeaderModalItemRusEnum.Author
+      selectedHeaderModalItem === SelectedHeaderModalItemEngEnum.AUTHOR ||
+      selectedHeaderModalItem === SelectedHeaderModalItemRusEnum.AUTHOR
     ) {
-      this.selectedHeaderModalItem.next(enumInAccordingToLang.Author);
-      this.searchStateService.setHeaderModalItem(enumInAccordingToLang.Author);
+      this.selectedHeaderModalItem.next(enumInAccordingToLang.AUTHOR);
+      this.searchStateService.setHeaderModalItem(enumInAccordingToLang.AUTHOR);
     }
 
     if (
-      selectedHeaderModalItem === SelectedHeaderModalItemEngEnum.Text ||
-      selectedHeaderModalItem === SelectedHeaderModalItemRusEnum.Text
+      selectedHeaderModalItem === SelectedHeaderModalItemEngEnum.TEXT ||
+      selectedHeaderModalItem === SelectedHeaderModalItemRusEnum.TEXT
     ) {
-      this.selectedHeaderModalItem.next(enumInAccordingToLang.Text);
-      this.searchStateService.setHeaderModalItem(enumInAccordingToLang.Text);
+      this.selectedHeaderModalItem.next(enumInAccordingToLang.TEXT);
+      this.searchStateService.setHeaderModalItem(enumInAccordingToLang.TEXT);
     }
 
     if (
-      selectedHeaderModalItem === SelectedHeaderModalItemEngEnum.Subject ||
-      selectedHeaderModalItem === SelectedHeaderModalItemRusEnum.Subject
+      selectedHeaderModalItem === SelectedHeaderModalItemEngEnum.SUBJECT ||
+      selectedHeaderModalItem === SelectedHeaderModalItemRusEnum.SUBJECT
     ) {
-      this.selectedHeaderModalItem.next(enumInAccordingToLang.Subject);
-      this.searchStateService.setHeaderModalItem(enumInAccordingToLang.Subject);
+      this.selectedHeaderModalItem.next(enumInAccordingToLang.SUBJECT);
+      this.searchStateService.setHeaderModalItem(enumInAccordingToLang.SUBJECT);
     }
   }
 
@@ -331,9 +331,9 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
           if (category.toLowerCase() !== 'browse') {
             const currentLanguage: string = this.translateService.currentLang;
             if (currentLanguage === 'en') {
-              this.selectedHeaderModalItem.next(SelectedHeaderModalItemEngEnum.Subject);
+              this.selectedHeaderModalItem.next(SelectedHeaderModalItemEngEnum.SUBJECT);
             } else if (currentLanguage === 'ru') {
-              this.selectedHeaderModalItem.next(SelectedHeaderModalItemRusEnum.Subject);
+              this.selectedHeaderModalItem.next(SelectedHeaderModalItemRusEnum.SUBJECT);
             }
           }
         })
@@ -375,10 +375,10 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
           if (!this.paramsFromUrl['type']) {
             const currentLanguage: string = this.translateService.currentLang;
             if (currentLanguage === 'en') {
-              this.selectedHeaderModalItem.next(SelectedHeaderModalItemEngEnum.All);
+              this.selectedHeaderModalItem.next(SelectedHeaderModalItemEngEnum.ALL);
             }
             if (currentLanguage === 'ru') {
-              this.selectedHeaderModalItem.next(SelectedHeaderModalItemRusEnum.All);
+              this.selectedHeaderModalItem.next(SelectedHeaderModalItemRusEnum.ALL);
             }
           }
         })
@@ -410,9 +410,9 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
             !this.isFavoritePage$.getValue() &&
             !(
               this.selectedHeaderModalItem.getValue()!.toLowerCase() ===
-                SelectedHeaderModalItemEngEnum.Subject.toLowerCase() ||
+                SelectedHeaderModalItemEngEnum.SUBJECT.toLowerCase() ||
               this.selectedHeaderModalItem.getValue()!.toLowerCase() ===
-                SelectedHeaderModalItemRusEnum.Subject.toLowerCase()
+                SelectedHeaderModalItemRusEnum.SUBJECT.toLowerCase()
             )
           ) {
             this.searchLiveFacade.loadSearchLiveBooks(
@@ -446,20 +446,20 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   openOrCloseMiniModal(
     nameOfMiniModal:
-      | HeaderClickEnum.allMiniModal
-      | HeaderClickEnum.langMiniModal
-      | HeaderClickEnum.profileMiniModal
+      | HeaderClickEnum.ALLMINIMODAL
+      | HeaderClickEnum.LANGMINIMODAL
+      | HeaderClickEnum.PROFILEMINIMODAL
   ): void {
-    if (nameOfMiniModal === HeaderClickEnum.allMiniModal) {
+    if (nameOfMiniModal === HeaderClickEnum.ALLMINIMODAL) {
       if (this.existUrl?.includes('favorites')) {
         return;
       }
       this.allMiniModal = !this.allMiniModal;
     }
-    if (nameOfMiniModal === HeaderClickEnum.langMiniModal) {
+    if (nameOfMiniModal === HeaderClickEnum.LANGMINIMODAL) {
       this.langMiniModal = !this.langMiniModal;
     }
-    if (nameOfMiniModal === HeaderClickEnum.profileMiniModal) {
+    if (nameOfMiniModal === HeaderClickEnum.PROFILEMINIMODAL) {
       this.profileMiniModal = !this.profileMiniModal;
     }
   }
@@ -473,7 +473,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
           const message = this.translateService.instant(messageKey);
           this.notificationService.notifyAboutNotification({
             message: message,
-            status: NotificationStatusEnum.success,
+            status: NotificationStatusEnum.SUCCESS,
           });
           this.router.navigate(['/']).then(() => {});
         }),
@@ -482,7 +482,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
           const message = this.translateService.instant(messageKey);
           this.notificationService.notifyAboutNotification({
             message: message,
-            status: NotificationStatusEnum.success,
+            status: NotificationStatusEnum.SUCCESS,
           });
           this.router.navigate(['/']).then(() => {});
           return EMPTY;
@@ -530,9 +530,9 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
           }
           if (
             this.selectedHeaderModalItem.getValue()?.toLowerCase() !==
-              SelectedHeaderModalItemEngEnum.Subject.toLowerCase() &&
+              SelectedHeaderModalItemEngEnum.SUBJECT.toLowerCase() &&
             this.selectedHeaderModalItem.getValue()?.toLowerCase() !==
-              SelectedHeaderModalItemRusEnum.Subject.toLowerCase()
+              SelectedHeaderModalItemRusEnum.SUBJECT.toLowerCase()
           ) {
             categoryNew = 'browse';
           }
@@ -579,8 +579,8 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     if (
-      (params.hasOwnProperty(SelectedHeaderModalItemEngEnum.Text.toLowerCase()) ||
-        params.hasOwnProperty(SelectedHeaderModalItemRusEnum.Text.toLowerCase())) &&
+      (params.hasOwnProperty(SelectedHeaderModalItemEngEnum.TEXT.toLowerCase()) ||
+        params.hasOwnProperty(SelectedHeaderModalItemRusEnum.TEXT.toLowerCase())) &&
       (params['text'] || params['текст'])
     ) {
       const stringOfParams = params['text'] ? 'text' : 'текст';

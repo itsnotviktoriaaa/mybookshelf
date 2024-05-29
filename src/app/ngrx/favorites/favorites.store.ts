@@ -57,7 +57,7 @@ export const FavouriteStore = signalStore(
               const message = translateService.instant(messageKey);
               notificationService.notifyAboutNotification({
                 message: message,
-                status: NotificationStatusEnum.success,
+                status: NotificationStatusEnum.SUCCESS,
               });
 
               if (!store.favorites) {
@@ -88,7 +88,7 @@ export const FavouriteStore = signalStore(
               const message = translateService.instant(messageKey);
               notificationService.notifyAboutNotification({
                 message: message,
-                status: NotificationStatusEnum.error,
+                status: NotificationStatusEnum.ERROR,
               });
               return throwError(() => error);
             }),

@@ -4,7 +4,7 @@
     <div class="header-search">
       <div class="header-search-all-wrapper">
         <div
-          (click)="openOrCloseMiniModal(HeaderClickInterfaceEnum.allMiniModal)"
+          (click)="openOrCloseMiniModal(HeaderClickInterfaceEnum.ALLMINIMODAL)"
           class="header-search-all"
           [ngStyle]="{ cursor: (isFavoritePage$ | async) ? 'default' : 'pointer' }">
           <span class="header-class-all-text">{{ selectedHeaderModalItem | async }}</span>
@@ -68,7 +68,7 @@
             <svg-icon [src]="pathToIcons + '/header-lang.svg'"></svg-icon>
           </div>
           <div
-            (click)="openOrCloseMiniModal(HeaderClickInterfaceEnum.langMiniModal)"
+            (click)="openOrCloseMiniModal(HeaderClickInterfaceEnum.LANGMINIMODAL)"
             class="header-back-info header-lang-info">
             <span class="header-back-text header-lang-info-text">{{ lang | async }}</span>
             <span [class]="{ 'header-lang-info-icon': true, active: langMiniModal }">
@@ -97,7 +97,7 @@
               &nbsp;
             </div>
             <div
-              (click)="openOrCloseMiniModal(HeaderClickInterfaceEnum.profileMiniModal)"
+              (click)="openOrCloseMiniModal(HeaderClickInterfaceEnum.PROFILEMINIMODAL)"
               class="header-back-info header-account-info">
               <span class="header-back-text header-account-info-text">{{
                 userInfo?.info?.name

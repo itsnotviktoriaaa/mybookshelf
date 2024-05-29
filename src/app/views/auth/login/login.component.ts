@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit {
         const message = this.translateService.instant(messageKey);
         this.notificationService.notifyAboutNotification({
           message: message,
-          status: NotificationStatusEnum.success,
+          status: NotificationStatusEnum.SUCCESS,
         });
         this.router.navigate(['/home']).then(() => {});
         console.log('----- Login ------');
@@ -86,7 +86,7 @@ export class LoginComponent implements OnInit {
         this.notificationService.notifyAboutNotificationLoader(false);
         this.notificationService.notifyAboutNotification({
           message: `${this.errorMessage}`,
-          status: NotificationStatusEnum.error,
+          status: NotificationStatusEnum.ERROR,
         });
         return EMPTY;
       })

@@ -135,7 +135,7 @@ export class PdfViewerComponent implements OnInit {
         const message = this.translateService.instant(messageKey);
         this.notificationService.notifyAboutNotification({
           message: message,
-          status: NotificationStatusEnum.error,
+          status: NotificationStatusEnum.ERROR,
         });
         this.router.navigate(['/home/books']).then((): void => {});
         return EMPTY;
@@ -211,7 +211,7 @@ export class PdfViewerComponent implements OnInit {
       const message = this.translateService.instant(messageKey);
       this.notificationService.notifyAboutNotification({
         message: message,
-        status: NotificationStatusEnum.error,
+        status: NotificationStatusEnum.ERROR,
       });
       this.router.navigate(['/home/books']).then((): void => {});
     }

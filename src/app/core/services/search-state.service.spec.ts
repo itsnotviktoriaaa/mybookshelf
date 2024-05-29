@@ -31,14 +31,14 @@ describe('SearchStateService', (): void => {
 
   it('should searchType$ is default equality All', (): void => {
     service.getHeaderModalItem().subscribe((type: string): void => {
-      expect(type).toBe(SelectedHeaderModalItemEngEnum.All);
+      expect(type).toBe(SelectedHeaderModalItemEngEnum.ALL);
     });
   });
 
   it('should searchType$ is equality type', (): void => {
-    service.setHeaderModalItem(SelectedHeaderModalItemEngEnum.Subject);
+    service.setHeaderModalItem(SelectedHeaderModalItemEngEnum.SUBJECT);
     service.getHeaderModalItem().subscribe((type: string): void => {
-      expect(type).toBe(SelectedHeaderModalItemEngEnum.Subject);
+      expect(type).toBe(SelectedHeaderModalItemEngEnum.SUBJECT);
     });
   });
 

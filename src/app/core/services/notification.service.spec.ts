@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 
 describe('NotificationService', (): void => {
   let service: NotificationService;
-  const testNotification = { message: 'message', status: NotificationStatusEnum.success };
+  const testNotification = { message: 'message', status: NotificationStatusEnum.SUCCESS };
 
   beforeEach((): void => {
     TestBed.configureTestingModule({});

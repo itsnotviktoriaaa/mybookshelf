@@ -1,15 +1,15 @@
 export enum NamesOfKeysEngEnum {
-  all = 'all',
-  intitle = 'title',
-  inauthor = 'author',
-  intext = 'text',
-  subject = 'subject',
+  ALL = 'all',
+  INTITLE = 'title',
+  INAUTHOR = 'author',
+  INTEXT = 'text',
+  SUBJECT = 'subject',
 }
 
 export enum NamesOfKeysRusEnum {
-  all = 'все',
-  intitle = 'титул',
-  inauthor = 'автор',
-  intext = 'текст',
-  subject = 'категория',
+  ALL = 'все',
+  INTITLE = 'титул',
+  INAUTHOR = 'автор',
+  INTEXT = 'текст',
+  SUBJECT = 'категория',
 }

@@ -13,9 +13,9 @@ export interface IUserSign extends IUser {
 export type NotificationType = {
   message: string;
   status:
-    | NotificationStatusEnum.error
-    | NotificationStatusEnum.success
-    | NotificationStatusEnum.info;
+    | NotificationStatusEnum.ERROR
+    | NotificationStatusEnum.SUCCESS
+    | NotificationStatusEnum.INFO;
 };
 
 export interface IUserInfoFromGoogle {

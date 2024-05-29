@@ -18,9 +18,9 @@ export class NotificationComponent implements OnInit {
   timeout: number = 0;
   protected readonly NotificationStatusEnum = NotificationStatusEnum;
   status!:
-    | NotificationStatusEnum.error
-    | NotificationStatusEnum.success
-    | NotificationStatusEnum.info;
+    | NotificationStatusEnum.ERROR
+    | NotificationStatusEnum.SUCCESS
+    | NotificationStatusEnum.INFO;
   private readonly destroy$ = inject(DestroyDirective).destroy$;
 
   constructor(private notificationService: NotificationService) {}

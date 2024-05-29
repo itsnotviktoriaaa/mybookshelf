@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 export class SearchStateService {
   private searchCategory$: BehaviorSubject<string> = new BehaviorSubject<string>('Browse');
   private searchType$: BehaviorSubject<string> = new BehaviorSubject<string>(
-    SelectedHeaderModalItemEngEnum.All
+    SelectedHeaderModalItemEngEnum.ALL
   );
   private isFavoritePage$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   constructor() {}

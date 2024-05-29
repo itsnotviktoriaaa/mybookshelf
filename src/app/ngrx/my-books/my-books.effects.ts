@@ -64,7 +64,7 @@ export class MyBooksEffects {
               const message = this.translateService.instant(messageKey);
               this.notificationService.notifyAboutNotification({
                 message: message,
-                status: NotificationStatusEnum.success,
+                status: NotificationStatusEnum.SUCCESS,
               });
               return of(removeFromMyBooksSuccess({ bookId: action.id }));
             }),
@@ -73,7 +73,7 @@ export class MyBooksEffects {
               const message = this.translateService.instant(messageKey);
               this.notificationService.notifyAboutNotification({
                 message: message,
-                status: NotificationStatusEnum.error,
+                status: NotificationStatusEnum.ERROR,
               });
               return of(removeFromMyBooksFailure({ error: null }));
             }),

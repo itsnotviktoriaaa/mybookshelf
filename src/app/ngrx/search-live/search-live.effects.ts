@@ -46,12 +46,12 @@ export class SearchLiveEffects {
                 const typeFromInput: string = action.typeFromInput.toLowerCase();
 
                 if (
-                  typeFromInput === SelectedHeaderModalItemEngEnum.Title.toLowerCase() ||
-                  typeFromInput === SelectedHeaderModalItemEngEnum.Text.toLowerCase() ||
-                  typeFromInput == SelectedHeaderModalItemEngEnum.All.toLowerCase() ||
-                  typeFromInput === SelectedHeaderModalItemRusEnum.Title.toLowerCase() ||
-                  typeFromInput === SelectedHeaderModalItemRusEnum.Text.toLowerCase() ||
-                  typeFromInput == SelectedHeaderModalItemRusEnum.All.toLowerCase()
+                  typeFromInput === SelectedHeaderModalItemEngEnum.TITLE.toLowerCase() ||
+                  typeFromInput === SelectedHeaderModalItemEngEnum.TEXT.toLowerCase() ||
+                  typeFromInput == SelectedHeaderModalItemEngEnum.ALL.toLowerCase() ||
+                  typeFromInput === SelectedHeaderModalItemRusEnum.TITLE.toLowerCase() ||
+                  typeFromInput === SelectedHeaderModalItemRusEnum.TEXT.toLowerCase() ||
+                  typeFromInput == SelectedHeaderModalItemRusEnum.ALL.toLowerCase()
                 ) {
                   if (item.title) {
                     return item.title;
@@ -59,8 +59,8 @@ export class SearchLiveEffects {
                 }
 
                 if (
-                  typeFromInput === SelectedHeaderModalItemEngEnum.Author.toLowerCase() ||
-                  typeFromInput === SelectedHeaderModalItemRusEnum.Author.toLowerCase()
+                  typeFromInput === SelectedHeaderModalItemEngEnum.AUTHOR.toLowerCase() ||
+                  typeFromInput === SelectedHeaderModalItemRusEnum.AUTHOR.toLowerCase()
                 ) {
                   if (item.authors && item.authors.length > 0) {
                     return item.authors[0];

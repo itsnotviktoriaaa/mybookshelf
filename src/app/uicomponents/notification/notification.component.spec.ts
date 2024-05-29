@@ -28,7 +28,7 @@ describe('NotificationComponent', (): void => {
     notificationServiceSpy.getNotification.and.returnValue(
       of({
         message: 'Test message',
-        status: NotificationStatusEnum.success,
+        status: NotificationStatusEnum.SUCCESS,
       })
     );
 
@@ -50,7 +50,7 @@ describe('NotificationComponent', (): void => {
     notificationServiceSpy.getNotification.and.returnValue(
       of({
         message: 'Test message',
-        status: NotificationStatusEnum.info,
+        status: NotificationStatusEnum.INFO,
       })
     );
 
@@ -72,7 +72,7 @@ describe('NotificationComponent', (): void => {
     notificationServiceSpy.getNotification.and.returnValue(
       of({
         message: 'Test message',
-        status: NotificationStatusEnum.error,
+        status: NotificationStatusEnum.ERROR,
       })
     );
 
@@ -94,7 +94,7 @@ describe('NotificationComponent', (): void => {
     notificationServiceSpy.getNotification.and.returnValue(
       of({
         message: 'Test message',
-        status: NotificationStatusEnum.error,
+        status: NotificationStatusEnum.ERROR,
       })
     );
 

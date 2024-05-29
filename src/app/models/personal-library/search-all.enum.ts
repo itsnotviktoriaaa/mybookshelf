@@ -1,4 +1,4 @@
 export enum SearchAllEnum {
-  recommended = 'recommended',
-  reading = 'reading',
+  RECOMMENDED = 'recommended',
+  READING = 'reading',
 }

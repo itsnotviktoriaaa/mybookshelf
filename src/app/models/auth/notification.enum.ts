@@ -1,5 +1,5 @@
 export enum NotificationStatusEnum {
-  error,
-  success,
-  info,
+  ERROR,
+  SUCCESS,
+  INFO,
 }
