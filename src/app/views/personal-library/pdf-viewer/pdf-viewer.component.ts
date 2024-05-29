@@ -1,7 +1,7 @@
 import { BehaviorSubject, catchError, EMPTY, filter, Observable, of, takeUntil, tap } from 'rxjs';
-import { LangChangeEvent, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { DatabaseService, NotificationService } from 'core/';
 import { SvgIconComponent } from 'angular-svg-icon';
@@ -28,20 +28,29 @@ import { DestroyDirective } from 'core/';
   hostDirectives: [DestroyDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PdfViewerComponent implements OnInit {
+export class PdfViewerComponent {
   book$: Observable<IBookItemTransformed | null> = of(null);
   private readonly destroy$ = inject(DestroyDirective).destroy$;
 
   listOfViewsAboutSpread = [
-    { title: 'No Spreads', id: 'secondarySpreadNone' },
-    { title: 'Odd Spreads', id: 'secondarySpreadOdd' },
-    { title: 'Even Spreads', id: 'secondarySpreadEven' },
+    { translate: 'pdf-viewer-list-of-views-spread.secondarySpreadNone', id: 'secondarySpreadNone' },
+    { translate: 'pdf-viewer-list-of-views-spread.secondarySpreadOdd', id: 'secondarySpreadOdd' },
+    { translate: 'pdf-viewer-list-of-views-spread.secondarySpreadEven', id: 'secondarySpreadEven' },
   ];
 
   listOfViewsAboutScrolling = [
-    { title: 'Vertical Scrolling', id: 'secondaryScrollVertical' },
-    { title: 'Horizontal Scrolling', id: 'secondaryScrollHorizontal' },
-    { title: 'Wrapped Scrolling', id: 'secondaryScrollWrapped' },
+    {
+      translate: 'pdf-viewer-list-of-views-scrolling.secondaryScrollVertical',
+      id: 'secondaryScrollVertical',
+    },
+    {
+      translate: 'pdf-viewer-list-of-views-scrolling.secondaryScrollHorizontal',
+      id: 'secondaryScrollHorizontal',
+    },
+    {
+      translate: 'pdf-viewer-list-of-views-scrolling.secondaryScrollWrapped',
+      id: 'secondaryScrollWrapped',
+    },
   ];
 
   pathToIcons = environment.pathToIcons;
@@ -59,68 +68,6 @@ export class PdfViewerComponent implements OnInit {
         filter((params: Params) => Boolean(params['id'])),
         tap((params: Params): void => {
           this.getInfoAboutBook(params['id']);
-        }),
-        takeUntil(this.destroy$)
-      )
-      .subscribe();
-
-    const browserLang: string | undefined = this.translateService.currentLang;
-    if (browserLang === 'ru') {
-      this.listOfViewsAboutSpread = [
-        { title: 'Без', id: 'secondarySpreadNone' },
-        { title: 'Чётные', id: 'secondarySpreadOdd' },
-        { title: 'Нечётные', id: 'secondarySpreadEven' },
-      ];
-
-      this.listOfViewsAboutScrolling = [
-        { title: 'Вертикально', id: 'secondaryScrollVertical' },
-        { title: 'Горизонтально', id: 'secondaryScrollHorizontal' },
-        { title: 'Обтекание', id: 'secondaryScrollWrapped' },
-      ];
-    } else if (browserLang === 'en') {
-      this.listOfViewsAboutSpread = [
-        { title: 'No Spreads', id: 'secondarySpreadNone' },
-        { title: 'Odd Spreads', id: 'secondarySpreadOdd' },
-        { title: 'Even Spreads', id: 'secondarySpreadEven' },
-      ];
-
-      this.listOfViewsAboutScrolling = [
-        { title: 'Vertical Scrolling', id: 'secondaryScrollVertical' },
-        { title: 'Horizontal Scrolling', id: 'secondaryScrollHorizontal' },
-        { title: 'Wrapped Scrolling', id: 'secondaryScrollWrapped' },
-      ];
-    }
-  }
-
-  ngOnInit(): void {
-    this.translateService.onLangChange
-      .pipe(
-        tap((lang: LangChangeEvent): void => {
-          if (lang.lang === 'en') {
-            this.listOfViewsAboutSpread = [
-              { title: 'No Spreads', id: 'secondarySpreadNone' },
-              { title: 'Odd Spreads', id: 'secondarySpreadOdd' },
-              { title: 'Even Spreads', id: 'secondarySpreadEven' },
-            ];
-
-            this.listOfViewsAboutScrolling = [
-              { title: 'Vertical Scrolling', id: 'secondaryScrollVertical' },
-              { title: 'Horizontal Scrolling', id: 'secondaryScrollHorizontal' },
-              { title: 'Wrapped Scrolling', id: 'secondaryScrollWrapped' },
-            ];
-          } else if (lang.lang === 'ru') {
-            this.listOfViewsAboutSpread = [
-              { title: 'Без', id: 'secondarySpreadNone' },
-              { title: 'Чётные', id: 'secondarySpreadOdd' },
-              { title: 'Нечётные', id: 'secondarySpreadEven' },
-            ];
-
-            this.listOfViewsAboutScrolling = [
-              { title: 'Вертикально', id: 'secondaryScrollVertical' },
-              { title: 'Горизонтально', id: 'secondaryScrollHorizontal' },
-              { title: 'Обтекание', id: 'secondaryScrollWrapped' },
-            ];
-          }
         }),
         takeUntil(this.destroy$)
       )
@@ -166,7 +113,7 @@ export class PdfViewerComponent implements OnInit {
       listOfViewChanged = this.listOfViewsAboutScrolling;
     }
 
-    const selectedOptionId = listOfViewChanged.find(view => view.title === selectedOptionValue);
+    const selectedOptionId = listOfViewChanged.find(view => view.translate === selectedOptionValue);
 
     if (selectedOptionId && selectedOptionId.id) {
       const elementWhichNeedId: HTMLElement | null = document.getElementById(selectedOptionId.id);

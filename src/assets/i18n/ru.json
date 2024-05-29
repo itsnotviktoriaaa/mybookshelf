@@ -149,5 +149,15 @@
     "about": "О нас",
     "support": "Поддержка",
     "termsAndCondition": "Правила и Условия"
+  },
+  "pdf-viewer-list-of-views-spread": {
+    "secondarySpreadNone": "Без",
+    "secondarySpreadOdd": "Чётные",
+    "secondarySpreadEven": "Нечётные"
+  },
+  "pdf-viewer-list-of-views-scrolling": {
+    "secondaryScrollVertical": "Вертикально",
+    "secondaryScrollHorizontal": "Горизонтально",
+    "secondaryScrollWrapped": "Обтекание"
   }
 }

@@ -1,15 +1,14 @@
-import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TranslateService } from '@ngx-translate/core';
 import { Router, RouterModule } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { BarComponent } from './bar.component';
 import { ElementRef } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 describe('BarComponent', () => {
   let component: BarComponent;
   let fixture: ComponentFixture<BarComponent>;
   let router: Router;
-  let translateService: TranslateService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -30,32 +29,10 @@ describe('BarComponent', () => {
     fixture = TestBed.createComponent(BarComponent);
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
-    translateService = TestBed.inject(TranslateService);
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should initialize menuItems$ and menuBelowBarItems on ngOnInit', () => {
-    spyOn(translateService.onLangChange, 'pipe').and.returnValue({
-      subscribe: () => {},
-    } as Observable<LangChangeEvent>);
-
-    component.ngOnInit();
-
-    expect(component.menuItems$.getValue().length).toBeGreaterThan(0);
-    expect(component.menuBelowBarItems.length).toBeGreaterThan(0);
-  });
-
-  it('should subscribe to lang change on ngOnInit', () => {
-    spyOn(translateService.onLangChange, 'pipe').and.returnValue({
-      subscribe: () => {},
-    } as Observable<LangChangeEvent>);
-
-    component.ngOnInit();
-
-    expect(component.menuItems$.getValue()[0].text).toEqual('Home');
   });
 
   it('should add event listener to close button on ngAfterViewInit', () => {

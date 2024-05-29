@@ -149,5 +149,15 @@
     "about": "About",
     "support": "Support",
     "termsAndCondition": "Terms & Condition"
+  },
+  "pdf-viewer-list-of-views-spread": {
+    "secondarySpreadNone": "No Spreads",
+    "secondarySpreadOdd": "Odd Spreads",
+    "secondarySpreadEven": "Even Spreads"
+  },
+  "pdf-viewer-list-of-views-scrolling": {
+    "secondaryScrollVertical": "Vertical Scrolling",
+    "secondaryScrollHorizontal": "Horizontal Scrolling",
+    "secondaryScrollWrapped": "Wrapped Scrolling"
   }
 }
