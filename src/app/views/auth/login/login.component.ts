@@ -1,14 +1,13 @@
+import { AuthService, CodeMessageHandlerUtil, DestroyDirective, NotificationService } from 'core/';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthService, CodeMessageHandlerUtil, NotificationService } from 'core/';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NotificationStatusEnum, IUserInfoFromGoogle } from 'models/';
+import { catchError, EMPTY, Observable, takeUntil, tap } from 'rxjs';
 import { NgOptimizedImage, NgStyle } from '@angular/common';
-import { catchError, EMPTY, Observable, tap } from 'rxjs';
 import { Router, RouterLink } from '@angular/router';
 import { SvgIconComponent } from 'angular-svg-icon';
-import { SubscribeDecorator } from 'decorators/';
 import { GoogleApiService } from 'core/';
 
 @Component({
@@ -24,6 +23,7 @@ import { GoogleApiService } from 'core/';
     SvgIconComponent,
     TranslateModule,
   ],
+  hostDirectives: [DestroyDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit {
@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
   errorMessage: string | null = null;
   pathToIcons = environment.pathToIcons;
   pathToImages = environment.pathToImages;
+  private readonly destroy$ = inject(DestroyDirective).destroy$;
 
   constructor(
     private authService: AuthService,
@@ -64,7 +65,6 @@ export class LoginComponent implements OnInit {
     this.loginObservable().subscribe();
   }
 
-  @SubscribeDecorator()
   loginObservable(): Observable<void> {
     return this.authService.login(this.loginForm.value.email, this.loginForm.value.password).pipe(
       tap(() => {
@@ -78,6 +78,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/home']).then(() => {});
         console.log('----- Login ------');
       }),
+      takeUntil(this.destroy$),
       catchError(err => {
         this.errorMessage = CodeMessageHandlerUtil.handlerCodeMessage(
           err.code,

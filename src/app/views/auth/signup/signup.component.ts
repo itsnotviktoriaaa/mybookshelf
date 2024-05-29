@@ -1,14 +1,15 @@
 import {
   AuthService,
   Constants,
+  DestroyDirective,
   NotificationService,
   PasswordNotEmailDirective,
   PasswordRepeatDirective,
 } from 'core/';
+import { catchError, EMPTY, finalize, Observable, of, Subject, takeUntil, tap } from 'rxjs';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { catchError, EMPTY, finalize, Observable, of, Subject, tap } from 'rxjs';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgClass, NgOptimizedImage, NgStyle } from '@angular/common';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
@@ -16,7 +17,6 @@ import emailJs, { EmailJSResponseStatus } from '@emailjs/browser';
 import { NotificationStatusEnum, IUserSign } from 'models/';
 import { Router, RouterLink } from '@angular/router';
 import { SvgIconComponent } from 'angular-svg-icon';
-import { SubscribeDecorator } from 'decorators/';
 import { AuthModule } from '@angular/fire/auth';
 
 @Component({
@@ -37,6 +37,7 @@ import { AuthModule } from '@angular/fire/auth';
     SvgIconComponent,
     TranslateModule,
   ],
+  hostDirectives: [DestroyDirective],
 })
 export class SignupComponent implements OnInit {
   registerForm!: FormGroup;
@@ -60,6 +61,8 @@ export class SignupComponent implements OnInit {
   pathToIcons = environment.pathToIcons;
   pathToImages = environment.pathToImages;
 
+  private readonly destroy$ = inject(DestroyDirective).destroy$;
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -81,7 +84,6 @@ export class SignupComponent implements OnInit {
     this.verificationObservable().subscribe();
   }
 
-  @SubscribeDecorator()
   verificationObservable(): Observable<boolean> {
     return this.verification$.pipe(
       tap((params: boolean) => {
@@ -91,6 +93,7 @@ export class SignupComponent implements OnInit {
           }
         }, 0);
       }),
+      takeUntil(this.destroy$),
       finalize(() => {
         clearTimeout(this.timeout);
       })
@@ -102,7 +105,6 @@ export class SignupComponent implements OnInit {
     this.checkEmailWasUsedObservable().subscribe();
   }
 
-  @SubscribeDecorator()
   checkEmailWasUsedObservable(): Observable<string[]> {
     return this.authService.checkEmailWasUsed(this.registerForm.value.email).pipe(
       tap((param: Array<string>) => {
@@ -117,6 +119,7 @@ export class SignupComponent implements OnInit {
           });
         }
       }),
+      takeUntil(this.destroy$),
       catchError(err => {
         const messageKey = 'message.somethingWentWrong';
         const message = this.translateService.instant(messageKey);
@@ -241,7 +244,6 @@ export class SignupComponent implements OnInit {
     this.responseFromEmailJsObservable(response).subscribe();
   }
 
-  @SubscribeDecorator()
   responseFromEmailJsObservable(
     response: EmailJSResponseStatus
   ): Observable<EmailJSResponseStatus> {
@@ -261,6 +263,7 @@ export class SignupComponent implements OnInit {
           this.verification$.next(true);
         }
       }),
+      takeUntil(this.destroy$),
       catchError(error => {
         this.notificationService.notifyAboutNotificationLoader(false);
         const messageKey = 'message.tryAgainMessage';
@@ -287,7 +290,6 @@ export class SignupComponent implements OnInit {
     this.registerObservable().subscribe();
   }
 
-  @SubscribeDecorator()
   registerObservable(): Observable<void> {
     return this.authService
       .register(this.infoFromUser!.email, this.infoFromUser!.username, this.infoFromUser!.password)
@@ -303,6 +305,7 @@ export class SignupComponent implements OnInit {
             status: NotificationStatusEnum.SUCCESS,
           });
         }),
+        takeUntil(this.destroy$),
         catchError(err => {
           this.notificationService.notifyAboutNotificationLoader(false);
           this.errorMessage = err.code;
