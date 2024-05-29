@@ -1,6 +1,6 @@
 export interface IMenuBelowBar {
   routerLink: string;
-  text: string;
+  translate: string;
 }
 
 export interface IMenuItem extends IMenuBelowBar {

@@ -137,5 +137,17 @@
     "langForPipe": "en-US",
     "language.english": "EN",
     "language.russian": "RU"
+  },
+  "bar-menu-above": {
+    "home": "Home",
+    "search": "Search",
+    "favorites": "Favorites",
+    "myBooks": "My Books",
+    "upload": "Upload"
+  },
+  "bar-below-below": {
+    "about": "About",
+    "support": "Support",
+    "termsAndCondition": "Terms & Condition"
   }
 }

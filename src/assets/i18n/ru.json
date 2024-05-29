@@ -137,5 +137,17 @@
     "langForPipe": "ru-RU",
     "language.english": "Англ",
     "language.russian": "Русс"
+  },
+  "bar-menu-above": {
+    "home": "Главная",
+    "search": "Искать",
+    "favorites": "Избранное",
+    "myBooks": "Мои Книги",
+    "upload": "Загрузить"
+  },
+  "bar-below-below": {
+    "about": "О нас",
+    "support": "Поддержка",
+    "termsAndCondition": "Правила и Условия"
   }
 }

@@ -9,7 +9,7 @@
     </div>
     <nav class="menu slide-in-from-distance">
       <ul class="menu-ul">
-        @for (menuItem of menuItems$ | async; track menuItem) {
+        @for (menuItem of menuItems; track menuItem) {
           <li class="menu-item">
             <a
               (click)="moveToPage(menuItem.routerLink)"
@@ -19,7 +19,7 @@
               <span class="icon">
                 <svg-icon [src]="pathToIcons + menuItem.icon"></svg-icon>
               </span>
-              <span class="text">{{ menuItem.text }}</span>
+              <span class="text">{{ menuItem.translate | translate }}</span>
             </a>
           </li>
         }
@@ -34,7 +34,7 @@
             (click)="moveToPage(menuBelowBarItem.routerLink)"
             routerLinkActive="menu-active"
             [routerLinkActiveOptions]="{ exact: true }">
-            {{ menuBelowBarItem.text }}
+            {{ menuBelowBarItem.translate | translate }}
           </a>
         </li>
       }
