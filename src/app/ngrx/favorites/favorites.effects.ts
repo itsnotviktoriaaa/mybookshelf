@@ -6,17 +6,13 @@ import {
   removeFromFavoritesBooksFailure,
   removeFromFavoritesBooksSuccess,
 } from './favorites.actions';
-import {
-  IBookItemTransformedWithTotal,
-  IBook,
-  IBookItemTransformed,
-} from '../../models/personal-library';
-import { BookTransformUtil, GoogleApiService, NotificationService } from '../../core';
+import { IBookItemTransformedWithTotal, IBook, IBookItemTransformed } from 'app/models';
+import { BookTransformUtil, GoogleApiService, NotificationService } from 'app/core';
 import { catchError, exhaustMap, finalize, map, of, switchMap, tap } from 'rxjs';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { NotificationStatusEnum } from '../../models/auth';
 import { TranslateService } from '@ngx-translate/core';
 import { TypedAction } from '@ngrx/store/src/models';
+import { NotificationStatusEnum } from 'app/models';
 import { Injectable } from '@angular/core';
 
 @Injectable()

@@ -6,7 +6,7 @@ import {
   loadRecommendedBooksFailure,
   loadRecommendedBooksSuccess,
 } from './home.actions';
-import { IBookItemTransformed, IBookItemTransformedWithTotal } from '../../models/personal-library';
+import { IBookItemTransformed, IBookItemTransformedWithTotal } from 'app/models';
 
 describe('Home Actions', () => {
   const mockBookItem: IBookItemTransformed = {

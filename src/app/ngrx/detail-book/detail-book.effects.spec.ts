@@ -9,7 +9,7 @@ import { DetailBookEffects } from './detail-book.effects';
 import { provideMockStore } from '@ngrx/store/testing';
 import { Observable, of, throwError } from 'rxjs';
 import { TestBed } from '@angular/core/testing';
-import { GoogleApiService } from '../../core';
+import { GoogleApiService } from 'app/core';
 
 describe('DetailBookEffects', () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

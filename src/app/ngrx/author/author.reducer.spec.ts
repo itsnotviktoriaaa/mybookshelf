@@ -1,6 +1,6 @@
 import { loadAuthorFailure, loadAuthorSuccess } from './author.actions';
 import { authorReducer, initialStateAuthor } from './author.reducer';
-import { ISearchSmall } from '../../models/personal-library';
+import { ISearchSmall } from 'app/models';
 
 describe('AuthorReducer', () => {
   it('should return the initial state', () => {

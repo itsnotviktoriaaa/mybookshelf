@@ -1,7 +1,7 @@
-import { ISearchSmall } from '../../models/personal-library';
 import { selectAuthor } from './author.selector';
 import { loadAuthor } from './author.actions';
 import { Injectable } from '@angular/core';
+import { ISearchSmall } from 'app/models';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 

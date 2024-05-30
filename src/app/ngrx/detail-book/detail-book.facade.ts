@@ -1,6 +1,6 @@
 import { selectDetailBook, selectLoadingOfDetailBook } from './detail-book.selector';
-import { IDetailBookSmallInfo } from '../../models/personal-library';
 import { loadDetailBook } from './detail-book.actions';
+import { IDetailBookSmallInfo } from 'app/models';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';

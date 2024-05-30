@@ -4,8 +4,8 @@ import {
   loadFavoritesBooksSuccess,
   removeFromFavoritesBooksSuccess,
 } from './favorites.actions';
-import { IBookItemTransformedWithTotal } from '../../models/personal-library';
 import { favoritesReducer, initialStateFavorite } from './favorites.reducer';
+import { IBookItemTransformedWithTotal } from 'app/models';
 import { FavoritesState } from './favorites.state';
 
 describe('FavoritesReducer', () => {

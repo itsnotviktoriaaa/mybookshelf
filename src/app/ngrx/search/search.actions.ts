@@ -1,4 +1,4 @@
-import { IActiveParamsSearch, ISearch } from '../../models/personal-library';
+import { IActiveParamsSearch, ISearch } from 'app/models';
 import { createAction, props } from '@ngrx/store';
 
 export const loadSearchBooks = createAction(

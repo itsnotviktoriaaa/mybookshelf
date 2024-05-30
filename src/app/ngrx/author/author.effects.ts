@@ -1,9 +1,9 @@
 import { loadAuthor, loadAuthorFailure, loadAuthorSuccess } from './author.actions';
-import { ISearchInfoDetail, ISearchSmall } from '../../models/personal-library';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { ISearchInfoDetail, ISearchSmall } from 'app/models';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { TypedAction } from '@ngrx/store/src/models';
-import { GoogleApiService } from '../../core';
+import { GoogleApiService } from 'app/core';
 import { Injectable } from '@angular/core';
 
 @Injectable()

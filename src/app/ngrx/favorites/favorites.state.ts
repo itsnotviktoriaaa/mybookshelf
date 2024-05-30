@@ -1,4 +1,4 @@
-import { IBookItemTransformedWithTotal } from '../../models/personal-library';
+import { IBookItemTransformedWithTotal } from 'app/models';
 
 export interface FavoritesState {
   favoritesBooks: IBookItemTransformedWithTotal | null;

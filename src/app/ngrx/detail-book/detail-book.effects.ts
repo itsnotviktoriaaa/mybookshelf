@@ -3,10 +3,10 @@ import {
   loadDetailBookFailure,
   loadDetailBookSuccess,
 } from './detail-book.actions';
-import { IDetailBook, IDetailBookSmallInfo } from '../../models/personal-library';
+import { IDetailBook, IDetailBookSmallInfo } from 'app/models';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
-import { GoogleApiService } from '../../core';
+import { GoogleApiService } from 'app/core';
 import { Injectable } from '@angular/core';
 
 @Injectable()

@@ -1,10 +1,10 @@
-import { IActiveParamsSearch, IBookItemTransformedWithTotal } from '../../models/personal-library';
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
-import { FavoriteService } from '../../core/services/favorite.service';
-import { GoogleApiService, NotificationService } from '../../core';
+import { IActiveParamsSearch, IBookItemTransformedWithTotal } from 'app/models';
+import { GoogleApiService, NotificationService } from 'app/core';
 import { catchError, finalize, tap, throwError } from 'rxjs';
-import { NotificationStatusEnum } from '../../models/auth';
 import { TranslateService } from '@ngx-translate/core';
+import { NotificationStatusEnum } from 'app/models';
+import { FavoriteService } from 'app/core';
 import { inject } from '@angular/core';
 
 type FavoritesState = {

@@ -1,4 +1,4 @@
-import { ISearchSmall } from '../../models/personal-library';
+import { ISearchSmall } from 'app/models';
 
 export interface AuthorState {
   author: ISearchSmall | null;

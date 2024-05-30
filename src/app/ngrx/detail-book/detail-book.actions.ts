@@ -1,5 +1,5 @@
-import { IDetailBookSmallInfo } from '../../models/personal-library';
 import { createAction, props } from '@ngrx/store';
+import { IDetailBookSmallInfo } from 'app/models';
 
 export const loadDetailBook = createAction(
   '[Detail Book] Load Detail Book',

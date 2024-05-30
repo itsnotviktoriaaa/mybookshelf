@@ -1,6 +1,6 @@
 import { loadMyBooks, loadMyBooksFailure, loadMyBooksSuccess } from './my-books.actions';
 import { initialStateMyBooks, myBooksReducer } from './my-books.reducer';
-import { IBookItemTransformed } from '../../models/personal-library';
+import { IBookItemTransformed } from 'app/models';
 
 describe('MyBooksReducer', () => {
   it('should return the initial state', () => {

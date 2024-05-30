@@ -1,5 +1,5 @@
-import { IBookItemTransformed } from '../../models/personal-library';
 import { createAction, props } from '@ngrx/store';
+import { IBookItemTransformed } from 'app/models';
 
 export const loadMyBooks = createAction('[MyBooks] Load My Books');
 export const loadMyBooksSuccess = createAction(

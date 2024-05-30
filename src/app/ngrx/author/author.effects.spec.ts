@@ -1,11 +1,11 @@
 import { loadAuthor, loadAuthorFailure, loadAuthorSuccess } from './author.actions';
-import { ISearchInfoDetail } from '../../models/personal-library';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { Observable, of, throwError } from 'rxjs';
-import { AuthorEffects } from './author.effects';
 import { TestBed } from '@angular/core/testing';
-import { GoogleApiService } from '../../core';
+import { ISearchInfoDetail } from 'app/models';
+import { GoogleApiService } from 'app/core';
+import { AuthorEffects } from 'app/ngrx';
 
 describe('AuthorEffects', () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

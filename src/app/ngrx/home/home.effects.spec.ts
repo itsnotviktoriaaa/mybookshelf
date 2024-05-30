@@ -1,4 +1,12 @@
 import {
+  loadReadingNowBooks,
+  loadReadingNowBooksFailure,
+  loadReadingNowBooksSuccess,
+  loadRecommendedBooks,
+  loadRecommendedBooksFailure,
+  loadRecommendedBooksSuccess,
+} from './home.actions';
+import {
   IBook,
   IBookItem,
   IBookItemAccessInfo,
@@ -7,21 +15,13 @@ import {
   IBookItemTransformed,
   IBookItemTransformedWithTotal,
   IBookItemVolumeInfo,
-} from '../../models/personal-library';
-import {
-  loadReadingNowBooks,
-  loadReadingNowBooksFailure,
-  loadReadingNowBooksSuccess,
-  loadRecommendedBooks,
-  loadRecommendedBooksFailure,
-  loadRecommendedBooksSuccess,
-} from './home.actions';
+} from 'app/models';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { Observable, of, throwError } from 'rxjs';
 import { TestBed } from '@angular/core/testing';
-import { GoogleApiService } from '../../core';
 import { BookEffects } from './home.effects';
+import { GoogleApiService } from 'app/core';
 
 describe('HomeEffects', () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

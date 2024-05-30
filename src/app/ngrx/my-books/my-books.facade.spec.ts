@@ -1,8 +1,8 @@
 import { selectLoadingOfMyBooks, selectMyBooks } from './my-books.selector';
-import { IBookItemTransformed } from '../../models/personal-library';
 import { loadMyBooks, removeFromMyBooks } from './my-books.actions';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { MyBooksFacade } from './my-books.facade';
+import { IBookItemTransformed } from 'app/models';
 import { TestBed } from '@angular/core/testing';
 
 describe('MyBooksFacade', () => {

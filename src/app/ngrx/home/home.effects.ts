@@ -6,16 +6,11 @@ import {
   loadRecommendedBooksFailure,
   loadRecommendedBooksSuccess,
 } from './home.actions';
-import {
-  IBookItemTransformedWithTotal,
-  IBook,
-  IBookItem,
-  IBookItemTransformed,
-} from '../../models/personal-library';
+import { IBookItemTransformedWithTotal, IBook, IBookItem, IBookItemTransformed } from 'app/models';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { TypedAction } from '@ngrx/store/src/models';
-import { GoogleApiService } from '../../core';
+import { GoogleApiService } from 'app/core';
 import { Injectable } from '@angular/core';
 
 @Injectable()
