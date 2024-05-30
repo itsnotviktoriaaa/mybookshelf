@@ -30,6 +30,9 @@ import { DestroyDirective } from 'core/';
 })
 export class PdfViewerComponent {
   book$: Observable<IBookItemTransformed | null> = of(null);
+  pathToIcons = environment.pathToIcons;
+  isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+
   private readonly destroy$ = inject(DestroyDirective).destroy$;
 
   listOfViewsAboutSpread = [
@@ -52,9 +55,6 @@ export class PdfViewerComponent {
       id: 'secondaryScrollWrapped',
     },
   ];
-
-  pathToIcons = environment.pathToIcons;
-  isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
   constructor(
     private routerFacadeService: RouterFacadeService,

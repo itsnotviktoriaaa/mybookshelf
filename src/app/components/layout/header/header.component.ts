@@ -68,12 +68,25 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   allMiniModal: boolean = false;
   langMiniModal: boolean = false;
   profileMiniModal: boolean = false;
-  selectedHeaderModalItem = new BehaviorSubject<string>(SelectedHeaderModalItemEnum.ALL);
-  isFavoritePage$ = new BehaviorSubject<boolean>(false);
+
   paramsFromUrl: Params = {};
+  existUrl: string | null = null;
+  isFavoritePage$ = new BehaviorSubject<boolean>(false);
+  selectedHeaderModalItem = new BehaviorSubject<string>(SelectedHeaderModalItemEnum.ALL);
+
+  searchTextTransformed: string = '';
+  searchField: FormControl = new FormControl();
+  searchTexts$: BehaviorSubject<string[] | null> = new BehaviorSubject<string[] | null>(null);
+
+  pathToIcons = environment.pathToIcons;
+  authServiceDestroy$: Subject<void> = new Subject<void>();
+  userInfo$ = new BehaviorSubject<IUserInfoFromGoogle | null>(null);
+
+  protected readonly HeaderClickInterfaceEnum = HeaderClickEnum;
+  private readonly destroy$ = inject(DestroyDirective).destroy$;
+  @ViewChild('burger') burger: ElementRef | null = null;
 
   headerModalLangItems = ['language.en', 'language.ru'];
-
   headerModalItems: HeaderModalI[] = [
     {
       translate: 'selected-header-modal-item.All',
@@ -103,17 +116,6 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     { translate: 'header-modal-account-item.myBooks', routerLink: '/home/books' },
     { translate: 'header-modal-account-item.logout', routerLink: '/logout' },
   ];
-
-  protected readonly HeaderClickInterfaceEnum = HeaderClickEnum;
-  searchField: FormControl = new FormControl();
-  searchTextTransformed: string = '';
-  searchTexts$: BehaviorSubject<string[] | null> = new BehaviorSubject<string[] | null>(null);
-  authServiceDestroy$: Subject<void> = new Subject<void>();
-  userInfo$ = new BehaviorSubject<IUserInfoFromGoogle | null>(null);
-  pathToIcons = environment.pathToIcons;
-  existUrl: string | null = null;
-  private readonly destroy$ = inject(DestroyDirective).destroy$;
-  @ViewChild('burger') burger: ElementRef | null = null;
 
   constructor(
     private authService: AuthService,
@@ -398,6 +400,14 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     this.searchLiveFacade.resetSearchLiveBooks();
   }
 
+  moveToPage(routerLink: string): void {
+    if (routerLink && routerLink !== '/logout') {
+      this.router.navigate([routerLink]).then((): void => {});
+    } else {
+      this.logoutForGoogle();
+    }
+  }
+
   @HostListener('document:click', ['$event'])
   click(event: Event) {
     if (
@@ -439,14 +449,6 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     ) {
       this.searchTexts$.next(null);
       this.resetSearchLiveBooks();
-    }
-  }
-
-  moveToPage(routerLink: string): void {
-    if (routerLink && routerLink !== '/logout') {
-      this.router.navigate([routerLink]).then((): void => {});
-    } else {
-      this.logoutForGoogle();
     }
   }
 

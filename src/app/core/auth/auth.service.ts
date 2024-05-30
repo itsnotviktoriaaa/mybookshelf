@@ -8,8 +8,8 @@ import {
   user,
 } from '@angular/fire/auth';
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
-import { IUser } from '../../models/auth';
 import { from, Observable } from 'rxjs';
+import { IUser } from 'app/models';
 type User = import('firebase/auth').User;
 
 @Injectable({

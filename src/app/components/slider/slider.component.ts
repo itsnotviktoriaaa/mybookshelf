@@ -14,9 +14,9 @@ import { QuotesFacade } from 'ngr/quotes';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SliderComponent implements OnInit, OnDestroy {
-  currentSlide$ = new BehaviorSubject<number>(0);
-  quotes$: Observable<IQuotesSmall[] | null> = of(null);
   private _intervalId: number | null = 0;
+  quotes$: Observable<IQuotesSmall[] | null> = of(null);
+  currentSlide$ = new BehaviorSubject<number>(0);
 
   constructor(private quotesFacade: QuotesFacade) {}
 

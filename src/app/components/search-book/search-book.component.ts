@@ -20,10 +20,10 @@ import { ISearchDetail } from 'models/';
 export class SearchBookComponent implements OnChanges {
   @Input() searchBook: ISearchDetail | null = null;
   @Input() idOfFavorites: string[] = [];
-  isFavorite$ = new BehaviorSubject<boolean>(false);
   isOperationAddInProgress: boolean = false;
   isOperationRemoveInProgress: boolean = false;
   pathToIcons = environment.pathToIcons;
+  isFavorite$ = new BehaviorSubject<boolean>(false);
 
   constructor(
     private router: Router,

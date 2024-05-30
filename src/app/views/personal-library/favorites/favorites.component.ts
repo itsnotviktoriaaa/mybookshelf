@@ -22,19 +22,14 @@ import { FavouriteStore } from 'ngr/';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FavoritesComponent implements OnInit, OnDestroy {
-  // isLoading$: Observable<boolean>;
-  // favoritesBooks$: Observable<IBookItemTransformedWithTotal | null> = of(null);
-  private readonly destroy$ = inject(DestroyDirective).destroy$;
-
   store = inject(FavouriteStore);
+  private readonly destroy$ = inject(DestroyDirective).destroy$;
 
   constructor(
     private favoriteFacade: FavoritesFacade,
     private searchStateService: SearchStateService,
     private routerFacadeService: RouterFacadeService
-  ) {
-    // this.isLoading$ = this.favoriteFacade.getLoadingOfFavoritesBooks();
-  }
+  ) {}
 
   ngOnInit(): void {
     this.searchStateService.setFavoritePage(true);
@@ -48,9 +43,6 @@ export class FavoritesComponent implements OnInit, OnDestroy {
           ActiveParamUtil.processParamsForFavoritePage(params);
 
         this.loadFavorites(newParamsForFavorite);
-
-        // this.favoriteFacade.loadFavoritesBooks(newParamsForFavorite);
-        // this.favoritesBooks$ = this.favoriteFacade.getFavoritesBooks();
       });
   }
 

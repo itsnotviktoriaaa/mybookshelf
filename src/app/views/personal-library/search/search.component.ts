@@ -38,14 +38,16 @@ import { SearchFacade } from 'app/ngrx';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchComponent implements OnInit {
-  browseMiniModal: boolean = false;
-  headerModalSearchText = new BehaviorSubject<string | null>(null);
-  headerModalSearchItems = CategoryModalSearchItems;
-  pathToIcons = environment.pathToIcons;
-  searchBooks$ = new BehaviorSubject<ISearch | null>(null);
-  idOfFavorites: string[] = [];
-  private readonly destroy$ = inject(DestroyDirective).destroy$;
   isLoading$: Observable<boolean>;
+  idOfFavorites: string[] = [];
+  browseMiniModal: boolean = false;
+  pathToIcons = environment.pathToIcons;
+
+  headerModalSearchItems = CategoryModalSearchItems;
+  headerModalSearchText = new BehaviorSubject<string | null>(null);
+
+  searchBooks$ = new BehaviorSubject<ISearch | null>(null);
+  private readonly destroy$ = inject(DestroyDirective).destroy$;
 
   constructor(
     private searchFacade: SearchFacade,

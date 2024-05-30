@@ -38,8 +38,8 @@ export class ShowAllComponent implements OnInit {
   showBooks$: Observable<IBookItemTransformedWithTotal | null> = of(null);
 
   pathToIcons = environment.pathToIcons;
-  private readonly destroy$ = inject(DestroyDirective).destroy$;
   isLoading$: Observable<boolean>;
+  private readonly destroy$ = inject(DestroyDirective).destroy$;
 
   constructor(
     private router: Router,

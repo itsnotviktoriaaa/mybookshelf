@@ -132,7 +132,6 @@ export class BookComponent implements OnInit {
   deleteFavoriteBook(): void {
     if (this.book && this.book.id) {
       this.store.deleteLoadFavoriteBook(this.book.id);
-      // this.favoriteFacade.loadRemoveFavoritesBooks(this.book.id);
     }
   }
 }

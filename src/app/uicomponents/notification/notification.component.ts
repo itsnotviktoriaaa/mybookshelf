@@ -14,13 +14,16 @@ import { DestroyDirective } from 'app/core/';
   styleUrl: './notification.component.scss',
 })
 export class NotificationComponent implements OnInit {
-  message: string | null = null;
   timeout: number = 0;
+  message: string | null = null;
+
   protected readonly NotificationStatusEnum = NotificationStatusEnum;
+
   status!:
     | NotificationStatusEnum.ERROR
     | NotificationStatusEnum.SUCCESS
     | NotificationStatusEnum.INFO;
+
   private readonly destroy$ = inject(DestroyDirective).destroy$;
 
   constructor(private notificationService: NotificationService) {}

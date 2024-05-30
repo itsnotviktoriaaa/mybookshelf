@@ -33,6 +33,7 @@ export class HomeComponent implements OnInit {
   isLoading$: Observable<boolean>;
   recommendedBooks$ = new BehaviorSubject<IBookItemTransformedWithTotal | null>(null);
   readingNowBooks$ = new BehaviorSubject<IBookItemTransformedWithTotal | null>(null);
+
   private readonly destroy$ = inject(DestroyDirective).destroy$;
 
   constructor(

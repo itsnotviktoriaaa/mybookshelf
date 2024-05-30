@@ -33,15 +33,16 @@ import { DestroyDirective } from 'app/core/';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaginationInputComponent implements OnInit, OnChanges {
-  isShow = new BehaviorSubject<boolean>(false);
   queryParams: Params = {};
-  mainPathToArrow = 'assets/images/icons/pagination-input';
   inputValue = new FormControl();
-  quantityOfPages$ = new BehaviorSubject<number>(1);
+  mainPathToArrow = 'assets/images/icons/pagination-input';
+
+  isShow$ = new BehaviorSubject<boolean>(false);
   valueFromInput$ = new BehaviorSubject<number>(1);
-  private readonly destroy$ = inject(DestroyDirective).destroy$;
+  quantityOfPages$ = new BehaviorSubject<number>(1);
 
   @Input() quantityOfBooks: number | null | undefined = null;
+  private readonly destroy$ = inject(DestroyDirective).destroy$;
 
   constructor(
     private router: Router,
@@ -108,9 +109,9 @@ export class PaginationInputComponent implements OnInit, OnChanges {
       this.quantityOfPages$.next(pages);
       console.log(pages);
       if (pages > 1) {
-        this.isShow.next(true);
+        this.isShow$.next(true);
       } else {
-        this.isShow.next(false);
+        this.isShow$.next(false);
       }
     }
   }

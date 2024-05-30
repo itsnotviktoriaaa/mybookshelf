@@ -57,9 +57,9 @@ export class SignupComponent implements OnInit {
   codeWhichWriteUser: string = '';
   codeWhichWrittenUserWasEqualFromEmail: boolean = false;
 
-  @ViewChild('verificationBody') verificationBody: ElementRef | null = null;
   pathToIcons = environment.pathToIcons;
   pathToImages = environment.pathToImages;
+  @ViewChild('verificationBody') verificationBody: ElementRef | null = null;
 
   private readonly destroy$ = inject(DestroyDirective).destroy$;
 

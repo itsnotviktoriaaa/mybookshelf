@@ -47,8 +47,10 @@ export class UploadComponent implements OnInit {
   pdfFile: File | null = null;
   photoFile: File | null = null;
   uploadForm!: FormGroup;
+
   edit: boolean = false;
   id: string | null = null;
+
   pdfUrl = new BehaviorSubject<string | null>(null);
   photoUrl = new BehaviorSubject<string | null>(null);
   pathToIcons = environment.pathToIcons;

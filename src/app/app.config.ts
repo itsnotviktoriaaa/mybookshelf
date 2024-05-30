@@ -34,12 +34,6 @@ import { searchReducer } from 'ngr/';
 import { userReducer } from 'ngr/';
 import { BookEffects } from 'ngr/';
 
-// const scrollConfig: InMemoryScrollingOptions = {
-//   scrollPositionRestoration: 'enabled',
-// };
-//
-// const inMemoryScrollingFeature: InMemoryScrollingFeature = withInMemoryScrolling(scrollConfig);
-
 export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(),

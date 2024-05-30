@@ -30,8 +30,10 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   isShowPassword: boolean = false;
   errorMessage: string | null = null;
+
   pathToIcons = environment.pathToIcons;
   pathToImages = environment.pathToImages;
+
   private readonly destroy$ = inject(DestroyDirective).destroy$;
 
   constructor(
