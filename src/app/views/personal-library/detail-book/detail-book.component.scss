@@ -10,8 +10,11 @@
     .back-to-result {
       display: flex;
       column-gap: 9px;
-      cursor: pointer;
       margin-bottom: 20px;
+
+      span {
+        cursor: pointer;
+      }
     }
 
     .detail-items {

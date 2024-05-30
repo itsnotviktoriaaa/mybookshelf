@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
-import { IActions, IDetailBookSmallInfo, ISearchSmall } from '../../../models';
+import { IActions, IDetailBookSmallInfo, ISearchSmall } from 'app/models';
 import { debounceTime, Observable, of, takeUntil, tap } from 'rxjs';
 import { ReduceLetterPipe, TransformDateBookPipe } from 'app/core';
 import { Params, Router, RouterLink } from '@angular/router';
@@ -50,6 +50,8 @@ export class DetailBookComponent implements OnInit {
 
   isLoading$: Observable<boolean>;
 
+  previousRouter: string | null = null;
+
   constructor(
     private router: Router,
     private detailBookFacade: DetailBookFacade,
@@ -84,6 +86,16 @@ export class DetailBookComponent implements OnInit {
         takeUntil(this.destroy$)
       )
       .subscribe();
+
+    this.routerFacadeService.getPreviousUrl$
+      .pipe(
+        tap((previousUrl: string | null): void => {
+          console.log('Previous URL:', previousUrl);
+          this.previousRouter = previousUrl;
+        }),
+        takeUntil(this.destroy$)
+      )
+      .subscribe();
   }
 
   search(data: IDetailBookSmallInfo): string {
@@ -96,5 +108,53 @@ export class DetailBookComponent implements OnInit {
 
   openOtherBook(authorId: string): void {
     this.router.navigate(['/home/book', authorId]).then((): void => {});
+  }
+
+  openSearchPageInAccordingToAuthor(author: string): void {
+    this.router
+      .navigate(['/home/search'], {
+        queryParams: {
+          text: author,
+          type: 'author',
+          category: 'browse',
+        },
+      })
+      .then((): void => {});
+  }
+
+  navigateToPreviousUrl(): void {
+    if (this.previousRouter) {
+      const parts = this.previousRouter.split('?');
+      const path = parts[0]; // путь к маршруту
+      const queryParams = parts[1]
+        ? parts[1].split('&').reduce((acc: Record<string, string>, param: string) => {
+            const [key, value] = param.split('=');
+            acc[key] = value;
+            return acc;
+          }, {})
+        : {};
+
+      if (queryParams && queryParams['text']) {
+        this.changeNumberFromUrlToScape(queryParams, 'text');
+      }
+
+      if (queryParams && queryParams['category']) {
+        this.changeNumberFromUrlToScape(queryParams, 'category');
+      }
+
+      console.log(queryParams);
+      this.router.navigate([path], { queryParams }).then((): void => {});
+    } else {
+      this.router.navigate(['/home']).then((): void => {});
+    }
+  }
+
+  changeNumberFromUrlToScape(queryParams: Record<string, string>, key: string): void {
+    if (
+      queryParams[key] &&
+      (queryParams[key].includes('%20') || queryParams[key].includes('%2B'))
+    ) {
+      queryParams[key] = queryParams[key].replace(/%20/g, ' ').replace(/%2B/g, ' ');
+    }
   }
 }

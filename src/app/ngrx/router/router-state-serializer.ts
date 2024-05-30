@@ -3,18 +3,27 @@ import { RouterStateSerializer } from '@ngrx/router-store';
 
 export interface RouterState {
   url: string;
+  previousUrl: string | null;
   queryParams: Params;
   params: Params;
   data: Data;
 }
 
 export class CustomRouterStateSerializer implements RouterStateSerializer<RouterState> {
-  serialize = (state: RouterStateSnapshot): RouterState => ({
-    url: state.url,
-    params: mergeRouteParams(state.root, ({ params }) => params),
-    queryParams: mergeRouteParams(state.root, ({ queryParams }) => queryParams),
-    data: mergeRouteData(state.root),
-  });
+  private previousUrl: string | null = null;
+
+  serialize = (state: RouterStateSnapshot): RouterState => {
+    const currentState = {
+      url: state.url,
+      previousUrl: this.previousUrl,
+      params: mergeRouteParams(state.root, ({ params }) => params),
+      queryParams: mergeRouteParams(state.root, ({ queryParams }) => queryParams),
+      data: mergeRouteData(state.root),
+    };
+
+    this.previousUrl = state.url;
+    return currentState;
+  };
 }
 
 const mergeRouteParams = (

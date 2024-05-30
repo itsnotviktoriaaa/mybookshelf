@@ -1,4 +1,4 @@
-import { selectParams, selectQueryParams, selectUrl } from './router.selectors';
+import { selectParams, selectPreviousUrl, selectQueryParams, selectUrl } from './router.selectors';
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -15,4 +15,6 @@ export class RouterFacadeService {
   readonly getQueryParams$: Observable<Params> = this.store.select(selectQueryParams);
 
   readonly getUrl$: Observable<string> = this.store.select(selectUrl);
+
+  readonly getPreviousUrl$: Observable<string | null> = this.store.select(selectPreviousUrl);
 }

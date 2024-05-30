@@ -12,3 +12,8 @@ export const selectQueryParams = createSelector(
 );
 
 export const selectUrl = createSelector(selectRouterState, router => router?.state?.url);
+
+export const selectPreviousUrl = createSelector(
+  selectRouterState,
+  router => router?.state?.previousUrl
+);

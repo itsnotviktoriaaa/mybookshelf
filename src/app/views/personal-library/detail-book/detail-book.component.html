@@ -5,7 +5,7 @@
     } @else {
       @if (detailBook$ | async; as detailBook) {
         <div class="common-padding">
-          <div class="back-to-result">
+          <div class="back-to-result" (click)="navigateToPreviousUrl()">
             <svg-icon [src]="pathToIcons + '/arrow-small-left.svg'"></svg-icon>
             <span>{{ 'detail-page.backToResult' | translate }}</span>
           </div>
@@ -29,7 +29,11 @@
                   <h1 class="detail-center-info-title">{{ detailBook.title }}</h1>
                   <h2 class="detail-center-info-author">
                     {{ 'detail-page.byWhom' | translate }}
-                    <a class="detail-center-info-author-decoration">{{ detailBook.authors[0] }}</a>
+                    <a
+                      (click)="openSearchPageInAccordingToAuthor(detailBook.authors[0])"
+                      class="detail-center-info-author-decoration">
+                      {{ detailBook.authors[0] }}
+                    </a>
                     , {{ detailBook.publishedDate | transformDateBook }}
                   </h2>
                   @if (detailBook.publisher) {
