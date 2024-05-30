@@ -7,6 +7,7 @@ import {
   removeFromMyBooksSuccess,
 } from './my-books.actions';
 import { IBookItemTransformed } from 'app/models';
+import { mockBookItem } from 'app/ngrx';
 
 describe('MyBooks Actions', () => {
   it('should create loadMyBooks action', () => {
@@ -15,22 +16,7 @@ describe('MyBooks Actions', () => {
   });
 
   it('should create loadMyBooksSuccess action', () => {
-    const payload: IBookItemTransformed[] = [
-      {
-        id: '123456789',
-        thumbnail: 'https://example.com/thumbnail.jpg',
-        title: 'Example Book',
-        author: ['John Doe', 'Jane Smith'],
-        publishedDate: '2022-05-01',
-        webReaderLink: 'https://example.com/webReaderLink',
-        pageCount: 300,
-        selfLink: 'https://example.com/selfLink',
-        categories: ['Fiction', 'Science Fiction'],
-        userInfo: 'User123',
-        averageRating: 4.5,
-        description: 'This is a sample book description.',
-      },
-    ];
+    const payload: IBookItemTransformed[] = [mockBookItem];
     const action = loadMyBooksSuccess({ data: payload });
     expect(action.type).toBe('[MyBooks] Load My Books Success');
     expect(action.data).toEqual(payload);
@@ -43,7 +29,7 @@ describe('MyBooks Actions', () => {
   });
 
   it('should create removeFromMyBooks action', () => {
-    const dummyBookId = '123';
+    const dummyBookId = '1';
     const action = removeFromMyBooks({ id: dummyBookId, webReaderLink: '', thumbnail: '' });
     expect(action.type).toBe('[MyBooks] Remove My Book');
     expect(action.id).toBe(dummyBookId);
@@ -52,7 +38,7 @@ describe('MyBooks Actions', () => {
   });
 
   it('should create removeFromMyBooksSuccess action', () => {
-    const dummyBookId = '123';
+    const dummyBookId = '1';
     const action = removeFromMyBooksSuccess({ bookId: dummyBookId });
     expect(action.type).toBe('[MyBooks] Remove My Book Success');
     expect(action.bookId).toBe(dummyBookId);

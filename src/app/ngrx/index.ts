@@ -8,3 +8,4 @@ export * from './author';
 export * from './auth-firebase';
 export * from './quotes';
 export * from './router';
+export * from './shared';
