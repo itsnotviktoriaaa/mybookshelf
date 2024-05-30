@@ -1,7 +1,6 @@
 import {
   IActiveParamsSearch,
   IBook,
-  IBookItem,
   IBookItemTransformed,
   IBookItemTransformedWithTotal,
 } from 'models/';
@@ -9,6 +8,7 @@ import { environment } from '../../../environments/environment.development';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { OAuthService } from 'angular-oauth2-oidc';
+import { BookTransformUtil } from 'app/core';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -40,21 +40,7 @@ export class FavoriteService {
             };
           }
 
-          const transformedItems: IBookItemTransformed[] = data.items.map((item: IBookItem) => {
-            return {
-              id: item.id,
-              thumbnail: item.volumeInfo.imageLinks.thumbnail,
-              title: item.volumeInfo.title,
-              author: item.volumeInfo.authors,
-              publishedDate: item.volumeInfo.publishedDate,
-              webReaderLink: item.accessInfo.webReaderLink,
-              pageCount: item.volumeInfo.pageCount,
-              selfLink: item.selfLink,
-              categories: item.volumeInfo.categories,
-              userInfo: item.userInfo?.updated,
-              averageRating: item.volumeInfo.averageRating,
-            };
-          });
+          const transformedItems: IBookItemTransformed[] = BookTransformUtil.transformBook(data);
 
           const uniqueItems: IBookItemTransformed[] = this.filterUniqueBooks(transformedItems);
           return {
