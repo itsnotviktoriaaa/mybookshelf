@@ -1,4 +1,4 @@
-import { selectCurrentUser } from './auth-firebase.selector';
+import { selectCurrentUser } from './';
 
 describe('AuthFirebase Selector', () => {
   it('should select current user from state', () => {

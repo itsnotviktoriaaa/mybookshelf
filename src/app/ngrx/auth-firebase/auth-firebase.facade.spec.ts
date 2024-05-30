@@ -1,8 +1,8 @@
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { selectCurrentUser } from './auth-firebase.selector';
-import { AuthFirebaseFacade } from './auth-firebase.facade';
-import { setUserAction } from './auth-firebase.actions';
 import { TestBed } from '@angular/core/testing';
+import { AuthFirebaseFacade } from './';
+import { selectCurrentUser } from './';
+import { setUserAction } from './';
 
 describe('AuthFirebaseFacade', () => {
   let facade: AuthFirebaseFacade;

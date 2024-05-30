@@ -3,12 +3,12 @@ import {
   selectLoadingOfRecommendedBooks,
   selectReadingNowBooks,
   selectRecommendedBooks,
-} from './home.selectors';
-import { loadReadingNowBooks, loadRecommendedBooks } from './home.actions';
+} from './';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { IBookItemTransformedWithTotal } from 'app/models';
+import { loadReadingNowBooks, loadRecommendedBooks } from './';
+import { mockBookItemWithTotalHome } from 'app/ngrx';
 import { TestBed } from '@angular/core/testing';
-import { HomeFacade } from './home.facade';
+import { HomeFacade } from './';
 
 describe('HomeFacade', () => {
   let facade: HomeFacade;
@@ -41,46 +41,18 @@ describe('HomeFacade', () => {
   });
 
   it('should return selected recommended books', () => {
-    const expectedData: IBookItemTransformedWithTotal = {
-      items: [
-        {
-          id: '1',
-          thumbnail: 'url',
-          title: 'title',
-          author: ['Author'],
-          publishedDate: '2023',
-          webReaderLink: 'link',
-          pageCount: 100,
-        },
-      ],
-      totalItems: 1,
-    };
-    store.overrideSelector(selectRecommendedBooks, expectedData);
+    store.overrideSelector(selectRecommendedBooks, mockBookItemWithTotalHome);
 
     facade.getRecommendedBooks().subscribe(data => {
-      expect(data).toEqual(expectedData);
+      expect(data).toEqual(mockBookItemWithTotalHome);
     });
   });
 
   it('should return selected reading now books', () => {
-    const expectedData: IBookItemTransformedWithTotal = {
-      items: [
-        {
-          id: '1',
-          thumbnail: 'url',
-          title: 'title',
-          author: ['Author'],
-          publishedDate: '2023',
-          webReaderLink: 'link',
-          pageCount: 100,
-        },
-      ],
-      totalItems: 1,
-    };
-    store.overrideSelector(selectReadingNowBooks, expectedData);
+    store.overrideSelector(selectReadingNowBooks, mockBookItemWithTotalHome);
 
     facade.getReadingNowBooks().subscribe(data => {
-      expect(data).toEqual(expectedData);
+      expect(data).toEqual(mockBookItemWithTotalHome);
     });
   });
 

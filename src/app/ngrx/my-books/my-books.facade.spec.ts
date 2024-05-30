@@ -1,9 +1,9 @@
-import { selectLoadingOfMyBooks, selectMyBooks } from './my-books.selector';
-import { loadMyBooks, removeFromMyBooks } from './my-books.actions';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { MyBooksFacade } from './my-books.facade';
+import { selectLoadingOfMyBooks, selectMyBooks } from './';
+import { loadMyBooks, removeFromMyBooks } from './';
 import { IBookItemTransformed } from 'app/models';
 import { TestBed } from '@angular/core/testing';
+import { MyBooksFacade } from './';
 
 describe('MyBooksFacade', () => {
   let facade: MyBooksFacade;

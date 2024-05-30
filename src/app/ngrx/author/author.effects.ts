@@ -1,4 +1,4 @@
-import { loadAuthor, loadAuthorFailure, loadAuthorSuccess } from './author.actions';
+import { loadAuthor, loadAuthorFailure, loadAuthorSuccess } from './';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ISearchInfoDetail, ISearchSmall } from 'app/models';
 import { catchError, map, of, switchMap } from 'rxjs';

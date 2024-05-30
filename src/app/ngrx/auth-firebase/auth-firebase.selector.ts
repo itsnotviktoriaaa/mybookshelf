@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { UserState } from './auth-firebase.state';
+import { UserState } from './';
 
 export const selectUserState = createFeatureSelector<UserState>('user');
 

@@ -1,6 +1,6 @@
-import { setUserAction } from './auth-firebase.actions';
 import { Action, createReducer, on } from '@ngrx/store';
-import { UserState } from './auth-firebase.state';
+import { setUserAction } from './';
+import { UserState } from './';
 
 export const initialStateUser: UserState = {
   user: null,

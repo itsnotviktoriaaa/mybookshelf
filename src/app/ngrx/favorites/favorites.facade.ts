@@ -1,6 +1,6 @@
-import { selectFavoritesBooks, selectLoadingOfFavoritesBooks } from './favorites.selector';
-import { loadFavoritesBooks, removeFromFavoritesBooks } from './favorites.actions';
 import { IActiveParamsSearch, IBookItemTransformedWithTotal } from 'app/models';
+import { selectFavoritesBooks, selectLoadingOfFavoritesBooks } from './';
+import { loadFavoritesBooks, removeFromFavoritesBooks } from './';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';

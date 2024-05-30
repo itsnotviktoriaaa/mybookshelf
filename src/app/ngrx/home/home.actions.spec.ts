@@ -5,7 +5,7 @@ import {
   loadRecommendedBooks,
   loadRecommendedBooksFailure,
   loadRecommendedBooksSuccess,
-} from './home.actions';
+} from './';
 import { IBookItemTransformedWithTotal } from 'app/models';
 import { mockBookItem } from 'app/ngrx';
 

@@ -1,6 +1,6 @@
-import { loadMyBooks, loadMyBooksFailure, loadMyBooksSuccess } from './my-books.actions';
+import { loadMyBooks, loadMyBooksFailure, loadMyBooksSuccess } from './';
 import { Action, createReducer, on } from '@ngrx/store';
-import { MyBooksState } from './my-books.state';
+import { MyBooksState } from './';
 
 export const initialStateMyBooks: MyBooksState = {
   myBooks: null,

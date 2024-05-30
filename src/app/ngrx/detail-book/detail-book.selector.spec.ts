@@ -1,20 +1,10 @@
-import { selectDetailBook, selectLoadingOfDetailBook } from './detail-book.selector';
-import { DetailBookState } from './detail-book.state';
+import { selectDetailBook, selectLoadingOfDetailBook } from './';
+import { testDetailBookSmallInfo } from 'app/ngrx';
+import { DetailBookState } from './';
 
 describe('Detail Book Selectors', () => {
   const mockDetailBookState: DetailBookState = {
-    detailBook: {
-      id: '123',
-      title: 'Test Book',
-      authors: ['Author One', 'Author Two'],
-      publishedDate: '2021-01-01',
-      publisher: 'Test Publisher',
-      averageRating: 4.5,
-      accessInfo: ['EPUB'],
-      thumbnail: 'http://example.com/thumbnail.jpg',
-      description: 'This is a test book.',
-      webReaderLink: 'http://example.com/webReaderLink',
-    },
+    detailBook: testDetailBookSmallInfo,
     isLoading: true,
   };
 

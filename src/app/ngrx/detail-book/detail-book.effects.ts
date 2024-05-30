@@ -1,8 +1,4 @@
-import {
-  loadDetailBook,
-  loadDetailBookFailure,
-  loadDetailBookSuccess,
-} from './detail-book.actions';
+import { loadDetailBook, loadDetailBookFailure, loadDetailBookSuccess } from './';
 import { IDetailBook, IDetailBookSmallInfo } from 'app/models';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';

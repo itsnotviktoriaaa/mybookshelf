@@ -1,4 +1,4 @@
-import { loadAuthor, loadAuthorFailure, loadAuthorSuccess } from './author.actions';
+import { loadAuthor, loadAuthorFailure, loadAuthorSuccess } from './';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { AuthorEffects, infoDetail } from 'app/ngrx';

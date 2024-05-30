@@ -3,8 +3,8 @@ import {
   selectLoadingOfRecommendedBooks,
   selectReadingNowBooks,
   selectRecommendedBooks,
-} from './home.selectors';
-import { loadReadingNowBooks, loadRecommendedBooks } from './home.actions';
+} from './';
+import { loadReadingNowBooks, loadRecommendedBooks } from './';
 import { IBookItemTransformedWithTotal } from 'app/models';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';

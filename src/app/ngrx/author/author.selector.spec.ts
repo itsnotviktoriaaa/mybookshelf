@@ -1,6 +1,6 @@
-import { selectAuthor, selectAuthorState } from './author.selector';
-import { AuthorState } from './author.state';
+import { selectAuthor, selectAuthorState } from './';
 import { ISearchSmall } from 'app/models';
+import { AuthorState } from './';
 
 describe('AuthorSelectors', () => {
   const authorData: ISearchSmall = {

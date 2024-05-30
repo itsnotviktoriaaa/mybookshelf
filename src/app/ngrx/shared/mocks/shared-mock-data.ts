@@ -13,6 +13,8 @@ import {
   ISearchDetail,
   ISearchInfoDetail,
 } from 'app/models';
+import { DocumentData } from '@firebase/firestore';
+import { MyBooksState } from 'app/ngrx';
 
 export const infoDetail: ISearchInfoDetail = {
   kind: 'books#volume',
@@ -404,4 +406,50 @@ export const testDetailBookSmallInfo: IDetailBookSmallInfo = {
   thumbnail: 'http://example.com/thumbnail.jpg',
   description: 'This is a test book.',
   webReaderLink: 'http://example.com/webReaderLink',
+};
+
+export const mockBooksDocumentData: DocumentData[] = [
+  {
+    id: '1',
+    title: 'Book 1',
+    author: ['Author 1'],
+    webReaderLink: '',
+    thumbnail: '',
+    publishedDate: '',
+    description: '',
+  },
+];
+
+export const expectedTransformedBooks: IBookItemTransformed[] = [
+  {
+    id: '1',
+    title: 'Book 1',
+    author: ['Author 1'],
+    webReaderLink: '',
+    thumbnail: '',
+    publishedDate: '',
+    description: '',
+  },
+];
+
+export const mockMyBooksState: MyBooksState = {
+  myBooks: [
+    {
+      id: '1',
+      thumbnail: 'https://example.com/thumbnail1.jpg',
+      title: 'Book 1',
+      author: ['Author 1'],
+      publishedDate: '2022-05-19',
+      webReaderLink: 'https://example.com/reader/book1',
+    },
+    {
+      id: '2',
+      thumbnail: 'https://example.com/thumbnail2.jpg',
+      title: 'Book 2',
+      author: ['Author 2'],
+      publishedDate: '2022-05-20',
+      webReaderLink: 'https://example.com/reader/book2',
+    },
+  ],
+  isLoading: false,
 };

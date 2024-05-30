@@ -5,9 +5,9 @@ import {
   loadReadingNowBooksFailure,
   loadRecommendedBooks,
   loadReadingNowBooks,
-} from './home.actions';
+} from './';
 import { createReducer, on, Action } from '@ngrx/store';
-import { HomeNowState, HomeState } from './home.state';
+import { HomeNowState, HomeState } from './';
 
 export const initialStateHome: HomeState = {
   recommendedBooks: null,

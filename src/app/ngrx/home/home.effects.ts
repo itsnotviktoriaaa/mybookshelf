@@ -5,7 +5,7 @@ import {
   loadRecommendedBooks,
   loadRecommendedBooksFailure,
   loadRecommendedBooksSuccess,
-} from './home.actions';
+} from './';
 import { IBookItemTransformedWithTotal, IBook, IBookItem, IBookItemTransformed } from 'app/models';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';

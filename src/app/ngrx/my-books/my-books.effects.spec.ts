@@ -5,15 +5,14 @@ import {
   removeFromMyBooks,
   removeFromMyBooksFailure,
   removeFromMyBooksSuccess,
-} from './my-books.actions';
+} from './';
+import { expectedTransformedBooks, mockBooksDocumentData } from 'app/ngrx';
 import { finalize, Observable, of, tap, throwError } from 'rxjs';
 import { DatabaseService, NotificationService } from 'app/core';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { TranslateService } from '@ngx-translate/core';
-import { MyBooksEffects } from './my-books.effects';
-import { DocumentData } from '@firebase/firestore';
-import { IBookItemTransformed } from 'app/models';
 import { TestBed } from '@angular/core/testing';
+import { MyBooksEffects } from './';
 
 describe('MyBooksEffects', () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -51,29 +50,7 @@ describe('MyBooksEffects', () => {
   });
 
   it('should dispatch loadMyBooksSuccess action with data on successful load', () => {
-    const mockBooks: DocumentData[] = [
-      {
-        id: '1',
-        title: 'Book 1',
-        author: ['Author 1'],
-        webReaderLink: '',
-        thumbnail: '',
-        publishedDate: '',
-        description: '',
-      },
-    ];
-    const expectedTransformedBooks: IBookItemTransformed[] = [
-      {
-        id: '1',
-        title: 'Book 1',
-        author: ['Author 1'],
-        webReaderLink: '',
-        thumbnail: '',
-        publishedDate: '',
-        description: '',
-      },
-    ];
-    databaseServiceSpy.getSelfBooks.and.returnValue(of(mockBooks));
+    databaseServiceSpy.getSelfBooks.and.returnValue(of(mockBooksDocumentData));
 
     actions$ = of(loadMyBooks());
 

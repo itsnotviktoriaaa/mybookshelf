@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { MyBooksState } from './my-books.state';
+import { MyBooksState } from './';
 
 export const selectMyBooksState = createFeatureSelector<MyBooksState>('myBooks');
 export const selectMyBooks = createSelector(

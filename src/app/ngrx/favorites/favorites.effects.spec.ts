@@ -5,15 +5,15 @@ import {
   removeFromFavoritesBooks,
   removeFromFavoritesBooksFailure,
   removeFromFavoritesBooksSuccess,
-} from './favorites.actions';
+} from './';
 import { GoogleApiService, NotificationService } from 'app/core';
 import { mockBook, mockBookItemWithTotalFav } from 'app/ngrx';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { FavoritesEffects } from './favorites.effects';
 import { TranslateService } from '@ngx-translate/core';
 import { provideMockStore } from '@ngrx/store/testing';
 import { Observable, of, throwError } from 'rxjs';
 import { TestBed } from '@angular/core/testing';
+import { FavoritesEffects } from './';
 
 describe('FavoritesEffects', () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

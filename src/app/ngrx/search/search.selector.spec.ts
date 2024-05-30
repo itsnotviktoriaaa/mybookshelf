@@ -1,9 +1,5 @@
-import {
-  selectLoadingOfSearchBooks,
-  selectSearchBooks,
-  selectSearchState,
-} from './search.selector';
-import { SearchState } from './search.state';
+import { selectLoadingOfSearchBooks, selectSearchBooks, selectSearchState } from './';
+import { SearchState } from './';
 
 describe('SearchSelectors', () => {
   const mockSearchState: SearchState = {

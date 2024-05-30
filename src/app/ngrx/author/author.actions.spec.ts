@@ -1,4 +1,4 @@
-import { loadAuthor, loadAuthorFailure, loadAuthorSuccess } from './author.actions';
+import { loadAuthor, loadAuthorFailure, loadAuthorSuccess } from './';
 
 describe('Author Actions', () => {
   it('should create loadAuthor action', () => {

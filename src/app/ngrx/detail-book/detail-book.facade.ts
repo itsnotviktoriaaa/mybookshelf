@@ -1,8 +1,8 @@
-import { selectDetailBook, selectLoadingOfDetailBook } from './detail-book.selector';
-import { loadDetailBook } from './detail-book.actions';
+import { selectDetailBook, selectLoadingOfDetailBook } from './';
 import { IDetailBookSmallInfo } from 'app/models';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { loadDetailBook } from './';
 import { Observable } from 'rxjs';
 
 @Injectable({

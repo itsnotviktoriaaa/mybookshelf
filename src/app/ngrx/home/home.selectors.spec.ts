@@ -5,48 +5,18 @@ import {
   selectLoadingOfRecommendedBooks,
   selectReadingNowBooks,
   selectRecommendedBooks,
-} from './home.selectors';
-import { IBookItemTransformedWithTotal } from '../../models/personal-library';
-import { HomeNowState, HomeState } from './home.state';
+} from './';
+import { mockBookItemWithTotalHome } from 'app/ngrx';
+import { HomeNowState, HomeState } from './';
 
 describe('HomeSelectors', () => {
-  const recommendedBooksData: IBookItemTransformedWithTotal = {
-    items: [
-      {
-        id: '1',
-        thumbnail: 'url',
-        title: 'title',
-        author: ['Author'],
-        publishedDate: '2023',
-        webReaderLink: 'link',
-        pageCount: 100,
-      },
-    ],
-    totalItems: 1,
-  };
-
   const homeState: HomeState = {
-    recommendedBooks: recommendedBooksData,
+    recommendedBooks: mockBookItemWithTotalHome,
     loading: true,
   };
 
-  const readingNowBooksData: IBookItemTransformedWithTotal = {
-    items: [
-      {
-        id: '1',
-        thumbnail: 'url',
-        title: 'title',
-        author: ['Author'],
-        publishedDate: '2023',
-        webReaderLink: 'link',
-        pageCount: 100,
-      },
-    ],
-    totalItems: 1,
-  };
-
   const homeNowState: HomeNowState = {
-    readingNowBooks: readingNowBooksData,
+    readingNowBooks: mockBookItemWithTotalHome,
     loading: false,
   };
 
@@ -57,7 +27,7 @@ describe('HomeSelectors', () => {
 
   it('should select recommended books', () => {
     const result = selectRecommendedBooks.projector(homeState);
-    expect(result).toEqual(recommendedBooksData);
+    expect(result).toEqual(mockBookItemWithTotalHome);
   });
 
   it('should select loading of recommended books', () => {
@@ -72,7 +42,7 @@ describe('HomeSelectors', () => {
 
   it('should select reading now books', () => {
     const result = selectReadingNowBooks.projector(homeNowState);
-    expect(result).toEqual(readingNowBooksData);
+    expect(result).toEqual(mockBookItemWithTotalHome);
   });
 
   it('should select loading of reading now books', () => {

@@ -1,11 +1,11 @@
-import { loadSearchBooks, loadSearchBooksFailure, loadSearchBooksSuccess } from './search.actions';
+import { loadSearchBooks, loadSearchBooksFailure, loadSearchBooksSuccess } from './';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { Observable, of, throwError } from 'rxjs';
-import { SearchEffects } from './search.effects';
 import { TestBed } from '@angular/core/testing';
 import { GoogleApiService } from 'app/core';
 import { infoDetail } from 'app/ngrx';
+import { SearchEffects } from './';
 
 describe('SearchEffects', () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -1,27 +1,15 @@
-import { selectDetailBook, selectLoadingOfDetailBook } from './detail-book.selector';
-import { IDetailBookSmallInfo } from '../../models/personal-library';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { DetailBookFacade } from './detail-book.facade';
-import { loadDetailBook } from './detail-book.actions';
+import { selectDetailBook, selectLoadingOfDetailBook } from './';
+import { testDetailBookSmallInfo } from 'app/ngrx';
 import { TestBed } from '@angular/core/testing';
+import { DetailBookFacade } from './';
+import { loadDetailBook } from './';
 
 describe('DetailBookFacade', () => {
   let facade: DetailBookFacade;
   let store: MockStore;
-  const mockDetailBook: IDetailBookSmallInfo = {
-    id: '123',
-    title: 'Test Book',
-    authors: ['Author One', 'Author Two'],
-    publishedDate: '2021-01-01',
-    publisher: 'Test Publisher',
-    averageRating: 4.5,
-    accessInfo: ['EPUB'],
-    thumbnail: 'http://example.com/thumbnail.jpg',
-    description: 'This is a test book.',
-    webReaderLink: 'http://example.com/webReaderLink',
-  };
   const initialState = {
-    detailBook: mockDetailBook,
+    detailBook: testDetailBookSmallInfo,
     isLoading: false,
   };
 
@@ -42,9 +30,9 @@ describe('DetailBookFacade', () => {
   });
 
   it('should return the detail book from the store', done => {
-    store.overrideSelector(selectDetailBook, mockDetailBook);
+    store.overrideSelector(selectDetailBook, testDetailBookSmallInfo);
     facade.getDetailBook().subscribe(detailBook => {
-      expect(detailBook).toEqual(mockDetailBook);
+      expect(detailBook).toEqual(testDetailBookSmallInfo);
       done();
     });
   });

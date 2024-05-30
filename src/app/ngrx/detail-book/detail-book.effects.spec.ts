@@ -1,15 +1,11 @@
-import {
-  loadDetailBook,
-  loadDetailBookFailure,
-  loadDetailBookSuccess,
-} from './detail-book.actions';
+import { loadDetailBook, loadDetailBookFailure, loadDetailBookSuccess } from './';
 import { testDetailBook, testDetailBookSmallInfo } from 'app/ngrx';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { DetailBookEffects } from './detail-book.effects';
 import { provideMockStore } from '@ngrx/store/testing';
 import { Observable, of, throwError } from 'rxjs';
 import { TestBed } from '@angular/core/testing';
 import { GoogleApiService } from 'app/core';
+import { DetailBookEffects } from './';
 
 describe('DetailBookEffects', () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

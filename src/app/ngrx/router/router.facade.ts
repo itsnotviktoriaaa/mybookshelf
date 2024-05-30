@@ -1,4 +1,4 @@
-import { selectParams, selectPreviousUrl, selectQueryParams, selectUrl } from './router.selectors';
+import { selectParams, selectPreviousUrl, selectQueryParams, selectUrl } from './';
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import { Store } from '@ngrx/store';

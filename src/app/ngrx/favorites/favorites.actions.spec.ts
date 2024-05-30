@@ -5,8 +5,9 @@ import {
   removeFromFavoritesBooks,
   removeFromFavoritesBooksFailure,
   removeFromFavoritesBooksSuccess,
-} from './favorites.actions';
-import { IActiveParamsSearch, IBookItemTransformedWithTotal } from 'app/models';
+} from './';
+import { mockBookItemWithTotalHome } from 'app/ngrx';
+import { IActiveParamsSearch } from 'app/models';
 
 describe('Favorites Actions', () => {
   it('should create loadFavoritesBooks action', () => {
@@ -17,23 +18,9 @@ describe('Favorites Actions', () => {
   });
 
   it('should create loadFavoritesBooksSuccess action', () => {
-    const payload: IBookItemTransformedWithTotal = {
-      items: [
-        {
-          id: '1',
-          thumbnail: 'url',
-          title: 'title',
-          author: ['Author'],
-          publishedDate: '2023',
-          webReaderLink: 'link',
-          pageCount: 100,
-        },
-      ],
-      totalItems: 1,
-    };
-    const action = loadFavoritesBooksSuccess({ data: payload });
+    const action = loadFavoritesBooksSuccess({ data: mockBookItemWithTotalHome });
     expect(action.type).toBe('[Favorites] Load Favorites Books Success');
-    expect(action.data).toEqual(payload);
+    expect(action.data).toEqual(mockBookItemWithTotalHome);
   });
 
   it('should create loadFavoritesBooksFailure action', () => {

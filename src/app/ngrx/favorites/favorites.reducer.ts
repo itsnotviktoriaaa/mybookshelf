@@ -3,9 +3,9 @@ import {
   loadFavoritesBooksFailure,
   loadFavoritesBooksSuccess,
   removeFromFavoritesBooksSuccess,
-} from './favorites.actions';
+} from './';
 import { Action, createReducer, on } from '@ngrx/store';
-import { FavoritesState } from './favorites.state';
+import { FavoritesState } from './';
 
 export const initialStateFavorite: FavoritesState = {
   favoritesBooks: null,

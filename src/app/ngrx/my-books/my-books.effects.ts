@@ -5,7 +5,7 @@ import {
   removeFromMyBooks,
   removeFromMyBooksFailure,
   removeFromMyBooksSuccess,
-} from './my-books.actions';
+} from './';
 import { DatabaseService, NotificationService } from 'app/core';
 import { catchError, finalize, map, of, switchMap } from 'rxjs';
 import { Actions, createEffect, ofType } from '@ngrx/effects';

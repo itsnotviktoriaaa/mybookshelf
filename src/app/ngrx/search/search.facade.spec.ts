@@ -1,10 +1,10 @@
-import { selectLoadingOfSearchBooks, selectSearchBooks } from './search.selector';
+import { selectLoadingOfSearchBooks, selectSearchBooks } from './';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { IActiveParamsSearch, ISearch } from 'app/models';
-import { loadSearchBooks } from './search.actions';
 import { TestBed } from '@angular/core/testing';
-import { SearchFacade } from './search.facade';
 import { mockSearch } from 'app/ngrx';
+import { loadSearchBooks } from './';
+import { SearchFacade } from './';
 
 describe('SearchFacade', () => {
   let facade: SearchFacade;

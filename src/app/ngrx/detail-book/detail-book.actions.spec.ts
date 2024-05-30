@@ -1,9 +1,5 @@
-import {
-  loadDetailBook,
-  loadDetailBookSuccess,
-  loadDetailBookFailure,
-} from './detail-book.actions';
-import { IDetailBookSmallInfo } from 'app/models';
+import { loadDetailBook, loadDetailBookSuccess, loadDetailBookFailure } from './';
+import { testDetailBookSmallInfo } from 'app/ngrx';
 
 describe('Author Actions', () => {
   it('should create the loadDetailBook action', () => {
@@ -15,22 +11,10 @@ describe('Author Actions', () => {
   });
 
   it('should create the loadDetailBookSuccess action', () => {
-    const mockData: IDetailBookSmallInfo = {
-      id: '123',
-      title: 'Test Book',
-      authors: ['Author One', 'Author Two'],
-      publishedDate: '2021-01-01',
-      publisher: 'Test Publisher',
-      averageRating: 4.5,
-      accessInfo: ['EPUB'],
-      thumbnail: 'http://example.com/thumbnail.jpg',
-      description: 'This is a test book.',
-      webReaderLink: 'http://example.com/webReaderLink',
-    };
-    const action = loadDetailBookSuccess({ data: mockData });
+    const action = loadDetailBookSuccess({ data: testDetailBookSmallInfo });
 
     expect(action.type).toEqual('[Detail Book] Load Detail Books Success');
-    expect(action.data).toEqual(mockData);
+    expect(action.data).toEqual(testDetailBookSmallInfo);
   });
 
   it('should create the loadDetailBookFailure action', () => {

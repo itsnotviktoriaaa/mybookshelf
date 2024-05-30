@@ -1,5 +1,5 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
-import { HomeNowState, HomeState } from './home.state';
+import { HomeNowState, HomeState } from './';
 
 export const selectHomeState = createFeatureSelector<HomeState>('home');
 

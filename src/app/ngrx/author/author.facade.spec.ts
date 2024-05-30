@@ -1,9 +1,9 @@
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { selectAuthor } from './author.selector';
 import { TestBed } from '@angular/core/testing';
-import { AuthorFacade } from './author.facade';
-import { loadAuthor } from './author.actions';
 import { ISearchSmall } from 'app/models';
+import { selectAuthor } from './';
+import { AuthorFacade } from './';
+import { loadAuthor } from './';
 
 describe('AuthorFacade', () => {
   let facade: AuthorFacade;

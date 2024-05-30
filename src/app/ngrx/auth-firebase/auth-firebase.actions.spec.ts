@@ -1,4 +1,4 @@
-import { setUserAction } from './auth-firebase.actions';
+import { setUserAction } from './';
 
 describe('AuthFirebase Actions', () => {
   it('should create setUserAction correctly', () => {

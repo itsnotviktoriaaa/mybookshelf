@@ -5,14 +5,9 @@ import {
   loadRecommendedBooks,
   loadRecommendedBooksFailure,
   loadRecommendedBooksSuccess,
-} from './home.actions';
-import {
-  homeNowReducer,
-  homeReducer,
-  initialStateHome,
-  initialStateReadingNowBooks,
-} from './home.reducer';
-import { IBookItemTransformedWithTotal } from 'app/models';
+} from './';
+import { homeNowReducer, homeReducer, initialStateHome, initialStateReadingNowBooks } from './';
+import { mockBookItemWithTotalHome } from 'app/ngrx';
 
 describe('HomeReducer', () => {
   it('should return the initial state for homeReducer', () => {
@@ -28,24 +23,10 @@ describe('HomeReducer', () => {
   });
 
   it('should handle loadRecommendedBooksSuccess', () => {
-    const recommendedBooksData: IBookItemTransformedWithTotal = {
-      items: [
-        {
-          id: '1',
-          thumbnail: 'url',
-          title: 'title',
-          author: ['Author'],
-          publishedDate: '2023',
-          webReaderLink: 'link',
-          pageCount: 100,
-        },
-      ],
-      totalItems: 1,
-    };
-    const action = loadRecommendedBooksSuccess({ data: recommendedBooksData });
+    const action = loadRecommendedBooksSuccess({ data: mockBookItemWithTotalHome });
     const state = homeReducer(initialStateHome, action);
 
-    expect(state.recommendedBooks).toEqual(recommendedBooksData);
+    expect(state.recommendedBooks).toEqual(mockBookItemWithTotalHome);
     expect(state.loading).toBe(false);
   });
 
@@ -72,24 +53,10 @@ describe('HomeNowReducer', () => {
   });
 
   it('should handle loadReadingNowBooksSuccess', () => {
-    const readingNowBooksData: IBookItemTransformedWithTotal = {
-      items: [
-        {
-          id: '1',
-          thumbnail: 'url',
-          title: 'title',
-          author: ['Author'],
-          publishedDate: '2023',
-          webReaderLink: 'link',
-          pageCount: 100,
-        },
-      ],
-      totalItems: 1,
-    };
-    const action = loadReadingNowBooksSuccess({ data: readingNowBooksData });
+    const action = loadReadingNowBooksSuccess({ data: mockBookItemWithTotalHome });
     const state = homeNowReducer(initialStateReadingNowBooks, action);
 
-    expect(state.readingNowBooks).toEqual(readingNowBooksData);
+    expect(state.readingNowBooks).toEqual(mockBookItemWithTotalHome);
     expect(state.loading).toBe(false);
   });
 

@@ -1,7 +1,7 @@
-import { loadSearchBooks, loadSearchBooksFailure, loadSearchBooksSuccess } from './search.actions';
-import { searchReducer } from './search.reducer';
-import { SearchState } from './search.state';
+import { loadSearchBooks, loadSearchBooksFailure, loadSearchBooksSuccess } from './';
 import { mockSearch } from 'app/ngrx';
+import { searchReducer } from './';
+import { SearchState } from './';
 
 describe('SearchReducer', () => {
   const initialState: SearchState = {

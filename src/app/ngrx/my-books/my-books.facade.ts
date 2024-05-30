@@ -1,5 +1,5 @@
-import { selectLoadingOfMyBooks, selectMyBooks } from './my-books.selector';
-import { loadMyBooks, removeFromMyBooks } from './my-books.actions';
+import { selectLoadingOfMyBooks, selectMyBooks } from './';
+import { loadMyBooks, removeFromMyBooks } from './';
 import { IBookItemTransformed } from 'app/models';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';

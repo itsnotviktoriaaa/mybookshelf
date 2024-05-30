@@ -1,5 +1,5 @@
-import { setUserAction } from './auth-firebase.actions';
-import { userReducer } from './auth-firebase.reducer';
+import { setUserAction } from './';
+import { userReducer } from './';
 
 describe('AuthFirebase Reducer', () => {
   it('should set user correctly', () => {

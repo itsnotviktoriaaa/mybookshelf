@@ -3,10 +3,10 @@ import {
   loadFavoritesBooksFailure,
   loadFavoritesBooksSuccess,
   removeFromFavoritesBooksSuccess,
-} from './favorites.actions';
-import { favoritesReducer, initialStateFavorite } from './favorites.reducer';
-import { IBookItemTransformedWithTotal } from 'app/models';
-import { FavoritesState } from './favorites.state';
+} from './';
+import { favoritesReducer, initialStateFavorite } from './';
+import { mockBookItemWithTotalFav } from 'app/ngrx';
+import { FavoritesState } from './';
 
 describe('FavoritesReducer', () => {
   it('should return the initial state', () => {
@@ -24,29 +24,11 @@ describe('FavoritesReducer', () => {
   });
 
   it('should handle loadFavoritesBooksSuccess', () => {
-    const favoritesData: IBookItemTransformedWithTotal = {
-      items: [
-        {
-          id: '1',
-          title: 'Test Book',
-          thumbnail: 'url',
-          author: ['Author'],
-          publishedDate: '2020-01-01',
-          webReaderLink: 'http://example.com',
-          pageCount: 100,
-          selfLink: 'http://example.com',
-          categories: ['Category'],
-          userInfo: '2023-01-01',
-          averageRating: 4.5,
-        },
-      ],
-      totalItems: 1,
-    };
-    const action = loadFavoritesBooksSuccess({ data: favoritesData });
+    const action = loadFavoritesBooksSuccess({ data: mockBookItemWithTotalFav });
     const state = favoritesReducer(initialStateFavorite, action);
 
     expect(state.isLoading).toBe(false);
-    expect(state.favoritesBooks).toEqual(favoritesData);
+    expect(state.favoritesBooks).toEqual(mockBookItemWithTotalFav);
   });
 
   it('should handle loadFavoritesBooksFailure', () => {
@@ -59,27 +41,10 @@ describe('FavoritesReducer', () => {
 
   it('should handle removeFromFavoritesBooksSuccess when there is only one item', () => {
     const initialStateWithBook: FavoritesState = {
-      favoritesBooks: {
-        items: [
-          {
-            id: '1',
-            title: 'Test Book',
-            thumbnail: 'url',
-            author: ['Author'],
-            publishedDate: '2020-01-01',
-            webReaderLink: 'http://example.com',
-            pageCount: 100,
-            selfLink: 'http://example.com',
-            categories: ['Category'],
-            userInfo: '2023-01-01',
-            averageRating: 4.5,
-          },
-        ],
-        totalItems: 1,
-      },
+      favoritesBooks: mockBookItemWithTotalFav,
       isLoading: false,
     };
-    const action = removeFromFavoritesBooksSuccess({ bookId: '1' });
+    const action = removeFromFavoritesBooksSuccess({ bookId: 'book1' });
     const state = favoritesReducer(initialStateWithBook, action);
 
     expect(state.favoritesBooks).toBeNull();

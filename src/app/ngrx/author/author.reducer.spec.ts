@@ -1,5 +1,5 @@
-import { loadAuthorFailure, loadAuthorSuccess } from './author.actions';
-import { authorReducer, initialStateAuthor } from './author.reducer';
+import { loadAuthorFailure, loadAuthorSuccess } from './';
+import { authorReducer, initialStateAuthor } from './';
 import { ISearchSmall } from 'app/models';
 
 describe('AuthorReducer', () => {

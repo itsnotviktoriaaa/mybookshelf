@@ -1,9 +1,10 @@
-import { selectFavoritesBooks, selectLoadingOfFavoritesBooks } from './favorites.selector';
-import { loadFavoritesBooks, removeFromFavoritesBooks } from './favorites.actions';
-import { IActiveParamsSearch, IBookItemTransformedWithTotal } from 'app/models';
+import { selectFavoritesBooks, selectLoadingOfFavoritesBooks } from '.';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { FavoritesFacade } from './favorites.facade';
+import { loadFavoritesBooks, removeFromFavoritesBooks } from './';
+import { mockBookItemWithTotalFav } from 'app/ngrx';
+import { IActiveParamsSearch } from 'app/models';
 import { TestBed } from '@angular/core/testing';
+import { FavoritesFacade } from './';
 
 describe('FavoritesFacade', () => {
   let facade: FavoritesFacade;
@@ -28,28 +29,9 @@ describe('FavoritesFacade', () => {
   });
 
   it('should return selected favorites books', () => {
-    const expectedData: IBookItemTransformedWithTotal = {
-      totalItems: 1,
-      items: [
-        {
-          id: '1',
-          thumbnail: 'url',
-          title: 'title',
-          author: ['Author'],
-          publishedDate: '2020-01-01',
-          webReaderLink: 'http://example.com',
-          pageCount: 100,
-          selfLink: 'http://example.com',
-          categories: ['Category'],
-          userInfo: '2023-01-01',
-          averageRating: 4.5,
-        },
-      ],
-    };
-    store.overrideSelector(selectFavoritesBooks, expectedData);
-
+    store.overrideSelector(selectFavoritesBooks, mockBookItemWithTotalFav);
     facade.getFavoritesBooks().subscribe(data => {
-      expect(data).toEqual(expectedData);
+      expect(data).toEqual(mockBookItemWithTotalFav);
     });
   });
 

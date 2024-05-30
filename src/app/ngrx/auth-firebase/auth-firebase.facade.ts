@@ -1,7 +1,7 @@
-import { selectCurrentUser } from './auth-firebase.selector';
-import { setUserAction } from './auth-firebase.actions';
 import { Injectable } from '@angular/core';
+import { selectCurrentUser } from './';
 import { Store } from '@ngrx/store';
+import { setUserAction } from './';
 import { Observable } from 'rxjs';
 
 @Injectable({

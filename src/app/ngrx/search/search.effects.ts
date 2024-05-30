@@ -1,4 +1,4 @@
-import { loadSearchBooks, loadSearchBooksFailure, loadSearchBooksSuccess } from './search.actions';
+import { loadSearchBooks, loadSearchBooksFailure, loadSearchBooksSuccess } from './';
 import { ISearchDetail, ISearchInfoDetail, ISearch } from 'app/models';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';

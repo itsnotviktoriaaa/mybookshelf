@@ -1,5 +1,5 @@
-import { loadMyBooks, loadMyBooksFailure, loadMyBooksSuccess } from './my-books.actions';
-import { initialStateMyBooks, myBooksReducer } from './my-books.reducer';
+import { loadMyBooks, loadMyBooksFailure, loadMyBooksSuccess } from './';
+import { initialStateMyBooks, myBooksReducer } from './';
 import { IBookItemTransformed } from 'app/models';
 
 describe('MyBooksReducer', () => {

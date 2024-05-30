@@ -5,14 +5,14 @@ import {
   loadRecommendedBooks,
   loadRecommendedBooksFailure,
   loadRecommendedBooksSuccess,
-} from './home.actions';
+} from './';
 import { mockBook, mockBookItemWithTotalHome } from 'app/ngrx';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { Observable, of, throwError } from 'rxjs';
 import { TestBed } from '@angular/core/testing';
-import { BookEffects } from './home.effects';
 import { GoogleApiService } from 'app/core';
+import { BookEffects } from './';
 
 describe('HomeEffects', () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

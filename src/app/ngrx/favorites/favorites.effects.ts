@@ -5,7 +5,7 @@ import {
   removeFromFavoritesBooks,
   removeFromFavoritesBooksFailure,
   removeFromFavoritesBooksSuccess,
-} from './favorites.actions';
+} from './';
 import { IBookItemTransformedWithTotal, IBook, IBookItemTransformed } from 'app/models';
 import { BookTransformUtil, GoogleApiService, NotificationService } from 'app/core';
 import { catchError, exhaustMap, finalize, map, of, switchMap, tap } from 'rxjs';

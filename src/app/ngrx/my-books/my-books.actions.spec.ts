@@ -5,7 +5,7 @@ import {
   removeFromMyBooks,
   removeFromMyBooksFailure,
   removeFromMyBooksSuccess,
-} from './my-books.actions';
+} from './';
 import { IBookItemTransformed } from 'app/models';
 import { mockBookItem } from 'app/ngrx';
 

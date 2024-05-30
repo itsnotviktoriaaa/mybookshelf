@@ -1,7 +1,7 @@
-import { selectLoadingOfSearchBooks, selectSearchBooks } from './search.selector';
+import { selectLoadingOfSearchBooks, selectSearchBooks } from './';
 import { IActiveParamsSearch, ISearch } from 'app/models';
-import { loadSearchBooks } from './search.actions';
 import { Injectable } from '@angular/core';
+import { loadSearchBooks } from './';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
