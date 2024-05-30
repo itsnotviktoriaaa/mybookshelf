@@ -40,12 +40,12 @@ describe('PaginationInputComponent', (): void => {
   it('should define quantity of book and set false if page less or equality 1', (): void => {
     component.quantityOfBooks = 40;
     component.ngOnChanges();
-    expect(component.isShow.value).toBe(false);
+    expect(component.isShow$.value).toBe(false);
   });
 
   it('should define quantity of book and set false if page more than 1', (): void => {
     component.quantityOfBooks = 41;
     component.ngOnChanges();
-    expect(component.isShow.value).toBe(true);
+    expect(component.isShow$.value).toBe(true);
   });
 });

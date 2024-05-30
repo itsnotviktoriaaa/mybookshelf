@@ -66,7 +66,6 @@ export class ShowAllComponent implements OnInit {
         }
         if (Object.prototype.hasOwnProperty.call(params, 'page')) {
           this.activeParams.page = +params['page'];
-          console.log(this.activeParams);
           this.definedStartIndex(+params['page']);
         } else {
           this.activeParams.page = 1;
@@ -80,8 +79,6 @@ export class ShowAllComponent implements OnInit {
       this.homeFacade.loadRecommendedBooks(this.startIndex);
       this.showBooks$ = this.homeFacade.getRecommendedBooks().pipe(
         tap((showBooks: IBookItemTransformedWithTotal | null) => {
-          console.log(showBooks);
-
           this.definedQuantityOfPages(showBooks);
         })
       );
@@ -89,7 +86,6 @@ export class ShowAllComponent implements OnInit {
       this.homeFacade.loadReadingNowBooks(this.startIndex);
       this.showBooks$ = this.homeFacade.getReadingNowBooks().pipe(
         tap((showBooks: IBookItemTransformedWithTotal | null) => {
-          console.log(showBooks);
           this.definedQuantityOfPages(showBooks);
         })
       );

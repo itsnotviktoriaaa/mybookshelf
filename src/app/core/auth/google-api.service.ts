@@ -23,7 +23,6 @@ export class GoogleApiService {
   ) {}
 
   initiateAuthentication(): void {
-    console.log('here');
     this.oAuthService.configure(environment.oAuthConfig);
     this.oAuthService.loadDiscoveryDocument().then(() => {
       this.oAuthService.tryLoginImplicitFlow().then(() => {
@@ -36,9 +35,8 @@ export class GoogleApiService {
               this.oAuthService.tokenValidationHandler = new JwksValidationHandler();
 
               this.oAuthService.events.subscribe(event => {
-                console.log(event);
                 if (event.type === 'token_received') {
-                  console.log('Automatic token refresh event received:', event);
+                  // console.log('Automatic token refresh event received:', event);
                 }
               });
 
@@ -52,7 +50,6 @@ export class GoogleApiService {
                 .pipe(
                   tap((param: string[]) => {
                     if (param && param.length > 0) {
-                      console.log('here we are');
                       this.authService.login(
                         this.userProfileSubject.getValue()!.info.email,
                         this.userProfileSubject.getValue()!.info.sub

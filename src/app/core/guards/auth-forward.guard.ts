@@ -9,35 +9,28 @@ export const authForwardGuard: CanActivateFn = (route: ActivatedRouteSnapshot, s
   const oAuthService: OAuthService = inject(OAuthService);
   oAuthService.configure(environment.oAuthConfig);
 
-  console.log('HIIIII');
-
   if (state.url === '/' || state.url === '/signup') {
     return from(oAuthService.loadDiscoveryDocument()).pipe(
       switchMap(() => oAuthService.tryLoginImplicitFlow()),
       switchMap(() => {
         if (!oAuthService.hasValidAccessToken()) {
-          console.log('мы тут');
           return of(true);
         } else {
-          console.log('jjjejeje');
           return of(router.createUrlTree(['/home']));
         }
       })
     );
   } else if (state.url.includes('/home')) {
-    console.log(state.url);
     return from(oAuthService.loadDiscoveryDocument()).pipe(
       switchMap(() => oAuthService.tryLoginImplicitFlow()),
       switchMap(() => {
         if (!oAuthService.hasValidAccessToken()) {
           return of(router.createUrlTree(['/']));
         } else {
-          console.log('WE ARE HEREEE');
           return of(true);
         }
       }),
-      catchError(err => {
-        console.log(err);
+      catchError(() => {
         return of(router.createUrlTree(['/']));
       })
     );

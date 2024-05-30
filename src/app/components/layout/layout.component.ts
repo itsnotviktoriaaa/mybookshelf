@@ -63,7 +63,6 @@ export class LayoutComponent implements OnInit {
       .pipe(
         tap((user: IUserInfoFromGoogle | null) => {
           if (!user) {
-            console.log('wowowowow4');
             this.googleApi.initiateAuthentication();
           }
         })

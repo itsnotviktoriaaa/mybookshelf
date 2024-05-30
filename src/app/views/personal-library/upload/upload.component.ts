@@ -206,7 +206,6 @@ export class UploadComponent implements OnInit {
       const deletePreviousPdf$ =
         this.pdfFile && this.pdfUrl.value
           ? this.databaseService.deleteFileByUrl(this.pdfUrl.value).pipe(
-              tap(() => console.log('Previous PDF file deleted successfully')),
               catchError(error => {
                 console.error('Error deleting previous PDF file:', error);
                 return EMPTY;
@@ -217,7 +216,6 @@ export class UploadComponent implements OnInit {
       const deletePreviousPhoto$ =
         this.photoFile && this.photoUrl.value
           ? this.databaseService.deleteFileByUrl(this.photoUrl.value).pipe(
-              tap(() => console.log('Previous photo deleted successfully')),
               catchError(error => {
                 console.error('Error deleting previous photo:', error);
                 return EMPTY;

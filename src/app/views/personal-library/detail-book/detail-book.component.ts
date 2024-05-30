@@ -68,7 +68,7 @@ export class DetailBookComponent implements OnInit {
         filter(params => params && params['id']),
         tap((params: Params): void => {
           const idOfBook = params['id'];
-          console.log(idOfBook);
+
           if (idOfBook) {
             this.detailBookFacade.loadDetailBook(idOfBook);
             this.detailBook$ = this.detailBookFacade.getDetailBook().pipe(
@@ -91,7 +91,6 @@ export class DetailBookComponent implements OnInit {
     this.routerFacadeService.getPreviousUrl$
       .pipe(
         tap((previousUrl: string | null): void => {
-          console.log('Previous URL:', previousUrl);
           this.previousRouter = previousUrl;
         }),
         takeUntil(this.destroy$)
@@ -143,7 +142,6 @@ export class DetailBookComponent implements OnInit {
         this.changeNumberFromUrlToScape(queryParams, 'category');
       }
 
-      console.log(queryParams);
       this.router.navigate([path], { queryParams }).then((): void => {});
     } else {
       this.router.navigate(['/home']).then((): void => {});

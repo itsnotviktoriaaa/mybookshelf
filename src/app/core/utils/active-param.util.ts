@@ -72,7 +72,6 @@ export class ActiveParamUtil {
       activeParams.q = 'search+term';
     }
 
-    console.log(activeParams);
     return activeParams;
   }
 

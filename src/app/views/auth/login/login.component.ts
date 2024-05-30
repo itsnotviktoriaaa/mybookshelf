@@ -78,7 +78,6 @@ export class LoginComponent implements OnInit {
           status: NotificationStatusEnum.SUCCESS,
         });
         this.router.navigate(['/home']).then(() => {});
-        console.log('----- Login ------');
       }),
       takeUntil(this.destroy$),
       catchError(err => {

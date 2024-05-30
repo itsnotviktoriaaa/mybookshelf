@@ -37,8 +37,6 @@ export class FavoritesComponent implements OnInit, OnDestroy {
     this.routerFacadeService.getQueryParams$
       .pipe(debounceTime(1), takeUntil(this.destroy$))
       .subscribe((params: Params): void => {
-        console.log(params);
-
         const newParamsForFavorite: IActiveParamsSearch =
           ActiveParamUtil.processParamsForFavoritePage(params);
 

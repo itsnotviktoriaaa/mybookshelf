@@ -90,7 +90,6 @@ export class PaginationInputComponent implements OnInit, OnChanges {
         })
       )
       .subscribe((value: string): void => {
-        console.log(value);
         this.valueFromInput$.next(+value);
         const queryParams = { ...this.queryParams, page: value };
 
@@ -104,10 +103,9 @@ export class PaginationInputComponent implements OnInit, OnChanges {
 
   defineQuantityOfPages(): void {
     if (this.quantityOfBooks) {
-      console.log(this.quantityOfBooks);
       const pages: number = Math.ceil(this.quantityOfBooks / 40);
       this.quantityOfPages$.next(pages);
-      console.log(pages);
+
       if (pages > 1) {
         this.isShow$.next(true);
       } else {

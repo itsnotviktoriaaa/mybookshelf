@@ -100,7 +100,6 @@ export class SignupComponent implements OnInit {
   }
 
   checkEmailWasUsedBeforeToSendCode(): void {
-    console.log(this.registerForm.value.email);
     this.checkEmailWasUsedObservable().subscribe();
   }
 
@@ -119,14 +118,13 @@ export class SignupComponent implements OnInit {
         }
       }),
       takeUntil(this.destroy$),
-      catchError(err => {
+      catchError(() => {
         const messageKey = 'message.somethingWentWrong';
         const message = this.translateService.instant(messageKey);
         this.notificationService.sendNotification({
           message: message,
           status: NotificationStatusEnum.ERROR,
         });
-        console.log(err);
         return EMPTY;
       })
     );
@@ -138,8 +136,6 @@ export class SignupComponent implements OnInit {
         this.verificationBody.nativeElement.querySelectorAll('.verification-number');
 
       for (let i: number = 0; i < verificationInputs.length; i++) {
-        console.log('handle inputs');
-
         verificationInputs[i].addEventListener('keyup', (event: KeyboardEvent): void => {
           const currentValue: string = (event.target as HTMLInputElement)?.value;
           const currentCode: string = event.code;
@@ -176,7 +172,6 @@ export class SignupComponent implements OnInit {
   }
 
   checkInputsForAbleButton(verificationInputs: NodeListOf<HTMLInputElement>): void {
-    console.log(verificationInputs);
     this.fillAllInputs = Array.from(verificationInputs).every(
       (input: HTMLInputElement): boolean => {
         return input.value !== '';
@@ -193,7 +188,6 @@ export class SignupComponent implements OnInit {
     this.codeWhichWriteUser = '';
 
     verificationInputs.forEach((input: HTMLInputElement): void => {
-      console.log(input.value);
       this.codeWhichWriteUser += input.value;
     });
   }
@@ -205,7 +199,6 @@ export class SignupComponent implements OnInit {
 
   isCodeFromUserRight(): void {
     if (this.codeWhichWriteUser === this.generatedCode?.toString()) {
-      console.log('Код введен идентичный сгенерированному');
       this.sign();
     } else {
       const messageKey = 'message.incorrectCode';
@@ -247,9 +240,8 @@ export class SignupComponent implements OnInit {
     response: EmailJSResponseStatus
   ): Observable<EmailJSResponseStatus> {
     return of(response).pipe(
-      tap((response: EmailJSResponseStatus): void => {
+      tap((): void => {
         this.notificationService.setNotificationLoader(false);
-        console.log('Success. Status: ' + response.text + ' ' + response.status);
         const messageKey = 'message.codeSentOnEmail';
         const message = this.translateService.instant(messageKey);
         this.notificationService.sendNotification({
@@ -263,7 +255,7 @@ export class SignupComponent implements OnInit {
         }
       }),
       takeUntil(this.destroy$),
-      catchError(error => {
+      catchError(() => {
         this.notificationService.setNotificationLoader(false);
         const messageKey = 'message.tryAgainMessage';
         const message = this.translateService.instant(messageKey);
@@ -271,7 +263,7 @@ export class SignupComponent implements OnInit {
           message: message,
           status: NotificationStatusEnum.ERROR,
         });
-        console.log('sth went wrong. Error ' + error.text + ' ' + error.status);
+
         return EMPTY;
       })
     );

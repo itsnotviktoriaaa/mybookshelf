@@ -21,7 +21,7 @@ import {
   Storage,
   uploadBytesResumable,
 } from '@angular/fire/storage';
-import { catchError, forkJoin, from, map, Observable, of, switchMap, tap, throwError } from 'rxjs';
+import { catchError, forkJoin, from, map, Observable, of, switchMap, throwError } from 'rxjs';
 import { CollectionReference, DocumentData } from '@firebase/firestore';
 import { UploadMetadata } from '@angular/fire/storage';
 import { AuthFirebaseFacade } from 'app/ngrx';
@@ -118,9 +118,6 @@ export class DatabaseService {
       deleteFilePdf: deleteFilePdf$,
       deleteFilePhoto: deleteFilePhoto$,
     }).pipe(
-      tap(() => {
-        console.log('Book and files deleted successfully');
-      }),
       map(() => undefined),
       catchError(error => {
         console.error('Error deleting book or file:', error);

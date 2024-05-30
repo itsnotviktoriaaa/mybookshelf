@@ -256,7 +256,6 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
         })
       )
       .subscribe((data: string[] | null): void => {
-        console.log(data);
         this.searchTexts$.next(data);
       });
   }
