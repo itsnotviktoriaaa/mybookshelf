@@ -4,7 +4,7 @@
 .pdf-viewer {
   @include common-calc-height;
 
-  background-color: var(--gray-label-color);
+  background-color: #4d4d4d;
   position: relative;
 
   .pdf-viewer-header {
