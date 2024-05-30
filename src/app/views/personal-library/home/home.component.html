@@ -31,7 +31,7 @@
       @defer (on viewport) {
         <app-google-home [googleArrayFromHome]="readingNowBooks"></app-google-home>
       } @placeholder {
-        <div>Loading...</div>
+        <div>{{ 'message.loading' | translate }}</div>
       }
     }
 

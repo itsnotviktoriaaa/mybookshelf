@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
 import { AsyncPipe } from '@angular/common';
 import { IQuotesSmall } from 'app/models';
 import { QuotesFacade } from 'ngr/quotes';
@@ -7,7 +8,7 @@ import { QuotesFacade } from 'ngr/quotes';
 @Component({
   selector: 'app-slider',
   standalone: true,
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, TranslateModule],
   templateUrl: './slider.component.html',
   styleUrl: './slider.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

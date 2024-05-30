@@ -160,6 +160,9 @@
     "secondaryScrollHorizontal": "Horizontal Scrolling",
     "secondaryScrollWrapped": "Wrapped Scrolling"
   },
+  "slider": {
+    "todayQuote": "Today’s Quote"
+  },
   "language": {
     "en": "Eng",
     "ru": "Rus"

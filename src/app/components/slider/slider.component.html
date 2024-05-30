@@ -1,6 +1,6 @@
 @if (quotes$ | async; as quotes) {
   <div class="quotes slide-in-left">
-    <h4 class="quotes-title">Today’s Quote</h4>
+    <h4 class="quotes-title">{{ 'slider.todayQuote' | translate }}</h4>
     <div class="quotes-items">
       <div class="slides" [style.transform]="getTransform(currentSlide$ | async)">
         @for (quote of quotes$ | async; track quote; let i = $index) {

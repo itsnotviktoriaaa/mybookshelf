@@ -160,6 +160,9 @@
     "secondaryScrollHorizontal": "Горизонтально",
     "secondaryScrollWrapped": "Обтекание"
   },
+  "slider": {
+    "todayQuote": "Цитаты дня"
+  },
   "language": {
     "en": "Англ",
     "ru": "Русс"
