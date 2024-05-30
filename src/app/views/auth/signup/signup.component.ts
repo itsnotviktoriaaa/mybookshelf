@@ -6,7 +6,7 @@ import {
   PasswordNotEmailDirective,
   PasswordRepeatDirective,
 } from 'core/';
-import { catchError, EMPTY, finalize, Observable, of, Subject, takeUntil, tap } from 'rxjs';
+import { catchError, EMPTY, filter, finalize, Observable, of, Subject, takeUntil, tap } from 'rxjs';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
@@ -86,11 +86,10 @@ export class SignupComponent implements OnInit {
 
   verificationObservable(): Observable<boolean> {
     return this.verification$.pipe(
-      tap((params: boolean) => {
+      filter(params => params),
+      tap(() => {
         this.timeout = window.setTimeout(() => {
-          if (params) {
-            this.handleAllInputsForCode();
-          }
+          this.handleAllInputsForCode();
         }, 0);
       }),
       takeUntil(this.destroy$),

@@ -1,8 +1,8 @@
 import { selectQuotes } from 'ngr/quotes/quotes.selector';
 import { loadQuotes } from 'ngr/quotes/quotes.actions';
+import { filter, Observable, tap } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { IQuotesSmall } from 'app/models';
-import { Observable, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 @Injectable({
@@ -14,10 +14,9 @@ export class QuotesFacade {
   loadQuotes(): void {
     this.getQuotes()
       .pipe(
-        tap((quotes: IQuotesSmall[] | null): void => {
-          if (!quotes) {
-            this.store.dispatch(loadQuotes());
-          }
+        filter(quotes => !quotes),
+        tap(() => {
+          this.store.dispatch(loadQuotes());
         })
       )
       .subscribe();

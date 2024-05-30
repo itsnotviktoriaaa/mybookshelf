@@ -38,7 +38,6 @@ export const CategoryModalSearchItems: string[] = [
   'Computer simulation',
   'Computer software',
   'Computer-assisted instruction',
-  'Computerized self-help devices for people with disabilities',
   'Computational linguistics',
   'Computational neuroscience',
   'Computer algorithms',

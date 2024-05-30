@@ -13,13 +13,13 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { NgClass, NgStyle } from '@angular/common';
 import { IBookItemTransformed } from 'models/';
+import { filter, takeUntil, tap } from 'rxjs';
 import { CommonPopupService } from 'core/';
 import { CommonPopupComponent } from 'ui/';
 import { Router } from '@angular/router';
 import { DestroyDirective } from 'core/';
 import { FavoritesFacade } from 'ngr/';
 import { FavouriteStore } from 'ngr/';
-import { takeUntil, tap } from 'rxjs';
 import { MyBooksFacade } from 'ngr/';
 
 @Component({
@@ -66,10 +66,9 @@ export class BookComponent implements OnInit {
     this.commonPopupService
       .getDeleteOwnBookOrNot()
       .pipe(
-        tap((param: boolean): void => {
-          if (param) {
-            this.deleteSelfBook();
-          }
+        filter(param => param),
+        tap((): void => {
+          this.deleteSelfBook();
         }),
         takeUntil(this.destroy$)
       )
@@ -78,10 +77,9 @@ export class BookComponent implements OnInit {
     this.commonPopupService
       .getDeleteFavoriteBookOrNot()
       .pipe(
-        tap((param: boolean): void => {
-          if (param) {
-            this.deleteFavoriteBook();
-          }
+        filter(param => param),
+        tap((): void => {
+          this.deleteFavoriteBook();
         }),
         takeUntil(this.destroy$)
       )

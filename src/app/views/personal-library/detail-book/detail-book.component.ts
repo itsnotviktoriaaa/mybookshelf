@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
+import { debounceTime, filter, Observable, of, takeUntil, tap } from 'rxjs';
 import { IActions, IDetailBookSmallInfo, ISearchSmall } from 'app/models';
-import { debounceTime, Observable, of, takeUntil, tap } from 'rxjs';
 import { ReduceLetterPipe, TransformDateBookPipe } from 'app/core';
 import { Params, Router, RouterLink } from '@angular/router';
 import { MiniLoaderComponent, StarComponent } from 'ui/';
@@ -65,6 +65,7 @@ export class DetailBookComponent implements OnInit {
     this.routerFacadeService.getParams$
       .pipe(
         debounceTime(1),
+        filter(params => params && params['id']),
         tap((params: Params): void => {
           const idOfBook = params['id'];
           console.log(idOfBook);

@@ -54,6 +54,7 @@ export class PaginationInputComponent implements OnInit, OnChanges {
     this.routerFacadeService.getQueryParams$
       .pipe(
         debounceTime(1),
+        filter(params => params && params['page']),
         tap((params: Params): void => {
           this.queryParams = params;
           if (this.queryParams['page']) {

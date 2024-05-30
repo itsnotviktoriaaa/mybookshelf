@@ -32,6 +32,7 @@ export class AppComponent implements OnInit {
       this.translateService.use('en');
     }
   }
+
   ngOnInit(): void {
     this.authService.user$
       .pipe(
