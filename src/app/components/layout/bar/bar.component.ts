@@ -9,7 +9,7 @@ import { environment } from '../../../../environments/environment.development';
 import { Router, RouterLinkActive } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { SvgIconComponent } from 'angular-svg-icon';
-import { IMenuBelowBar, IMenuItem } from 'models/';
+import { IMenuRouter, IMenuItem } from 'models/';
 import { AsyncPipe } from '@angular/common';
 import { ThemeService } from 'app/core';
 
@@ -39,7 +39,7 @@ export class BarComponent implements AfterViewInit {
     { routerLink: '/home/upload', icon: '/bar-upload.svg', translate: 'bar-menu-above.upload' },
   ];
 
-  menuBelowBarItems: IMenuBelowBar[] = [
+  menuBelowBarItems: IMenuRouter[] = [
     { routerLink: '/home/about', translate: 'bar-below-below.about' },
     { routerLink: '/home/support', translate: 'bar-below-below.support' },
     { routerLink: '/home/terms', translate: 'bar-below-below.termsAndCondition' },

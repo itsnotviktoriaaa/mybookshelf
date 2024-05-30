@@ -1,8 +1,8 @@
-export interface IMenuBelowBar {
+export interface IMenuRouter {
   routerLink: string;
   translate: string;
 }
 
-export interface IMenuItem extends IMenuBelowBar {
+export interface IMenuItem extends IMenuRouter {
   icon: string;
 }

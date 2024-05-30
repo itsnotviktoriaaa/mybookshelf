@@ -117,12 +117,11 @@
             <ul class="header-modal-items">
               @for (
                 headerModalAccountItem of headerModalAccountItems;
-                track headerModalAccountItem;
-                let last = $last
+                track headerModalAccountItem
               ) {
                 <li class="header-modal-item">
-                  <a (click)="last ? logoutForGoogle() : null">
-                    {{ headerModalAccountItem | translate }}
+                  <a (click)="moveToPage(headerModalAccountItem.routerLink)">
+                    {{ headerModalAccountItem.translate | translate }}
                   </a>
                 </li>
               }

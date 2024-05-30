@@ -26,6 +26,7 @@ import {
 import {
   HeaderClickEnum,
   HeaderModalI,
+  IMenuRouter,
   IUserInfoFromGoogle,
   NotificationStatusEnum,
   SelectedHeaderModalItemEnum,
@@ -96,11 +97,11 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     },
   ];
 
-  headerModalAccountItems: string[] = [
-    'header-modal-account-item.profile',
-    'header-modal-account-item.favourite',
-    'header-modal-account-item.myBooks',
-    'header-modal-account-item.logout',
+  headerModalAccountItems: IMenuRouter[] = [
+    { translate: 'header-modal-account-item.profile', routerLink: '/home' },
+    { translate: 'header-modal-account-item.favourite', routerLink: '/home/favorites' },
+    { translate: 'header-modal-account-item.myBooks', routerLink: '/home/books' },
+    { translate: 'header-modal-account-item.logout', routerLink: '/logout' },
   ];
 
   protected readonly HeaderClickInterfaceEnum = HeaderClickEnum;
@@ -438,6 +439,14 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     ) {
       this.searchTexts$.next(null);
       this.resetSearchLiveBooks();
+    }
+  }
+
+  moveToPage(routerLink: string): void {
+    if (routerLink && routerLink !== '/logout') {
+      this.router.navigate([routerLink]).then((): void => {});
+    } else {
+      this.logoutForGoogle();
     }
   }
 
