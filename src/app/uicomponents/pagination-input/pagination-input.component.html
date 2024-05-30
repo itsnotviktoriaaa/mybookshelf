@@ -3,19 +3,19 @@
     <div class="hard-pagination">
       <span>
         <svg-icon
-          (click)="decrementBig()"
+          (click)="decrementBy10IfGreaterThan10()"
           [svgStyle]="{ transform: 'rotate(180deg)' }"
           [ngClass]="{
-            disabled: (valueFromInput$ | async)!.valueOf() - 10 <= 0
+            disabled: isDisabledIfDecreasingBy10GiveLessThan1((valueFromInput$ | async)!)
           }"
           [src]="mainPathToArrow + '/arrow-big-right-pagination-input.svg'"></svg-icon>
       </span>
       <span>
         <svg-icon
-          (click)="decrement()"
+          (click)="decrementBy1IfGreaterThan1()"
           [svgStyle]="{ transform: 'rotate(180deg)' }"
           [ngClass]="{
-            disabled: (valueFromInput$ | async)!.valueOf() <= 1
+            disabled: isDisabledIfDecreasingBy1GiveLessThan2((valueFromInput$ | async)!)
           }"
           [src]="mainPathToArrow + '/arrow-mini-right-pagination-input.svg'"></svg-icon>
       </span>
@@ -29,18 +29,23 @@
       </span>
       <span>
         <svg-icon
-          (click)="increment()"
+          (click)="incrementBy1IfPagesMoreAreExisting()"
           [ngClass]="{
-            disabled: (quantityOfPages$ | async)!.valueOf() <= (valueFromInput$ | async)!.valueOf()
+            disabled: isDisabledIfIncreasingValueBy1WillBeEqualityWithPages(
+              (quantityOfPages$ | async)!,
+              (valueFromInput$ | async)!
+            )
           }"
           [src]="mainPathToArrow + '/arrow-mini-right-pagination-input.svg'"></svg-icon>
       </span>
       <span>
         <svg-icon
-          (click)="incrementBig()"
+          (click)="incrementBy10IfPagesMore()"
           [ngClass]="{
-            disabled:
-              (quantityOfPages$ | async)!.valueOf() <= (valueFromInput$ | async)!.valueOf() + 10
+            disabled: isDisabledIfIncreasingValueBy10WillBeEqualityWithPages(
+              (quantityOfPages$ | async)!,
+              (valueFromInput$ | async)!
+            )
           }"
           [src]="mainPathToArrow + '/arrow-big-right-pagination-input.svg'"></svg-icon>
       </span>

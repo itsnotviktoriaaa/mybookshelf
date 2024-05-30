@@ -42,10 +42,12 @@ export class PaginationInputComponent implements OnInit, OnChanges {
   private readonly destroy$ = inject(DestroyDirective).destroy$;
 
   @Input() quantityOfBooks: number | null | undefined = null;
+
   constructor(
     private router: Router,
     private routerFacadeService: RouterFacadeService
   ) {}
+
   ngOnInit(): void {
     this.inputValue.setValue(1, { emitEvent: false });
 
@@ -93,6 +95,7 @@ export class PaginationInputComponent implements OnInit, OnChanges {
         this.router.navigate([], { queryParams }).then((): void => {});
       });
   }
+
   ngOnChanges(): void {
     this.defineQuantityOfPages();
   }
@@ -111,28 +114,28 @@ export class PaginationInputComponent implements OnInit, OnChanges {
     }
   }
 
-  increment(): void {
+  incrementBy1IfPagesMoreAreExisting(): void {
     const currentValue: number = Number(this.inputValue.value);
     if (this.quantityOfPages$ && (this.quantityOfPages$.getValue() as number) > currentValue) {
       this.inputValue.setValue(String(currentValue + 1), { emitEvent: true });
     }
   }
 
-  incrementBig(): void {
+  incrementBy10IfPagesMore(): void {
     const currentValue: number = Number(this.inputValue.value);
     if (this.quantityOfPages$ && (this.quantityOfPages$.getValue() as number) > currentValue + 9) {
       this.inputValue.setValue(String(currentValue + 10), { emitEvent: true });
     }
   }
 
-  decrement(): void {
+  decrementBy1IfGreaterThan1(): void {
     const currentValue: number = Number(this.inputValue.value);
     if (currentValue > 1) {
       this.inputValue.setValue(String(currentValue - 1), { emitEvent: true });
     }
   }
 
-  decrementBig(): void {
+  decrementBy10IfGreaterThan10(): void {
     const currentValue: number = Number(this.inputValue.value);
     if (currentValue - 10 >= 1) {
       this.inputValue.setValue(String(currentValue - 10), { emitEvent: true });
@@ -143,5 +146,21 @@ export class PaginationInputComponent implements OnInit, OnChanges {
     const regExForInputWhenUserBuyCoins: RegExp = /^[0-9]$/;
 
     return !(!regExForInputWhenUserBuyCoins.test(event.key) && event.code !== 'Backspace');
+  }
+
+  isDisabledIfDecreasingBy10GiveLessThan1(value: number): boolean {
+    return value.valueOf() - 10 <= 0;
+  }
+
+  isDisabledIfDecreasingBy1GiveLessThan2(value: number): boolean {
+    return value.valueOf() <= 1;
+  }
+
+  isDisabledIfIncreasingValueBy1WillBeEqualityWithPages(quantity: number, value: number): boolean {
+    return quantity.valueOf() <= value.valueOf();
+  }
+
+  isDisabledIfIncreasingValueBy10WillBeEqualityWithPages(quantity: number, value: number): boolean {
+    return quantity.valueOf() <= value.valueOf() + 10;
   }
 }
