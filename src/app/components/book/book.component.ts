@@ -1,14 +1,5 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  inject,
-  input,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
 import { ReduceLetterPipe, TransformDateBookPipe, TransformFavoriteDatePipe } from 'core/';
+import { ChangeDetectionStrategy, Component, inject, input, OnInit } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SvgIconComponent } from 'angular-svg-icon';
@@ -42,11 +33,10 @@ import { MyBooksFacade } from 'ngr/';
   providers: [CommonPopupService],
 })
 export class BookComponent implements OnInit {
-  // @Input() book: IBookItemTransformed | null = null;
   book = input.required<IBookItemTransformed>();
-  @Input() bigInfo: boolean = false;
-  @Input() selfBook: boolean = false;
-  @Output() deleteSelfBookEvent: EventEmitter<string> = new EventEmitter<string>();
+  bigInfo = input(false);
+  selfBook = input(false);
+
   pathToIcons = environment.pathToIcons;
   isOpenDeletePopup = { isOpen: false };
   textForPopup: { text: string } | null = null;
@@ -87,11 +77,11 @@ export class BookComponent implements OnInit {
   }
 
   openDetailBook(sizeBook: 'small-book' | 'big-book', book: IBookItemTransformed): void {
-    if (sizeBook === 'small-book' && !this.bigInfo) {
+    if (sizeBook === 'small-book' && !this.bigInfo()) {
       this.router.navigate(['home/book/', book.id]).then((): void => {});
-    } else if (sizeBook === 'big-book' && !this.selfBook) {
+    } else if (sizeBook === 'big-book' && !this.selfBook()) {
       this.router.navigate(['home/book/', book.id]).then((): void => {});
-    } else if (sizeBook === 'big-book' && this.selfBook) {
+    } else if (sizeBook === 'big-book' && this.selfBook()) {
       this.router.navigate(['/home/reader/' + book?.id]).then((): void => {});
     }
   }

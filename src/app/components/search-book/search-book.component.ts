@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, OnChanges } from '@angular/core';
 import { GoogleApiService, NotificationService, TransformDateBookPipe } from 'core/';
 import { environment } from '../../../environments/environment.development';
 import { BehaviorSubject, catchError, EMPTY, finalize, tap } from 'rxjs';
@@ -18,8 +18,8 @@ import { ISearchDetail } from 'models/';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchBookComponent implements OnChanges {
-  @Input() searchBook: ISearchDetail | null = null;
-  @Input() idOfFavorites: string[] = [];
+  searchBook = input.required<ISearchDetail>();
+  idOfFavorites = input<string[]>([]);
   isOperationAddInProgress: boolean = false;
   isOperationRemoveInProgress: boolean = false;
   pathToIcons = environment.pathToIcons;
@@ -34,18 +34,18 @@ export class SearchBookComponent implements OnChanges {
 
   ngOnChanges(): void {
     if (
-      this.searchBook &&
-      this.searchBook.id &&
-      this.idOfFavorites &&
-      this.idOfFavorites.length > 0
+      this.searchBook() &&
+      this.searchBook().id &&
+      this.idOfFavorites() &&
+      this.idOfFavorites().length > 0
     ) {
-      this.isFavorite$.next(this.idOfFavorites.includes(this.searchBook.id));
+      this.isFavorite$.next(this.idOfFavorites().includes(this.searchBook().id as string));
     }
   }
 
   openDetailPage(): void {
-    if (this.searchBook?.id) {
-      this.router.navigate(['/home/book/' + this.searchBook?.id]).then(() => {});
+    if (this.searchBook().id) {
+      this.router.navigate(['/home/book/' + this.searchBook().id]).then(() => {});
     }
   }
 
@@ -57,7 +57,7 @@ export class SearchBookComponent implements OnChanges {
       return;
     }
 
-    if (this.searchBook?.id && this.searchBook.id) {
+    if (this.searchBook().id && this.searchBook().id) {
       if (isAdding) {
         this.isOperationAddInProgress = true;
       } else {
@@ -65,8 +65,8 @@ export class SearchBookComponent implements OnChanges {
       }
 
       const operationObservable = isAdding
-        ? this.googleApiService.setFavoriteBook(this.searchBook.id)
-        : this.googleApiService.removeFavoriteBook(this.searchBook.id);
+        ? this.googleApiService.setFavoriteBook(this.searchBook().id as string)
+        : this.googleApiService.removeFavoriteBook(this.searchBook().id as string);
 
       operationObservable
         .pipe(

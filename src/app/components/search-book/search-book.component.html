@@ -1,36 +1,36 @@
-@if (searchBook) {
+@if (searchBook()) {
   <div class="content-row fade-in">
     <div class="content-td">
       <div class="content-info-wrapper">
-        @if (searchBook.thumbnail) {
-          <div class="content-image" style="background-image: url({{ searchBook.thumbnail }})">
+        @if (searchBook().thumbnail) {
+          <div class="content-image" style="background-image: url({{ searchBook().thumbnail }})">
             &nbsp;
           </div>
         }
         <div class="content-info">
-          @if (searchBook.title) {
-            <h3 class="content-info-title">{{ searchBook.title }}</h3>
+          @if (searchBook().title) {
+            <h3 class="content-info-title">{{ searchBook().title }}</h3>
           }
-          @if (searchBook.authors && searchBook.authors.length > 0 && searchBook.publishedDate) {
+          @if (searchBook().authors && searchBook().publishedDate) {
             <span class="content-info-author">
-              {{ searchBook.authors[0] }} {{ searchBook.publishedDate | transformDateBook }}
+              {{ searchBook().authors?.[0] }} {{ searchBook().publishedDate | transformDateBook }}
             </span>
           }
-          @if (searchBook.publisher) {
-            <span class="content-info-edition">{{ searchBook.publisher }}</span>
+          @if (searchBook().publisher) {
+            <span class="content-info-edition">{{ searchBook().publisher }}</span>
           }
         </div>
       </div>
     </div>
-    @if (searchBook.pageCount) {
-      <div class="content-td">{{ searchBook.pageCount }}</div>
+    @if (searchBook().pageCount) {
+      <div class="content-td">{{ searchBook().pageCount }}</div>
     } @else {
       <div class="content-td">-</div>
     }
     <div class="content-td">
-      @if (searchBook.categories && searchBook.categories.length > 0) {
+      @if (searchBook().categories) {
         <div class="content-category">
-          @for (category of searchBook.categories; track $index) {
+          @for (category of searchBook().categories; track $index) {
             <span>{{ category }}</span>
           }
         </div>
