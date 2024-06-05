@@ -6,8 +6,8 @@ import { Pipe, PipeTransform } from '@angular/core';
   pure: true,
 })
 export class TransformFavoriteDatePipe implements PipeTransform {
-  transform(value: string, lang: string): string {
-    const fullDate: Date = new Date(value);
+  transform(value: string | undefined, lang: string): string {
+    const fullDate: Date = new Date(value ?? new Date());
     const date: number = fullDate.getDate();
     const month: string = fullDate.toLocaleDateString(lang, { month: 'short' });
     const year: number = fullDate.getFullYear();

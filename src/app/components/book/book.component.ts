@@ -3,6 +3,7 @@ import {
   Component,
   EventEmitter,
   inject,
+  input,
   Input,
   OnInit,
   Output,
@@ -18,7 +19,6 @@ import { CommonPopupService } from 'core/';
 import { CommonPopupComponent } from 'ui/';
 import { Router } from '@angular/router';
 import { DestroyDirective } from 'core/';
-import { FavoritesFacade } from 'ngr/';
 import { FavouriteStore } from 'ngr/';
 import { MyBooksFacade } from 'ngr/';
 
@@ -42,7 +42,8 @@ import { MyBooksFacade } from 'ngr/';
   providers: [CommonPopupService],
 })
 export class BookComponent implements OnInit {
-  @Input() book: IBookItemTransformed | null = null;
+  // @Input() book: IBookItemTransformed | null = null;
+  book = input.required<IBookItemTransformed>();
   @Input() bigInfo: boolean = false;
   @Input() selfBook: boolean = false;
   @Output() deleteSelfBookEvent: EventEmitter<string> = new EventEmitter<string>();
@@ -57,7 +58,6 @@ export class BookComponent implements OnInit {
   constructor(
     private router: Router,
     private commonPopupService: CommonPopupService,
-    private favoriteFacade: FavoritesFacade,
     private myBookFacade: MyBooksFacade,
     private translateService: TranslateService
   ) {}
@@ -114,9 +114,9 @@ export class BookComponent implements OnInit {
   deleteSelfBook(): void {
     if (this.book) {
       this.myBookFacade.loadRemoveMyBook(
-        this.book.id,
-        this.book.webReaderLink,
-        this.book.thumbnail
+        this.book().id,
+        this.book().webReaderLink,
+        this.book().thumbnail
       );
     }
   }
@@ -130,8 +130,8 @@ export class BookComponent implements OnInit {
   }
 
   deleteFavoriteBook(): void {
-    if (this.book && this.book.id) {
-      this.store.deleteLoadFavoriteBook(this.book.id);
+    if (this.book && this.book().id) {
+      this.store.deleteLoadFavoriteBook(this.book().id);
     }
   }
 }

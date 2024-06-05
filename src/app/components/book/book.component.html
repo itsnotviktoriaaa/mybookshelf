@@ -1,31 +1,31 @@
-@if (book) {
+@if (book()) {
   <div class="book-back fade-in" [ngClass]="{ 'big-book': bigInfo, 'small-book': !bigInfo }">
     <div
-      (click)="openDetailBook('small-book', book)"
+      (click)="openDetailBook('small-book', book())"
       class="book-left"
       [ngStyle]="{ cursor: bigInfo ? 'default' : 'pointer' }">
-      <div class="book-image" style="background-image: url({{ book.thumbnail }})">&nbsp;</div>
-      <span class="book-name">{{ book.title | reduceLetter: 'book-name' }}</span>
-      @if (book.author && book.author.length > 0) {
+      <div class="book-image" style="background-image: url({{ book().thumbnail }})">&nbsp;</div>
+      <span class="book-name">{{ book().title | reduceLetter: 'book-name' }}</span>
+      @if (book().author && book().author.length > 0) {
         <span class="book-author">
-          {{ book.author[0] | reduceLetter: 'book-author' }}
-          {{ book.publishedDate | transformDateBook }}
+          {{ book().author[0] | reduceLetter: 'book-author' }}
+          {{ book().publishedDate | transformDateBook }}
         </span>
       }
-      @if (book.averageRating) {
+      @if (book().averageRating) {
         <span class="book-review">
-          {{ book.averageRating }}
+          {{ book().averageRating }}
           <span class="book-review-all">/5</span>
         </span>
       } @else {
         <span class="book-review">
-          {{ book.pageCount ? book.pageCount : '—' }} {{ 'common.pagesInput' | translate }}
+          {{ book().pageCount ? book().pageCount : '—' }} {{ 'common.pagesInput' | translate }}
         </span>
       }
       @if (bigInfo && selfBook) {
         <div class="book-actions">
           <svg-icon
-            (click)="editSelfBook(book)"
+            (click)="editSelfBook(book())"
             [src]="pathToIcons + '/icon-self-edit.svg'"></svg-icon>
           <svg-icon
             (click)="openDeletePopupForOwnBook()"
@@ -38,10 +38,10 @@
         <div class="book-right-top">
           <div class="book-right-top-wrapper">
             <span class="book-right-top-title">{{ 'book.borrowedOn' | translate }}</span>
-            @if (book.userInfo || selfBook) {
+            @if (book().userInfo || selfBook) {
               <span class="book-right-top-description">
                 {{
-                  (book.userInfo ? book.userInfo : book.publishedDate)
+                  (book().userInfo ? book().userInfo : book().publishedDate)
                     | transformFavoriteDate: ('common.langForPipe' | translate)
                 }}
               </span>
@@ -50,18 +50,18 @@
           <div class="book-right-top-wrapper">
             <span class="book-right-top-title">{{ 'book.categories' | translate }}</span>
             <span class="book-right-top-description">
-              {{ book.categories ? book.categories[0] : '—' }}
+              {{ book().categories ? book().categories?.[0] : '—' }}
             </span>
           </div>
         </div>
         <div class="book-right-bottom">
           @if (!selfBook) {
-            <button (click)="openGoogleInfo(book)" class="btn-green button-green-full">
+            <button (click)="openGoogleInfo(book())" class="btn-green button-green-full">
               E-BOOK
             </button>
           }
           <button
-            (click)="openDetailBook('big-book', book)"
+            (click)="openDetailBook('big-book', book())"
             class="btn-orange button-orange-transparent">
             {{ 'button.read' | translate }}
           </button>
