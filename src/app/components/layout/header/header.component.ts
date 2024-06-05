@@ -173,7 +173,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     this.searchStateService
       .getSearchCategory()
       .pipe(
-        tap((category: string): void => {
+        tap((category: string) => {
           if (category.toLowerCase() !== 'browse') {
             this.selectedHeaderModalItem.next(SelectedHeaderModalItemEnum.SUBJECT);
           }
@@ -185,7 +185,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   subscribeOnQueryParams(): void {
     this.routerFacadeService.getQueryParams$
       .pipe(
-        tap((params: Params): void => {
+        tap((params: Params) => {
           this.setValuesFromParams(params);
           this.paramsFromUrl = params;
         }),
@@ -197,7 +197,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   subscribeOnGetUrl(): void {
     this.routerFacadeService.getUrl$
       .pipe(
-        tap((url: string): void => {
+        tap((url: string) => {
           this.existUrl = url;
         }),
         takeUntil(this.destroy$)
@@ -209,7 +209,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     this.searchStateService
       .getFavoritePage()
       .pipe(
-        tap((param: boolean): void => {
+        tap((param: boolean) => {
           this.isFavoritePage$.next(param);
           if (!this.paramsFromUrl['type']) {
             this.selectedHeaderModalItem.next(SelectedHeaderModalItemEnum.ALL);
@@ -347,7 +347,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
       .getSearchCategory()
       .pipe(
         take(1),
-        tap((category: string): void => {
+        tap((category: string) => {
           let categoryNew: string = category;
           if (!this.existUrl?.includes('search')) {
             categoryNew = CategoryModalSearchItems[1];

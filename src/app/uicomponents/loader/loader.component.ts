@@ -22,7 +22,7 @@ export class LoaderComponent implements OnInit {
     this.notificationService
       .getNotificationLoader()
       .pipe(
-        tap((param: boolean): void => {
+        tap((param: boolean) => {
           this.loader = param;
         }),
         takeUntil(this.destroy$)

@@ -66,7 +66,7 @@ export class PdfViewerComponent {
     this.routerFacadeService.getParams$
       .pipe(
         filter((params: Params) => Boolean(params['id'])),
-        tap((params: Params): void => {
+        tap((params: Params) => {
           this.getInfoAboutBook(params['id']);
         }),
         takeUntil(this.destroy$)

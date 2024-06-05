@@ -67,7 +67,7 @@ export class DetailBookComponent implements OnInit {
       .pipe(
         debounceTime(1),
         filter(params => params && params['id']),
-        tap((params: Params): void => {
+        tap((params: Params) => {
           const idOfBook = params['id'];
 
           if (idOfBook) {
@@ -91,7 +91,7 @@ export class DetailBookComponent implements OnInit {
 
     this.routerFacadeService.getPreviousUrl$
       .pipe(
-        tap((previousUrl: string | null): void => {
+        tap((previousUrl: string | null) => {
           this.previousRouter = previousUrl;
         }),
         takeUntil(this.destroy$)

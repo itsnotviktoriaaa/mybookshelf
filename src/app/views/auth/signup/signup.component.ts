@@ -240,7 +240,7 @@ export class SignupComponent implements OnInit {
     response: EmailJSResponseStatus
   ): Observable<EmailJSResponseStatus> {
     return of(response).pipe(
-      tap((): void => {
+      tap(() => {
         this.notificationService.setNotificationLoader(false);
         const messageKey = 'message.codeSentOnEmail';
         const message = this.translateService.instant(messageKey);

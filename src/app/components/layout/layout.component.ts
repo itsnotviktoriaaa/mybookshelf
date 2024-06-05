@@ -74,7 +74,7 @@ export class LayoutComponent implements OnInit {
     this.themeService
       .changeTheme$()
       .pipe(
-        tap((theme: string): void => {
+        tap((theme: string) => {
           if (this.layoutWrapper && this.layoutWrapper.nativeElement) {
             if (theme === 'dark') {
               this.layoutWrapper.nativeElement.style.backgroundImage =

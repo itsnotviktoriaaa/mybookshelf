@@ -56,7 +56,7 @@ export class PaginationInputComponent implements OnInit, OnChanges {
       .pipe(
         debounceTime(1),
         filter(params => params && params['page']),
-        tap((params: Params): void => {
+        tap((params: Params) => {
           this.queryParams = params;
           if (this.queryParams['page']) {
             this.inputValue.setValue(this.queryParams['page']);

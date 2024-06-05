@@ -158,7 +158,7 @@ export class UploadComponent implements OnInit {
           selfBook: selfBook,
         })
         .pipe(
-          tap((): void => {
+          tap(() => {
             this.uploadForm.reset();
             if (this.pdfFileInput && this.pdfFileInput.nativeElement) {
               this.pdfFileInput.nativeElement.value = '';

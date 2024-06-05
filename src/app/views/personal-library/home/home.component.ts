@@ -57,7 +57,7 @@ export class HomeComponent implements OnInit {
 
   getRecommendedBooksObservable(): Observable<IBookItemTransformedWithTotal | null> {
     return this.homeFacade.getRecommendedBooks().pipe(
-      tap((book: IBookItemTransformedWithTotal | null): void => {
+      tap((book: IBookItemTransformedWithTotal | null) => {
         this.recommendedBooks$.next(book);
       }),
       takeUntil(this.destroy$)
@@ -66,7 +66,7 @@ export class HomeComponent implements OnInit {
 
   getReadingNowBooksObservable(): Observable<IBookItemTransformedWithTotal | null> {
     return this.homeFacade.getReadingNowBooks().pipe(
-      tap((books: IBookItemTransformedWithTotal | null): void => {
+      tap((books: IBookItemTransformedWithTotal | null) => {
         this.readingNowBooks$.next(books);
       }),
       takeUntil(this.destroy$)

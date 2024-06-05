@@ -63,7 +63,7 @@ export class SearchComponent implements OnInit {
     this.searchStateService
       .getHeaderModalItem()
       .pipe(
-        tap((type: string): void => {
+        tap((type: string) => {
           if (type.toLowerCase() === SelectedHeaderModalItemEnum.SUBJECT.toLowerCase()) {
             this.headerModalSearchText.next(this.headerModalSearchItems[1]);
             this.searchStateService.setSearchCategory(this.headerModalSearchItems[1]);
@@ -94,7 +94,7 @@ export class SearchComponent implements OnInit {
           .getFavoritesBooks()
           .pipe(
             filter((data: IBookItemTransformedWithTotal | null) => !!data),
-            tap((books: IBookItemTransformedWithTotal | null): void => {
+            tap((books: IBookItemTransformedWithTotal | null) => {
               const newArrayWithIdOfFavorites: string[] = [];
               if (books && books.items && books.items.length > 0) {
                 books.items.forEach((item: IBookItemTransformed): void => {

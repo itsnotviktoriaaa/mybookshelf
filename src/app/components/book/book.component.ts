@@ -57,7 +57,7 @@ export class BookComponent implements OnInit {
       .getDeleteOwnBookOrNot()
       .pipe(
         filter(param => param),
-        tap((): void => {
+        tap(() => {
           this.deleteSelfBook();
         }),
         takeUntil(this.destroy$)
@@ -68,7 +68,7 @@ export class BookComponent implements OnInit {
       .getDeleteFavoriteBookOrNot()
       .pipe(
         filter(param => param),
-        tap((): void => {
+        tap(() => {
           this.deleteFavoriteBook();
         }),
         takeUntil(this.destroy$)
