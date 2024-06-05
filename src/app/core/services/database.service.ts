@@ -30,8 +30,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class DatabaseService {
-  private _collection: CollectionReference | null = null;
   path: string | null = null;
+  private _collection: CollectionReference | null = null;
 
   constructor(
     private firestore: Firestore,

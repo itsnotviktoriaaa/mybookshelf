@@ -8,8 +8,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class QuotesService {
-  constructor(private http: HttpClient) {}
   quotableApi = environment.quotableApi;
+
+  constructor(private http: HttpClient) {}
 
   getQuotes(): Observable<IQuotes[]> {
     return this.http.get<IQuotes[]>(`${this.quotableApi}quotes/random?limit=4`);

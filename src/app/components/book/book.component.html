@@ -57,7 +57,7 @@
         <div class="book-right-bottom">
           @if (!selfBook()) {
             <button (click)="openGoogleInfo(book())" class="btn-green button-green-full">
-              E-BOOK
+              {{ 'book.ebook' | translate }}
             </button>
           }
           <button

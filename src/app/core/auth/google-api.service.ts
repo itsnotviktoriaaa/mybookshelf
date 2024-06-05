@@ -34,11 +34,11 @@ export class GoogleApiService {
             .then(userProfile => {
               this.oAuthService.tokenValidationHandler = new JwksValidationHandler();
 
-              this.oAuthService.events.subscribe(event => {
-                if (event.type === 'token_received') {
-                  // console.log('Automatic token refresh event received:', event);
-                }
-              });
+              // this.oAuthService.events.subscribe(event => {
+              //   if (event.type === 'token_received') {
+              //     console.log('Automatic token refresh event received:', event);
+              //   }
+              // });
 
               this.oAuthService.setupAutomaticSilentRefresh({
                 login_hint: (userProfile as IUserInfoFromGoogle)['info']['email'],
@@ -104,11 +104,13 @@ export class GoogleApiService {
       headers: this.authHeader(),
     });
   }
+
   getAuthorDetail(author: string): Observable<ISearchInfoDetail> {
     return this.http.get<ISearchInfoDetail>(
       `${environment.googleVolumeApi}?q=inauthor:${author}&maxResults=3`
     );
   }
+
   getSearchBooksDefault(params: IActiveParamsSearch): Observable<ISearchInfoDetail> {
     const queryString: string = `q=${params.q}&maxResults=${params.maxResults}&startIndex=${params.startIndex}`;
 

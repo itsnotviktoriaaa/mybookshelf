@@ -92,7 +92,8 @@
   },
   "book": {
     "borrowedOn": "Взято",
-    "categories": "Категории"
+    "categories": "Категории",
+    "ebook": "Э-КНИГА"
   },
   "button": {
     "read": "Читать",

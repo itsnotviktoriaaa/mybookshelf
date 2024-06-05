@@ -92,7 +92,8 @@
   },
   "book": {
     "borrowedOn": "Borrowed on",
-    "categories": "Categories"
+    "categories": "Categories",
+    "ebook": "E-BOOK"
   },
   "button": {
     "read": "Read",
