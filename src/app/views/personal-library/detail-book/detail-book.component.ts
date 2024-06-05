@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, Signal } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 import { debounceTime, filter, Observable, of, takeUntil, tap } from 'rxjs';
 import { IActions, IDetailBookSmallInfo, ISearchSmall } from 'app/models';
 import { ReduceLetterPipe, TransformDateBookPipe } from 'app/core';
 import { Params, Router, RouterLink } from '@angular/router';
 import { MiniLoaderComponent, StarComponent } from 'ui/';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { TranslateModule } from '@ngx-translate/core';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { SvgIconComponent } from 'angular-svg-icon';
@@ -48,7 +49,7 @@ export class DetailBookComponent implements OnInit {
   pathToImages = environment.pathToImages;
   private readonly destroy$ = inject(DestroyDirective).destroy$;
 
-  isLoading$: Observable<boolean>;
+  isLoading$: Signal<boolean | undefined>;
 
   previousRouter: string | null = null;
 
@@ -58,7 +59,7 @@ export class DetailBookComponent implements OnInit {
     private authorFacade: AuthorFacade,
     private routerFacadeService: RouterFacadeService
   ) {
-    this.isLoading$ = this.detailBookFacade.getLoadingOfDetailBook();
+    this.isLoading$ = toSignal(this.detailBookFacade.getLoadingOfDetailBook());
   }
 
   ngOnInit(): void {

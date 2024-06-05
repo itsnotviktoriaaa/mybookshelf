@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { AsyncPipe } from '@angular/common';
 import { IQuotesSmall } from 'app/models';
 import { QuotesFacade } from 'ngr/quotes';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-slider',
@@ -16,7 +16,7 @@ import { QuotesFacade } from 'ngr/quotes';
 export class SliderComponent implements OnInit, OnDestroy {
   private _intervalId: number | null = 0;
   quotes$: Observable<IQuotesSmall[] | null> = of(null);
-  currentSlide$ = new BehaviorSubject<number>(0);
+  currentSlide = signal(0);
 
   constructor(private quotesFacade: QuotesFacade) {}
 
@@ -27,15 +27,15 @@ export class SliderComponent implements OnInit, OnDestroy {
   }
 
   goToSlide(index: number): void {
-    this.currentSlide$.next(index);
+    this.currentSlide.set(index);
     this.resetAutoSlide();
   }
 
   nextSlide(): void {
     this.quotes$.subscribe((quotes: IQuotesSmall[] | null): void => {
       if (quotes) {
-        const nextSlide = (this.currentSlide$.value + 1) % quotes.length;
-        this.currentSlide$.next(nextSlide);
+        const nextSlide = (this.currentSlide() + 1) % quotes.length;
+        this.currentSlide.set(nextSlide);
       }
     });
   }

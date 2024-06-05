@@ -1,6 +1,6 @@
 <section class="detail">
   <div class="info-message detail-info-message">
-    @if (isLoading$ | async) {
+    @if (isLoading$()) {
       <app-mini-loader></app-mini-loader>
     } @else {
       @if (detailBook$ | async; as detailBook) {

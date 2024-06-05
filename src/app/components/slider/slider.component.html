@@ -2,7 +2,7 @@
   <div class="quotes slide-in-left">
     <h4 class="quotes-title">{{ 'slider.todayQuote' | translate }}</h4>
     <div class="quotes-items">
-      <div class="slides" [style.transform]="getTransform(currentSlide$ | async)">
+      <div class="slides" [style.transform]="getTransform(currentSlide())">
         @for (quote of quotes$ | async; track quote; let i = $index) {
           <div class="slide">
             <span class="slide-text">{{ quote.content }}</span>
@@ -13,10 +13,7 @@
     </div>
     <div class="dots">
       @for (quote of quotes$ | async; track quote; let i = $index) {
-        <span
-          class="dot"
-          [class.active]="i === (currentSlide$ | async)"
-          (click)="goToSlide(i)"></span>
+        <span class="dot" [class.active]="i === currentSlide()" (click)="goToSlide(i)"></span>
       }
     </div>
   </div>
